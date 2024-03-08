@@ -1,0 +1,15 @@
+framework:
+    secret: "test"
+    test: ~
+
+doctrine:
+    dbal:
+        driver: "pdo_sqlite"
+        url:   "sqlite:///:memory:"
+        types:
+            uuid: Ramsey\Uuid\Doctrine\UuidType
+    orm:
+        mappings:
+            Test:
+                dir: '%kernel.project_dir%/'
+                prefix: 'FHPlatform\UtilBundle\Tests\Util\Entity'
