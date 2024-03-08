@@ -1,0 +1,37 @@
+framework:
+    secret: "test"
+    test: ~
+
+doctrine:
+    dbal:
+        driver: "pdo_sqlite"
+        url:   "sqlite:///:memory:"
+        types:
+            uuid: Ramsey\Uuid\Doctrine\UuidType
+    orm:
+        mappings:
+            Test:
+                dir: '%kernel.project_dir%/'
+                prefix: 'FHPlatform\ConfigBundle\Tests\Util\Entity'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\ConfigBundle\Tests\Util\Es\:
+        resource: '../../Es'
+
+    FHPlatform\ConfigBundle\Tests\Util\Helper\:
+        resource: '../../Helper'
+
+    FHPlatform\ConfigBundle\Tests\Fetcher\Util\:
+        resource: '../../../Fetcher/Util'
+
+    FHPlatform\ConfigBundle\Tests\Finder\Util\:
+        resource: '../../../Finder/Util'
+
+    FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper:
+        public: true
+
+    FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider: '@FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock'
