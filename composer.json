@@ -1,0 +1,17 @@
+{
+    "name": "fh-platform/fh-platform",
+    "type": "library",
+    "description": "FH Platform - FH Platform",
+    "keywords": [],
+    "homepage": "https://github.com/FH-Platform",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Filip Horvat",
+            "email": "fico7489@gmail.com"
+        }
+    ],
+    "require": {
+
+    }
+}
