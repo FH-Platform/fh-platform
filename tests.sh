@@ -4,7 +4,8 @@ bundles=(
   "ConfigBundle"
   "UtilBundle"
   "PersistenceBundle"
-  "ClientBundle"
+  "ClientBundle",
+  "DataSyncBundle"
 )
 
 for bundle in "${bundles[@]}";
