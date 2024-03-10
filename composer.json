@@ -12,6 +12,30 @@
         }
     ],
     "require": {
-
+        "php": ">=8.2",
+        "doctrine/doctrine-bundle": "2.*",
+        "doctrine/orm": "2.*",
+        "doctrine/common" : "*",
+        "symfony/yaml": "7.*",
+        "fh-platform/util": "dev-master"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "3.*",
+        "phpunit/phpunit": "10.*",
+        "phpstan/phpstan": "*",
+        "ramsey/uuid-doctrine": "^2.0",
+        "symfony/console": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
+            "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FHPlatform\\ConfigBundle\\Tests\\": "src/Bundle/ConfigBundle/tests/",
+            "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/"
+        }
     }
 }
