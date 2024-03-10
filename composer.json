@@ -29,13 +29,15 @@
     "autoload": {
         "psr-4": {
             "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
-            "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/"
+            "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
+            "FHPlatform\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "FHPlatform\\ConfigBundle\\Tests\\": "src/Bundle/ConfigBundle/tests/",
-            "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/"
+            "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
+            "FHPlatform\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/"
         }
     }
 }
