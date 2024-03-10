@@ -1,0 +1,37 @@
+framework:
+    secret: "test"
+    test: ~
+
+doctrine:
+    dbal:
+        driver: "pdo_sqlite"
+        path:   "%kernel.cache_dir%/../database.db3"
+        types:
+            uuid: Ramsey\Uuid\Doctrine\UuidType
+    orm:
+        mappings:
+            Test:
+                dir: '%kernel.project_dir%/'
+                prefix: 'FHPlatform\ClientBundle\Tests\Util\Entity'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\ClientBundle\Tests\Util\Helper\:
+        resource: '../../Helper'
+
+    FHPlatform\ClientBundle\Tests\Util\Es\:
+        resource: '../../Es'
+
+    FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper:
+        public: true
+
+    FHPlatform\ClientBundle\TaggedProvider\TaggedProvider: '@FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock'
+
+    FHPlatform\ClientBundle\Provider\ClientBundleProvider:
+        factory: ['FHPlatform\ClientBundle\Tests\Util\Factory\ClientBundleProviderFactory', 'create']
+        arguments:
+            $connectionsFetcher: '@FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher'
+            $indexesFetcher: '@FHPlatform\ConfigBundle\Fetcher\Global\IndexesFetcher'

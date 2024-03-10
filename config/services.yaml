@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\ClientBundle\:
+        resource: '../src/*'
+
+    FHPlatform\ClientBundle\Client\Index\IndexClient:
+        public: true
+
+    FHPlatform\ClientBundle\Client\Query\QueryClient:
+        public: true
+
+    FHPlatform\ClientBundle\Client\Data\DataClient:
+        public: true
+
+
+
