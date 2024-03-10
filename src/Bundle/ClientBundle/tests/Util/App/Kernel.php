@@ -4,9 +4,9 @@ namespace FHPlatform\ClientBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\ClientBundle\ClientBundle;
+use FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock;
 use FHPlatform\ConfigBundle\ConfigBundle;
 use FHPlatform\UtilBundle\UtilBundle;
-use FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

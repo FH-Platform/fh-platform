@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ClientBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
 use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
+use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
 
 class RoleProviderEntity extends ProviderEntity
 {

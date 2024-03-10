@@ -1,9 +1,9 @@
 <?php
 
-namespace Util\Provider;
+namespace FHPlatform\ClientBundle\Tests\Util\Config\Provider;
 
+use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
 use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
-use Util\Entity\Role;
 
 class RoleProviderEntity extends ProviderEntity
 {

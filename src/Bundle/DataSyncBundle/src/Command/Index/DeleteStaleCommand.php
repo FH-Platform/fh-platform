@@ -2,10 +2,10 @@
 
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
-use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
 use FHPlatform\ClientBundle\Client\Index\IndexNameClient;
 use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
+use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

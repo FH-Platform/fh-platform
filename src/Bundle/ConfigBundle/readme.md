@@ -1,1 +1,0 @@
-# FH Platform - "Config" bundle

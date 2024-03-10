@@ -2,13 +2,13 @@
 
 namespace FHPlatform\DataSyncBundle\MessageHandler;
 
+use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
 use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
+use FHPlatform\DataSyncBundle\Message\ChangedEntitiesMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
-use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\DataSyncBundle\Message\ChangedEntitiesMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

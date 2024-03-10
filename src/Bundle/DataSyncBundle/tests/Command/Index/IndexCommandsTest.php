@@ -28,7 +28,7 @@ class IndexCommandsTest extends TestCase
         $this->assertCount(0, $this->indexNameClient->getIndexesNameByPrefix());
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
 
-        return; //TODO fix
+        return; // TODO fix
         $this->assertCount(2, $this->indexNameClient->getIndexesNameByPrefix());
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-all']);

@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ClientBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderIndex;
 use FHPlatform\ClientBundle\Tests\Util\Es\Config\Log;
+use FHPlatform\ConfigBundle\TagProvider\Index\ProviderIndex;
 
 class LogProviderIndex extends ProviderIndex
 {

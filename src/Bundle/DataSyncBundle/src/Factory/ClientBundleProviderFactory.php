@@ -2,9 +2,9 @@
 
 namespace FHPlatform\DataSyncBundle\Factory;
 
+use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Global\IndexesFetcher;
-use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
 
 class ClientBundleProviderFactory
 {

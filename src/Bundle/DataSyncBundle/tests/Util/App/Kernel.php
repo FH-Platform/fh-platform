@@ -5,10 +5,10 @@ namespace FHPlatform\DataSyncBundle\Tests\Util\App;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\ClientBundle\ClientBundle;
 use FHPlatform\ConfigBundle\ConfigBundle;
-use FHPlatform\PersistenceBundle\PersistenceBundle;
-use FHPlatform\UtilBundle\UtilBundle;
 use FHPlatform\DataSyncBundle\DataSyncBundle;
 use FHPlatform\DataSyncBundle\Tests\Util\Helper\TaggedProviderMock;
+use FHPlatform\PersistenceBundle\PersistenceBundle;
+use FHPlatform\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -26,7 +26,6 @@ class Kernel extends BaseKernel
             new DataSyncBundle(),
             new ConfigBundle(),
             new PersistenceBundle(),
-
 
             new ClientBundle(),
         ];

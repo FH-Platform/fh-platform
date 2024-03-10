@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ClientBundle\Client\Index;
 
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
+use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 
 class IndexAllClient
 {

@@ -2,4 +2,4 @@ parameters:
     level: 3
     paths:
         - ./src
-        - ./tests
+

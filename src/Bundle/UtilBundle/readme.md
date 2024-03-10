@@ -1,5 +1,0 @@
-# FH Platform - "Util" bundle
-
-
-
-
