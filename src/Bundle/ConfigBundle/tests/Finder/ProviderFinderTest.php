@@ -3,6 +3,12 @@
 namespace FHPlatform\ConfigBundle\Tests\Finder;
 
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
+use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
+use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
+use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogIndex;
+use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntity_LogEntity;
+use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_LogEntityRelated;
+use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
@@ -13,9 +19,9 @@ class ProviderFinderTest extends TestCase
     {
         TaggedProviderMock::$included = [
             ProviderDefault::class,
-            Util\TestProviderIndex::class,
-            Util\TestProviderEntity::class,
-            Util\TestProviderEntityRelated::class,
+            ProviderEntity_LogEntity::class,
+            ProviderIndex_LogIndex::class,
+            ProviderEntityRelated_LogEntityRelated::class,
         ];
 
         parent::setUp();
@@ -26,12 +32,12 @@ class ProviderFinderTest extends TestCase
         /** @var ProviderFinder $providerFinder */
         $providerFinder = $this->container->get(ProviderFinder::class);
 
-        $this->assertEquals('TestProviderEntity', $providerFinder->findProviderEntity('TestProviderEntity')->getClassName());
+        $this->assertEquals(ProviderEntity_LogEntity::class, get_class($providerFinder->findProviderEntity(LogEntity::class)));
+        $this->assertEquals(ProviderEntity_LogEntity::class, get_class($providerFinder->findProviderEntityRelated(LogEntity::class)));
+        $this->assertEquals(ProviderEntity_LogEntity::class, get_class($providerFinder->findProviderIndex(LogEntity::class)));
 
-        $this->assertEquals('TestProviderEntityRelated', $providerFinder->findProviderEntityRelated('TestProviderEntityRelated')->getClassName());
-        $this->assertEquals('TestProviderEntity', $providerFinder->findProviderEntityRelated('TestProviderEntity')->getClassName());
+        $this->assertEquals(ProviderEntityRelated_LogEntityRelated::class, get_class($providerFinder->findProviderEntityRelated(LogEntityRelated::class)));
 
-        $this->assertEquals('TestProviderIndex', $providerFinder->findProviderIndex('TestProviderIndex')->getClassName());
-        $this->assertEquals('TestProviderEntity', $providerFinder->findProviderIndex('TestProviderEntity')->getClassName());
+        $this->assertEquals(ProviderIndex_LogIndex::class, get_class($providerFinder->findProviderIndex(LogIndex::class)));
     }
 }

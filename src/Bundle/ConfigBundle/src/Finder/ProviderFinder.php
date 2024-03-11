@@ -9,6 +9,7 @@ use FHPlatform\ConfigBundle\TagProvider\Decorator\Interface\EntityRelatedInterfa
 use FHPlatform\ConfigBundle\TagProvider\Decorator\Interface\IndexInterface;
 use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
 use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntityRelated;
+use FHPlatform\ConfigBundle\TagProvider\Index\ProviderIndex;
 
 class ProviderFinder
 {
@@ -17,7 +18,7 @@ class ProviderFinder
     ) {
     }
 
-    public function findProviderIndex(string $className): IndexInterface
+    public function findProviderIndex(string $className): ProviderIndex
     {
         foreach ($this->taggedProvider->getProvidersIndex() as $provider) {
             /** @var ProviderEntity $provider */
@@ -30,7 +31,7 @@ class ProviderFinder
         throw new ProviderForClassNameNotExists();
     }
 
-    public function findProviderEntity(string $className): ?EntityInterface
+    public function findProviderEntity(string $className): ?ProviderEntity
     {
         foreach ($this->taggedProvider->getProvidersEntity() as $provider) {
             /** @var ProviderEntity $provider */
