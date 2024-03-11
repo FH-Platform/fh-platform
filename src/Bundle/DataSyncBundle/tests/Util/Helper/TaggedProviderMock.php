@@ -10,8 +10,6 @@ class TaggedProviderMock extends TaggedProvider
 
     public function getIncludedClasses(): array
     {
-        dd(1111);
-
         return self::$included;
     }
 }
