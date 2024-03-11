@@ -4,10 +4,10 @@ namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider;
 
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorEntityRelatedTrait;
 use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderEntityRelatedInterface;
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Trait\ProviderBaseTrait;
 
-#[AutoconfigureTag('symfony_es.provider.entity_related')]
-abstract class ProviderEntityRelated extends ProviderBase implements ProviderEntityRelatedInterface
+abstract class ProviderEntityRelated implements ProviderEntityRelatedInterface
 {
+    use ProviderBaseTrait;
     use DecoratorEntityRelatedTrait;
 }

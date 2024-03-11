@@ -2,7 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface;
 
-interface ProviderBaseInterface
+use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
+
+interface ProviderBaseInterface extends PriorityInterface
 {
     public function getClassName(): string;
 

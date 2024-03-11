@@ -4,15 +4,14 @@ namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider;
 
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorEntityRelatedTrait;
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorEntityTrait;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorIndexTrait;
 use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderEntityInterface;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderIndexInterface;
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Trait\ProviderBaseTrait;
 
-#[AutoconfigureTag('symfony_es.provider.entity')]
-#[AutoconfigureTag('symfony_es.provider.entity_related')]
-abstract class ProviderEntity extends ProviderIndex implements ProviderEntityInterface, ProviderEntityRelatedInterface, ProviderIndexInterface
+abstract class ProviderEntity implements ProviderEntityInterface
 {
+    use ProviderBaseTrait;
+    use DecoratorIndexTrait;
     use DecoratorEntityTrait;
     use DecoratorEntityRelatedTrait;
 }

@@ -1,12 +1,14 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider;
+namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Trait;
 
-use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
-
-abstract class ProviderBase implements PriorityInterface
+trait ProviderBaseTrait
 {
-    abstract public function getClassName(): string;
+    public function getClassName(): string
+    {
+        // TODO
+        throw new \Exception('not implemented.');
+    }
 
     public function getConnection(): string
     {
