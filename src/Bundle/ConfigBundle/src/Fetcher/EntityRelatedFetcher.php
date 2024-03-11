@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\EntityRelated;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Decorator\EntityDecorator;
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
 
 class EntityRelatedFetcher
 {
@@ -32,7 +32,7 @@ class EntityRelatedFetcher
                 continue;
             }
 
-            /** @var EntityDecorator $decorator */
+            /** @var DecoratorEntity $decorator */
             $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $entitiesRelated);
         }
 

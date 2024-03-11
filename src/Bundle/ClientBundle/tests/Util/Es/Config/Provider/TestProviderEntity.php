@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ClientBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
 
 class TestProviderEntity extends ProviderEntity
 {

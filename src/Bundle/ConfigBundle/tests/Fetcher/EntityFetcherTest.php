@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity2;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_First;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_Second;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\TestProviderEntity;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
@@ -18,8 +18,8 @@ class EntityFetcherTest extends TestCase
         TaggedProviderMock::$included = [
             ProviderDefault::class,
             TestProviderEntity::class,
-            DecoratorEntity::class,
-            DecoratorEntity2::class,
+            DecoratorEntity_First::class,
+            DecoratorEntity_Second::class,
         ];
 
         parent::setUp();

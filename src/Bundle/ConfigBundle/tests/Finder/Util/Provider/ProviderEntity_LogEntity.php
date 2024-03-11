@@ -2,9 +2,8 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Finder\Util\Provider;
 
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
 
 class ProviderEntity_LogEntity extends ProviderEntity
 {

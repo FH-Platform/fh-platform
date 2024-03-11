@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderBase;
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderIndex;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderBase;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderIndex;
 
 class IndexFetcher
 {

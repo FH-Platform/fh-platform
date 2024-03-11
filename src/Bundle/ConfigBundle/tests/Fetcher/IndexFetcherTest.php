@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex2;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex_First;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex_Second;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\TestProviderEntity;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
@@ -18,8 +18,8 @@ class IndexFetcherTest extends TestCase
         TaggedProviderMock::$included = [
             ProviderDefault::class,
             TestProviderEntity::class,
-            DecoratorIndex::class,
-            DecoratorIndex2::class,
+            DecoratorIndex_First::class,
+            DecoratorIndex_Second::class,
         ];
 
         parent::setUp();

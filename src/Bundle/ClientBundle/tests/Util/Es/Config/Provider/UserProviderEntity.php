@@ -3,7 +3,7 @@
 namespace FHPlatform\ClientBundle\Tests\Util\Es\Config\Provider;
 
 use FHPlatform\ClientBundle\Tests\Util\Entity\User;
-use FHPlatform\ConfigBundle\TagProvider\Index\ProviderEntity;
+use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
 
 class UserProviderEntity extends ProviderEntity
 {

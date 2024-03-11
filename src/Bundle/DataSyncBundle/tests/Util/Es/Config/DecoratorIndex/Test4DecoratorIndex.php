@@ -1,0 +1,20 @@
+<?php
+
+namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorIndex;
+
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\DecoratorIndex;
+
+class Test4DecoratorIndex extends DecoratorIndex
+{
+    public function priority(): int
+    {
+        return 2;
+    }
+
+    public function getIndexMapping(string $className, $mapping): array
+    {
+        $mapping['test4'] = 2;
+
+        return $mapping;
+    }
+}
