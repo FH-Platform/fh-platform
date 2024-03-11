@@ -15,6 +15,20 @@ services:
         volumes:
             - ./:/var/www/html
 
+    mysql:
+        container_name: fh_platform_mysql
+        build: ./.docker/mysql
+        environment:
+            - "MYSQL_ROOT_PASSWORD=root"
+            - "MYSQL_DATABASE=fh_platform"
+            - "MYSQL_USER=fh_platform"
+            - "MYSQL_PASSWORD=fh_platform"
+        volumes:
+            - db-data-fh_platform:/var/lib/mysql
+            - ./:/app
+        ports:
+            - "33308:3306"
+
     elasticsearch:
         container_name: fh_platform_elasticsearch
         build: ./.docker/elasticsearch
@@ -32,12 +46,36 @@ services:
         volumes:
             - 'fh_platform_es-data:/usr/share/elasticsearch/data'
 
+    elasticsearch2:
+        container_name: fh_platform_elasticsearch2
+        build: ./.docker/elasticsearch
+        environment:
+            - node.name=elasticsearch
+            - cluster.name=es-docker-cluster
+            - discovery.type=single-node
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        ports: [ '9202:9200' ]
+        volumes:
+            - 'fh_platform_es-data:/usr/share/elasticsearch/data'
+
     kibana:
         container_name: fh_platform_kibana
         build: ./.docker/kibana
         ports: [ '5603:5601' ]
         depends_on: [ 'elasticsearch' ]
 
+    kibana2:
+        container_name: fh_platform_kibana2
+        build: ./.docker/kibana
+        ports: [ '5604:5602' ]
+        depends_on: [ 'elasticsearch2' ]
+
 volumes:
     fh_platform_es-data:
+    db-data-fh_platform:
 

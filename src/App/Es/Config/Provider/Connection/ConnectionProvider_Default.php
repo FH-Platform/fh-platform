@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections;
+namespace App\Es\Config\Provider\Connection;
 
 use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
 
-class ProviderDefault extends ConnectionProvider
+class ConnectionProvider_Default extends ConnectionProvider
 {
     public function getName(): string
     {
@@ -13,14 +13,14 @@ class ProviderDefault extends ConnectionProvider
 
     public function getIndexPrefix(): string
     {
-        return 'prefix_';
+        return 'fh_platform_dev_';
     }
 
     public function getElasticaConfig(): array
     {
         return [
             'servers' => [
-                ['host' => 'elasticsearch', 'port' => '9201'],
+                ['host' => 'elasticsearch', 'port' => '9200'],
             ],
         ];
     }

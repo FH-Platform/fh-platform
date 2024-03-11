@@ -29,16 +29,17 @@
         "symfony/console": "^7.0",
         "symfony/framework-bundle": "7.*",
         "symfony/runtime": "7.*",
-        "symfony/flex": "2.4.*"
+        "symfony/flex": "2.4.*",
+        "symfony/dotenv": "7.*"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/",
             "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
             "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
             "FHPlatform\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
             "FHPlatform\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
-            "FHPlatform\\DataSyncBundle\\": "src/Bundle/DataSyncBundle/src/"
+            "FHPlatform\\DataSyncBundle\\": "src/Bundle/DataSyncBundle/src/",
+            "App\\": "src/App/"
         }
     },
     "autoload-dev": {

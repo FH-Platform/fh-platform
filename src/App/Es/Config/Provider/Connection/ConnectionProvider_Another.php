@@ -1,26 +1,26 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections;
+namespace App\Es\Config\Provider\Connection;
 
 use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
 
-class ProviderDefault extends ConnectionProvider
+class ConnectionProvider_Another extends ConnectionProvider
 {
     public function getName(): string
     {
-        return 'default';
+        return 'another';
     }
 
     public function getIndexPrefix(): string
     {
-        return 'prefix_';
+        return 'fh_platform_another_dev_';
     }
 
     public function getElasticaConfig(): array
     {
         return [
             'servers' => [
-                ['host' => 'elasticsearch', 'port' => '9201'],
+                ['host' => 'elasticsearch2', 'port' => '9200'],
             ],
         ];
     }
