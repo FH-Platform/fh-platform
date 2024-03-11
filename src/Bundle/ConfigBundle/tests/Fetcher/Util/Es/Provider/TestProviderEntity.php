@@ -12,7 +12,7 @@ class TestProviderEntity extends ProviderEntity
         return User::class;
     }
 
-    public function getEntityData($entity, array $data): array
+    public function getEntityData( mixed $entity, array $data): array
     {
         $data['entity_data_level_0'] = 0;
 

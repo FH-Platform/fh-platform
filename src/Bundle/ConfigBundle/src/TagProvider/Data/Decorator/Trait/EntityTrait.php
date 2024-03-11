@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait;
 
 trait EntityTrait
 {
-    public function getEntityData($entity, $data): array
+    public function getEntityData( mixed $entity, array $data): array
     {
         return $data;
     }
@@ -14,7 +14,7 @@ trait EntityTrait
         return $shouldBeIndexed;
     }
 
-    public function getEntityRelatedEntities($entity, $entitiesRelated): array
+    public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
     {
         return $entitiesRelated;
     }

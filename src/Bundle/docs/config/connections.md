@@ -213,7 +213,7 @@ class Log
 For "ProviderEntity" you can define configuration from ProviderIndex and additionally configuration from ProviderEntity:
 
 ```
-public function getEntityData($entity, array $data): array
+public function getEntityData( mixed $entity, array $data): array
 {
     return $data;
 }
@@ -223,7 +223,7 @@ public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
     return $shouldBeIndexed;
 }
 
-public function getEntityRelatedEntities($entity, $entitiesRelated): array
+public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
 {
     return $entitiesRelated;
 }

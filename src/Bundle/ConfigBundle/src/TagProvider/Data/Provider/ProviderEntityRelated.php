@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 #[AutoconfigureTag('symfony_es.provider.entity_related')]
 abstract class ProviderEntityRelated extends ProviderBase implements EntityRelatedInterface
 {
-    public function getEntityRelatedEntities($entity, $entitiesRelated): array
+    public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
     {
         return $entitiesRelated;
     }
