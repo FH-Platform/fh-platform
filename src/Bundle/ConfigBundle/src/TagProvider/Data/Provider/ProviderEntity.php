@@ -4,6 +4,7 @@ namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider;
 
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\EntityInterface;
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\EntityRelatedInterface;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\EntityRelatedTrait;
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\EntityTrait;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
@@ -12,4 +13,5 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 abstract class ProviderEntity extends ProviderIndex implements EntityInterface, EntityRelatedInterface
 {
     use EntityTrait;
+    use EntityRelatedTrait;
 }

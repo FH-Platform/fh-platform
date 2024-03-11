@@ -11,7 +11,7 @@ class DecoratorEntity_Second extends DecoratorEntity
         return -1;
     }
 
-    public function getEntityData( mixed $entity, array $data): array
+    public function getEntityData(mixed $entity, array $data): array
     {
         $data['entity_data_level_-1'] = -1;
 
