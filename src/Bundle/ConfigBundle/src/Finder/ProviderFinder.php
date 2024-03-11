@@ -4,11 +4,9 @@ namespace FHPlatform\ConfigBundle\Finder;
 
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\EntityRelatedInterface;
 use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
 
 class ProviderFinder
 {

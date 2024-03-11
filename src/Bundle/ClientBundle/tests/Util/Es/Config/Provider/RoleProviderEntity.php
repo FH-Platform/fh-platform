@@ -30,10 +30,4 @@ class RoleProviderEntity extends ProviderEntity
 
         return $mapping;
     }
-
-    /** @param Role $entity */
-    public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
-    {
-        return $entity->getUsers()->toArray();
-    }
 }
