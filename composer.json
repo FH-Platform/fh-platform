@@ -26,10 +26,14 @@
         "phpunit/phpunit": "10.*",
         "phpstan/phpstan": "*",
         "ramsey/uuid-doctrine": "^2.0",
-        "symfony/console": "^7.0"
+        "symfony/console": "^7.0",
+        "symfony/framework-bundle": "7.*",
+        "symfony/runtime": "7.*",
+        "symfony/flex": "2.4.*"
     },
     "autoload": {
         "psr-4": {
+            "App\\": "src/App/",
             "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
             "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
             "FHPlatform\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
@@ -44,6 +48,18 @@
             "FHPlatform\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\ClientBundle\\Tests\\": "src/Bundle/ClientBundle/tests/",
             "FHPlatform\\DataSyncBundle\\Tests\\": "src/Bundle/DataSyncBundle/tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         }
     }
 }

@@ -4,4 +4,12 @@ vendor/
 composer.lock
 .phpunit.result.cache
 .php-cs-fixer.cache
-
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+phpstan.neon
+/phpunit.xml

@@ -1,0 +1,43 @@
+services:
+
+    nginx:
+        container_name: fh_platform_nginx
+        build: ./.docker/nginx
+        volumes:
+            - ./:/var/www/html
+            - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - '5006:80'
+
+    php:
+        container_name: fh_platform_php
+        build: ./.docker/php
+        volumes:
+            - ./:/var/www/html
+
+    elasticsearch:
+        container_name: fh_platform_elasticsearch
+        build: ./.docker/elasticsearch
+        environment:
+            - node.name=elasticsearch
+            - cluster.name=es-docker-cluster
+            - discovery.type=single-node
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        ports: [ '9201:9200' ]
+        volumes:
+            - 'fh_platform_es-data:/usr/share/elasticsearch/data'
+
+    kibana:
+        container_name: fh_platform_kibana
+        build: ./.docker/kibana
+        ports: [ '5603:5601' ]
+        depends_on: [ 'elasticsearch' ]
+
+volumes:
+    fh_platform_es-data:
+
