@@ -6,6 +6,6 @@ use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorEntity
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorIndexInterface;
 
-interface ProviderEntityInterface extends DecoratorIndexInterface, DecoratorEntityInterface, DecoratorEntityRelatedInterface, ProviderBaseInterface
+interface ProviderEntityInterface extends ProviderBaseInterface, DecoratorIndexInterface, DecoratorEntityInterface, DecoratorEntityRelatedInterface
 {
 }

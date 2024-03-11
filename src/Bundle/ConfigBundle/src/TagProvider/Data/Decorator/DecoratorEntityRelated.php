@@ -6,7 +6,7 @@ use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorEntity
 use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorEntityRelatedTrait;
 use FHPlatform\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
 
-abstract class DecoratorEntityRelated  implements DecoratorEntityRelatedInterface
+abstract class DecoratorEntityRelated implements DecoratorEntityRelatedInterface
 {
     use PriorityTrait;
     use DecoratorEntityRelatedTrait;
