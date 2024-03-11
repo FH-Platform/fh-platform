@@ -15,6 +15,7 @@ class TaggedProvider
         #[TaggedIterator('symfony_es.provider.entity_related')] private readonly iterable $providersEntityRelated,
         #[TaggedIterator('symfony_es.decorator.index')] private readonly iterable $decoratorsIndex,
         #[TaggedIterator('symfony_es.decorator.entity')] private readonly iterable $decoratorsEntity,
+        #[TaggedIterator('symfony_es.decorator.entity_related')] private readonly iterable $decoratorsEntityRelated,
         private readonly PrioritySorter $prioritySorter,
     ) {
     }
@@ -47,6 +48,11 @@ class TaggedProvider
     public function getDecoratorsEntity(): iterable
     {
         return $this->prioritySorter->sort($this->toArray($this->decoratorsEntity));
+    }
+
+    public function getDecoratorsEntityRelated(): iterable
+    {
+        return $this->prioritySorter->sort($this->toArray($this->decoratorsEntityRelated));
     }
 
     public function getIncludedClasses(): array

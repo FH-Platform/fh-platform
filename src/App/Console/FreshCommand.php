@@ -22,11 +22,10 @@ use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-#[AsCommand(name: 'app:seed')]
-class SeedCommand extends Command
+#[AsCommand(name: 'app:fresh')]
+class FreshCommand extends Command
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
         private readonly KernelInterface $kernel,
     ) {
         parent::__construct();
@@ -34,30 +33,10 @@ class SeedCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $role = new Role();
-        $role->setNameString('first');
-        $this->entityManager->persist($role);
-
-        $role2 = new Role();
-        $role2->setNameString('second');
-        $this->entityManager->persist($role2);
-
-        $this->entityManager->flush();
-
-        $roles = [[$role, $role2], [$role,], [ $role2]];
-
-
-        for ($i = 0; $i < 10; $i++){
-            $user = new User();
-            $user->setNameString('name_string_' . Uuid::uuid1());
-            $user->setNameText('name_text_' . Uuid::uuid1());
-
-            $user->setRoles(new ArrayCollection($roles[random_int(0, 2)]));
-
-            $this->entityManager->persist($user);
-        }
-
-        $this->entityManager->flush();
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
+        $application->run( new ArrayInput(['command' => 'doctrine:schema:drop', '--force' => true, '--full-database' => true]), new BufferedOutput());
+        $application->run( new ArrayInput(['command' => 'doctrine:migrations:migrate', '--no-interaction' => true]), new BufferedOutput());
 
         return Command::SUCCESS;
     }

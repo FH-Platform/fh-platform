@@ -22,7 +22,7 @@ class EntityRelatedFetcher
         // TODO throw error if class not available for ES
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsEntity();
+        $decorators = $this->taggedProvider->getDecoratorsEntityRelated();
 
         // decorate
         $data = [];
