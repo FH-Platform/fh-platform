@@ -8,7 +8,5 @@ interface ProviderBaseInterface
 
     public function getConnection(): string;
 
-    public function priority(): int;
-
     public function getAdditionalConfig(): array;
 }

@@ -2,7 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface;
 
-interface EntityRelatedInterface
+use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
+
+interface DecoratorEntityRelatedInterface extends PriorityInterface
 {
     public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array;
 }

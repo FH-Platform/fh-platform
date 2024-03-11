@@ -2,10 +2,11 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface;
 
+use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag('symfony_es.decorator.index')]
-interface IndexInterface
+interface DecoratorIndexInterface extends PriorityInterface
 {
     public function getIndexName(string $className, string $name): string;
 

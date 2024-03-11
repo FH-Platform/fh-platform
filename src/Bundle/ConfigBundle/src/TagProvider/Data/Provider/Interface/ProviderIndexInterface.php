@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface;
 
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\IndexInterface;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorIndexInterface;
 
-interface ProviderIndexInterface extends IndexInterface, ProviderBaseInterface
+interface ProviderIndexInterface extends DecoratorIndexInterface, ProviderBaseInterface
 {
 }

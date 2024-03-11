@@ -2,10 +2,10 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface;
 
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\EntityInterface;
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\EntityRelatedInterface;
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\IndexInterface;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorEntityRelatedInterface;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorIndexInterface;
 
-interface ProviderEntityInterface extends IndexInterface, EntityInterface, EntityRelatedInterface, ProviderBaseInterface
+interface ProviderEntityInterface extends DecoratorIndexInterface, DecoratorEntityInterface, DecoratorEntityRelatedInterface, ProviderBaseInterface
 {
 }

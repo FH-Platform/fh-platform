@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait;
 
 use FHPlatform\ConfigBundle\Util\Namer\IndexNamer;
 
-trait IndexTrait
+trait DecoratorIndexTrait
 {
     // TODO add getConnection
 

@@ -2,10 +2,12 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Decorator;
 
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\IndexInterface;
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\IndexTrait;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorBaseTrait;
+use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait\DecoratorIndexTrait;
 
-abstract class DecoratorIndex extends DecoratorBase implements IndexInterface
+abstract class DecoratorIndex implements DecoratorIndexInterface
 {
-    use IndexTrait;
+    use DecoratorBaseTrait;
+    use DecoratorIndexTrait;
 }
