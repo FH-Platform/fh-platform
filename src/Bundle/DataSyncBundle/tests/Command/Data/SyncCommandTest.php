@@ -4,17 +4,17 @@ namespace FHPlatform\DataSyncBundle\Tests\Command\Data;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
-use FHPlatform\DataSyncBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class SyncCommandTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             UserProviderEntity::class,
         ];

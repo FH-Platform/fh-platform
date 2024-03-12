@@ -11,13 +11,12 @@ use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderEntityDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderEntityRelatedDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderIndexDefault;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class TaggedProviderTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderConnectionDefault::class,
             ProviderEntityDefault::class,
             ProviderEntityRelatedDefault::class,

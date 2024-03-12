@@ -28,8 +28,6 @@ services:
     FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper:
         public: true
 
-    FHPlatform\ClientBundle\Tagged\TaggedProvider: '@FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock'
-
     FHPlatform\ClientBundle\Provider\ClientBundleProvider:
         factory: ['FHPlatform\ClientBundle\Tests\Util\Factory\ClientBundleProviderFactory', 'create']
         arguments:

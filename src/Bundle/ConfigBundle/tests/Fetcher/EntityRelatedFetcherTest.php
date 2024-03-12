@@ -4,19 +4,19 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\ConfigBundle\Fetcher\EntityRelatedFetcher;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Entity\Role;
 use FHPlatform\ConfigBundle\Tests\Util\Entity\User;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Provider\RoleProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class EntityRelatedFetcherTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             RoleProviderEntity::class,
             UserProviderEntity::class,

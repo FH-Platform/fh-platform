@@ -7,13 +7,13 @@ use FHPlatform\ClientBundle\Tests\TestCase;
 use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
 use FHPlatform\ClientBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ClientBundle\Tests\Util\Es\Config\Provider\RoleProviderEntity;
-use FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class IndexClientTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             RoleProviderEntity::class,
         ];

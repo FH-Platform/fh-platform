@@ -2,17 +2,17 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
 
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\Test2ProviderEntity;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\TestProviderEntity;
-use FHPlatform\DataSyncBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class IndexCommandsTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             TestProviderEntity::class,
             Test2ProviderEntity::class,

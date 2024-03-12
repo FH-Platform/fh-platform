@@ -3,6 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Finder;
 
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogIndex;
@@ -11,13 +12,12 @@ use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_Log
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class ProviderFinderTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             ProviderEntity_LogEntity::class,
             ProviderIndex_LogIndex::class,

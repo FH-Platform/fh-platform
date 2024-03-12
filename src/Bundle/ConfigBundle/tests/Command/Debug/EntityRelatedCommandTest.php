@@ -3,20 +3,20 @@
 namespace FHPlatform\ConfigBundle\Tests\Command\Debug;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Entity\Role;
 use FHPlatform\ConfigBundle\Tests\Util\Entity\User;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Provider\RoleProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 class EntityRelatedCommandTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             UserProviderEntity::class,
             RoleProviderEntity::class,

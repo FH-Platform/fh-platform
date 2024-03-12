@@ -3,19 +3,19 @@
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_First;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_Second;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\TestProviderEntity;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class EntityFetcherTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProviderMock::$included = [
+        TaggedProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             TestProviderEntity::class,
             DecoratorEntity_First::class,

@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -29,7 +29,7 @@ class TestCase extends KernelTestCase
     {
         parent::tearDown();
 
-        TaggedProviderMock::$included = [];
+        TaggedProvider::$includedClasses = [];
     }
 
     protected function prepareContainer(): void

@@ -31,8 +31,6 @@ services:
     FHPlatform\DataSyncBundle\Tests\Util\Helper\CommandHelper:
         public: true
 
-    FHPlatform\ClientBundle\Tagged\TaggedProvider: '@FHPlatform\DataSyncBundle\Tests\Util\Helper\TaggedProviderMock'
-
     FHPlatform\ClientBundle\Provider\ClientBundleProvider:
         factory: ['FHPlatform\DataSyncBundle\Factory\ClientBundleProviderFactory', 'create']
         arguments:

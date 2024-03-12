@@ -8,6 +8,9 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
 {
+    public static array $includedClasses = [];
+    public static array $excludedClasses = [];
+
     public function __construct(
         #[TaggedIterator('fh_platform.config.provider.connection')] private readonly iterable $providersConnection,
         #[TaggedIterator('fh_platform.config.provider.index')] private readonly iterable $providersIndex,
@@ -55,20 +58,13 @@ class TaggedProvider
         return $this->prioritySorter->sort($this->toArray($this->decoratorsEntityRelated));
     }
 
-    public function getIncludedClasses(): array
-    {
-        return [];
-    }
-
     private function toArray(iterable $iterable)
     {
-        $array = [];
-
         foreach ($iterable as $item) {
-            if (0 === count($this->getIncludedClasses())) {
+            if (0 === count(self::$includedClasses)) {
                 $array[] = $item;
             } else {
-                if (in_array(get_class($item), $this->getIncludedClasses())) {
+                if (in_array(get_class($item), self::$includedClasses)) {
                     $array[] = $item;
                 }
             }

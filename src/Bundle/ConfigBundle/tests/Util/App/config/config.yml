@@ -37,4 +37,3 @@ services:
     FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper:
         public: true
 
-    FHPlatform\ConfigBundle\Tagged\TaggedProvider: '@FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock'

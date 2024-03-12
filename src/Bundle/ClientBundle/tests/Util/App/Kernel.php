@@ -4,12 +4,10 @@ namespace FHPlatform\ClientBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\ClientBundle\ClientBundle;
-use FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock;
 use FHPlatform\ConfigBundle\ConfigBundle;
 use FHPlatform\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
@@ -44,12 +42,5 @@ class Kernel extends BaseKernel
     public function getProjectDir(): string
     {
         return __DIR__.'/../';
-    }
-
-    protected function build(ContainerBuilder $container): void
-    {
-        foreach (TaggedProviderMock::$included as $item) {
-            $container->registerForAutoconfiguration($item)->addTag('fh_platform.included_classes');
-        }
     }
 }

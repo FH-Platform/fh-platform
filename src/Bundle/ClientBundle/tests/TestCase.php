@@ -10,7 +10,7 @@ use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Index\IndexNameClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
 use FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper;
-use FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -40,7 +40,7 @@ class TestCase extends KernelTestCase
     {
         parent::tearDown();
 
-        TaggedProviderMock::$included = [];
+        TaggedProvider::$includedClasses = [];
     }
 
     protected function prepareContainer(): void
