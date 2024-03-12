@@ -8,11 +8,13 @@ use FHPlatform\ConfigBundle\Tag\Data\Decorator\Trait\DecoratorEntityTrait;
 use FHPlatform\ConfigBundle\Tag\Data\Decorator\Trait\DecoratorIndexTrait;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Trait\ProviderBaseTrait;
+use FHPlatform\ConfigBundle\Tag\Data\Provider\Trait\ProviderIndexTrait;
 
 abstract class ProviderEntity implements ProviderEntityInterface
 {
     use PriorityTrait;
     use ProviderBaseTrait;
+    use ProviderIndexTrait;
     use DecoratorIndexTrait;
     use DecoratorEntityTrait;
     use DecoratorEntityRelatedTrait;

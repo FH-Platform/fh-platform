@@ -4,6 +4,7 @@ namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class IndexFetcher
@@ -29,12 +30,12 @@ class IndexFetcher
                 continue;
             }
 
-            $name = $decorator->getIndexName($className, $name);
             $mapping = $decorator->getIndexMapping($className, $mapping);
             $settings = $decorator->getIndexSettings($className, $settings);
 
-            // TODO
-            if ($decorator instanceof ProviderBaseInterface) {
+            // TODO throw
+            if ($decorator instanceof ProviderIndexInterface) {
+                $name = $decorator->getIndexName($className);
                 $connection = $this->connectionFetcher->fetch($decorator->getConnection());
             }
         }
