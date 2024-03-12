@@ -20,7 +20,7 @@ class ProviderDefaultConnection extends ProviderConnection
     {
         return [
             'servers' => [
-                ['host' => 'localhost', 'port' => '9201'],
+                ['host' => 'elasticsearch', 'port' => '9200'],
             ],
         ];
     }

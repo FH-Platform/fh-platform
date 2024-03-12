@@ -26,7 +26,6 @@ class TestCase extends KernelTestCase
     protected EntityManagerInterface $entityManager;
 
     protected IndexClient $indexClient;
-    protected IndexNameClient $indexNameClient;
     protected QueryClient $queryClient;
     protected DataClient $dataClient;
 
@@ -65,7 +64,6 @@ class TestCase extends KernelTestCase
     protected function prepareServices(): void
     {
         $this->indexClient = $this->container->get(IndexClient::class);
-        $this->indexNameClient = $this->container->get(IndexNameClient::class);
         $this->queryClient = $this->container->get(QueryClient::class);
         $this->dataClient = $this->container->get(DataClient::class);
     }
@@ -118,8 +116,8 @@ class TestCase extends KernelTestCase
         $this->entityManager->flush();
     }
 
-    protected function findEsBy($className, $key, $value): array
+    protected function findEsBy($index, $key, $value): array
     {
-        return $this->queryClient->getResults($className, (new Query())->setQuery(new Query\MatchQuery($key, $value)));
+        return $this->queryClient->getResults($index, (new Query())->setQuery(new Query\MatchQuery($key, $value)));
     }
 }

@@ -4,7 +4,9 @@ namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
+use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
 use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
+use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
 use FHPlatform\DataSyncBundle\Message\ChangedEntitiesMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
@@ -19,6 +21,7 @@ class ChangedEntitiesMessageHandler
         private readonly DataClient $dataClient,
         private readonly ProviderFinder $providerFinder,
         private readonly EntityFetcher $entityFetcher,
+        private readonly IndexFetcher $indexFetcher,
     ) {
     }
 
@@ -33,31 +36,21 @@ class ChangedEntitiesMessageHandler
             $identifier = $changedEntity->getIdentifier();
             $type = $changedEntity->getType();
 
-            // TODO check if class searchable
-            try {
-                // TODO only once per className
-                $entityProvider = $this->providerFinder->findProviderEntity($className);
-            } catch (ProviderForClassNameNotExists $e) {
+            if(! $this->providerFinder->findProviderEntity($className, false)){
                 continue;
             }
 
             $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
             if (!$entity) {
-                $entitiesDelete[$className.'_'.$identifier] = [
-                    'className' => $className,
-                    'identifier' => $identifier,
-                ];
+                $index = $this->indexFetcher->fetch($className);
+                $entitiesDelete[$className.'_'.$identifier] = new Entity(null, $className, $identifier, $index, [], false);
                 continue;
             }
 
             // TODO do upsert by ChangedFields
             $changedFields = $changedEntity->getChangedFields();
 
-            $entitiesUpsert[$className.'_'.$identifier] = [
-                'className' => $className,
-                'identifier' => $identifier,
-                'data' => $this->entityFetcher->fetch($entity)->getData(),
-            ];
+            $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
         }
 
         // TODO from config

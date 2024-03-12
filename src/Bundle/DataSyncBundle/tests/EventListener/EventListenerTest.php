@@ -2,6 +2,9 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\EventListener;
 
+use FHPlatform\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Finder\ProviderFinder;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
@@ -22,26 +25,30 @@ class EventListenerTest extends TestCase
 
     public function testSomething(): void
     {
-        $this->indexClient->recreateIndex(User::class);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        /** @var IndexFetcher $indexFetcher*/
+        $indexFetcher = $this->container->get(IndexFetcher::class);
+        $index = $indexFetcher->fetch(User::class);
+
+        $this->indexClient->recreateIndex($index);
+        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
 
         // create
         $user = new User();
         $user->setNameString('test');
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
 
         // update
         $user->setNameString('test2');
         $this->save([$user]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
+        $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
 
         // delete
         $this->delete([$user]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
     }
 }
