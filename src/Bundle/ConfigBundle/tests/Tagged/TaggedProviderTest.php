@@ -3,6 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Tagged;
 
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
+use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntityRelated;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
@@ -11,6 +12,8 @@ use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntity_LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_LogEntityRelated;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorEntityDefault;
+use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorEntityRelatedDefault;
+use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorIndexDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderConnectionDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderEntityDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderEntityRelatedDefault;
@@ -29,6 +32,8 @@ class TaggedProviderTest extends TestCase
             ProviderEntityRelatedDefault::class,
             ProviderIndexDefault::class,
             DecoratorEntityDefault::class,
+            DecoratorEntityRelatedDefault::class,
+            DecoratorIndexDefault::class,
         ];
 
         parent::setUp();
@@ -56,5 +61,16 @@ class TaggedProviderTest extends TestCase
         $this->assertEquals(2, count($taggedProvider->getDecoratorsEntity()));
         $this->assertEquals(DecoratorEntityDefault::class, get_class($taggedProvider->getDecoratorsEntity()[0]));
         $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsEntity()[1]));
+
+        $this->assertEquals(4, count($taggedProvider->getDecoratorsEntityRelated()));
+        $this->assertEquals(DecoratorEntityDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[0]));
+        $this->assertEquals(DecoratorEntityRelatedDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[1]));
+        $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[2]));
+        $this->assertEquals(ProviderEntityRelatedDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[3]));
+
+        $this->assertEquals(3, count($taggedProvider->getDecoratorsIndex()));
+        $this->assertEquals(DecoratorIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[0]));
+        $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsIndex()[1]));
+        $this->assertEquals(ProviderIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[2]));
     }
 }
