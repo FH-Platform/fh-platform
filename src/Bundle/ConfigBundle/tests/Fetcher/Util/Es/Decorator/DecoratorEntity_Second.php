@@ -17,9 +17,4 @@ class DecoratorEntity_Second extends DecoratorEntity
 
         return $data;
     }
-
-    public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
-    {
-        return false;
-    }
 }

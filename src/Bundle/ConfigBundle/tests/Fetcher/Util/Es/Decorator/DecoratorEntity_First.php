@@ -3,6 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator;
 
 use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 
 class DecoratorEntity_First extends DecoratorEntity
 {
@@ -20,6 +21,10 @@ class DecoratorEntity_First extends DecoratorEntity
 
     public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
     {
-        return true;
+        if ($entity instanceof User) {
+            return true;
+        }
+
+        return $shouldBeIndexed;
     }
 }

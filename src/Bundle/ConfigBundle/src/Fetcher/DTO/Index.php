@@ -10,6 +10,7 @@ class Index
         private readonly string $name,
         private readonly array $mapping,
         private readonly array $settings,
+        private readonly array $additionalConfig,
     ) {
     }
 
@@ -36,5 +37,10 @@ class Index
     public function getSettings(): array
     {
         return $this->settings;
+    }
+
+    public function getAdditionalConfig(): array
+    {
+        return $this->additionalConfig;
     }
 }

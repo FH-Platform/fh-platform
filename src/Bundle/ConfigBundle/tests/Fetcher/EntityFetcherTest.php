@@ -30,8 +30,8 @@ class EntityFetcherTest extends TestCase
         $entity = $entityFetcher->fetch($company);
 
         $this->assertEquals($company, $entity->getEntity());
+        $this->assertEquals(false, $entity->getShouldBeIndexed());
         $this->assertEquals('company_test', $entity->getIndex()->getName());
-        $this->assertEquals(true, $entity->getShouldBeIndexed());
         $this->assertEquals([
             'decorator_entity_data_level_-1' => -1,
             'entity_data_level_0_company' => 0,

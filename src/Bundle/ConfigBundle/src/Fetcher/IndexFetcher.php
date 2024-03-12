@@ -21,7 +21,7 @@ class IndexFetcher
         $decorators = $this->taggedProvider->getDecoratorsIndex();
 
         // decorate
-        $mapping = $settings = [];
+        $mapping = $settings = $additionalConfig = [];
         $name = '';
         $connection = null;
 
@@ -37,10 +37,11 @@ class IndexFetcher
             if ($decorator instanceof ProviderIndexInterface) {
                 $name = $decorator->getIndexName($className);
                 $connection = $this->connectionFetcher->fetch($decorator->getConnection());
+                $additionalConfig = $decorator->getAdditionalConfig();
             }
         }
 
         // return
-        return new Index($className, $connection, $name, $mapping, $settings);
+        return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
     }
 }
