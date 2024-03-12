@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DeleteStaleCommand extends Command
 {
     public function __construct(
-        //private readonly IndexNameClient $indexNameClient,
+        // private readonly IndexNameClient $indexNameClient,
         private readonly ClientBundleProvider $clientBundleProvider,
         private readonly TaggedProvider $taggedProvider,
     ) {

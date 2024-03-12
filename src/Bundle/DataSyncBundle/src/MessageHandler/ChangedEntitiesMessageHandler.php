@@ -3,7 +3,6 @@
 namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
 use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
@@ -36,7 +35,7 @@ class ChangedEntitiesMessageHandler
             $identifier = $changedEntity->getIdentifier();
             $type = $changedEntity->getType();
 
-            if(! $this->providerFinder->findProviderEntity($className, false)){
+            if (!$this->providerFinder->findProviderEntity($className, false)) {
                 continue;
             }
 
@@ -53,16 +52,8 @@ class ChangedEntitiesMessageHandler
             $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
         }
 
-        // TODO from config
-        $entitiesUpsertBatches = array_chunk($entitiesUpsert, 5);
-        $entitiesDeleteBatches = array_chunk($entitiesDelete, 5);
-
-        foreach ($entitiesUpsertBatches as $entitiesUpsert) {
-            $this->dataClient->upsertBatch($entitiesUpsert);
-        }
-
-        foreach ($entitiesDeleteBatches as $entitiesDelete) {
-            $this->dataClient->deleteBatch($entitiesDelete);
-        }
+        // TODO chunk in batch from config in client bundle
+        $this->dataClient->upsertBatch($entitiesUpsert);
+        $this->dataClient->deleteBatch($entitiesDelete);
     }
 }

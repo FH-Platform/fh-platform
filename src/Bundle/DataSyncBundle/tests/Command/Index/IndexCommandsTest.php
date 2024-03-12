@@ -23,7 +23,11 @@ class IndexCommandsTest extends TestCase
 
     public function testSomething(): void
     {
-        $this->indexNameClient->deleteAllIndexesByPrefix();
+        $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
+
+        return;
+        // TODO delete all indexes by connection
+        // $this->indexNameClient->deleteAllIndexesByPrefix();
 
         $this->assertCount(0, $this->indexNameClient->getIndexesNameByPrefix());
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);

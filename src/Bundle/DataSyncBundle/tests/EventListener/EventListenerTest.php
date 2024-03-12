@@ -2,9 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\EventListener;
 
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
-use FHPlatform\ConfigBundle\Finder\ProviderFinder;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
@@ -25,7 +23,7 @@ class EventListenerTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var IndexFetcher $indexFetcher*/
+        /** @var IndexFetcher $indexFetcher */
         $indexFetcher = $this->container->get(IndexFetcher::class);
         $index = $indexFetcher->fetch(User::class);
 

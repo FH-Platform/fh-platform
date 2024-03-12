@@ -3,7 +3,6 @@
 namespace FHPlatform\ClientBundle\Client\Data;
 
 use Elastica\Document;
-use Elastica\Response;
 use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
 
@@ -11,8 +10,7 @@ class DataClient
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
-    )
-    {
+    ) {
     }
 
     public function upsertBatch(array $entities): array
@@ -21,22 +19,22 @@ class DataClient
             return [];
         }
 
-        //store connections by name
+        // store connections by name
         $connections = $this->groupConnections($entities);
 
-        //group entities by connection name and index name
+        // group entities by connection name and index name
         $entitiesGrouped = $this->groupEntities($entities);
 
-        //do the upsert for each index
+        // do the upsert for each index
         $responses = [];
-        foreach ($entitiesGrouped as $connectionName => $indexes){
+        foreach ($entitiesGrouped as $connectionName => $indexes) {
             $client = $this->connectionFetcher->fetch($connections[$connectionName]);
 
-            foreach ($indexes as $indexName => $entities){
+            foreach ($indexes as $indexName => $entities) {
                 $index = $client->getIndex($indexName);
 
                 $documents = [];
-                foreach ($entities as $entity){
+                foreach ($entities as $entity) {
                     $identifier = $entity['identifier'];
                     $data = $entity['data'];
 
@@ -53,7 +51,7 @@ class DataClient
             }
         }
 
-        //return array of responses
+        // return array of responses
         return $responses;
     }
 
@@ -63,22 +61,22 @@ class DataClient
             return [];
         }
 
-        //store connections by name
+        // store connections by name
         $connections = $this->groupConnections($entities);
 
-        //group entities by connection name and index name
+        // group entities by connection name and index name
         $entitiesGrouped = $this->groupEntities($entities);
 
-        //do the delete for each index
+        // do the delete for each index
         $responses = [];
-        foreach ($entitiesGrouped as $connectionName => $indexes){
+        foreach ($entitiesGrouped as $connectionName => $indexes) {
             $client = $this->connectionFetcher->fetch($connections[$connectionName]);
 
-            foreach ($indexes as $indexName => $entities){
+            foreach ($indexes as $indexName => $entities) {
                 $index = $client->getIndex($indexName);
 
                 $documents = [];
-                foreach ($entities as $entity){
+                foreach ($entities as $entity) {
                     $identifier = $entity['identifier'];
 
                     $document = new Document($identifier);
@@ -93,11 +91,11 @@ class DataClient
             }
         }
 
-        //return array of responses
+        // return array of responses
         return $responses;
     }
 
-    private function groupConnections($entities) : array
+    private function groupConnections($entities): array
     {
         $connections = [];
         foreach ($entities as $entity) {
@@ -111,7 +109,7 @@ class DataClient
         return $connections;
     }
 
-    private function groupEntities($entities) : array
+    private function groupEntities($entities): array
     {
         $entitiesGrouped = [];
         foreach ($entities as $entity) {
@@ -124,7 +122,7 @@ class DataClient
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = [
                 'identifier' => $entity->getIdentifier(),
-                'data' =>  $entity->getData(),
+                'data' => $entity->getData(),
             ];
         }
 

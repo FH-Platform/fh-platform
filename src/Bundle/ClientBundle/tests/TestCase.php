@@ -7,7 +7,6 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Elastica\Query;
 use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ClientBundle\Client\Index\IndexNameClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
 use FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;

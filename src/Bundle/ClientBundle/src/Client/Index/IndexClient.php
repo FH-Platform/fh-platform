@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ClientBundle\Client\Index;
 
-use Elastica\Index\Settings;
 use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 
@@ -13,7 +12,7 @@ class IndexClient
     ) {
     }
 
-    public  function deleteIndex(Index $index):void
+    public function deleteIndex(Index $index): void
     {
         $client = $this->connectionFetcher->fetch($index->getConnection());
 
@@ -25,7 +24,7 @@ class IndexClient
         }
     }
 
-    public  function createIndex(Index $index): \Elastica\Index
+    public function createIndex(Index $index): \Elastica\Index
     {
         $client = $this->connectionFetcher->fetch($index->getConnection());
 
@@ -46,7 +45,7 @@ class IndexClient
         return $index;
     }
 
-    public  function recreateIndex(Index $index): \Elastica\Index
+    public function recreateIndex(Index $index): \Elastica\Index
     {
         $this->deleteIndex($index);
 

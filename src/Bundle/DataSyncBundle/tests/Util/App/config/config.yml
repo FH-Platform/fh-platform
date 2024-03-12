@@ -31,8 +31,3 @@ services:
     FHPlatform\DataSyncBundle\Tests\Util\Helper\CommandHelper:
         public: true
 
-    FHPlatform\ClientBundle\Provider\ClientBundleProvider:
-        factory: ['FHPlatform\DataSyncBundle\Factory\ClientBundleProviderFactory', 'create']
-        arguments:
-            $connectionsFetcher: '@FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher'
-            $indexesFetcher: '@FHPlatform\ConfigBundle\Fetcher\Global\IndexesFetcher'

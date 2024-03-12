@@ -42,7 +42,7 @@ class DataClientTest extends TestCase
         $indexClientNew->recreateIndex($indexUser2);
         $indexClientNew->recreateIndex($indexRole);
 
-        $this->assertEquals(0, count($this->queryClient->getResults($indexUser, (new Query()))));
+        $this->assertEquals(0, count($this->queryClient->getResults($indexUser, new Query())));
 
         $user = new User();
         $user->setNameString('test');
@@ -57,26 +57,26 @@ class DataClientTest extends TestCase
             new Entity($user, User::class, 4, $indexUser2, ['test4' => '4'], true),
         ]);
 
-        $results = $this->queryClient->getResults($indexUser, (new Query()));
+        $results = $this->queryClient->getResults($indexUser, new Query());
         $this->assertEquals(2, count($results));
         $this->assertEquals([
-            'test' => 1
-        ], ($results[1]->getSource()));
+            'test' => 1,
+        ], $results[1]->getSource());
 
         $this->assertEquals([
-            'test2' => 2
-        ], ($results[2]->getSource()));
+            'test2' => 2,
+        ], $results[2]->getSource());
 
-        $results = $this->queryClient->getResults($indexRole, (new Query()));
+        $results = $this->queryClient->getResults($indexRole, new Query());
         $this->assertEquals(1, count($results));
         $this->assertEquals([
-            'test3' => 3
-        ], ($results[3]->getSource()));
+            'test3' => 3,
+        ], $results[3]->getSource());
 
-        $results = $this->queryClient->getResults($indexUser2, (new Query()));
+        $results = $this->queryClient->getResults($indexUser2, new Query());
         $this->assertEquals(1, count($results));
         $this->assertEquals([
-            'test4' => 4
-        ], ($results[4]->getSource()));
+            'test4' => 4,
+        ], $results[4]->getSource());
     }
 }

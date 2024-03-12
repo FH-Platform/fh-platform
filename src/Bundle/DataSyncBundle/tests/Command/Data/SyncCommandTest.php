@@ -4,6 +4,7 @@ namespace FHPlatform\DataSyncBundle\Tests\Command\Data;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
+use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
@@ -24,6 +25,10 @@ class SyncCommandTest extends TestCase
 
     public function testSomething(): void
     {
+        /** @var IndexFetcher $indexFetcher */
+        $indexFetcher = $this->container->get(IndexFetcher::class);
+        $index = $indexFetcher->fetch(User::class);
+
         /** @var QueryClient $queryClient */
         $queryClient = $this->container->get(QueryClient::class);
 
@@ -32,10 +37,10 @@ class SyncCommandTest extends TestCase
 
         $this->prepareUsers();
 
-        $this->indexClient->recreateIndex(User::class);
-        $this->assertCount(0, $queryClient->getResults(User::class));
+        $this->indexClient->recreateIndex($index);
+        $this->assertCount(0, $queryClient->getResults($index));
         $this->commandHelper->runCommand(['command' => 'symfony-es:data:sync', 'class-name' => User::class]);
-        $this->assertCount(2, $queryClient->getResults(User::class));
+        $this->assertCount(2, $queryClient->getResults($index));
     }
 
     private function prepareUsers()
