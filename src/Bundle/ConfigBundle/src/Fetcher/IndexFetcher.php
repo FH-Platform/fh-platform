@@ -16,7 +16,6 @@ class IndexFetcher
     public function fetch(string $className): Index
     {
         foreach ($this->connectionsFetcher->fetch() as $connection) {
-            /** @var Connection $connection */
             foreach ($connection->getIndexes() as $index) {
                 /* @var Connection $connection */
 

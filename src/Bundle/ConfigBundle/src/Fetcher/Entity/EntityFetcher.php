@@ -19,7 +19,7 @@ class EntityFetcher
     ) {
     }
 
-    public function fetch($entity): Entity
+    public function fetch($entity): Entity  // TODO rename to DTO
     {
         $className = $entity::class;
 

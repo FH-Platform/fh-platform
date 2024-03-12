@@ -3,7 +3,6 @@
 namespace FHPlatform\ConfigBundle\Tagged;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
-use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
@@ -60,7 +59,7 @@ class TaggedProvider
 
     private function toArray(iterable $iterable): array
     {
-        // TODO cache
+        // TODO cache, move to service
 
         $includedClasses = self::$includedClasses;
         $excludedClasses = self::$excludedClasses;
@@ -83,15 +82,5 @@ class TaggedProvider
         }
 
         return $tagged;
-    }
-
-    public function firstConnectionProvider(): ProviderConnection
-    {
-        foreach ($this->getProvidersConnection() as $connectionProvider) {
-            return $connectionProvider;
-        }
-
-        // TODO
-        throw new \Exception('Connection provider not found.');
     }
 }
