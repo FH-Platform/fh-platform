@@ -5,7 +5,7 @@ namespace FHPlatform\ConfigBundle\TagProvider\Connection;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag('fh_platform.config.provider.connection')]
-abstract class ConnectionProvider
+abstract class ProviderConnection
 {
     public function getName(): string
     {

@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\TaggedProvider;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
-use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
@@ -77,7 +77,7 @@ class TaggedProvider
         return $array;
     }
 
-    public function firstConnectionProvider(): ConnectionProvider
+    public function firstConnectionProvider(): ProviderConnection
     {
         foreach ($this->getProvidersConnection() as $connectionProvider) {
             return $connectionProvider;

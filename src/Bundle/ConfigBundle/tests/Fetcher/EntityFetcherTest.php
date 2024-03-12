@@ -8,7 +8,7 @@ use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_Firs
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_Second;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\TestProviderEntity;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
+use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class EntityFetcherTest extends TestCase
@@ -16,7 +16,7 @@ class EntityFetcherTest extends TestCase
     protected function setUp(): void
     {
         TaggedProviderMock::$included = [
-            ProviderDefault::class,
+            ProviderDefaultConnection::class,
             TestProviderEntity::class,
             DecoratorEntity_First::class,
             DecoratorEntity_Second::class,

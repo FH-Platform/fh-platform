@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
 
 class ConnectionsFetcher
 {
@@ -18,7 +18,7 @@ class ConnectionsFetcher
         $connections = [];
 
         foreach ($this->taggedProvider->getProvidersConnection() as $connectionProvider) {
-            /* @var ConnectionProvider $connectionProvider */
+            /* @var ProviderConnection $connectionProvider */
             $connections[] = new Connection($connectionProvider->getName(), $connectionProvider->getIndexPrefix(), $connectionProvider->getElasticaConfig());
         }
 

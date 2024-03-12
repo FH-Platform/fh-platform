@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ConnectionProviderDefault;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ConnectionProviderDefault2;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnectionDefault;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnectionDefault2;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
@@ -14,8 +14,8 @@ class ConnectionsFetcherTest extends TestCase
     protected function setUp(): void
     {
         TaggedProviderMock::$included = [
-            ConnectionProviderDefault::class,
-            ConnectionProviderDefault2::class,
+            ProviderConnectionDefault::class,
+            ProviderConnectionDefault2::class,
         ];
 
         parent::setUp();

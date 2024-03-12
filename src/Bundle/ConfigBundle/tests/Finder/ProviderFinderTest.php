@@ -10,7 +10,7 @@ use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntity_LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_LogEntityRelated;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
+use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class ProviderFinderTest extends TestCase
@@ -18,7 +18,7 @@ class ProviderFinderTest extends TestCase
     protected function setUp(): void
     {
         TaggedProviderMock::$included = [
-            ProviderDefault::class,
+            ProviderDefaultConnection::class,
             ProviderEntity_LogEntity::class,
             ProviderIndex_LogIndex::class,
             ProviderEntityRelated_LogEntityRelated::class,

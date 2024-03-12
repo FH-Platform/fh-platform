@@ -2,9 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection;
 
-use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
 
-class ConnectionProviderDefault2 extends ConnectionProvider
+class ProviderConnectionDefault2 extends ProviderConnection
 {
     public function getName(): string
     {

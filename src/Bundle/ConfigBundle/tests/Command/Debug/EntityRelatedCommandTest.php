@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Tests\Util\Entity\Role;
 use FHPlatform\ConfigBundle\Tests\Util\Entity\User;
-use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
+use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Provider\RoleProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
@@ -17,7 +17,7 @@ class EntityRelatedCommandTest extends TestCase
     protected function setUp(): void
     {
         TaggedProviderMock::$included = [
-            ProviderDefault::class,
+            ProviderDefaultConnection::class,
             UserProviderEntity::class,
             RoleProviderEntity::class,
         ];

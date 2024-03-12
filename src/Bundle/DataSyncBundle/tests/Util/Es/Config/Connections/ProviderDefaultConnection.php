@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections;
+namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections;
 
-use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
 
-class ProviderDefault extends ConnectionProvider
+class ProviderDefaultConnection extends ProviderConnection
 {
     public function getName(): string
     {
@@ -20,7 +20,7 @@ class ProviderDefault extends ConnectionProvider
     {
         return [
             'servers' => [
-                ['host' => 'elasticsearch', 'port' => '9201'],
+                ['host' => 'localhost', 'port' => '9201'],
             ],
         ];
     }

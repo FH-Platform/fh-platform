@@ -5,7 +5,7 @@ namespace Client\Index;
 use FHPlatform\ClientBundle\Exception\ClassNameForIndexNotExists;
 use FHPlatform\ClientBundle\Tests\TestCase;
 use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
-use FHPlatform\ClientBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
+use FHPlatform\ClientBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ClientBundle\Tests\Util\Es\Config\Provider\RoleProviderEntity;
 use FHPlatform\ClientBundle\Tests\Util\Helper\TaggedProviderMock;
 
@@ -14,7 +14,7 @@ class IndexClientTest extends TestCase
     protected function setUp(): void
     {
         TaggedProviderMock::$included = [
-            ProviderDefault::class,
+            ProviderDefaultConnection::class,
             RoleProviderEntity::class,
         ];
 

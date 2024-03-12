@@ -8,7 +8,7 @@ use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex_First
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex_Second;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\TestProviderEntity;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefault;
+use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class IndexFetcherTest extends TestCase
@@ -16,7 +16,7 @@ class IndexFetcherTest extends TestCase
     protected function setUp(): void
     {
         TaggedProviderMock::$included = [
-            ProviderDefault::class,
+            ProviderDefaultConnection::class,
             TestProviderEntity::class,
             DecoratorIndex_First::class,
             DecoratorIndex_Second::class,

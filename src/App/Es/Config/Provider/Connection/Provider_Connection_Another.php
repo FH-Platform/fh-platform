@@ -2,9 +2,9 @@
 
 namespace App\Es\Config\Provider\Connection;
 
-use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
 
-class ConnectionProvider_Another extends ConnectionProvider
+class Provider_Connection_Another extends ProviderConnection
 {
     public function getName(): string
     {
