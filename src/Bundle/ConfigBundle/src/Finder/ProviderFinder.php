@@ -15,7 +15,7 @@ class ProviderFinder
     ) {
     }
 
-    public function findProviderIndex(string $className): ProviderIndexInterface
+    public function findProviderIndex(string $className, bool $throw = true): ?ProviderIndexInterface
     {
         foreach ($this->taggedProvider->getProvidersIndex() as $provider) {
             /** @var ProviderIndexInterface $provider */
@@ -24,11 +24,15 @@ class ProviderFinder
             }
         }
 
-        // TODO
-        throw new ProviderForClassNameNotExists();
+        if ($throw) {
+            // TODO
+            throw new ProviderForClassNameNotExists();
+        }
+
+        return null;
     }
 
-    public function findProviderEntity(string $className): ProviderEntityInterface
+    public function findProviderEntity(string $className, bool $throw = true): ?ProviderEntityInterface
     {
         foreach ($this->taggedProvider->getProvidersEntity() as $provider) {
             /** @var ProviderEntityInterface $provider */
@@ -37,11 +41,15 @@ class ProviderFinder
             }
         }
 
-        // TODO
-        throw new ProviderForClassNameNotExists();
+        if ($throw) {
+            // TODO
+            throw new ProviderForClassNameNotExists();
+        }
+
+        return null;
     }
 
-    public function findProviderEntityRelated(string $className): ProviderEntityRelatedInterface
+    public function findProviderEntityRelated(string $className, bool $throw = true): ?ProviderEntityRelatedInterface
     {
         foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {
             /** @var ProviderEntityRelatedInterface $provider */
@@ -50,7 +58,11 @@ class ProviderFinder
             }
         }
 
-        // TODO
-        throw new ProviderForClassNameNotExists();
+        if ($throw) {
+            // TODO
+            throw new ProviderForClassNameNotExists();
+        }
+
+        return null;
     }
 }
