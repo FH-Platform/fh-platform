@@ -2,6 +2,9 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
 
+use FHPlatform\ClientBundle\Client\Index\IndexClientConnection;
+use FHPlatform\ClientBundle\Client\Index\IndexClientRaw;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
@@ -23,28 +26,32 @@ class IndexCommandsTest extends TestCase
 
     public function testSomething(): void
     {
+        /** @var IndexClientRaw $indexClientRaw */
+        $indexClientRaw = $this->container->get(IndexClientRaw::class);
+
+        /** @var ConnectionsFetcher $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
+        $connections = $connectionsFetcher->fetch();
+        $connection = $connections[0];
+
+        $indexClientRaw->deleteAllIndexesByPrefix($connection);
+
+        $this->assertEquals(0, count($indexClientRaw->getIndexesNameByPrefix($connection)));
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-
-        return;
-        // TODO delete all indexes by connection
-        // $this->indexNameClient->deleteAllIndexesByPrefix();
-
-        $this->assertCount(0, $this->indexNameClient->getIndexesNameByPrefix());
-        $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-
-        return; // TODO fix
-        $this->assertCount(2, $this->indexNameClient->getIndexesNameByPrefix());
+        $indexNames = $indexClientRaw->getIndexesNameByPrefix($connections[0]);
+        $this->assertEquals(2, count($indexNames));
+        $this->assertEquals('prefix_test', $indexNames[0]);
+        $this->assertEquals('prefix_test2', $indexNames[1]);
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-all']);
-        $this->assertCount(0, $this->indexNameClient->getIndexesNameByPrefix());
+        $this->assertEquals(0, count($indexClientRaw->getIndexesNameByPrefix($connection)));
+
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-        $this->assertCount(2, $this->indexNameClient->getIndexesNameByPrefix());
-
-        $this->indexNameClient->createIndexByName('prefix_test3');
-        $this->assertCount(3, $this->indexNameClient->getIndexesNameByPrefix());
-
+        $this->assertEquals(2, count($indexClientRaw->getIndexesNameByPrefix($connection)));
+        $indexClientRaw->createIndexByName($connection, 'test3');
+        $this->assertEquals(3, count($indexClientRaw->getIndexesNameByPrefix($connection)));
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-stale']);
-        $this->assertCount(2, $this->indexNameClient->getIndexesNameByPrefix());
+        $this->assertEquals(2, count($indexClientRaw->getIndexesNameByPrefix($connection)));
     }
 }

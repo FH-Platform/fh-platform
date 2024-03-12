@@ -27,7 +27,7 @@ class CreateAllCommand extends Command
         foreach ($connections as $connection) {
             foreach ($connection->getIndexes() as $index) {
                 /* @var Index $indexDto */
-                $this->indexClient->createIndex($indexDto);
+                $this->indexClient->createIndex($index);
             }
         }
 

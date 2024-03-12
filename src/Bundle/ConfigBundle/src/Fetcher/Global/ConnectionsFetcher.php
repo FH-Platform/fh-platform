@@ -16,6 +16,7 @@ class ConnectionsFetcher
     ) {
     }
 
+    /** @return Connection[] */
     public function fetch(): array
     {
         $connections = [];

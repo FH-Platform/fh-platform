@@ -9,7 +9,10 @@ services:
     FHPlatform\ClientBundle\Client\Index\IndexClient:
         public: true
 
-    FHPlatform\ClientBundle\Client\Index\IndexClientNew:
+    FHPlatform\ClientBundle\Client\Index\IndexClientConnection:
+        public: true
+
+    FHPlatform\ClientBundle\Client\Index\IndexClientRaw:
         public: true
 
     FHPlatform\ClientBundle\Client\Query\QueryClient:
@@ -17,6 +20,7 @@ services:
 
     FHPlatform\ClientBundle\Client\Data\DataClient:
         public: true
+
 
 
 

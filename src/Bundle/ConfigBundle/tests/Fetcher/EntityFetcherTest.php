@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Company;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 

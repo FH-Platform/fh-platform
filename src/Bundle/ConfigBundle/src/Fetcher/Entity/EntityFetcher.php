@@ -1,9 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher;
+namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
+use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\UtilBundle\Helper\EntityHelper;

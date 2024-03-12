@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher;
+namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
 use FHPlatform\ConfigBundle\DTO\EntityRelated;
 use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntityRelated;

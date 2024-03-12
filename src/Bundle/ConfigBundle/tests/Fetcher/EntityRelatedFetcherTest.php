@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\EntityRelatedFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Entity\EntityRelatedFetcher;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Role;
 
 class EntityRelatedFetcherTest extends TestCase

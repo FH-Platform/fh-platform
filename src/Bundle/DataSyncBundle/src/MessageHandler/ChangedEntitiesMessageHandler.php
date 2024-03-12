@@ -4,7 +4,7 @@ namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ConfigBundle\DTO\Entity;
-use FHPlatform\ConfigBundle\Fetcher\EntityFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
 use FHPlatform\DataSyncBundle\Message\ChangedEntitiesMessage;

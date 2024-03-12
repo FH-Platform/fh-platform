@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Command\Debug;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FHPlatform\ConfigBundle\Fetcher\EntityRelatedFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Entity\EntityRelatedFetcher;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

@@ -7,9 +7,10 @@ class Connection
     public function __construct(
         private readonly string $name,
         private readonly string $prefix,
-        private readonly array $elasticaConfig,
-        private array $indexes = [],
-    ) {
+        private readonly array  $elasticaConfig,
+        private array           $indexes = [],
+    )
+    {
     }
 
     public function getName(): string
@@ -27,6 +28,7 @@ class Connection
         return $this->elasticaConfig;
     }
 
+    /** @return Index[] */
     public function getIndexes(): array
     {
         return $this->indexes;
