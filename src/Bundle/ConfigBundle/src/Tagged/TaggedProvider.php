@@ -20,37 +20,37 @@ class TaggedProvider
     ) {
     }
 
-    public function getProvidersConnection(): iterable
+    public function getProvidersConnection(): array
     {
         return $this->toArray($this->providersConnection);
     }
 
-    public function getProvidersIndex(): iterable
+    public function getProvidersIndex(): array
     {
         return $this->toArray($this->providersIndex);
     }
 
-    public function getProvidersEntity(): iterable
+    public function getProvidersEntity(): array
     {
         return $this->toArray($this->providersEntity);
     }
 
-    public function getProvidersEntityRelated(): iterable
+    public function getProvidersEntityRelated(): array
     {
         return $this->toArray($this->providersEntityRelated);
     }
 
-    public function getDecoratorsIndex(): iterable
+    public function getDecoratorsIndex(): array
     {
         return $this->prioritySorter->sort($this->toArray($this->decoratorsIndex));
     }
 
-    public function getDecoratorsEntity(): iterable
+    public function getDecoratorsEntity(): array
     {
         return $this->prioritySorter->sort($this->toArray($this->decoratorsEntity));
     }
 
-    public function getDecoratorsEntityRelated(): iterable
+    public function getDecoratorsEntityRelated(): array
     {
         return $this->prioritySorter->sort($this->toArray($this->decoratorsEntityRelated));
     }

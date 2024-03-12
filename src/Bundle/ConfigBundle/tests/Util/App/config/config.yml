@@ -31,6 +31,9 @@ services:
     FHPlatform\ConfigBundle\Tests\Finder\Util\:
         resource: '../../../Finder/Util'
 
+    FHPlatform\ConfigBundle\Tests\Tagged\Util\:
+        resource: '../../../Tagged/Util'
+
     FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper:
         public: true
 
