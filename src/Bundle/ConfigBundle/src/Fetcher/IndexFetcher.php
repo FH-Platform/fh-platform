@@ -3,45 +3,25 @@
 namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\ConfigBundle\Fetcher\Global\IndexesFetcher;
 
 class IndexFetcher
 {
     public function __construct(
-        private readonly TaggedProvider $taggedProvider,
-        private readonly ConnectionFetcher $connectionFetcher,
+        private readonly IndexesFetcher $indexesFetcher,
     ) {
     }
 
     public function fetch(string $className): Index
     {
-        // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsIndex();
-
-        // decorate
-        $mapping = $settings = $additionalConfig = [];
-        $name = '';
-        $connection = null;
-
-        foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                continue;
-            }
-
-            $mapping = $decorator->getIndexMapping($className, $mapping);
-            $settings = $decorator->getIndexSettings($className, $settings);
-
-            // TODO throw
-            if ($decorator instanceof ProviderIndexInterface) {
-                $name = $decorator->getIndexName($className);
-                $connection = $this->connectionFetcher->fetch($decorator->getConnection());
-                $additionalConfig = $decorator->getAdditionalConfig();
+        foreach ($this->indexesFetcher->fetch() as $index) {
+            /** @var Index $index */
+            if ($index->getClassName() === $className) {
+                return $index;
             }
         }
 
-        // return
-        return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
+        // TODO
+        throw new \Exception('Error');
     }
 }
