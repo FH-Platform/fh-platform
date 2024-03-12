@@ -5,7 +5,7 @@ namespace FHPlatform\ClientBundle\Client\Query;
 use Elastica\Query;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\ClientBundle\Client\Index\IndexClientNew;
+use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 
@@ -13,7 +13,7 @@ class QueryClient
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
-        private readonly IndexClientNew $indexClientNew,
+        private readonly IndexClient       $indexClientNew,
     ) {
     }
 

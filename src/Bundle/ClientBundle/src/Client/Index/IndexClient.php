@@ -2,58 +2,54 @@
 
 namespace FHPlatform\ClientBundle\Client\Index;
 
-use Elastica\Index;
-use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
+use Elastica\Index\Settings;
+use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 
 class IndexClient
 {
     public function __construct(
-        private readonly ClientBundleProvider $clientBundleProvider,
-        private readonly IndexNameClient $indexNameClient,
+        private readonly ConnectionFetcher $connectionFetcher,
     ) {
     }
 
-    public function getIndex(string $className): Index
+    public  function deleteIndex(Index $index):void
     {
-        $indexName = $this->getIndexName($className);
+        $client = $this->connectionFetcher->fetch($index->getConnection());
 
-        return $this->indexNameClient->getIndexByName($indexName);
+        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
+        $index = $client->getIndex($indexNameWithPrefix);
+
+        if ($index->exists()) {
+            $index->delete();
+        }
     }
 
-    public function createIndex(string $className): Index
+    public  function createIndex(Index $index): \Elastica\Index
     {
-        $indexName = $this->getIndexName($className);
+        $client = $this->connectionFetcher->fetch($index->getConnection());
 
-        $index = $this->indexNameClient->getIndexByName($indexName);
+        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
+        $index = $client->getIndex($indexNameWithPrefix);
 
         if (!$index->exists()) {
-            $indexDto = $this->clientBundleProvider->findIndexDto($className);
-            $this->indexNameClient->createIndexByName($indexName, $indexDto->getMapping(), $indexDto->getSettings());
+            if (!$index->exists()) {
+                $index->create();
+
+                // TODO
+                /*$mappingObject = new Mapping();
+                $mappingObject->setProperties($mapping);
+                $mappingObject->send($index);*/
+            }
         }
 
         return $index;
     }
 
-    public function deleteIndex(string $className): void
+    public  function recreateIndex(Index $index): \Elastica\Index
     {
-        $indexName = $this->getIndexName($className);
+        $this->deleteIndex($index);
 
-        $this->indexNameClient->deleteIndexByName($indexName);
-    }
-
-    public function recreateIndex(string $className): Index
-    {
-        $this->deleteIndex($className);
-
-        return $this->createIndex($className);
-    }
-
-    public function getIndexName(string $className): string
-    {
-        $indexClass = $this->clientBundleProvider->findIndexDto($className);
-
-        $indexName = $indexClass->getName();
-
-        return $indexClass->getConnection()->getPrefix().$indexName;
+        return $this->createIndex($index);
     }
 }

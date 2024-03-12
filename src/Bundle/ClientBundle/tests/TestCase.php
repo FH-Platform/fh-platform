@@ -26,7 +26,6 @@ class TestCase extends KernelTestCase
     protected EntityManagerInterface $entityManager;
 
     protected IndexClient $indexClient;
-    protected IndexNameClient $indexNameClient;
     protected QueryClient $queryClient;
     protected DataClient $dataClient;
 
@@ -65,7 +64,6 @@ class TestCase extends KernelTestCase
     protected function prepareServices(): void
     {
         $this->indexClient = $this->container->get(IndexClient::class);
-        $this->indexNameClient = $this->container->get(IndexNameClient::class);
         $this->queryClient = $this->container->get(QueryClient::class);
         $this->dataClient = $this->container->get(DataClient::class);
     }

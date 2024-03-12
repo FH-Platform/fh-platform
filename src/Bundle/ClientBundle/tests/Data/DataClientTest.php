@@ -4,7 +4,7 @@ namespace FHPlatform\ClientBundle\Tests\Data;
 
 use Elastica\Query;
 use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ClientBundle\Client\Index\IndexClientNew;
+use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Tests\TestCase;
 use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
 use FHPlatform\ClientBundle\Tests\Util\Entity\User;
@@ -35,8 +35,8 @@ class DataClientTest extends TestCase
         $indexUser2 = new Index(User::class, $connection2, 'user', [], [], []);
         $indexRole = new Index(Role::class, $connection, 'role', [], [], []);
 
-        /** @var IndexClientNew $indexClientNew */
-        $indexClientNew = $this->container->get(IndexClientNew::class);
+        /** @var IndexClient $indexClientNew */
+        $indexClientNew = $this->container->get(IndexClient::class);
 
         $indexClientNew->recreateIndex($indexUser);
         $indexClientNew->recreateIndex($indexUser2);
