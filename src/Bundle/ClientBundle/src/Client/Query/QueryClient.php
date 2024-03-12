@@ -5,20 +5,26 @@ namespace FHPlatform\ClientBundle\Client\Query;
 use Elastica\Query;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\ClientBundle\Client\Index\IndexClientNew;
+use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
 
 class QueryClient
 {
     public function __construct(
-        private readonly IndexClient $indexClient,
+        private readonly ConnectionFetcher $connectionFetcher,
+        private readonly IndexClientNew $indexClientNew,
     ) {
     }
 
-    public function getSearch(string $className, ?Query $query = null): Search
+    public function getSearch(Index $index, ?Query $query = null): Search
     {
-        $index = $this->indexClient->getIndex($className);
+        $client = $this->connectionFetcher->fetch($index->getConnection());
 
-        $search = new Search($this->client);
+        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
+        $index = $client->getIndex($indexNameWithPrefix);
+
+        $search = new Search($client);
         $search->addIndex($index);
 
         if ($query) {
@@ -28,9 +34,9 @@ class QueryClient
         return $search;
     }
 
-    public function getResults(string $className, ?Query $query = null, $limit = null, $offset = 0): array
+    public function getResults(Index $index, ?Query $query = null, $limit = null, $offset = 0): array
     {
-        $search = $this->getSearch($className, $query);
+        $search = $this->getSearch($index, $query);
 
         $results = $this->scrollSearch($search, $limit, $offset);
 

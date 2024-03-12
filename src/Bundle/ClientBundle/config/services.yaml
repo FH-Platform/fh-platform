@@ -9,6 +9,9 @@ services:
     FHPlatform\ClientBundle\Client\Index\IndexClient:
         public: true
 
+    FHPlatform\ClientBundle\Client\Index\IndexClientNew:
+        public: true
+
     FHPlatform\ClientBundle\Client\Query\QueryClient:
         public: true
 

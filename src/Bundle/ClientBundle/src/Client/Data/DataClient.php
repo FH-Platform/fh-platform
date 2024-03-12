@@ -38,7 +38,10 @@ class DataClient
             $index = $entity->getIndex();
             $connection = $index->getConnection();
 
-            $entitiesGrouped[$connection->getName()][$index->getName()][] = [
+            $connectionName = $connection->getName();
+            $indexNameWithPrefix = $connection->getPrefix().$index->getName();
+
+            $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = [
                 'identifier' => $entity->getIdentifier(),
                 'data' =>  $entity->getData(),
             ];
