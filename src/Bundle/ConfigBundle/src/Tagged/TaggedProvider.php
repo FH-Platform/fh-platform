@@ -58,8 +58,10 @@ class TaggedProvider
         return $this->prioritySorter->sort($this->toArray($this->decoratorsEntityRelated));
     }
 
-    private function toArray(iterable $iterable) : array
+    private function toArray(iterable $iterable): array
     {
+        // TODO cache
+
         $includedClasses = self::$includedClasses;
         $excludedClasses = self::$excludedClasses;
 
