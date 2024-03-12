@@ -13,8 +13,13 @@ class DecoratorEntity_First extends DecoratorEntity
 
     public function getEntityData(mixed $entity, array $data, array $mapping): array
     {
-        $data['entity_data_level_1'] = 1;
+        $data['decorator_entity_data_level_1'] = 1;
 
         return $data;
+    }
+
+    public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
+    {
+        return true;
     }
 }

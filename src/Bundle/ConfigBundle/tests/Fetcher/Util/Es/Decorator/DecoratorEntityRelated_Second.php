@@ -13,7 +13,7 @@ class DecoratorEntityRelated_Second extends DecoratorEntityRelated
 
     public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
     {
-        $entitiesRelated[] = 'DecoratorEntityRelated_Second';
+        $entitiesRelated[] = 'decorator_entity_related_1';
 
         return $entitiesRelated;
     }
