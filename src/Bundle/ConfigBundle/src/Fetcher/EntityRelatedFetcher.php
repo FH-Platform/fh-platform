@@ -11,7 +11,6 @@ class EntityRelatedFetcher
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
-        private readonly EntityFetcher $entityFetcher,
     ) {
     }
 

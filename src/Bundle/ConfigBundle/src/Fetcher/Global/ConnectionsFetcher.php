@@ -17,11 +17,15 @@ class ConnectionsFetcher
     {
         $connections = [];
 
-        foreach ($this->taggedProvider->getProvidersConnection() as $connectionProvider) {
-            /* @var ProviderConnection $connectionProvider */
-            $connections[] = new Connection($connectionProvider->getName(), $connectionProvider->getIndexPrefix(), $connectionProvider->getElasticaConfig());
+        foreach ($this->taggedProvider->getProvidersConnection() as $providerConnection) {
+            $connections[] = $this->convertProviderToDto($providerConnection);
         }
 
         return $connections;
+    }
+
+    private function convertProviderToDto(ProviderConnection $providerConnection) : Connection
+    {
+        return new Connection($providerConnection->getName(), $providerConnection->getIndexPrefix(), $providerConnection->getElasticaConfig());
     }
 }
