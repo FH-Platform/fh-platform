@@ -11,7 +11,7 @@ class Test4DecoratorEntity extends DecoratorEntity
         return 2;
     }
 
-    public function getEntityData(mixed $entity, array $data): array
+    public function getEntityData(mixed $entity, array $data, array $mapping): array
     {
         $data['data_test4'] = 2;
 

@@ -52,11 +52,10 @@ class TaggedProviderTest extends TestCase
         $this->assertEquals(DecoratorEntityDefault::class, get_class($taggedProvider->getDecoratorsEntity()[0]));
         $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsEntity()[1]));
 
-        $this->assertEquals(4, count($taggedProvider->getDecoratorsEntityRelated()));
-        $this->assertEquals(DecoratorEntityDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[0]));
-        $this->assertEquals(DecoratorEntityRelatedDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[1]));
-        $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[2]));
-        $this->assertEquals(ProviderEntityRelatedDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[3]));
+        $this->assertEquals(3, count($taggedProvider->getDecoratorsEntityRelated()));
+        $this->assertEquals(DecoratorEntityRelatedDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[0]));
+        $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[1]));
+        $this->assertEquals(ProviderEntityRelatedDefault::class, get_class($taggedProvider->getDecoratorsEntityRelated()[2]));
 
         $this->assertEquals(3, count($taggedProvider->getDecoratorsIndex()));
         $this->assertEquals(DecoratorIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[0]));

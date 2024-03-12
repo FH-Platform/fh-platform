@@ -3,6 +3,7 @@
 namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
+use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
@@ -23,19 +24,19 @@ class EntityFetcher
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntity();
 
+        $index = $this->indexFetcher->fetch($className);
+
         // decorate
         $data = [];
         $shouldBeIndexed = true;
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderEntity and $decorator->getClassName() !== $className) {
+            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
                 continue;
             }
 
-            $data = $decorator->getEntityData($entity, $data);
+            $data = $decorator->getEntityData($entity, $data, $index->getMapping());
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
-
-        $index = $this->indexFetcher->fetch($className);
 
         // return
         return new Entity($entity, $index, $data, $shouldBeIndexed);

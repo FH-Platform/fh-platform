@@ -13,7 +13,7 @@ class ProviderEntity_User extends ProviderEntity
     }
 
     /** @param User $entity */
-    public function getEntityData(mixed $entity, array $data): array
+    public function getEntityData(mixed $entity, array $data, array $mapping): array
     {
         $data['name_string'] = $entity->getNameString();
 

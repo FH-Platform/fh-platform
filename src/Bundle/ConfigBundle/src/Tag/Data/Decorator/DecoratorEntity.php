@@ -8,9 +8,8 @@ use FHPlatform\ConfigBundle\Tag\Data\Decorator\Interface\DecoratorEntityRelatedI
 use FHPlatform\ConfigBundle\Tag\Data\Decorator\Trait\DecoratorEntityRelatedTrait;
 use FHPlatform\ConfigBundle\Tag\Data\Decorator\Trait\DecoratorEntityTrait;
 
-abstract class DecoratorEntity implements DecoratorEntityInterface, DecoratorEntityRelatedInterface
+abstract class DecoratorEntity implements DecoratorEntityInterface
 {
     use PriorityTrait;
     use DecoratorEntityTrait;
-    use DecoratorEntityRelatedTrait;
 }

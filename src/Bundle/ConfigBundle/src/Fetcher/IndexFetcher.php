@@ -26,7 +26,7 @@ class IndexFetcher
         $connection = null;
 
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderIndexInterface and $decorator->getClassName() !== $className) {
+            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
                 continue;
             }
 

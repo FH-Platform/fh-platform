@@ -12,7 +12,7 @@ class ProviderEntity_Company extends ProviderEntity
         return Company::class;
     }
 
-    public function getEntityData(mixed $entity, array $data): array
+    public function getEntityData(mixed $entity, array $data, array $mapping): array
     {
         $data['entity_data_level_0_company'] = 0;
 

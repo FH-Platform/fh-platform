@@ -12,7 +12,7 @@ class ProviderEntity_User extends ProviderEntity
         return User::class;
     }
 
-    public function getEntityData(mixed $entity, array $data): array
+    public function getEntityData(mixed $entity, array $data, array $mapping): array
     {
         $data['entity_data_level_0_user'] = 0;
 
