@@ -4,7 +4,6 @@ namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class EntityFetcher
