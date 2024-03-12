@@ -9,13 +9,13 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 class TaggedProvider
 {
     public function __construct(
-        #[TaggedIterator('fh_platform.config.tagged.provider.connection')] private readonly iterable $providersConnection,
-        #[TaggedIterator('fh_platform.config.tagged.provider.index')] private readonly iterable $providersIndex,
-        #[TaggedIterator('fh_platform.config.tagged.provider.entity')] private readonly iterable $providersEntity,
-        #[TaggedIterator('fh_platform.config.tagged.provider.entity_related')] private readonly iterable $providersEntityRelated,
-        #[TaggedIterator('fh_platform.config.tagged.decorator.index')] private readonly iterable $decoratorsIndex,
-        #[TaggedIterator('fh_platform.config.tagged.decorator.entity')] private readonly iterable $decoratorsEntity,
-        #[TaggedIterator('fh_platform.config.tagged.decorator.entity_related')] private readonly iterable $decoratorsEntityRelated,
+        #[TaggedIterator('fh_platform.config.provider.connection')] private readonly iterable $providersConnection,
+        #[TaggedIterator('fh_platform.config.provider.index')] private readonly iterable $providersIndex,
+        #[TaggedIterator('fh_platform.config.provider.entity')] private readonly iterable $providersEntity,
+        #[TaggedIterator('fh_platform.config.provider.entity_related')] private readonly iterable $providersEntityRelated,
+        #[TaggedIterator('fh_platform.config.decorator.index')] private readonly iterable $decoratorsIndex,
+        #[TaggedIterator('fh_platform.config.decorator.entity')] private readonly iterable $decoratorsEntity,
+        #[TaggedIterator('fh_platform.config.decorator.entity_related')] private readonly iterable $decoratorsEntityRelated,
         private readonly PrioritySorter $prioritySorter,
     ) {
     }
