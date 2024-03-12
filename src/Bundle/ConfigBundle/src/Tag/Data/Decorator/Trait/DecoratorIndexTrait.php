@@ -14,7 +14,7 @@ trait DecoratorIndexTrait
     public function getIndexName(string $className, string $name): string
     {
         // TODO add default decorator
-        if (0 === $this->priority() && $name) {
+        if ($name) {
             return $name;
         }
 
