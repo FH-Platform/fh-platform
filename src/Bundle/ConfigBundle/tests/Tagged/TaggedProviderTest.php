@@ -29,7 +29,7 @@ class TaggedProviderTest extends TestCase
         parent::setUp();
     }
 
-    public function testSomething(): void
+    public function testService(): void
     {
         /** @var TaggedProvider $taggedProvider */
         $taggedProvider = $this->container->get(TaggedProvider::class);
@@ -62,5 +62,24 @@ class TaggedProviderTest extends TestCase
         $this->assertEquals(DecoratorIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[0]));
         $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsIndex()[1]));
         $this->assertEquals(ProviderIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[2]));
+    }
+
+    public function testExcluded(): void
+    {
+        /** @var TaggedProvider $taggedProvider */
+        $taggedProvider = $this->container->get(TaggedProvider::class);
+
+        $this->assertEquals(3, count($taggedProvider->getDecoratorsIndex()));
+        $this->assertEquals(DecoratorIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[0]));
+        $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsIndex()[1]));
+        $this->assertEquals(ProviderIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[2]));
+
+        TaggedProvider::$excludedClasses = [
+            DecoratorIndexDefault::class,
+        ];
+
+        $this->assertEquals(2, count($taggedProvider->getDecoratorsIndex()));
+        $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsIndex()[0]));
+        $this->assertEquals(ProviderIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[1]));
     }
 }
