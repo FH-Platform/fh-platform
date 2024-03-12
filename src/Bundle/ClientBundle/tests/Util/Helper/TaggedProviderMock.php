@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ClientBundle\Tests\Util\Helper;
 
-use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class TaggedProviderMock extends TaggedProvider
 {

@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
-use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderIndex;
 

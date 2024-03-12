@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\TaggedProvider;
+namespace FHPlatform\ConfigBundle\Tagged;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;

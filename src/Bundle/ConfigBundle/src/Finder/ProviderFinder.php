@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Finder;
 
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
-use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderIndexInterface;

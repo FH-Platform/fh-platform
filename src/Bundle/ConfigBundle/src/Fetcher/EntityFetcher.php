@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
-use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
 
 class EntityFetcher
