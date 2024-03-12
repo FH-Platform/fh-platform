@@ -2,20 +2,20 @@
 
 namespace FHPlatform\ConfigBundle\TaggedProvider;
 
+use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
 use FHPlatform\ConfigBundle\TagProvider\Connection\ConnectionProvider;
-use FHPlatform\ConfigBundle\Util\Sorter\PrioritySorter;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
 {
     public function __construct(
-        #[TaggedIterator('symfony_es.connection_provider')] private readonly iterable $providersConnection,
-        #[TaggedIterator('symfony_es.provider.index')] private readonly iterable $providersIndex,
-        #[TaggedIterator('symfony_es.provider.entity')] private readonly iterable $providersEntity,
-        #[TaggedIterator('symfony_es.provider.entity_related')] private readonly iterable $providersEntityRelated,
-        #[TaggedIterator('symfony_es.decorator.index')] private readonly iterable $decoratorsIndex,
-        #[TaggedIterator('symfony_es.decorator.entity')] private readonly iterable $decoratorsEntity,
-        #[TaggedIterator('symfony_es.decorator.entity_related')] private readonly iterable $decoratorsEntityRelated,
+        #[TaggedIterator('fh_platform.config.tagged.provider.connection')] private readonly iterable $providersConnection,
+        #[TaggedIterator('fh_platform.config.tagged.provider.index')] private readonly iterable $providersIndex,
+        #[TaggedIterator('fh_platform.config.tagged.provider.entity')] private readonly iterable $providersEntity,
+        #[TaggedIterator('fh_platform.config.tagged.provider.entity_related')] private readonly iterable $providersEntityRelated,
+        #[TaggedIterator('fh_platform.config.tagged.decorator.index')] private readonly iterable $decoratorsIndex,
+        #[TaggedIterator('fh_platform.config.tagged.decorator.entity')] private readonly iterable $decoratorsEntity,
+        #[TaggedIterator('fh_platform.config.tagged.decorator.entity_related')] private readonly iterable $decoratorsEntityRelated,
         private readonly PrioritySorter $prioritySorter,
     ) {
     }

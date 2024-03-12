@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tests\Sorter;
+namespace FHPlatform\ConfigBundle\Tests\Service\Sorter;
 
-use FHPlatform\ConfigBundle\Tests\Sorter\Util\Tester;
-use FHPlatform\ConfigBundle\Tests\Sorter\Util\Tester2;
-use FHPlatform\ConfigBundle\Tests\Sorter\Util\Tester3;
-use FHPlatform\ConfigBundle\Tests\Sorter\Util\Tester4;
+use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
+use FHPlatform\ConfigBundle\Tests\Service\Sorter\Util\Tester;
+use FHPlatform\ConfigBundle\Tests\Service\Sorter\Util\Tester2;
+use FHPlatform\ConfigBundle\Tests\Service\Sorter\Util\Tester3;
+use FHPlatform\ConfigBundle\Tests\Service\Sorter\Util\Tester4;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Util\Sorter\PrioritySorter;
 
 class PrioritySorterTest extends TestCase
 {

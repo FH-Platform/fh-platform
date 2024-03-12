@@ -54,7 +54,7 @@ class Kernel extends BaseKernel
     protected function build(ContainerBuilder $container): void
     {
         foreach (TaggedProviderMock::$included as $item) {
-            $container->registerForAutoconfiguration($item)->addTag('symfony_es.included_classes');
+            $container->registerForAutoconfiguration($item)->addTag('fh_platform.included_classes');
         }
     }
 }

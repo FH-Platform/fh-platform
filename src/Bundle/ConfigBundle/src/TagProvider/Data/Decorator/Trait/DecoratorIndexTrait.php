@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Trait;
 
-use FHPlatform\ConfigBundle\Util\Namer\IndexNamer;
+use FHPlatform\ConfigBundle\Service\Namer\IndexNamer;
 
 trait DecoratorIndexTrait
 {

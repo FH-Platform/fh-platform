@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tests\Namer;
+namespace FHPlatform\ConfigBundle\Tests\Service\Namer;
 
+use FHPlatform\ConfigBundle\Service\Namer\IndexNamer;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Util\Namer\IndexNamer;
 
 class IndexNamerTest extends TestCase
 {

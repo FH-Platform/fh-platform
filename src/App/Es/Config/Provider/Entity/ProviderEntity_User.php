@@ -4,7 +4,6 @@ namespace App\Es\Config\Provider\Entity;
 
 use App\Entity\User;
 use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderIndex;
 
 class ProviderEntity_User extends ProviderEntity
 {
@@ -24,7 +23,7 @@ class ProviderEntity_User extends ProviderEntity
     /** @param User $entity */
     public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
     {
-        if($entity->getId() % 2 == 0){
+        if (0 == $entity->getId() % 2) {
             return false;
         }
 
