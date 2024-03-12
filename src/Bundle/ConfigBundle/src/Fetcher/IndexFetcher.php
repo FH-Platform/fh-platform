@@ -2,22 +2,27 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher;
 
+use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
-use FHPlatform\ConfigBundle\Fetcher\Global\IndexesFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 
 class IndexFetcher
 {
     public function __construct(
-        private readonly IndexesFetcher $indexesFetcher,
+        private readonly ConnectionsFetcher $connectionsFetcher
     ) {
     }
 
     public function fetch(string $className): Index
     {
-        foreach ($this->indexesFetcher->fetch() as $index) {
-            /** @var Index $index */
-            if ($index->getClassName() === $className) {
-                return $index;
+        foreach ($this->connectionsFetcher->fetch() as $connection) {
+            /** @var Connection $connection */
+            foreach ($connection->getIndexes() as $index) {
+                /* @var Connection $connection */
+
+                if ($index->getClassName() === $className) {
+                    return $index;
+                }
             }
         }
 

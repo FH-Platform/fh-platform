@@ -8,6 +8,7 @@ class Connection
         private readonly string $name,
         private readonly string $prefix,
         private readonly array $elasticaConfig,
+        private array $indexes = [],
     ) {
     }
 
@@ -24,5 +25,15 @@ class Connection
     public function getElasticaConfig(): array
     {
         return $this->elasticaConfig;
+    }
+
+    public function getIndexes(): array
+    {
+        return $this->indexes;
+    }
+
+    public function setIndexes(array $indexes): void
+    {
+        $this->indexes = $indexes;
     }
 }

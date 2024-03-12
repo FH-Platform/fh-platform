@@ -4,7 +4,7 @@ namespace FHPlatform\DataSyncBundle\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
-use FHPlatform\ConfigBundle\Fetcher\Global\IndexesFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,18 +15,20 @@ class CreateAllCommand extends Command
 {
     public function __construct(
         private readonly IndexClient $indexClient,
-        private readonly IndexesFetcher $indexesFetcher,
+        private readonly ConnectionsFetcher $connectionsFetcher,
     ) {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $indexDtos = $this->indexesFetcher->fetch();
+        $connections = $this->connectionsFetcher->fetch();
 
-        foreach ($indexDtos as $indexDto) {
-            /* @var Index $indexDto */
-            $this->indexClient->createIndex($indexDto);
+        foreach ($connections as $connection) {
+            foreach ($connection->getIndexes() as $index) {
+                /* @var Index $indexDto */
+                $this->indexClient->createIndex($indexDto);
+            }
         }
 
         return Command::SUCCESS;
