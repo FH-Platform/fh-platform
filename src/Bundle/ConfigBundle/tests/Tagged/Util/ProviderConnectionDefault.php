@@ -13,6 +13,6 @@ class ProviderConnectionDefault extends ProviderConnection
 
     public function getElasticaConfig(): array
     {
-        return[];
+        return [];
     }
 }

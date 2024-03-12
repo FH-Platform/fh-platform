@@ -3,8 +3,8 @@
 namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class ConnectionsFetcher
 {

@@ -2,15 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tagged;
 
-use FHPlatform\ConfigBundle\Finder\ProviderFinder;
-use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntityRelated;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogIndex;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntity_LogEntity;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_LogEntityRelated;
-use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorEntityDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorEntityRelatedDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorIndexDefault;
@@ -19,7 +11,6 @@ use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderEntityDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderEntityRelatedDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\ProviderIndexDefault;
 use FHPlatform\ConfigBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\ConfigBundle\Tests\Util\Helper\TaggedProviderMock;
 
 class TaggedProviderTest extends TestCase

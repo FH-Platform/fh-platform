@@ -3,8 +3,8 @@
 namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderIndex;
+use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class IndexesFetcher
 {
