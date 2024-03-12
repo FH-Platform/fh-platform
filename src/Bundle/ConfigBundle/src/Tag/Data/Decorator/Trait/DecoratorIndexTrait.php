@@ -6,7 +6,10 @@ use FHPlatform\ConfigBundle\Service\Namer\IndexNamer;
 
 trait DecoratorIndexTrait
 {
-    // TODO add getConnection
+    public function getConnection(): string
+    {
+        return 'default';
+    }
 
     public function getIndexName(string $className, string $name): string
     {

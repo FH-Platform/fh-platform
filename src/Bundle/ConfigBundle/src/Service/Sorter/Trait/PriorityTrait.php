@@ -6,6 +6,6 @@ trait PriorityTrait
 {
     public function priority(): int
     {
-        return 100;
+        return 0;
     }
 }

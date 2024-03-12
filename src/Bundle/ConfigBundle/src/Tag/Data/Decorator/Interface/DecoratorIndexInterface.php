@@ -8,6 +8,8 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 #[AutoconfigureTag('fh_platform.config.decorator.index')]
 interface DecoratorIndexInterface extends PriorityInterface
 {
+    public function getConnection(): string;
+
     public function getIndexName(string $className, string $name): string;
 
     public function getIndexSettings(string $className, array $settings): array;

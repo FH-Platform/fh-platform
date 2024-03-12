@@ -8,7 +8,5 @@ interface ProviderBaseInterface extends PriorityInterface
 {
     public function getClassName(): string;
 
-    public function getConnection(): string;
-
     public function getAdditionalConfig(): array;
 }
