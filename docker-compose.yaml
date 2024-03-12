@@ -50,8 +50,8 @@ services:
         container_name: fh_platform_elasticsearch2
         build: ./.docker/elasticsearch
         environment:
-            - node.name=elasticsearch
-            - cluster.name=es-docker-cluster
+            - node.name=elasticsearch2
+            - cluster.name=es-docker-cluster2
             - discovery.type=single-node
             - bootstrap.memory_lock=true
             - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -61,7 +61,7 @@ services:
                 hard: -1
         ports: [ '9202:9200' ]
         volumes:
-            - 'fh_platform_es-data:/usr/share/elasticsearch/data'
+            - 'fh_platform_es-data2:/usr/share/elasticsearch/data2'
 
     kibana:
         container_name: fh_platform_kibana
@@ -72,10 +72,12 @@ services:
     kibana2:
         container_name: fh_platform_kibana2
         build: ./.docker/kibana
-        ports: [ '5604:5602' ]
+        ports: [ '5604:5601' ]
         depends_on: [ 'elasticsearch2' ]
-
 volumes:
     fh_platform_es-data:
+    fh_platform_es-data2:
     db-data-fh_platform:
+
+
 

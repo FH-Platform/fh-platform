@@ -4,16 +4,13 @@ namespace FHPlatform\ClientBundle\Client\Data;
 
 use Elastica\Document;
 use Elastica\Response;
-use FHPlatform\ClientBundle\Client\ElasticaClient;
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ClientBundle\Client\Query\QueryClient;
+use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
 
 class DataClient
 {
     public function __construct(
-        private readonly ElasticaClient $client,
-        private readonly IndexClient $indexClient,
-        private readonly QueryClient $queryClient, // TODO -> TMP, public
+        private readonly ConnectionFetcher $connectionFetcher,
     ) {
     }
 
@@ -23,14 +20,19 @@ class DataClient
             return null;
         }
 
-        $indexes = [];
-        $documents = [];
         foreach ($entities as $entity) {
-            $className = $entity['className'];
-            $identifier = $entity['identifier'];
-            $data = $entity['data'];
+            /** @var Entity $entity */
+            $index = $entity->getIndex();
+            $connection = $index->getConnection();
 
-            $index = $this->indexClient->getIndex($className);
+            $client = $this->connectionFetcher->fetch($connection);
+
+            $className = $entity->getClassName();
+            $identifier = $entity->getIdentifier();
+            $data = $entity->getData();
+            $indexName = $entity->getIndex()->getName();
+
+            $index = $client->getIndex($indexName);
 
             $indexes[$index->getName()] = $index;
 
@@ -40,7 +42,7 @@ class DataClient
             $documents[] = $document;
         }
 
-        $response = $this->client->updateDocuments($documents);
+        $response = $client->updateDocuments($documents);
 
         foreach ($indexes as $index) {
             $index->refresh();
@@ -51,31 +53,6 @@ class DataClient
 
     public function deleteBatch(array $entities): ?Response
     {
-        if (0 === count($entities)) {
-            return null;
-        }
-
-        $indexes = [];
-        $documents = [];
-        foreach ($entities as $entity) {
-            $className = $entity['className'];
-            $identifier = $entity['identifier'];
-
-            $index = $this->indexClient->getIndex($className);
-
-            $indexes[$index->getName()] = $index;
-
-            $document = new Document($identifier, []);
-            $document->setIndex($index);
-            $documents[] = $document;
-        }
-
-        $response = $this->client->deleteDocuments($documents);
-
-        foreach ($indexes as $index) {
-            $index->refresh();
-        }
-
         return $response;
     }
 }

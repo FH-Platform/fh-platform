@@ -5,13 +5,11 @@ namespace FHPlatform\ClientBundle\Client\Query;
 use Elastica\Query;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\ClientBundle\Client\ElasticaClient;
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 
 class QueryClient
 {
     public function __construct(
-        private readonly ElasticaClient $client,
         private readonly IndexClient $indexClient,
     ) {
     }

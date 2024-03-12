@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Index;
+namespace FHPlatform\ClientBundle\Tests\Client\Index;
 
 use FHPlatform\ClientBundle\Exception\ClassNameForIndexNotExists;
 use FHPlatform\ClientBundle\Tests\TestCase;

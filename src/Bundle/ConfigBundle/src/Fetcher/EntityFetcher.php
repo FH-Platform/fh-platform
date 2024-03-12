@@ -2,21 +2,30 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\UtilBundle\Helper\EntityHelper;
 
 class EntityFetcher
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
         private readonly IndexFetcher $indexFetcher,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly EntityHelper $entityHelper,
     ) {
     }
 
     public function fetch($entity): Entity
     {
         $className = $entity::class;
+
+        $identifier = null;
+        if (!$this->entityManager->getMetadataFactory()->isTransient($className)) {
+            $identifier = $this->entityHelper->getIdentifierValue($entity);
+        }
 
         // TODO throw error if class not available for ES
 
@@ -38,6 +47,6 @@ class EntityFetcher
         }
 
         // return
-        return new Entity($entity, $index, $data, $shouldBeIndexed);
+        return new Entity($entity, $className, $identifier, $index, $data, $shouldBeIndexed);
     }
 }

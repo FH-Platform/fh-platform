@@ -4,13 +4,11 @@ namespace FHPlatform\ClientBundle\Client\Index;
 
 use Elastica\Index;
 use Elastica\Request;
-use FHPlatform\ClientBundle\Client\ElasticaClient;
 use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
 
 class IndexNameClient
 {
     public function __construct(
-        private readonly ElasticaClient $client,
         private readonly ClientBundleProvider $clientBundleProvider,
     ) {
     }
