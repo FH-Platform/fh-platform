@@ -2,7 +2,6 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
 
-use FHPlatform\ClientBundle\Client\Index\IndexClientConnection;
 use FHPlatform\ClientBundle\Client\Index\IndexClientRaw;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
@@ -45,7 +44,6 @@ class IndexCommandsTest extends TestCase
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-all']);
         $this->assertEquals(0, count($indexClientRaw->getIndexesNameByPrefix($connection)));
-
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
         $this->assertEquals(2, count($indexClientRaw->getIndexesNameByPrefix($connection)));

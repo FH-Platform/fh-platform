@@ -4,7 +4,7 @@ bundles=(
   "ConfigBundle"
   "UtilBundle"
   "PersistenceBundle"
-  "ClientBundle",
+  "ClientBundle"
   "DataSyncBundle"
 )
 

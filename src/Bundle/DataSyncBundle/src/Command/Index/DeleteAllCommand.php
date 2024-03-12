@@ -2,7 +2,6 @@
 
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
-use FHPlatform\ClientBundle\Client\Index\IndexAllClient;
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
