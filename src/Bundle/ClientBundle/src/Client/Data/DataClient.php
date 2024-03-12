@@ -11,44 +11,67 @@ class DataClient
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
-    ) {
+    )
+    {
     }
 
-    public function upsertBatch(array $entities): ?Response
+    public function upsertBatch(array $entities): array
     {
         if (0 === count($entities)) {
-            return null;
+            return [];
         }
 
+        //store connections by name
+        $connections = [];
         foreach ($entities as $entity) {
             /** @var Entity $entity */
             $index = $entity->getIndex();
             $connection = $index->getConnection();
 
-            $client = $this->connectionFetcher->fetch($connection);
-
-            $className = $entity->getClassName();
-            $identifier = $entity->getIdentifier();
-            $data = $entity->getData();
-            $indexName = $entity->getIndex()->getName();
-
-            $index = $client->getIndex($indexName);
-
-            $indexes[$index->getName()] = $index;
-
-            $document = new Document($identifier, $data);
-            $document->setIndex($index);
-            $document->setDocAsUpsert(true);
-            $documents[] = $document;
+            $connections[$connection->getName()] = $connection;
         }
 
-        $response = $client->updateDocuments($documents);
+        //group entities by connection name and index name
+        $entitiesGrouped = [];
+        foreach ($entities as $entity) {
+            /** @var Entity $entity */
+            $index = $entity->getIndex();
+            $connection = $index->getConnection();
 
-        foreach ($indexes as $index) {
-            $index->refresh();
+            $entitiesGrouped[$connection->getName()][$index->getName()][] = [
+                'identifier' => $entity->getIdentifier(),
+                'data' =>  $entity->getData(),
+            ];
         }
 
-        return $response;
+        //do the upsert for each index
+        $responses = [];
+        foreach ($entitiesGrouped as $connectionName => $indexes){
+            $client = $this->connectionFetcher->fetch($connections[$connectionName]);
+
+            foreach ($indexes as $indexName => $entities){
+                $index = $client->getIndex($indexName);
+
+                $documents = [];
+                foreach ($entities as $entity){
+                    $identifier = $entity['identifier'];
+                    $data = $entity['data'];
+
+                    $document = new Document($identifier, $data);
+                    $document->setIndex($index);
+                    $document->setDocAsUpsert(true);
+                    $documents[] = $document;
+                }
+
+                $response = $client->updateDocuments($documents);
+                $responses = [$response];
+
+                $index->refresh();
+            }
+        }
+
+        //return array of responses
+        return $responses;
     }
 
     public function deleteBatch(array $entities): ?Response

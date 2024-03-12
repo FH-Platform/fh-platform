@@ -68,12 +68,15 @@ services:
         build: ./.docker/kibana
         ports: [ '5603:5601' ]
         depends_on: [ 'elasticsearch' ]
-
+        environment:
+            - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
     kibana2:
         container_name: fh_platform_kibana2
         build: ./.docker/kibana
         ports: [ '5604:5601' ]
         depends_on: [ 'elasticsearch2' ]
+        environment:
+            - "ELASTICSEARCH_HOSTS=http://elasticsearch2:9200"
 volumes:
     fh_platform_es-data:
     fh_platform_es-data2:

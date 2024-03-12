@@ -24,7 +24,14 @@ class DataClientTest extends TestCase
             ],
         ]);
 
+        $connection2 = new Connection('default2', 'prefix_', [
+            'servers' => [
+                ['host' => 'elasticsearch2', 'port' => '9200'],
+            ],
+        ]);
+
         $index = new Index(User::class, $connection, 'user', [], [], []);
+        $index2 = new Index(User::class, $connection2, 'user', [], [], []);
 
         $user = new User();
         $user->setNameString('test');
@@ -35,6 +42,7 @@ class DataClientTest extends TestCase
         $this->dataClient->upsertBatch([
             new Entity($user, User::class, 1, $index, ['test' => '1'], true),
             new Entity($user, User::class, 2, $index, ['test2' => '2'], true),
+            new Entity($user, User::class, 3, $index2, ['test3' => '3'], true),
         ]);
     }
 }
