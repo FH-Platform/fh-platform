@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection;
 
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 
-class ProviderConnectionDefault2 extends ProviderConnection
+class ProviderConnection_Default2 extends ProviderConnection
 {
     public function getName(): string
     {

@@ -5,8 +5,18 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnectionDefault;
-use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnectionDefault2;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default2;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_First;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_Second;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntityRelated_First;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntityRelated_Second;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex_First;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorIndex_Second;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\ProviderEntity_Company;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\ProviderEntity_User;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\ProviderEntityRelated_Permission;
+use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider\ProviderEntityRelated_Role;
 use FHPlatform\ConfigBundle\Tests\TestCase;
 
 class ConnectionsFetcherTest extends TestCase
@@ -14,8 +24,18 @@ class ConnectionsFetcherTest extends TestCase
     protected function setUp(): void
     {
         TaggedProvider::$includedClasses = [
-            ProviderConnectionDefault::class,
-            ProviderConnectionDefault2::class,
+            ProviderConnection_Default::class,
+            ProviderConnection_Default2::class,
+            ProviderEntity_User::class,
+            ProviderEntity_Company::class,
+            ProviderEntityRelated_Role::class,
+            ProviderEntityRelated_Permission::class,
+            DecoratorEntity_First::class,
+            DecoratorEntity_Second::class,
+            DecoratorIndex_First::class,
+            DecoratorIndex_Second::class,
+            DecoratorEntityRelated_First::class,
+            DecoratorEntityRelated_Second::class,
         ];
 
         parent::setUp();

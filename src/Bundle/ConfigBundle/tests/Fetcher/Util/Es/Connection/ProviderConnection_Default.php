@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection;
 
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 
-class ProviderConnectionDefault extends ProviderConnection
+class ProviderConnection_Default extends ProviderConnection
 {
     public function getIndexPrefix(): string
     {
