@@ -2,11 +2,22 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider;
 
+use FHPlatform\ConfigBundle\Service\Namer\IndexNamer;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Company;
 
 class ProviderEntity_Company extends ProviderEntity
 {
+    public function getConnection(): string
+    {
+        return 'default2';
+    }
+
+    public function getIndexName(string $className): string
+    {
+        return 'company_test';
+    }
+
     public function getClassName(): string
     {
         return Company::class;

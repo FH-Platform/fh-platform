@@ -31,8 +31,8 @@ class IndexFetcherTest extends TestCase
 
         $index = $indexFetcher->fetch(Company::class);
         $this->assertEquals(Company::class, $index->getClassName());
-        $this->assertEquals('default', $index->getConnection()->getName());
-        $this->assertEquals('company', $index->getName());
+        $this->assertEquals('default2', $index->getConnection()->getName());
+        $this->assertEquals('company_test', $index->getName());
         $this->assertEquals([
             'decorator_index_mapping_level_-1' => -1,
             'decorator_index_mapping_level_0_company' => 0,
