@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
-use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\DTO\Connection;
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderIndexInterface;

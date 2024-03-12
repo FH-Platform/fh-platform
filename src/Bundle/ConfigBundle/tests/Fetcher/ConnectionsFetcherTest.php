@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
+use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 
 class ConnectionsFetcherTest extends TestCase

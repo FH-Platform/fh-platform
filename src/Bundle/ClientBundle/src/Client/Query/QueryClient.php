@@ -7,7 +7,7 @@ use Elastica\Result;
 use Elastica\Search;
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\DTO\Index;
 
 class QueryClient
 {

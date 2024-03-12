@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
+use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 
 class ConnectionFetcher

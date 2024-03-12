@@ -4,7 +4,7 @@ namespace FHPlatform\ClientBundle\Client\Data;
 
 use Elastica\Document;
 use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
+use FHPlatform\ConfigBundle\DTO\Entity;
 
 class DataClient
 {

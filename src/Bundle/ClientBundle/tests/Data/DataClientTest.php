@@ -8,9 +8,9 @@ use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Tests\TestCase;
 use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
 use FHPlatform\ClientBundle\Tests\Util\Entity\User;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\DTO\Connection;
+use FHPlatform\ConfigBundle\DTO\Entity;
+use FHPlatform\ConfigBundle\DTO\Index;
 
 class DataClientTest extends TestCase
 {

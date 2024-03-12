@@ -3,7 +3,7 @@
 namespace FHPlatform\ClientBundle\Provider;
 
 use FHPlatform\ClientBundle\Exception\ClassNameForIndexNotExists;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\DTO\Index;
 
 class ClientBundleProvider
 {

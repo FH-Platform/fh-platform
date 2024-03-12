@@ -3,7 +3,7 @@
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

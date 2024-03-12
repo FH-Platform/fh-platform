@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Fetcher;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Entity;
+use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\UtilBundle\Helper\EntityHelper;

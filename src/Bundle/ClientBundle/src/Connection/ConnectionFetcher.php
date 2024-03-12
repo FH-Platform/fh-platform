@@ -3,7 +3,7 @@
 namespace FHPlatform\ClientBundle\Connection;
 
 use Elastica\Client;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
+use FHPlatform\ConfigBundle\DTO\Connection;
 
 class ConnectionFetcher extends Client
 {

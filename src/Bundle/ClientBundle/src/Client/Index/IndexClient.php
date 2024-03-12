@@ -3,7 +3,7 @@
 namespace FHPlatform\ClientBundle\Client\Index;
 
 use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
-use FHPlatform\ConfigBundle\Fetcher\DTO\Index;
+use FHPlatform\ConfigBundle\DTO\Index;
 
 class IndexClient
 {
