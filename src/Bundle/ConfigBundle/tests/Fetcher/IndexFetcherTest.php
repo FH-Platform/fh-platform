@@ -19,14 +19,14 @@ class IndexFetcherTest extends TestCase
         $this->assertEquals('default', $index->getConnection()->getName());
         $this->assertEquals('user', $index->getName());
         $this->assertEquals([
-            'index_mapping_level_-1' => -1,
-            'index_mapping_level_0_user' => 0,
-            'index_mapping_level_1' => 1,
+            'decorator_index_mapping_level_-1' => -1,
+            'decorator_index_mapping_level_0_user' => 0,
+            'decorator_index_mapping_level_1' => 1,
         ], $index->getMapping());
         $this->assertEquals([
-            'index_settings_level_-1' => -1,
-            'index_settings_level_0_user' => 0,
-            'index_settings_level_1' => 1,
+            'decorator_index_settings_level_-1' => -1,
+            'decorator_index_settings_level_0_user' => 0,
+            'decorator_index_settings_level_1' => 1,
         ], $index->getSettings());
 
         $index = $indexFetcher->fetch(Company::class);
@@ -34,14 +34,14 @@ class IndexFetcherTest extends TestCase
         $this->assertEquals('default', $index->getConnection()->getName());
         $this->assertEquals('company', $index->getName());
         $this->assertEquals([
-            'index_mapping_level_-1' => -1,
-            'index_mapping_level_0_company' => 0,
-            'index_mapping_level_1' => 1,
+            'decorator_index_mapping_level_-1' => -1,
+            'decorator_index_mapping_level_0_company' => 0,
+            'decorator_index_mapping_level_1' => 1,
         ], $index->getMapping());
         $this->assertEquals([
-            'index_settings_level_-1' => -1,
-            'index_settings_level_0_company' => 0,
-            'index_settings_level_1' => 1,
+            'decorator_index_settings_level_-1' => -1,
+            'decorator_index_settings_level_0_company' => 0,
+            'decorator_index_settings_level_1' => 1,
         ], $index->getSettings());
     }
 }
