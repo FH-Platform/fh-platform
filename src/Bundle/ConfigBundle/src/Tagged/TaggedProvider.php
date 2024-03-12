@@ -58,19 +58,29 @@ class TaggedProvider
         return $this->prioritySorter->sort($this->toArray($this->decoratorsEntityRelated));
     }
 
-    private function toArray(iterable $iterable)
+    private function toArray(iterable $iterable) : array
     {
+        $includedClasses = self::$includedClasses;
+        $excludedClasses = self::$excludedClasses;
+
+        $tagged = [];
         foreach ($iterable as $item) {
-            if (0 === count(self::$includedClasses)) {
-                $array[] = $item;
+            $className = get_class($item);
+
+            if (in_array($className, $excludedClasses)) {
+                continue;
+            }
+
+            if (0 === count($includedClasses)) {
+                $tagged[] = $item;
             } else {
-                if (in_array(get_class($item), self::$includedClasses)) {
-                    $array[] = $item;
+                if (in_array($className, $includedClasses)) {
+                    $tagged[] = $item;
                 }
             }
         }
 
-        return $array;
+        return $tagged;
     }
 
     public function firstConnectionProvider(): ProviderConnection
