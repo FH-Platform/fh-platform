@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderIndex;
+use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderIndex;
 
 class IndexesFetcher
 {

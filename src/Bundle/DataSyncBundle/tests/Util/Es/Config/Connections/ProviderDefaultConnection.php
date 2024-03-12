@@ -2,7 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections;
 
-use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 
 class ProviderDefaultConnection extends ProviderConnection
 {

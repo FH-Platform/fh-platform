@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Trait;
+namespace FHPlatform\ConfigBundle\Tag\Data\Provider\Trait;
 
 trait ProviderBaseTrait
 {

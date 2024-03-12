@@ -3,7 +3,7 @@
 namespace App\Es\Config\Provider\Entity;
 
 use App\Entity\User;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
 
 class ProviderEntity_User extends ProviderEntity
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\TagProvider\Connection;
+namespace FHPlatform\ConfigBundle\Tag\Connection;
 
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 

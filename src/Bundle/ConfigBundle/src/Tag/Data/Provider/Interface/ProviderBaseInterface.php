@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface;
+namespace FHPlatform\ConfigBundle\Tag\Data\Provider\Interface;
 
 use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;
 

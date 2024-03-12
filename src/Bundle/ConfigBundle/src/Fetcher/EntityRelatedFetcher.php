@@ -4,8 +4,8 @@ namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\EntityRelated;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\DecoratorEntity;
-use FHPlatform\ConfigBundle\TagProvider\Data\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
 
 class EntityRelatedFetcher
 {

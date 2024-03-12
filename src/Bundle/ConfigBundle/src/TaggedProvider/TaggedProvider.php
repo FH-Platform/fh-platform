@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\TaggedProvider;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
-use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider

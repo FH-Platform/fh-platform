@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection;
 
-use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 
 class ProviderConnectionDefault extends ProviderConnection
 {

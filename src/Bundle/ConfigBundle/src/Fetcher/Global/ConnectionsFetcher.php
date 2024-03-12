@@ -4,7 +4,7 @@ namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
 use FHPlatform\ConfigBundle\Fetcher\DTO\Connection;
 use FHPlatform\ConfigBundle\TaggedProvider\TaggedProvider;
-use FHPlatform\ConfigBundle\TagProvider\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 
 class ConnectionsFetcher
 {

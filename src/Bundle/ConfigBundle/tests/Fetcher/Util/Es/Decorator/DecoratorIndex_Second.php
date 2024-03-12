@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator;
 
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\DecoratorIndex;
+use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorIndex;
 
 class DecoratorIndex_Second extends DecoratorIndex
 {

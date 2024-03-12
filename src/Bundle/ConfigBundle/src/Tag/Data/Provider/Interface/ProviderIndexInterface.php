@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\TagProvider\Data\Provider\Interface;
+namespace FHPlatform\ConfigBundle\Tag\Data\Provider\Interface;
 
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\ConfigBundle\Tag\Data\Decorator\Interface\DecoratorIndexInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag('fh_platform.config.provider.index')]

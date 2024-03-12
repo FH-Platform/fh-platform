@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Util\Es\Config\DecoratorIndex;
 
-use FHPlatform\ConfigBundle\TagProvider\Data\Decorator\DecoratorIndex;
+use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorIndex;
 
 class Test3DecoratorIndex extends DecoratorIndex
 {
