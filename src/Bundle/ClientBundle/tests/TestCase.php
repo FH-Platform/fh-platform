@@ -8,13 +8,12 @@ use Elastica\Query;
 use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
-use FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper;
+use FHPlatform\TestsBundle\Tests\Util\CommandHelper;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Filesystem\Filesystem;
 
 class TestCase extends KernelTestCase
 {
@@ -50,9 +49,7 @@ class TestCase extends KernelTestCase
         $this->container = static::getContainer();
 
         // (3) - CommandHelper
-        /** @var CommandHelper $commandHelper */
-        $commandHelper = $this->container->get(CommandHelper::class);
-        $this->commandHelper = $commandHelper;
+        $this->commandHelper = new CommandHelper(self::$kernel);
 
         // (4) - EntityManagerInterface
         $this->entityManager = $this->container->get(EntityManagerInterface::class);
