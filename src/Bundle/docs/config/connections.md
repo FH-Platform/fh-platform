@@ -218,7 +218,7 @@ public function getEntityData( mixed $entity, array $data, array $mapping): arra
     return $data;
 }
 
-public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
+public function getEntityShouldBeIndexed(Index $index, $entity, bool $shouldBeIndexed): bool
 {
     return $shouldBeIndexed;
 }

@@ -20,7 +20,7 @@ class DecoratorEntity_First extends DecoratorEntity
         return $data;
     }
 
-    public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
+    public function getEntityShouldBeIndexed(Index $index, $entity, bool $shouldBeIndexed): bool
     {
         if ($entity instanceof User) {
             return true;

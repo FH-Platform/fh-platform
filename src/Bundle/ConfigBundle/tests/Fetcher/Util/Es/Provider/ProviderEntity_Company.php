@@ -56,7 +56,7 @@ class ProviderEntity_Company extends ProviderEntity
         return $entitiesRelated;
     }
 
-    public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
+    public function getEntityShouldBeIndexed(Index $index, $entity, bool $shouldBeIndexed): bool
     {
         return false;
     }

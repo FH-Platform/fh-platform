@@ -22,7 +22,7 @@ class ProviderEntity_User extends ProviderEntity
     }
 
     /** @param User $entity */
-    public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool
+    public function getEntityShouldBeIndexed(Index $index, $entity, bool $shouldBeIndexed): bool
     {
         if (0 == $entity->getId() % 2) {
             return false;
