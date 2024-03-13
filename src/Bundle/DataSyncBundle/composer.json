@@ -31,7 +31,6 @@
         "fh-platform/persistence": "dev-master",
         "fh-platform/client": "dev-master",
         "fh-platform/config": "dev-master",
-        "ruflin/elastica" : "7.*",
         "symfony/doctrine-messenger": "7.*"
     },
     "require-dev": {
