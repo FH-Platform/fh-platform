@@ -52,7 +52,7 @@ class EntityFetcher
         $data = $this->decorateDataItems($className, $data, $mapping, $decorators);
 
         // return
-        return new Entity($entity, $className, $identifier, $index, $data, $shouldBeIndexed);
+        return new Entity($index, $entity, $className, $identifier, $data, $shouldBeIndexed);
     }
 
     /** @param DecoratorEntityInterface[] $decorators */
