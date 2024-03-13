@@ -32,6 +32,11 @@ class EntityFetcher
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntity();
+        foreach ($decorators as $k =>$decorator) {
+            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
+                unset($decorators[$k]);
+            }
+        }
 
         $index = $this->indexFetcher->fetch($className);
 
@@ -39,10 +44,6 @@ class EntityFetcher
         $data = [];
         $shouldBeIndexed = true;
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                continue;
-            }
-
             $data = $decorator->getEntityData($entity, $data, $index->getMapping());
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
