@@ -25,12 +25,10 @@ class ConnectionsFetcher
 
         $connections = [];
         foreach ($providersConnection as $providerConnection) {
-            /** @var ProviderConnection $providerConnection */
             $connection = $this->convertProviderConnectionToDto($providerConnection);
 
             $indexes = [];
             foreach ($providersIndex as $providerIndex) {
-                /** @var ProviderIndexInterface $providerIndex */
                 if ($providerIndex->getConnection() === $providerConnection->getName()) {
                     $indexes[] = $this->convertProviderIndexToDto($providerIndex, $connection);
                 }

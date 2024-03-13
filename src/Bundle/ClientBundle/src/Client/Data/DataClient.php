@@ -95,7 +95,7 @@ class DataClient
         return $responses;
     }
 
-    private function groupConnections($entities): array
+    private function groupConnections(array $entities): array
     {
         $connections = [];
         foreach ($entities as $entity) {
@@ -109,7 +109,7 @@ class DataClient
         return $connections;
     }
 
-    private function groupEntities($entities): array
+    private function groupEntities(array $entities): array
     {
         $entitiesGrouped = [];
         foreach ($entities as $entity) {

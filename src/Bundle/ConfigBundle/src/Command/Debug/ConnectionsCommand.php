@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ConfigBundle\Command\Debug;
 
-use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -25,8 +24,6 @@ class ConnectionsCommand extends Command
         $output->writeln('Connections:');
 
         foreach ($connections as $connection) {
-            /* @var Connection $connection */
-
             $output->writeln('----------------------------------------------------------------------');
             $output->writeln('name='.$connection->getName());
             $output->writeln('prefix='.$connection->getPrefix());

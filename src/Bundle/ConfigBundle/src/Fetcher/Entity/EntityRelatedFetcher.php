@@ -30,11 +30,11 @@ class EntityRelatedFetcher
         return new EntityRelated($entity, $entitiesRelated);
     }
 
-    private function decorateEntitiesRelated(mixed $entity, $decorators): array
+    /** @param  DecoratorEntityRelated[] $decorators */
+    private function decorateEntitiesRelated(mixed $entity, array $decorators): array
     {
         $entitiesRelated = [];
         foreach ($decorators as $decorator) {
-            /** @var DecoratorEntityRelated $decorator */
             $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $entitiesRelated);
         }
 

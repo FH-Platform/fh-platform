@@ -3,7 +3,11 @@
 namespace FHPlatform\ConfigBundle\Tagged;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
+use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityInterface;
+use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityRelatedInterface;
+use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
@@ -23,21 +27,25 @@ class TaggedProvider
     ) {
     }
 
+    /** @return  ProviderConnection[] */
     public function getProvidersConnection(): array
     {
         return $this->toArray($this->providersConnection);
     }
 
+    /** @return  ProviderIndexInterface[] */
     public function getProvidersIndex(): array
     {
         return $this->toArray($this->providersIndex);
     }
 
+    /** @return  ProviderEntityInterface[] */
     public function getProvidersEntity(): array
     {
         return $this->toArray($this->providersEntity);
     }
 
+    /** @return  ProviderEntityRelatedInterface[] */
     public function getProvidersEntityRelated(): array
     {
         return $this->toArray($this->providersEntityRelated);

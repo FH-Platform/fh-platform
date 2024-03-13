@@ -19,7 +19,6 @@ class ProviderFinder
     {
         // TODO find in connections
         foreach ($this->taggedProvider->getProvidersIndex() as $provider) {
-            /** @var ProviderIndexInterface $provider */
             if ($provider->getClassName() === $className) {
                 return $provider;
             }
@@ -36,7 +35,6 @@ class ProviderFinder
     public function findProviderEntity(string $className, bool $throw = true): ?ProviderEntityInterface
     {
         foreach ($this->taggedProvider->getProvidersEntity() as $provider) {
-            /** @var ProviderEntityInterface $provider */
             if ($provider->getClassName() === $className) {
                 return $provider;
             }
@@ -53,7 +51,6 @@ class ProviderFinder
     public function findProviderEntityRelated(string $className, bool $throw = true): ?ProviderEntityRelatedInterface
     {
         foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {
-            /** @var ProviderEntityRelatedInterface $provider */
             if ($provider->getClassName() === $className) {
                 return $provider;
             }

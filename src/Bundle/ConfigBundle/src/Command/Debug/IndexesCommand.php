@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ConfigBundle\Command\Debug;
 
-use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,8 +25,6 @@ class IndexesCommand extends Command
 
         foreach ($connections as $connection) {
             foreach ($connection->getIndexes() as $index) {
-                /* @var Index $index */
-
                 $output->writeln('----------------------------------------------------------------------');
                 $output->writeln('name='.$index->getName());
                 $output->writeln('className='.$index->getClassName());

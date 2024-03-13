@@ -6,7 +6,8 @@ use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;
 
 class PrioritySorter
 {
-    public function sort($decorators)
+    /** @param PriorityInterface[] $decorators */
+    public function sort(array $decorators): array
     {
         uasort($decorators, function ($decorator, $decorator2) {
             /* @var PriorityInterface $decorator */

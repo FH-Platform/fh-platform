@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher;
 
-use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 
@@ -19,8 +18,6 @@ class IndexFetcher
         $indexes = [];
         foreach ($this->connectionsFetcher->fetch() as $connection) {
             foreach ($connection->getIndexes() as $index) {
-                /* @var Connection $connection */
-
                 if ($index->getClassName() === $className) {
                     $indexes[] = $index;
                 }
