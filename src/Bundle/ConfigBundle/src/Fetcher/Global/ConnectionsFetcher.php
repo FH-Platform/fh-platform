@@ -20,13 +20,17 @@ class ConnectionsFetcher
     /** @return Connection[] */
     public function fetch(): array
     {
+        $providersConnection = $this->taggedProvider->getProvidersConnection();
+        $providersIndex = $this->taggedProvider->getProvidersIndex();
+
         $connections = [];
-        foreach ($this->taggedProvider->getProvidersConnection() as $providerConnection) {
+        foreach ($providersConnection as $providerConnection) {
             /** @var ProviderConnection $providerConnection */
             $connection = $this->convertProviderConnectionToDto($providerConnection);
 
             $indexes = [];
-            foreach ($this->taggedProvider->getProvidersIndex() as $providerIndex) {
+            //dd($this->taggedProvider->getProvidersIndex(), 2);
+            foreach ($providersIndex as $providerIndex) {
                 /** @var ProviderIndexInterface $providerIndex */
                 if ($providerIndex->getConnection() === $providerConnection->getName()) {
                     $indexes[] = $this->convertProviderIndexToDto($providerIndex, $connection);
