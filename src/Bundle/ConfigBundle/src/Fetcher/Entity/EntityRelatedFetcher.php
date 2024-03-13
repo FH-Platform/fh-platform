@@ -22,15 +22,16 @@ class EntityRelatedFetcher
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntityRelated();
+        foreach ($decorators as $k => $decorator) {
+            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
+                unset($decorators[$k]);
+            }
+        }
 
         // decorate
         $data = [];
         $entitiesRelated = [];
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                continue;
-            }
-
             /** @var DecoratorEntityRelated $decorator */
             $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $entitiesRelated);
         }
