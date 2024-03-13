@@ -14,7 +14,8 @@ trait DecoratorIndexTrait
         return $mapping;
     }
 
-    public function getIndexMappingItem(string $className, array $mappingItem): array{
+    public function getIndexMappingItem(string $className, array $mappingItem, string $key, ?string $type): array
+    {
         return $mappingItem;
     }
 }
