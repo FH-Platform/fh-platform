@@ -77,7 +77,7 @@ class ConnectionsFetcher
 
         $mapping = $this->decorateMappingItems($className, $mapping, $decorators);
 
-        return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
+        return new Index($connection, $className, $name, $mapping, $settings, $additionalConfig);
     }
 
     /** @param DecoratorIndexInterface[] $decorators */

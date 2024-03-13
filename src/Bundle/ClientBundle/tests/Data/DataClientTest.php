@@ -26,10 +26,10 @@ class DataClientTest extends TestCase
         $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200']]]);
         $connection2 = new Connection('default2', 'prefix2_', ['servers' => [['host' => 'elasticsearch2', 'port' => '9200']]]);
 
-        $indexUser = new Index(User::class, $connection, 'user', [], [], []);
-        $indexUser2 = new Index(User::class, $connection2, 'user', [], [], []);
-        $indexRole = new Index(Role::class, $connection, 'role', [], [], []);
-        $indexLog = new Index(Log::class, $connection, 'log', [], [], []);
+        $indexUser = new Index($connection, User::class, 'user', [], [], []);
+        $indexUser2 = new Index($connection2, User::class, 'user', [], [], []);
+        $indexRole = new Index($connection, Role::class, 'role', [], [], []);
+        $indexLog = new Index($connection, Log::class, 'log', [], [], []);
 
         $indexClientNew->recreateIndex($indexUser);
         $indexClientNew->recreateIndex($indexUser2);
