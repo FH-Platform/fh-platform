@@ -46,7 +46,7 @@ class ConnectionsFetcher
 
     private function convertProviderConnectionToDto(ProviderConnection $providerConnection): Connection
     {
-        return new Connection($providerConnection->getName(), $providerConnection->getIndexPrefix(), $providerConnection->getElasticaConfig());
+        return new Connection($providerConnection->getName(), $providerConnection->getIndexPrefix(), $providerConnection->getClientConfig());
     }
 
     private function convertProviderIndexToDto(ProviderIndexInterface $providerIndex, Connection $connection): Index

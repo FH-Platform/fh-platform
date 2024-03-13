@@ -4,10 +4,11 @@ namespace FHPlatform\ConfigBundle\DTO;
 
 class Connection
 {
+    /** @param Index[] $indexes */
     public function __construct(
         private readonly string $name,
         private readonly string $prefix,
-        private readonly array $elasticaConfig,
+        private readonly array $clientConfig,
         private array $indexes = [],
     ) {
     }
@@ -22,12 +23,11 @@ class Connection
         return $this->prefix;
     }
 
-    public function getElasticaConfig(): array
+    public function getClientConfig(): array
     {
-        return $this->elasticaConfig;
+        return $this->clientConfig;
     }
 
-    /** @return Index[] */
     public function getIndexes(): array
     {
         return $this->indexes;

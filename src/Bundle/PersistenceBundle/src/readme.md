@@ -30,7 +30,7 @@ class ProviderDefault extends ConnectionProvider
         return 'prefix_';
     }
 
-    public function getElasticaConfig(): array
+    public function getClientConfig(): array
     {
         return [
             'servers' => [
@@ -43,7 +43,7 @@ class ProviderDefault extends ConnectionProvider
 
 - "name" - name of the connection
 - "indexPrefix" - prefix for indexes on that connection
-- "elasticaConfig" - is configuration which is used for creation of elastica client, see more here: https://elastica.io/getting-started/installation.html
+- "clientConfig" - is configuration which is used for creation of elastica client, see more here: https://elastica.io/getting-started/installation.html
 
 ```
 $elasticaClient = new \Elastica\Client(array(
@@ -73,7 +73,7 @@ class ProviderSecond extends ConnectionProvider
         return 'prefix_';
     }
 
-    public function getElasticaConfig(): array
+    public function getClientConfig(): array
     {
         return [
             'servers' => [

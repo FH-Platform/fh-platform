@@ -16,7 +16,7 @@ class Provider_Connection_Another extends ProviderConnection
         return 'fh_platform_another_dev_';
     }
 
-    public function getElasticaConfig(): array
+    public function getClientConfig(): array
     {
         return [
             'servers' => [

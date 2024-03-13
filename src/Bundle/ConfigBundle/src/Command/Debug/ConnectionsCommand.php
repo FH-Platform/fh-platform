@@ -31,7 +31,7 @@ class ConnectionsCommand extends Command
             $output->writeln('name='.$connection->getName());
             $output->writeln('prefix='.$connection->getPrefix());
             $output->writeln('config=');
-            $output->writeln(json_encode($connection->getElasticaConfig(), JSON_PRETTY_PRINT));
+            $output->writeln(json_encode($connection->getClientConfig(), JSON_PRETTY_PRINT));
             $output->writeln('----------------------------------------------------------------------');
         }
 

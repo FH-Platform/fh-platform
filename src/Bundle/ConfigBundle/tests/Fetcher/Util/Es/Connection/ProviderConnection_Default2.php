@@ -16,7 +16,7 @@ class ProviderConnection_Default2 extends ProviderConnection
         return 'prefix_default2_';
     }
 
-    public function getElasticaConfig(): array
+    public function getClientConfig(): array
     {
         return ['test2' => 'test2'];
     }

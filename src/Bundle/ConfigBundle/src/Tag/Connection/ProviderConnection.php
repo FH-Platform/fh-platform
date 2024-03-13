@@ -14,5 +14,5 @@ abstract class ProviderConnection
 
     abstract public function getIndexPrefix(): string;
 
-    abstract public function getElasticaConfig(): array;
+    abstract public function getClientConfig(): array;
 }

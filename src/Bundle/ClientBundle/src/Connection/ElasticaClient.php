@@ -9,6 +9,6 @@ class ElasticaClient extends Client
 {
     public function __construct(Connection $connection)
     {
-        parent::__construct($connection->getElasticaConfig());
+        parent::__construct($connection->getClientConfig());
     }
 }
