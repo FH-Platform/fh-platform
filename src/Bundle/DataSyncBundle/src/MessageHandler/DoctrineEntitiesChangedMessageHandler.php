@@ -8,7 +8,6 @@ use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesIndexFetcher;
 use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesRelatedFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
-use FHPlatform\ConfigBundle\Finder\ProviderFinder;
 use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -20,7 +19,6 @@ class DoctrineEntitiesChangedMessageHandler
     public function __construct(
         private readonly EntityHelper $entityHelper,
         private readonly DataClient $dataClient,
-        private readonly ProviderFinder $providerFinder,
         private readonly EntityFetcher $entityFetcher,
         private readonly IndexFetcher $indexFetcher,
         private readonly DoctrineClassesNamesIndexFetcher $doctrineClassesNamesIndexFetcher,
@@ -30,10 +28,10 @@ class DoctrineEntitiesChangedMessageHandler
 
     public function __invoke(DoctrineEntitiesChangedMessage $message): void
     {
-        $entitiesUpsert = $entitiesDelete = [];
-
         $classNamesIndex = $this->doctrineClassesNamesIndexFetcher->fetch();
         $classNamesRelated = $this->doctrineClassesNamesRelatedFetcher->fetch();
+
+        $entitiesUpsert = $entitiesDelete = [];
 
         $event = $message->getChangedEntitiesEvent();
         foreach ($event->getEvents() as $event) {
@@ -44,8 +42,12 @@ class DoctrineEntitiesChangedMessageHandler
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
-            if(in_array($className, $classNamesIndex)){
+            if (in_array($className, $classNamesIndex)) {
                 $this->prepareUpdates($className, $identifier, $type, $entitiesUpsert, $entitiesDelete);
+            }
+
+            if (in_array($className, $classNamesRelated)) {
+                // TODO
             }
         }
 
@@ -54,7 +56,7 @@ class DoctrineEntitiesChangedMessageHandler
         $this->dataClient->deleteBatch($entitiesDelete);
     }
 
-    private function prepareUpdates($className, $identifier, $type, &$entitiesUpsert, &$entitiesDelete) : void
+    private function prepareUpdates($className, $identifier, $type, &$entitiesUpsert, &$entitiesDelete): void
     {
         // TODO cache
         $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
