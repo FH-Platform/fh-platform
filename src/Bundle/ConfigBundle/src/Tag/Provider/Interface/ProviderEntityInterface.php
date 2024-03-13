@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tag\Data\Provider\Interface;
+namespace FHPlatform\ConfigBundle\Tag\Provider\Interface;
 
-use FHPlatform\ConfigBundle\Tag\Data\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag('fh_platform.config.provider.entity')]

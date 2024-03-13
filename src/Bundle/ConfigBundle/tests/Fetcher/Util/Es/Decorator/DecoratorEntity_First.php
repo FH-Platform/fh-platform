@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator;
 
-use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntity;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 
 class DecoratorEntity_First extends DecoratorEntity

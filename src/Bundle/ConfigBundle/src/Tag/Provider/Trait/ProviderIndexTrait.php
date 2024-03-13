@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tag\Data\Provider\Trait;
+namespace FHPlatform\ConfigBundle\Tag\Provider\Trait;
 
 use FHPlatform\ConfigBundle\Service\Namer\IndexNamer;
 

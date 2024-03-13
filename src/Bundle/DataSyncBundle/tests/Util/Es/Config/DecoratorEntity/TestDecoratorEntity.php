@@ -2,7 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorEntity;
 
-use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntity;
 
 class TestDecoratorEntity extends DecoratorEntity
 {

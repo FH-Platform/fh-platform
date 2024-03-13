@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tagged\Util;
 
-use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderIndex;
+use FHPlatform\ConfigBundle\Tag\Provider\ProviderIndex;
 
 class ProviderIndexDefault extends ProviderIndex
 {

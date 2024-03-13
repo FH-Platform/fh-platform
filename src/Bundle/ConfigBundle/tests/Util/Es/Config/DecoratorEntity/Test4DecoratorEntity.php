@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Util\Es\Config\DecoratorEntity;
 
-use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntity;
 
 class Test4DecoratorEntity extends DecoratorEntity
 {

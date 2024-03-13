@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tag\Data\Decorator\Interface;
+namespace FHPlatform\ConfigBundle\Tag\Decorator\Interface;
 
 use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;

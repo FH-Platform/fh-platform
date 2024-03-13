@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider;
 
-use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntityRelated;
+use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntityRelated;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Role;
 
 class ProviderEntityRelated_Role extends ProviderEntityRelated

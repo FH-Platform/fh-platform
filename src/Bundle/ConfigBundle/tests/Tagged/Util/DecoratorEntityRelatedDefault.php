@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tagged\Util;
 
-use FHPlatform\ConfigBundle\Tag\Data\Decorator\DecoratorEntityRelated;
+use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntityRelated;
 
 class DecoratorEntityRelatedDefault extends DecoratorEntityRelated
 {

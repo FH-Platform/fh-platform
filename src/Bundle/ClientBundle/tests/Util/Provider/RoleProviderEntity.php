@@ -3,7 +3,7 @@
 namespace FHPlatform\ClientBundle\Tests\Util\Config\Provider;
 
 use FHPlatform\ClientBundle\Tests\Util\Entity\Role;
-use FHPlatform\ConfigBundle\Tag\Data\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
 
 class RoleProviderEntity extends ProviderEntity
 {

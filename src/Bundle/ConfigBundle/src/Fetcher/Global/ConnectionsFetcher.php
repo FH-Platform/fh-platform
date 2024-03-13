@@ -5,8 +5,8 @@ namespace FHPlatform\ConfigBundle\Fetcher\Global;
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
-use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Tag\Data\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class ConnectionsFetcher
