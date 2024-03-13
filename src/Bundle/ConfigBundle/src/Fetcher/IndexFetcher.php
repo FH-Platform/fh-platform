@@ -13,19 +13,20 @@ class IndexFetcher
     ) {
     }
 
-    public function fetch(string $className): Index
+    /** @return Index[] */
+    public function fetchIndexesByClassName(string $className): array
     {
+        $indexes = [];
         foreach ($this->connectionsFetcher->fetch() as $connection) {
             foreach ($connection->getIndexes() as $index) {
                 /* @var Connection $connection */
 
                 if ($index->getClassName() === $className) {
-                    return $index;
+                    $indexes[] = $index;
                 }
             }
         }
 
-        // TODO
-        throw new \Exception('Error');
+        return $indexes;
     }
 }

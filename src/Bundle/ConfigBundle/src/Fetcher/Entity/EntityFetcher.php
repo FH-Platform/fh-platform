@@ -40,7 +40,7 @@ class EntityFetcher
             }
         }
 
-        $index = $this->indexFetcher->fetch($className);
+        $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
         $mapping = $index->getMapping();
 
         // decorate

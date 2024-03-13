@@ -35,7 +35,8 @@ class DoctrineEntitiesChangedMessageHandler
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
-            $index = $this->indexFetcher->fetch($className);
+            $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
+            $index = $indexes[0];
 
             if (ChangedEntityEvent::TYPE_DELETE_PRE === $type) {
                 // TODO

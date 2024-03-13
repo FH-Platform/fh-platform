@@ -14,7 +14,7 @@ class IndexFetcherTest extends TestCase
         $indexFetcher = $this->container->get(IndexFetcher::class);
 
         // index fetcher
-        $index = $indexFetcher->fetch(User::class);
+        $index = $indexFetcher->fetchIndexesByClassName(User::class)[0];
         $this->assertEquals(User::class, $index->getClassName());
         $this->assertEquals([], $index->getConfigAdditional());
         $this->assertEquals('default', $index->getConnection()->getName());
@@ -30,7 +30,7 @@ class IndexFetcherTest extends TestCase
             'decorator_index_settings_level_1' => [1],
         ], $index->getSettings());
 
-        $index = $indexFetcher->fetch(Company::class);
+        $index = $indexFetcher->fetchIndexesByClassName(Company::class)[0];
         $this->assertEquals(Company::class, $index->getClassName());
         $this->assertEquals(['test3' => 'test3'], $index->getConfigAdditional());
         $this->assertEquals('default2', $index->getConnection()->getName());

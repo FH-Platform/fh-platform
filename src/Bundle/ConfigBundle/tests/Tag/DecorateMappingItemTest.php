@@ -76,7 +76,7 @@ class DecorateMappingItemTest extends TestCase
                     ],
                 ],
             ],
-        ], $indexFetcher->fetch(User::class)->getMapping());
+        ], $indexFetcher->fetchIndexesByClassName(User::class)[0]->getMapping());
 
         /** @var EntityFetcher $entityFetcher */
         $entityFetcher = $this->container->get(EntityFetcher::class);

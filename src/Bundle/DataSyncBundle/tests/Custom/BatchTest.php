@@ -25,7 +25,7 @@ class BatchTest extends TestCase
     {
         /** @var IndexFetcher $indexFetcher */
         $indexFetcher = $this->container->get(IndexFetcher::class);
-        $index = $indexFetcher->fetch(User::class);
+        $index = $indexFetcher->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
 
