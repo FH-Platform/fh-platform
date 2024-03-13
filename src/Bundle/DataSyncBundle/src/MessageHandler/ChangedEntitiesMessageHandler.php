@@ -42,7 +42,7 @@ class ChangedEntitiesMessageHandler
             $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
             if (!$entity) {
                 $index = $this->indexFetcher->fetch($className);
-                $entitiesDelete[$className.'_'.$identifier] = new Entity($index, null, $className, $identifier, [], false);
+                $entitiesDelete[$className.'_'.$identifier] = new Entity($index, null, $identifier, [], false);
                 continue;
             }
 

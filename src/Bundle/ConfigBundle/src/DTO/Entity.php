@@ -7,7 +7,6 @@ class Entity
     public function __construct(
         private readonly Index $index,
         private readonly mixed $entity,
-        private readonly string $className,
         private readonly mixed $identifier,
         private readonly array $data,
         private readonly bool $shouldBeIndexed,
@@ -22,11 +21,6 @@ class Entity
     public function getEntity(): mixed
     {
         return $this->entity;
-    }
-
-    public function getClassName(): string
-    {
-        return $this->className;
     }
 
     public function getIdentifier(): mixed
