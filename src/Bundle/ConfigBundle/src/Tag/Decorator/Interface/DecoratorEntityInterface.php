@@ -11,7 +11,7 @@ interface DecoratorEntityInterface extends PriorityInterface
 {
     public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array;
 
-    public function getEntityDataItem(mixed $entity, mixed $dataItem, ?array $mappingItem, ?string $mappingItemKey, ?string $mappingItemType): mixed;
+    public function getEntityDataItem(Index $index, mixed $entity, mixed $dataItem, ?array $mappingItem, ?string $mappingItemKey, ?string $mappingItemType): mixed;
 
     public function getEntityShouldBeIndexed($entity, bool $shouldBeIndexed): bool;
 }

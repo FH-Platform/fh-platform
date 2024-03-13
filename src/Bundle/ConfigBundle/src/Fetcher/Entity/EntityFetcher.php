@@ -4,6 +4,7 @@ namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
@@ -50,28 +51,28 @@ class EntityFetcher
             $data = $decorator->getEntityData($index, $entity, $data, $mapping);
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
-        $data = $this->decorateDataItems($className, $data, $mapping, $decorators);
+        $data = $this->decorateDataItems($index, $className, $data, $mapping, $decorators);
 
         // return
         return new Entity($index, $identifier, $data, $shouldBeIndexed);
     }
 
     /** @param DecoratorEntityInterface[] $decorators */
-    private function decorateDataItems(mixed $entity, array $data, array $mapping, array $decorators): array
+    private function decorateDataItems(Index $index, mixed $entity, array $data, array $mapping, array $decorators): array
     {
         foreach ($data as $mappingItemKey => $dataItem) {
             $mappingItem = $mapping[$mappingItemKey] ?? null;
             $mappingItemType = $mappingItem['type'] ?? null;
 
             foreach ($decorators as $decorator) {
-                $data[$mappingItemKey] = $decorator->getEntityDataItem($entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
+                $data[$mappingItemKey] = $decorator->getEntityDataItem($index, $entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
             }
 
             if ('object' == $mappingItemType) {
-                $data[$mappingItemKey] = $this->decorateDataItems($entity, $dataItem, $mapping[$mappingItemKey]['properties'], $decorators);
+                $data[$mappingItemKey] = $this->decorateDataItems($index, $entity, $dataItem, $mapping[$mappingItemKey]['properties'], $decorators);
             } elseif ('nested' == $mappingItemType) {
                 foreach ($dataItem as $k2 => $item) {
-                    $data[$mappingItemKey][$k2] = $this->decorateDataItems($entity, $item, $mapping[$mappingItemKey]['properties'], $decorators);
+                    $data[$mappingItemKey][$k2] = $this->decorateDataItems($index, $entity, $item, $mapping[$mappingItemKey]['properties'], $decorators);
                 }
             }
         }
