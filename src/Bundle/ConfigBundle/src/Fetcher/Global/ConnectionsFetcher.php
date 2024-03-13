@@ -57,6 +57,10 @@ class ConnectionsFetcher
     private function convertProviderIndexToDto(ProviderIndexInterface $providerIndex, Connection $connection): Index
     {
         $className = $providerIndex->getClassName();
+        $name = $providerIndex->getIndexName($className);
+        $additionalConfig = $providerIndex->getAdditionalConfig();
+
+        $index = new Index($connection, $className, $name, $additionalConfig);
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
@@ -67,10 +71,10 @@ class ConnectionsFetcher
         // decorate mapping items
         $mapping = $this->decorateMappingItems($className, $mapping, $decorators);
 
-        $name = $providerIndex->getIndexName($className);
-        $additionalConfig = $providerIndex->getAdditionalConfig();
+        $index->setMapping($mapping);
+        $index->setSettings($settings);
 
-        return new Index($connection, $className, $name, $mapping, $settings, $additionalConfig);
+        return $index;
     }
 
     private function decorateMappingSettings(string $className, array $decorators): array

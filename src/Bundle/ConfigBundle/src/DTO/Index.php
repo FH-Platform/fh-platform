@@ -8,9 +8,9 @@ class Index
         private readonly Connection $connection,
         private readonly string $className,
         private readonly string $name,
-        private readonly array $mapping,
-        private readonly array $settings,
         private readonly array $configAdditional,
+        private array $mapping = [],
+        private array $settings = [],
     ) {
     }
 
@@ -29,6 +29,11 @@ class Index
         return $this->name;
     }
 
+    public function getConfigAdditional(): array
+    {
+        return $this->configAdditional;
+    }
+
     public function getMapping(): array
     {
         return $this->mapping;
@@ -39,8 +44,13 @@ class Index
         return $this->settings;
     }
 
-    public function getConfigAdditional(): array
+    public function setMapping(array $mapping): void
     {
-        return $this->configAdditional;
+        $this->mapping = $mapping;
+    }
+
+    public function setSettings(array $settings): void
+    {
+        $this->settings = $settings;
     }
 }
