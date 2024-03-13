@@ -95,11 +95,11 @@ class DataClient
         return $responses;
     }
 
+    /** @param Entity[] $entities */
     private function groupConnections(array $entities): array
     {
         $connections = [];
         foreach ($entities as $entity) {
-            /** @var Entity $entity */
             $index = $entity->getIndex();
             $connection = $index->getConnection();
 
@@ -109,11 +109,11 @@ class DataClient
         return $connections;
     }
 
+    /** @param Entity[] $entities */
     private function groupEntities(array $entities): array
     {
         $entitiesGrouped = [];
         foreach ($entities as $entity) {
-            /** @var Entity $entity */
             $index = $entity->getIndex();
             $connection = $index->getConnection();
 

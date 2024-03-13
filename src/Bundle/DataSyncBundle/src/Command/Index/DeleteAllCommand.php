@@ -3,7 +3,6 @@
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,7 +25,6 @@ class DeleteAllCommand extends Command
 
         foreach ($connections as $connection) {
             foreach ($connection->getIndexes() as $index) {
-                /* @var Index $indexDto */
                 $this->indexClient->deleteIndex($index);
             }
         }
