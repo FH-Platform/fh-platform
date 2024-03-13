@@ -23,8 +23,8 @@ class DataClientTest extends TestCase
         /** @var IndexClient $indexClientNew */
         $indexClientNew = $this->container->get(IndexClient::class);
 
-        $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200'],],]);
-        $connection2 = new Connection('default2', 'prefix2_', ['servers' => [['host' => 'elasticsearch2', 'port' => '9200'],],]);
+        $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200']]]);
+        $connection2 = new Connection('default2', 'prefix2_', ['servers' => [['host' => 'elasticsearch2', 'port' => '9200']]]);
 
         $indexUser = new Index(User::class, $connection, 'user', [], [], []);
         $indexUser2 = new Index(User::class, $connection2, 'user', [], [], []);
@@ -42,11 +42,11 @@ class DataClientTest extends TestCase
         $this->assertEquals(0, count($this->queryClient->getResults($indexLog, new Query())));
 
         $this->dataClient->upsertBatch([
-            new Entity( new User(), User::class, 1, $indexUser, ['test' => '1'], true),
-            new Entity( new User(), User::class, 2, $indexUser, ['test2' => '2'], true),
-            new Entity( new User(), Role::class, 3, $indexRole, ['test3' => '3'], true),
-            new Entity( new User(), User::class, 4, $indexUser2, ['test4' => '4'], true),
-            new Entity( new User(), Log::class, 5, $indexLog, ['test5' => '5'], true),
+            new Entity(new User(), User::class, 1, $indexUser, ['test' => '1'], true),
+            new Entity(new User(), User::class, 2, $indexUser, ['test2' => '2'], true),
+            new Entity(new User(), Role::class, 3, $indexRole, ['test3' => '3'], true),
+            new Entity(new User(), User::class, 4, $indexUser2, ['test4' => '4'], true),
+            new Entity(new User(), Log::class, 5, $indexLog, ['test5' => '5'], true),
         ]);
 
         $results = $this->queryClient->getResults($indexUser, new Query());
