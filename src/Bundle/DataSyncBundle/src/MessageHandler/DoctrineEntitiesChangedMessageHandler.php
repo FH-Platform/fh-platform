@@ -4,6 +4,8 @@ namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ConfigBundle\DTO\Entity;
+use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesIndexFetcher;
+use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesRelatedFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
@@ -21,12 +23,17 @@ class DoctrineEntitiesChangedMessageHandler
         private readonly ProviderFinder $providerFinder,
         private readonly EntityFetcher $entityFetcher,
         private readonly IndexFetcher $indexFetcher,
+        private readonly DoctrineClassesNamesIndexFetcher $doctrineClassesNamesIndexFetcher,
+        private readonly DoctrineClassesNamesRelatedFetcher $doctrineClassesNamesRelatedFetcher,
     ) {
     }
 
     public function __invoke(DoctrineEntitiesChangedMessage $message): void
     {
         $entitiesUpsert = $entitiesDelete = [];
+
+        $classNamesIndex = $this->doctrineClassesNamesIndexFetcher->fetch();
+        $classNamesRelated = $this->doctrineClassesNamesRelatedFetcher->fetch();
 
         $event = $message->getChangedEntitiesEvent();
         foreach ($event->getEvents() as $event) {
@@ -36,6 +43,10 @@ class DoctrineEntitiesChangedMessageHandler
             $identifier = $event->getIdentifier();
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
+
+            if(!in_array($className, $classNamesIndex)){
+                continue;
+            }
 
             // TODO cache
             $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
