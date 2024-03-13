@@ -49,13 +49,14 @@ class ConnectionsFetcher
     {
         $className = $providerIndex->getClassName();
 
+        $name = $providerIndex->getIndexName($className);
+        $additionalConfig = $providerIndex->getAdditionalConfig();
+
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsIndex();
 
         // decorate
-        $mapping = $settings = $additionalConfig = [];
-        $name = '';
-
+        $mapping = $settings = [];
         foreach ($decorators as $decorator) {
             if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
                 continue;
@@ -63,12 +64,6 @@ class ConnectionsFetcher
 
             $mapping = $decorator->getIndexMapping($className, $mapping);
             $settings = $decorator->getIndexSettings($className, $settings);
-
-            // TODO throw
-            if ($decorator instanceof ProviderIndexInterface) {
-                $name = $decorator->getIndexName($className);
-                $additionalConfig = $decorator->getAdditionalConfig();
-            }
         }
 
         return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
