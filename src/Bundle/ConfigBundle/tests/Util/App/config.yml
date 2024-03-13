@@ -15,27 +15,15 @@ doctrine:
 
 services:
     _defaults:
+        public: true
         autowire: true
         autoconfigure: true
 
-    FHPlatform\ConfigBundle\Tests\Util\Es\:
-        resource: '../Es'
+    FHPlatform\ConfigBundle\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
 
-    FHPlatform\ConfigBundle\Tests\Util\Helper\:
-        resource: '../Helper'
+    FHPlatform\ConfigBundle\Tests\:
+        resource: '../../*/Util'
 
-    FHPlatform\ConfigBundle\Tests\Fetcher\Util\:
-        resource: '../../Fetcher/Util'
-
-    FHPlatform\ConfigBundle\Tests\Finder\Util\:
-        resource: '../../Finder/Util'
-
-    FHPlatform\ConfigBundle\Tests\Tagged\Util\:
-        resource: '../../Tagged/Util'
-
-    FHPlatform\ConfigBundle\Tests\Tag\Util\:
-        resource: '../../Tag/Util'
-
-    FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper:
-        public: true
 

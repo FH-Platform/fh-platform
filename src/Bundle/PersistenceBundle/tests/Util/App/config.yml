@@ -15,7 +15,13 @@ doctrine:
 
 services:
     _defaults:
+        public: true
         autowire: true
         autoconfigure: true
 
+    FHPlatform\PersistenceBundle\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
 
+    FHPlatform\PersistenceBundle\Tests\:
+        resource: '../../*/Util'

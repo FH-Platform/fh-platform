@@ -15,18 +15,13 @@ doctrine:
 
 services:
     _defaults:
+        public: true
         autowire: true
         autoconfigure: true
 
-    FHPlatform\DataSyncBundle\Tests\Util\Es\:
-        resource: '../Es'
-
-    FHPlatform\DataSyncBundle\Tests\Util\Helper\:
-        resource: '../Helper'
+    FHPlatform\DataSyncBundle\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
 
     FHPlatform\DataSyncBundle\Tests\:
-        resource: '../../'
-
-    FHPlatform\DataSyncBundle\Tests\Util\Helper\CommandHelper:
-        public: true
-
+        resource: '../../*/Util'

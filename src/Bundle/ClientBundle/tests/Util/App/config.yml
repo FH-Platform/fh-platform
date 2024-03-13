@@ -21,4 +21,7 @@ services:
 
     FHPlatform\ClientBundle\Tests\Util\:
         resource: '../'
-        exclude: '../App'
+        exclude: '../{App}'
+
+    FHPlatform\ClientBundle\Tests\:
+        resource: '../../*/Util'
