@@ -23,15 +23,21 @@ class EntityRelatedFetcher
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
 
-        // decorate
-        $data = [];
+        // decorate entity_related
+        $entitiesRelated = $this->decorateEntitiesRelated($entity, $decorators);
+
+        // return
+        return new EntityRelated($entity, $entitiesRelated);
+    }
+
+    private function decorateEntitiesRelated(mixed $entity, $decorators): array
+    {
         $entitiesRelated = [];
         foreach ($decorators as $decorator) {
             /** @var DecoratorEntityRelated $decorator */
             $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $entitiesRelated);
         }
 
-        // return
-        return new EntityRelated($entity, $entitiesRelated);
+        return $entitiesRelated;
     }
 }
