@@ -78,15 +78,15 @@ class ConnectionsFetcher
     /** @param DecoratorIndexInterface[] $decorators */
     private function decorateMappingItems(string $className, array $mapping, array $decorators): ?array
     {
-        foreach ($mapping as $key => $mappingItem) {
-            $type = $mappingItem['type'] ?? null;
+        foreach ($mapping as $mappingItemKey => $mappingItem) {
+            $mappingItemType = $mappingItem['type'] ?? null;
 
             foreach ($decorators as $decorator) {
-                $mapping[$key] = $decorator->getIndexMappingItem($className, $mappingItem, $key, $type);
+                $mapping[$mappingItemKey] = $decorator->getIndexMappingItem($className, $mappingItem, $mappingItemKey, $mappingItemType);
             }
 
-            if ('object' == $type || 'nested' == $type) {
-                $mapping[$key]['properties'] = $this->decorateMappingItems($className, $mappingItem['properties'], $decorators);
+            if ('object' == $mappingItemType || 'nested' == $mappingItemType) {
+                $mapping[$mappingItemKey]['properties'] = $this->decorateMappingItems($className, $mappingItem['properties'], $decorators);
             }
         }
 

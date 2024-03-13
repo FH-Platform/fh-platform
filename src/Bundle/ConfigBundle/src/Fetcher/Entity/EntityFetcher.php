@@ -3,6 +3,7 @@
 namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ERP\Es\Bundles\ConfigBundle\Service\Provider\Hook\Data\HookData;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
@@ -41,26 +42,32 @@ class EntityFetcher
         }
 
         $index = $this->indexFetcher->fetch($className);
+        $mapping = $index->getMapping();
 
         // decorate
         $data = [];
         $shouldBeIndexed = true;
         foreach ($decorators as $decorator) {
-            $data = $decorator->getEntityData($entity, $data, $index->getMapping());
+            $data = $decorator->getEntityData($entity, $data, $mapping);
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
 
-        $data = $this->decorateDataItems($className, $data, $decorators);
+        $data = $this->decorateDataItems($className, $data, $mapping, $decorators);
 
         // return
         return new Entity($entity, $className, $identifier, $index, $data, $shouldBeIndexed);
     }
 
     /** @param DecoratorEntityInterface[] $decorators */
-    private function decorateDataItems(string $className, array $data, array $decorators): ?array
+    private function decorateDataItems(mixed $entity, array $data, array $mapping, array $decorators): ?array
     {
-        foreach ($data as $key => $dataItem) {
+        foreach ($data as $mappingItemKey => $dataItem) {
+            $mappingItem = $mapping[$mappingItemKey] ?? null;
+            $mappingItemType = $mappingItem['mappingItemType'] ?? null;
 
+            foreach ($decorators as $decorator) {
+                //$data[$mappingItemKey] = $decorator->getEntityDataItem($entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
+            }
         }
 
         return $data;
