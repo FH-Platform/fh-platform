@@ -16,12 +16,10 @@ doctrine:
 
 services:
     _defaults:
+        public: true
         autowire: true
         autoconfigure: true
 
     FHPlatform\ClientBundle\Tests\Util\:
         resource: '../'
-
-    FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper:
-        public: true
-
+        exclude: '../App'
