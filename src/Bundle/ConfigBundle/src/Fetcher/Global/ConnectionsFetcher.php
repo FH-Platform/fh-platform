@@ -64,7 +64,7 @@ class ConnectionsFetcher
         // decorate mapping and settings
         list($mapping, $settings) = $this->decorateMappingSettings($className, $decorators);
 
-        //decorate mapping items
+        // decorate mapping items
         $mapping = $this->decorateMappingItems($className, $mapping, $decorators);
 
         $name = $providerIndex->getIndexName($className);
@@ -73,7 +73,7 @@ class ConnectionsFetcher
         return new Index($connection, $className, $name, $mapping, $settings, $additionalConfig);
     }
 
-    private function decorateMappingSettings(string $className, array $decorators) : array
+    private function decorateMappingSettings(string $className, array $decorators): array
     {
         $mapping = $settings = [];
         foreach ($decorators as $decorator) {

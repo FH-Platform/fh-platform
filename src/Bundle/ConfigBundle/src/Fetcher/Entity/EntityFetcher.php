@@ -33,23 +33,22 @@ class EntityFetcher
 
         // TODO throw error if class not available for ES
 
+        $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
+
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);
-
-        $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
-        $mapping = $index->getMapping();
 
         // decorate data and should_be_indexed
         list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);
 
-        //decorate data items
-        $data = $this->decorateDataItems($index, $className, $data, $mapping, $decorators);
+        // decorate data items
+        $data = $this->decorateDataItems($index, $className, $data, $index->getMapping(), $decorators);
 
         // return
         return new Entity($index, $identifier, $data, $shouldBeIndexed);
     }
 
-    private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators) :array
+    private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators): array
     {
         $data = [];
         $shouldBeIndexed = true;
