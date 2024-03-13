@@ -73,7 +73,7 @@ class ConnectionsFetcher
         return new Index($connection, $className, $name, $mapping, $settings, $additionalConfig);
     }
 
-    private function decorateMappingSettings(string $className, array $decorators)
+    private function decorateMappingSettings(string $className, array $decorators) : array
     {
         $mapping = $settings = [];
         foreach ($decorators as $decorator) {

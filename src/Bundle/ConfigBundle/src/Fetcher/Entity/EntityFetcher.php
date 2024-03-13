@@ -39,17 +39,26 @@ class EntityFetcher
         $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
         $mapping = $index->getMapping();
 
-        // decorate
+        // decorate data and should_be_indexed
+        list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);
+
+        //decorate data items
+        $data = $this->decorateDataItems($index, $className, $data, $mapping, $decorators);
+
+        // return
+        return new Entity($index, $identifier, $data, $shouldBeIndexed);
+    }
+
+    private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators) :array
+    {
         $data = [];
         $shouldBeIndexed = true;
         foreach ($decorators as $decorator) {
             $data = $decorator->getEntityData($index, $entity, $data);
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($index, $entity, $shouldBeIndexed);
         }
-        $data = $this->decorateDataItems($index, $className, $data, $mapping, $decorators);
 
-        // return
-        return new Entity($index, $identifier, $data, $shouldBeIndexed);
+        return [$data, $shouldBeIndexed];
     }
 
     /** @param DecoratorEntityInterface[] $decorators */
