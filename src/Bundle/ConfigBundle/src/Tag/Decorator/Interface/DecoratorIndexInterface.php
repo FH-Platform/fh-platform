@@ -11,4 +11,6 @@ interface DecoratorIndexInterface extends PriorityInterface
     public function getIndexSettings(string $className, array $settings): array;
 
     public function getIndexMapping(string $className, array $mapping): array;
+
+    //public function getIndexMappingItem(string $className, array $mapping): array;
 }

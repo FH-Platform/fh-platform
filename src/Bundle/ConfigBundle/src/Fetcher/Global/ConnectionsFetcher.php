@@ -2,6 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher\Global;
 
+use ERP\Es\Bundles\ConfigBundle\Service\Provider\Hook\Mapping\HookMappingProvider;
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
@@ -53,18 +54,31 @@ class ConnectionsFetcher
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsIndex();
+        foreach ($decorators as $k => $decorator) {
+            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
+                unset($decorators[$k]);
+            }
+        }
 
         // decorate
         $mapping = $settings = [];
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                continue;
-            }
-
             $mapping = $decorator->getIndexMapping($className, $mapping);
             $settings = $decorator->getIndexSettings($className, $settings);
         }
 
         return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
+    }
+
+    public function decorateMappingItems($className, $mapping, $decorators): ?array
+    {
+        foreach ($mapping as $k => $mappingItem) {
+            $type = $mappingItem['type'] ?? null;
+            if ('object' == $type || 'nested' == $type) {
+                $mapping[$k] = $this->decorateMappingItems($className, $mappingItem, $decorators);
+            }
+        }
+
+        return $mapping;
     }
 }
