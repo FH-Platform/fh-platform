@@ -66,7 +66,7 @@ class EntityFetcher
             $mappingItemType = $mappingItem['mappingItemType'] ?? null;
 
             foreach ($decorators as $decorator) {
-                //$data[$mappingItemKey] = $decorator->getEntityDataItem($entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
+                $data[$mappingItemKey] = $decorator->getEntityDataItem($entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
             }
         }
 
