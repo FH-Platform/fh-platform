@@ -44,31 +44,34 @@ class DoctrineEntitiesChangedMessageHandler
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
-            if(!in_array($className, $classNamesIndex)){
-                continue;
-            }
-
-            // TODO cache
-            $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
-
-            foreach ($indexes as $index) {
-                if (ChangedEntityEvent::TYPE_DELETE === $type) {
-                    $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
-                } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
-                    $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
-                    if (!$entity) {
-                        $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
-                    } else {
-                        $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
-                    }
-                }
-
-                // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
+            if(in_array($className, $classNamesIndex)){
+                $this->prepareUpdates($className, $identifier, $type, $entitiesUpsert, $entitiesDelete);
             }
         }
 
         // TODO chunk in batch from config in client bundle
         $this->dataClient->upsertBatch($entitiesUpsert);
         $this->dataClient->deleteBatch($entitiesDelete);
+    }
+
+    private function prepareUpdates($className, $identifier, $type, &$entitiesUpsert, &$entitiesDelete) : void
+    {
+        // TODO cache
+        $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
+
+        foreach ($indexes as $index) {
+            if (ChangedEntityEvent::TYPE_DELETE === $type) {
+                $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
+            } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
+                $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
+                if (!$entity) {
+                    $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
+                } else {
+                    $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
+                }
+            }
+
+            // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
+        }
     }
 }
