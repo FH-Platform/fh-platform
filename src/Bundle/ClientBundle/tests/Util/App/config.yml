@@ -19,11 +19,8 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\ClientBundle\Tests\Util\Helper\:
-        resource: '../Helper'
-
-    FHPlatform\ClientBundle\Tests\Util\Es\:
-        resource: '../Es'
+    FHPlatform\ClientBundle\Tests\Util\:
+        resource: '../'
 
     FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper:
         public: true
