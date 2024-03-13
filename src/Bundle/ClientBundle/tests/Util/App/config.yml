@@ -12,22 +12,19 @@ doctrine:
         mappings:
             Test:
                 dir: '%kernel.project_dir%/'
-                prefix: 'FHPlatform\DataSyncBundle\Tests\Util\Entity'
+                prefix: 'FHPlatform\ClientBundle\Tests\Util\Entity'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\DataSyncBundle\Tests\Util\Es\:
-        resource: '../../Es'
+    FHPlatform\ClientBundle\Tests\Util\Helper\:
+        resource: '../Helper'
 
-    FHPlatform\DataSyncBundle\Tests\Util\Helper\:
-        resource: '../../Helper'
+    FHPlatform\ClientBundle\Tests\Util\Es\:
+        resource: '../Es'
 
-    FHPlatform\DataSyncBundle\Tests\:
-        resource: '../../../'
-
-    FHPlatform\DataSyncBundle\Tests\Util\Helper\CommandHelper:
+    FHPlatform\ClientBundle\Tests\Util\Helper\CommandHelper:
         public: true
 

@@ -26,7 +26,7 @@ class Kernel extends BaseKernel
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/config/config.yml');
+        $loader->load(__DIR__.'/config.yml');
     }
 
     public function getCacheDir(): string
