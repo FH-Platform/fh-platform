@@ -3,6 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tagged;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
@@ -42,6 +43,7 @@ class TaggedProvider
         return $this->toArray($this->providersEntityRelated);
     }
 
+    /** @return DecoratorIndexInterface[] */
     public function getDecoratorsIndex(): array
     {
         return $this->prioritySorter->sort($this->toArray($this->decoratorsIndex));

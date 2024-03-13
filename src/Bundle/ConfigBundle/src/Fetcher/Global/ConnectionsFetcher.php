@@ -6,6 +6,7 @@ use ERP\Es\Bundles\ConfigBundle\Service\Provider\Hook\Mapping\HookMappingProvide
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
@@ -67,12 +68,19 @@ class ConnectionsFetcher
             $settings = $decorator->getIndexSettings($className, $settings);
         }
 
+        $this->decorateMappingItems($className, $mapping, $decorators);
+
         return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
     }
 
-    public function decorateMappingItems($className, $mapping, $decorators): ?array
+    /** @param DecoratorIndexInterface[] $decorators */
+    private function decorateMappingItems(string $className, array $mapping, array $decorators): ?array
     {
         foreach ($mapping as $k => $mappingItem) {
+            foreach ($decorators as $decorator) {
+                $mappingItem[$k] = $decorator->getIndexMappingItem($className, $mappingItem, $decorators);
+            }
+
             $type = $mappingItem['type'] ?? null;
             if ('object' == $type || 'nested' == $type) {
                 $mapping[$k] = $this->decorateMappingItems($className, $mappingItem, $decorators);

@@ -21,14 +21,14 @@ class ProviderEntity_User extends ProviderEntity
 
     public function getIndexMapping(string $className, array $mapping): array
     {
-        $mapping['decorator_index_mapping_level_0_user'] = 0;
+        $mapping['decorator_index_mapping_level_0_user'] = [0];
 
         return $mapping;
     }
 
     public function getIndexSettings(string $className, array $settings): array
     {
-        $settings['decorator_index_settings_level_0_user'] = 0;
+        $settings['decorator_index_settings_level_0_user'] = [0];
 
         return $settings;
     }

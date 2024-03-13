@@ -13,4 +13,8 @@ trait DecoratorIndexTrait
     {
         return $mapping;
     }
+
+    public function getIndexMappingItem(string $className, array $mappingItem): array{
+        return $mappingItem;
+    }
 }
