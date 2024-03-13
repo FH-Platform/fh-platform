@@ -14,7 +14,7 @@ class RoleProviderEntity extends ProviderEntity
     }
 
     /** @param Role $entity */
-    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['id'] = $entity->getId();
         $data['nameString'] = $entity->getNameString();

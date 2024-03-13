@@ -63,7 +63,7 @@ class ProviderEntity_User extends ProviderEntity
         ];
     }
 
-    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         return [
             'test_text' => 'test',

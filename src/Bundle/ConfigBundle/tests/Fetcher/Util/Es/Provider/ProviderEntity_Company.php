@@ -42,7 +42,7 @@ class ProviderEntity_Company extends ProviderEntity
         return $settings;
     }
 
-    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['entity_data_level_0_company'] = 0;
 

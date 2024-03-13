@@ -13,7 +13,7 @@ class DecoratorEntity_First extends DecoratorEntity
         return 1;
     }
 
-    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['decorator_entity_data_level_1'] = 1;
 

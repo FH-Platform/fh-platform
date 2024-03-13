@@ -14,7 +14,7 @@ class UserProviderEntity extends ProviderEntity
     }
 
     /** @param User $entity */
-    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['id'] = $entity->getId();
         $data['nameString'] = $entity->getNameString();
