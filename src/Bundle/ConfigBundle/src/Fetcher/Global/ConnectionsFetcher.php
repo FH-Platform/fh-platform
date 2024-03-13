@@ -76,7 +76,7 @@ class ConnectionsFetcher
     }
 
     /** @param DecoratorIndexInterface[] $decorators */
-    private function decorateMappingItems(string $className, array $mapping, array $decorators): ?array
+    private function decorateMappingItems(string $className, array $mapping, array $decorators): array
     {
         foreach ($mapping as $mappingItemKey => $mappingItem) {
             $mappingItemType = $mappingItem['type'] ?? null;

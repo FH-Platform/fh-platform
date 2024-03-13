@@ -32,14 +32,12 @@ class IndexClient
         $index = $client->getIndex($indexNameWithPrefix);
 
         if (!$index->exists()) {
-            if (!$index->exists()) {
-                $index->create();
+            $index->create();
 
-                // TODO
-                /*$mappingObject = new Mapping();
-                $mappingObject->setProperties($mapping);
-                $mappingObject->send($index);*/
-            }
+            // TODO
+            /*$mappingObject = new Mapping();
+            $mappingObject->setProperties($mapping);
+            $mappingObject->send($index);*/
         }
 
         return $index;

@@ -13,7 +13,6 @@ class QueryClient
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
-        private readonly IndexClient $indexClientNew,
     ) {
     }
 

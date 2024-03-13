@@ -41,11 +41,8 @@ class IdentifiersFetcher
                 $identifier = $this->entityHelper->getIdentifierValue($entityBatch);
 
                 // store identifiers from each batch
-                // TODO detect
-                $shouldBeIndexed = true;
-                if ($shouldBeIndexed) {
-                    $identifiers[] = $identifier;
-                }
+                // TODO detect $shouldBeIndexed
+                $identifiers[] = $identifier;
             }
 
             // increase firstResult(offset)

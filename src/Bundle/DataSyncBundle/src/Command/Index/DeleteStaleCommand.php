@@ -3,9 +3,7 @@
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClientRaw;
-use FHPlatform\ClientBundle\Provider\ClientBundleProvider;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,8 +14,6 @@ class DeleteStaleCommand extends Command
 {
     public function __construct(
         private readonly IndexClientRaw $indexClientRaw,
-        private readonly ClientBundleProvider $clientBundleProvider,
-        private readonly TaggedProvider $taggedProvider,
         private readonly ConnectionsFetcher $connectionsFetcher,
     ) {
         parent::__construct();

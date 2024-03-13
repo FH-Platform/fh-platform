@@ -56,7 +56,7 @@ class EntityFetcher
     }
 
     /** @param DecoratorEntityInterface[] $decorators */
-    private function decorateDataItems(mixed $entity, array $data, array $mapping, array $decorators): ?array
+    private function decorateDataItems(mixed $entity, array $data, array $mapping, array $decorators): array
     {
         foreach ($data as $mappingItemKey => $dataItem) {
             $mappingItem = $mapping[$mappingItemKey] ?? null;
