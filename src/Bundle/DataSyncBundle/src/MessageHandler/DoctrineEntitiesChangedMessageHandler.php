@@ -17,13 +17,14 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 class DoctrineEntitiesChangedMessageHandler
 {
     public function __construct(
-        private readonly EntityHelper $entityHelper,
-        private readonly DataClient $dataClient,
-        private readonly EntityFetcher $entityFetcher,
-        private readonly IndexFetcher $indexFetcher,
-        private readonly DoctrineClassesNamesIndexFetcher $doctrineClassesNamesIndexFetcher,
+        private readonly EntityHelper                       $entityHelper,
+        private readonly DataClient                         $dataClient,
+        private readonly EntityFetcher                      $entityFetcher,
+        private readonly IndexFetcher                       $indexFetcher,
+        private readonly DoctrineClassesNamesIndexFetcher   $doctrineClassesNamesIndexFetcher,
         private readonly DoctrineClassesNamesRelatedFetcher $doctrineClassesNamesRelatedFetcher,
-    ) {
+    )
+    {
     }
 
     public function __invoke(DoctrineEntitiesChangedMessage $message): void
@@ -62,14 +63,16 @@ class DoctrineEntitiesChangedMessageHandler
         $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
 
         foreach ($indexes as $index) {
+            $hash = $index->getConnection()->getName() . '_' . $index->getName() . '_' . $className . '_' . $identifier;
+
             if (ChangedEntityEvent::TYPE_DELETE === $type) {
-                $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
+                $entitiesDelete[$hash] = new Entity($index, $identifier, [], false);
             } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
                 $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
                 if (!$entity) {
-                    $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
+                    $entitiesDelete[$hash] = new Entity($index, $identifier, [], false);
                 } else {
-                    $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
+                    $entitiesUpsert[$hash] = $this->entityFetcher->fetch($entity);
                 }
             }
 
