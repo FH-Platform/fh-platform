@@ -51,7 +51,7 @@ class DoctrineEntitiesChangedMessageHandler
             }
 
             if (in_array($className, $classNamesRelated) and $entity) {
-                $this->entityRelatedFetcher->fetch($entity);
+                $entitiesRelated = $this->entityRelatedFetcher->fetch($entity);
                 // TODO
             }
         }

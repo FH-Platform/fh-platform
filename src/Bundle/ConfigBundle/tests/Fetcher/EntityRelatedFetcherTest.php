@@ -16,9 +16,9 @@ class EntityRelatedFetcherTest extends TestCase
 
         $entityRelated = $entityRelatedFetcher->fetch($role);
 
-        $this->assertEquals(3, count($entityRelated->getEntitiesRelated()));
-        $this->assertEquals('decorator_entity_related_level_-1', $entityRelated->getEntitiesRelated()[0]);
-        $this->assertEquals('Role', $entityRelated->getEntitiesRelated()[1]);
-        $this->assertEquals('decorator_entity_related_level_1', $entityRelated->getEntitiesRelated()[2]);
+        $this->assertEquals(3, count($entityRelated));
+        $this->assertEquals('decorator_entity_related_level_-1', $entityRelated[0]);
+        $this->assertEquals('Role', $entityRelated[1]);
+        $this->assertEquals('decorator_entity_related_level_1', $entityRelated[2]);
     }
 }

@@ -35,11 +35,11 @@ class EntityRelatedCommand extends Command
 
         $entity = $this->entityManager->getRepository($className)->find($identifier);
 
-        $entityRelated = $this->entityRelatedFetcher->fetch($entity);
+        $entitiesRelated = $this->entityRelatedFetcher->fetch($entity);
 
         $output->writeln('Entity related:');
         $output->writeln('----------------------------------------------------------------------');
-        foreach ($entityRelated->getEntitiesRelated() as $entityRelated) {
+        foreach ($entitiesRelated as $entityRelated) {
             $output->writeln($this->entityHelper->getIdentifierValue($entityRelated).' -> '.$this->entityHelper->getRealClass($entityRelated::class));
         }
         $output->writeln('----------------------------------------------------------------------');
