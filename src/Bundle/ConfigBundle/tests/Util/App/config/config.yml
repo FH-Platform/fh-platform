@@ -34,6 +34,9 @@ services:
     FHPlatform\ConfigBundle\Tests\Tagged\Util\:
         resource: '../../../Tagged/Util'
 
+    FHPlatform\ConfigBundle\Tests\Tag\Util\:
+        resource: '../../../Tag/Util'
+
     FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper:
         public: true
 

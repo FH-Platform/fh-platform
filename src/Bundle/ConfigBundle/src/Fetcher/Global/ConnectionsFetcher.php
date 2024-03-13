@@ -29,7 +29,6 @@ class ConnectionsFetcher
             $connection = $this->convertProviderConnectionToDto($providerConnection);
 
             $indexes = [];
-            //dd($this->taggedProvider->getProvidersIndex(), 2);
             foreach ($providersIndex as $providerIndex) {
                 /** @var ProviderIndexInterface $providerIndex */
                 if ($providerIndex->getConnection() === $providerConnection->getName()) {
@@ -71,7 +70,7 @@ class ConnectionsFetcher
             $settings = $decorator->getIndexSettings($className, $settings);
         }
 
-        $this->decorateMappingItems($className, $mapping, $decorators);
+        $mapping = $this->decorateMappingItems($className, $mapping, $decorators);
 
         return new Index($className, $connection, $name, $mapping, $settings, $additionalConfig);
     }
@@ -87,7 +86,7 @@ class ConnectionsFetcher
             }
 
             if ('object' == $type || 'nested' == $type) {
-                $mapping[$key] = $this->decorateMappingItems($className, $mappingItem, $decorators);
+                $mapping[$key]['properties'] = $this->decorateMappingItems($className, $mappingItem['properties'], $decorators);
             }
         }
 
