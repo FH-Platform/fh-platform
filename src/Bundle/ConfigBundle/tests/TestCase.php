@@ -72,9 +72,6 @@ class TestCase extends KernelTestCase
 
     private function migrateDb()
     {
-        $filesystem = new Filesystem();
-        $filesystem->remove('var/database.db3');
-
         // updating a schema in sqlite database
         $metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($this->entityManager);

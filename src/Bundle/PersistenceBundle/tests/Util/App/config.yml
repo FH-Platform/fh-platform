@@ -4,7 +4,6 @@ framework:
 
 doctrine:
     dbal:
-        driver: "pdo_sqlite"
         url:   "sqlite:///:memory:"
         types:
             uuid: Ramsey\Uuid\Doctrine\UuidType
