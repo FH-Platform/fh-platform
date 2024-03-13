@@ -11,9 +11,9 @@ class DecoratorIndex_Default extends DecoratorIndex
         return 1;
     }
 
-    public function getIndexMappingItem(string $className, array $mappingItem, string $key, ?string $type): array
+    public function getIndexMappingItem(string $className, array $mappingItem, string $mappingItemKey, ?string $mappingItemType): array
     {
-        if ('text' === $type) {
+        if ('text' === $mappingItemType) {
             $mappingItem['test'] = '1234';
         }
 
