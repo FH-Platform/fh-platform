@@ -38,11 +38,9 @@ class DoctrineEntitiesChangedMessageHandler
             $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
 
             foreach ($indexes as $index){
-                if (ChangedEntityEvent::TYPE_DELETE_PRE === $type) {
-                    // TODO
-                } elseif (ChangedEntityEvent::TYPE_DELETE === $type) {
+                if (ChangedEntityEvent::TYPE_DELETE === $type) {
                     $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
-                } else {
+                } elseif(in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
                     $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
                     if (!$entity) {
                         $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
@@ -50,6 +48,8 @@ class DoctrineEntitiesChangedMessageHandler
                         $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
                     }
                 }
+
+                //TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
             }
         }
 
