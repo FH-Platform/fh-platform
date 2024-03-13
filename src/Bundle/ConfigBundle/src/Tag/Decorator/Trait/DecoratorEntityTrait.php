@@ -9,7 +9,8 @@ trait DecoratorEntityTrait
         return $data;
     }
 
-    public function getEntityDataItem(mixed $entity, mixed $dataItem, ?array $mappingItem, ?string $mappingItemKey, ?string $mappingItemType): mixed{
+    public function getEntityDataItem(mixed $entity, mixed $dataItem, ?array $mappingItem, ?string $mappingItemKey, ?string $mappingItemType): mixed
+    {
         return $dataItem;
     }
 

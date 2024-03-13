@@ -80,7 +80,48 @@ class DecorateMappingItemTest extends TestCase
 
         /** @var EntityFetcher $entityFetcher */
         $entityFetcher = $this->container->get(EntityFetcher::class);
-        $entityFetcher->fetch(new User())->getData();
-        dd($entityFetcher->fetch(new User())->getData());
+
+        $this->assertEquals([
+            'test_text' => 'test',
+            'test_integer' => 2,
+            'test_object' => [
+                'test_text' => 'test',
+                'test_integer' => 2,
+                'test_object' => [
+                    'test_text' => 'test',
+                    'test_integer' => 2,
+                ],
+                'test_nested' => [
+                    [
+                        'test_text' => 'test',
+                        'test_integer' => 2,
+                    ],
+                    [
+                        'test_text' => 'test',
+                        'test_integer' => 2,
+                    ],
+                ],
+            ],
+            'test_nested' => [
+                [
+                    'test_text' => 'test',
+                    'test_integer' => 2,
+                    'test_object' => [
+                        'test_text' => 'test',
+                        'test_integer' => 2,
+                    ],
+                    'test_nested' => [
+                        [
+                            'test_text' => 'test',
+                            'test_integer' => 2,
+                        ],
+                        [
+                            'test_text' => 'test',
+                            'test_integer' => 2,
+                        ],
+                    ],
+                ],
+            ],
+        ], $entityFetcher->fetch(new User())->getData());
     }
 }

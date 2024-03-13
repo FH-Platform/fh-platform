@@ -3,11 +3,9 @@
 namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
-use ERP\Es\Bundles\ConfigBundle\Service\Provider\Hook\Data\HookData;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -35,7 +33,7 @@ class EntityFetcher
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntity();
-        foreach ($decorators as $k =>$decorator) {
+        foreach ($decorators as $k => $decorator) {
             if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
                 unset($decorators[$k]);
             }
@@ -66,6 +64,14 @@ class EntityFetcher
 
             foreach ($decorators as $decorator) {
                 $data[$mappingItemKey] = $decorator->getEntityDataItem($entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
+            }
+
+            if ('object' == $mappingItemType) {
+                $data[$mappingItemKey] = $this->decorateDataItems($entity, $dataItem, $mapping[$mappingItemKey]['properties'], $decorators);
+            } elseif ('nested' == $mappingItemType) {
+                foreach ($dataItem as $k2 => $item) {
+                    $data[$mappingItemKey][$k2] = $this->decorateDataItems($entity, $item, $mapping[$mappingItemKey]['properties'], $decorators);
+                }
             }
         }
 

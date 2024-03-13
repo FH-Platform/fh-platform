@@ -82,25 +82,27 @@ class ProviderEntity_User extends ProviderEntity
                     [
                         'test_text' => 'test',
                         'test_integer' => 1,
-                    ]
+                    ],
                 ],
             ],
             'test_nested' => [
-                'test_text' => 'test',
-                'test_integer' => 1,
-                'test_object' => [
+                [
                     'test_text' => 'test',
                     'test_integer' => 1,
-                ],
-                'test_nested' => [
-                    [
+                    'test_object' => [
                         'test_text' => 'test',
                         'test_integer' => 1,
                     ],
-                    [
-                        'test_text' => 'test',
-                        'test_integer' => 1,
-                    ]
+                    'test_nested' => [
+                        [
+                            'test_text' => 'test',
+                            'test_integer' => 1,
+                        ],
+                        [
+                            'test_text' => 'test',
+                            'test_integer' => 1,
+                        ],
+                    ],
                 ],
             ],
         ];
