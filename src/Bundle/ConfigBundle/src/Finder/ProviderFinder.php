@@ -17,7 +17,7 @@ class ProviderFinder
 
     public function findProviderIndex(string $className, bool $throw = true): ?ProviderIndexInterface
     {
-        //TODO find in connections
+        // TODO find in connections
         foreach ($this->taggedProvider->getProvidersIndex() as $provider) {
             /** @var ProviderIndexInterface $provider */
             if ($provider->getClassName() === $className) {

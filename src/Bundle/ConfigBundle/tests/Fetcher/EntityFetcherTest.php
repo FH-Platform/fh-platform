@@ -17,7 +17,6 @@ class EntityFetcherTest extends TestCase
         $user = new User();
         $entity = $entityFetcher->fetch($user);
 
-        $this->assertEquals($user, $entity->getEntity());
         $this->assertEquals('user', $entity->getIndex()->getName());
         $this->assertEquals(true, $entity->getShouldBeIndexed());
         $this->assertEquals([
@@ -29,7 +28,6 @@ class EntityFetcherTest extends TestCase
         $company = new Company();
         $entity = $entityFetcher->fetch($company);
 
-        $this->assertEquals($company, $entity->getEntity());
         $this->assertEquals(false, $entity->getShouldBeIndexed());
         $this->assertEquals('company_test', $entity->getIndex()->getName());
         $this->assertEquals([

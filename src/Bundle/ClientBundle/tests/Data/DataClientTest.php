@@ -42,11 +42,11 @@ class DataClientTest extends TestCase
         $this->assertEquals(0, count($this->queryClient->getResults($indexLog, new Query())));
 
         $this->dataClient->upsertBatch([
-            new Entity($indexUser, new User(), 1, ['test' => '1'], true),
-            new Entity($indexUser, new User(), 2, ['test2' => '2'], true),
-            new Entity($indexRole, new User(), 3, ['test3' => '3'], true),
-            new Entity($indexUser2, new User(), 4, ['test4' => '4'], true),
-            new Entity($indexLog, new User(), 5, ['test5' => '5'], true),
+            new Entity($indexUser, 1, ['test' => '1'], true),
+            new Entity($indexUser, 2, ['test2' => '2'], true),
+            new Entity($indexRole, 3, ['test3' => '3'], true),
+            new Entity($indexUser2, 4, ['test4' => '4'], true),
+            new Entity($indexLog, 5, ['test5' => '5'], true),
         ]);
 
         $results = $this->queryClient->getResults($indexUser, new Query());
