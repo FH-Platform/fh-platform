@@ -34,12 +34,7 @@ class EntityFetcher
         // TODO throw error if class not available for ES
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsEntity();
-        foreach ($decorators as $k => $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                unset($decorators[$k]);
-            }
-        }
+        $decorators = $this->taggedProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);
 
         $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
         $mapping = $index->getMapping();

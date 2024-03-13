@@ -61,12 +61,7 @@ class ConnectionsFetcher
         $additionalConfig = $providerIndex->getAdditionalConfig();
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsIndex();
-        foreach ($decorators as $k => $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                unset($decorators[$k]);
-            }
-        }
+        $decorators = $this->taggedProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
 
         // decorate
         $mapping = $settings = [];

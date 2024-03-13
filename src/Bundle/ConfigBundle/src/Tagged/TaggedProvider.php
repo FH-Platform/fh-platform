@@ -44,19 +44,34 @@ class TaggedProvider
     }
 
     /** @return DecoratorIndexInterface[] */
-    public function getDecoratorsIndex(): array
+    public function getDecoratorsIndex(mixed $interface = null, ?string $className = null): array
     {
-        return $this->prioritySorter->sort($this->toArray($this->decoratorsIndex));
+        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsIndex), $interface, $className));
     }
 
-    public function getDecoratorsEntity(): array
+    public function getDecoratorsEntity(mixed $interface = null, ?string $className = null): array
     {
-        return $this->prioritySorter->sort($this->toArray($this->decoratorsEntity));
+        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntity), $interface, $className));
     }
 
-    public function getDecoratorsEntityRelated(): array
+    public function getDecoratorsEntityRelated(mixed $interface = null, ?string $className = null): array
     {
-        return $this->prioritySorter->sort($this->toArray($this->decoratorsEntityRelated));
+        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntityRelated), $interface, $className));
+    }
+
+    private function filterDecorators(array $decorators, mixed $interface = null, ?string $className = null): array
+    {
+        if (!$interface or !$className) {
+            return $decorators;
+        }
+
+        foreach ($decorators as $k => $decorator) {
+            if ($decorator instanceof $interface and $decorator->getClassName() !== $className) {
+                unset($decorators[$k]);
+            }
+        }
+
+        return $decorators;
     }
 
     private function toArray(iterable $iterable): array

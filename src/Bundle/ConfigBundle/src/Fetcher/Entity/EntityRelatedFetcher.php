@@ -21,12 +21,7 @@ class EntityRelatedFetcher
         // TODO throw error if class not available for ES
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsEntityRelated();
-        foreach ($decorators as $k => $decorator) {
-            if ($decorator instanceof ProviderBaseInterface and $decorator->getClassName() !== $className) {
-                unset($decorators[$k]);
-            }
-        }
+        $decorators = $this->taggedProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
 
         // decorate
         $data = [];
