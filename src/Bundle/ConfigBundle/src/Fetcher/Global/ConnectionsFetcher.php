@@ -48,7 +48,6 @@ class ConnectionsFetcher
     private function convertProviderIndexToDto(ProviderIndexInterface $providerIndex, Connection $connection): Index
     {
         $className = $providerIndex->getClassName();
-
         $name = $providerIndex->getIndexName($className);
         $additionalConfig = $providerIndex->getAdditionalConfig();
 
