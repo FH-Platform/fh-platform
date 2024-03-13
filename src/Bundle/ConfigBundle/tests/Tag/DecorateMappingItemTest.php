@@ -2,6 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tag;
 
+use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default;
@@ -76,5 +77,10 @@ class DecorateMappingItemTest extends TestCase
                 ],
             ],
         ], $indexFetcher->fetch(User::class)->getMapping());
+
+        /** @var EntityFetcher $entityFetcher */
+        $entityFetcher = $this->container->get(EntityFetcher::class);
+        $entityFetcher->fetch(new User())->getData();
+        dd($entityFetcher->fetch(new User())->getData());
     }
 }

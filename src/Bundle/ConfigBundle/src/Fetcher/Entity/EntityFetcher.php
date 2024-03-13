@@ -51,7 +51,6 @@ class EntityFetcher
             $data = $decorator->getEntityData($entity, $data, $mapping);
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
-
         $data = $this->decorateDataItems($className, $data, $mapping, $decorators);
 
         // return
@@ -63,7 +62,7 @@ class EntityFetcher
     {
         foreach ($data as $mappingItemKey => $dataItem) {
             $mappingItem = $mapping[$mappingItemKey] ?? null;
-            $mappingItemType = $mappingItem['mappingItemType'] ?? null;
+            $mappingItemType = $mappingItem['type'] ?? null;
 
             foreach ($decorators as $decorator) {
                 $data[$mappingItemKey] = $decorator->getEntityDataItem($entity, $dataItem, $mappingItem, $mappingItemKey, $mappingItemType);
