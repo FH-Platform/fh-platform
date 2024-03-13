@@ -8,8 +8,8 @@ class Connection
     public function __construct(
         private readonly string $name,
         private readonly string $prefix,
-        private readonly array $clientConfig,
-        private readonly array $additionalConfig = [],
+        private readonly array $configClient,
+        private readonly array $configAdditional = [],
         private array $indexes = [],
     ) {
     }
@@ -24,9 +24,9 @@ class Connection
         return $this->prefix;
     }
 
-    public function getClientConfig(): array
+    public function getConfigClient(): array
     {
-        return $this->clientConfig;
+        return $this->configClient;
     }
 
     public function getIndexes(): array
@@ -39,8 +39,8 @@ class Connection
         $this->indexes = $indexes;
     }
 
-    public function getAdditionalConfig(): array
+    public function getConfigAdditional(): array
     {
-        return $this->additionalConfig;
+        return $this->configAdditional;
     }
 }

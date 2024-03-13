@@ -24,11 +24,11 @@ class ConnectionsFetcherTest extends TestCase
 
         $this->assertEquals('default', $connection->getName());
         $this->assertEquals('prefix_default_', $connection->getPrefix());
-        $this->assertEquals(['test' => 'test'], $connection->getClientConfig());
+        $this->assertEquals(['test' => 'test'], $connection->getConfigClient());
 
         $this->assertEquals('default2', $connection2->getName());
         $this->assertEquals('prefix_default2_', $connection2->getPrefix());
-        $this->assertEquals(['test2' => 'test2'], $connection2->getClientConfig());
+        $this->assertEquals(['test2' => 'test2'], $connection2->getConfigClient());
 
         $this->assertEquals(1, 1);
     }

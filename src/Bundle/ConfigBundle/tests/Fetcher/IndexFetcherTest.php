@@ -16,7 +16,7 @@ class IndexFetcherTest extends TestCase
         // index fetcher
         $index = $indexFetcher->fetch(User::class);
         $this->assertEquals(User::class, $index->getClassName());
-        $this->assertEquals([], $index->getAdditionalConfig());
+        $this->assertEquals([], $index->getConfigAdditional());
         $this->assertEquals('default', $index->getConnection()->getName());
         $this->assertEquals('user', $index->getName());
         $this->assertEquals([
@@ -32,7 +32,7 @@ class IndexFetcherTest extends TestCase
 
         $index = $indexFetcher->fetch(Company::class);
         $this->assertEquals(Company::class, $index->getClassName());
-        $this->assertEquals(['test3' => 'test3'], $index->getAdditionalConfig());
+        $this->assertEquals(['test3' => 'test3'], $index->getConfigAdditional());
         $this->assertEquals('default2', $index->getConnection()->getName());
         $this->assertEquals('company_test', $index->getName());
         $this->assertEquals([
