@@ -30,11 +30,14 @@ class DoctrineEntitiesChangedMessageHandler
 
         $event = $message->getChangedEntitiesEvent();
         foreach ($event->getEvents() as $event) {
+            // TODO check if reletable or indexable
+
             $className = $event->getClassName();
             $identifier = $event->getIdentifier();
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
+            // TODO cache
             $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
 
             foreach ($indexes as $index) {
