@@ -43,8 +43,8 @@ class DoctrineListenerMoreEventTest extends TestCase
         /** @var ChangedEntitiesEvent $event3 */
         list($event, $event2, $event3) = $this->eventsGet(ChangedEntitiesEvent::class);
 
-        $this->assertCount(2, $event->getEntities());
-        $this->assertCount(2, $event2->getEntities());
-        $this->assertCount(1, $event3->getEntities());
+        $this->assertCount(2, $event->getEvents());
+        $this->assertCount(2, $event2->getEvents());
+        $this->assertCount(1, $event3->getEvents());
     }
 }

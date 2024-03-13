@@ -24,7 +24,7 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
-        $entities = $event->getEntities();
+        $entities = $event->getEvents();
         $this->assertCount(1, $entities);
         $key = array_key_first($entities);
         /** @var ChangedEntityEvent $value */
@@ -43,7 +43,7 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
-        $entities = $event->getEntities();
+        $entities = $event->getEvents();
         $this->assertCount(1, $entities);
         $key = array_key_first($entities);
         /** @var ChangedEntityEvent $value */
@@ -62,7 +62,7 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
-        $entities = $event->getEntities();
+        $entities = $event->getEvents();
         $this->assertCount(1, $entities);
         $key = array_key_first($entities);
         /** @var ChangedEntityEvent $value */

@@ -2,7 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\EventListener;
 
-use FHPlatform\DataSyncBundle\Message\ChangedEntitiesMessage;
+use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntitiesEvent;
 use FHPlatform\PersistenceBundle\Event\PreDeleteEntityEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
@@ -19,7 +19,7 @@ final class PersistenceBundleListener
 
     public function onChangedEntities(ChangedEntitiesEvent $event): void
     {
-        $this->messageBus->dispatch(new ChangedEntitiesMessage($event));
+        $this->messageBus->dispatch(new DoctrineEntitiesChangedMessage($event));
     }
 
     public function onPreDeleteEntity(PreDeleteEntityEvent $event): void

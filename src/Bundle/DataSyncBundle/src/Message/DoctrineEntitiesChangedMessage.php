@@ -4,7 +4,7 @@ namespace FHPlatform\DataSyncBundle\Message;
 
 use FHPlatform\PersistenceBundle\Event\ChangedEntitiesEvent;
 
-class ChangedEntitiesMessage
+class DoctrineEntitiesChangedMessage
 {
     public function __construct(
         private readonly ChangedEntitiesEvent $changedEntitiesEvent,

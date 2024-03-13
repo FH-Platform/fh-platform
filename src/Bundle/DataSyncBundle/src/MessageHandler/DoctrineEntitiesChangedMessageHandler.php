@@ -7,13 +7,13 @@ use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
-use FHPlatform\DataSyncBundle\Message\ChangedEntitiesMessage;
+use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-class ChangedEntitiesMessageHandler
+class DoctrineEntitiesChangedMessageHandler
 {
     public function __construct(
         private readonly EntityHelper $entityHelper,
@@ -24,20 +24,16 @@ class ChangedEntitiesMessageHandler
     ) {
     }
 
-    public function __invoke(ChangedEntitiesMessage $message): void
+    public function __invoke(DoctrineEntitiesChangedMessage $message): void
     {
         $entitiesUpsert = $entitiesDelete = [];
 
         $event = $message->getChangedEntitiesEvent();
-        foreach ($event->getEntities() as $changedEntity) {
-            /** @var ChangedEntityEvent $changedEntity */
-            $className = $changedEntity->getClassName();
-            $identifier = $changedEntity->getIdentifier();
-            $type = $changedEntity->getType();
-
-            if (!$this->providerFinder->findProviderEntity($className, false)) {
-                continue;
-            }
+        foreach ($event->getEvents() as $event) {
+            $className = $event->getClassName();
+            $identifier = $event->getIdentifier();
+            $type = $event->getType();
+            $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
             $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
             if (!$entity) {
@@ -46,8 +42,7 @@ class ChangedEntitiesMessageHandler
                 continue;
             }
 
-            // TODO do upsert by ChangedFields
-            $changedFields = $changedEntity->getChangedFields();
+
 
             $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
         }

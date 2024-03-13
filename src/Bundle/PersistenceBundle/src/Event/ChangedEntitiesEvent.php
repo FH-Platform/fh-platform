@@ -6,13 +6,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ChangedEntitiesEvent extends Event
 {
+    /** @var ChangedEntityEvent[] $events */
     public function __construct(
-        private readonly array $entities,
+        private readonly array $events,
     ) {
     }
 
-    public function getEntities(): array
+    public function getEvents(): array
     {
-        return $this->entities;
+        return $this->events;
     }
 }

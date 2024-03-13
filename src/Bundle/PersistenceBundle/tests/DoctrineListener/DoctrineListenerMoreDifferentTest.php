@@ -33,7 +33,7 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
-        $entities = $event->getEntities();
+        $entities = $event->getEvents();
         $this->assertCount(3, $entities);
 
         list($key, $key2, $key3) = array_keys($entities);
@@ -75,7 +75,7 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
-        $entities = $event->getEntities();
+        $entities = $event->getEvents();
         $this->assertCount(3, $entities);
 
         list($key, $key2, $key3) = array_keys($entities);
@@ -113,7 +113,7 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
-        $entities = $event->getEntities();
+        $entities = $event->getEvents();
         $this->assertCount(3, $entities);
 
         list($key, $key2, $key3) = array_keys($entities);

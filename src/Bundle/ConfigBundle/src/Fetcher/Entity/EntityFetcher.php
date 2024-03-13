@@ -24,6 +24,7 @@ class EntityFetcher
     {
         $className = $entity::class;
 
+        //TODO
         $identifier = null;
         if (!$this->entityManager->getMetadataFactory()->isTransient($className)) {
             $identifier = $this->entityHelper->getIdentifierValue($entity);
