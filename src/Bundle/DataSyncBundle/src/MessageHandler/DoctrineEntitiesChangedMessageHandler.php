@@ -36,18 +36,19 @@ class DoctrineEntitiesChangedMessageHandler
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
             $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
-            $index = $indexes[0];
 
-            if (ChangedEntityEvent::TYPE_DELETE_PRE === $type) {
-                // TODO
-            } elseif (ChangedEntityEvent::TYPE_DELETE === $type) {
-                $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
-            } else {
-                $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
-                if (!$entity) {
+            foreach ($indexes as $index){
+                if (ChangedEntityEvent::TYPE_DELETE_PRE === $type) {
+                    // TODO
+                } elseif (ChangedEntityEvent::TYPE_DELETE === $type) {
                     $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
                 } else {
-                    $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
+                    $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
+                    if (!$entity) {
+                        $entitiesDelete[$className.'_'.$identifier] = new Entity($index, $identifier, [], false);
+                    } else {
+                        $entitiesUpsert[] = $this->entityFetcher->fetch($entity);
+                    }
                 }
             }
         }
