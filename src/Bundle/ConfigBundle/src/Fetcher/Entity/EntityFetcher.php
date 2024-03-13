@@ -5,6 +5,8 @@ namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -48,7 +50,19 @@ class EntityFetcher
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
 
+        $data = $this->decorateDataItems($className, $data, $decorators);
+
         // return
         return new Entity($entity, $className, $identifier, $index, $data, $shouldBeIndexed);
+    }
+
+    /** @param DecoratorEntityInterface[] $decorators */
+    private function decorateDataItems(string $className, array $data, array $decorators): ?array
+    {
+        foreach ($data as $key => $dataItem) {
+
+        }
+
+        return $data;
     }
 }
