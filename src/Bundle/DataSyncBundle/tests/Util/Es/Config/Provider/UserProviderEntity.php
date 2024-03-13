@@ -27,7 +27,7 @@ class UserProviderEntity extends ProviderEntity
         return $data;
     }
 
-    public function getIndexMapping(string $className, array $mapping): array
+    public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['id'] = ['type' => 'int'];
         $mapping['nameString'] = ['type' => 'text'];

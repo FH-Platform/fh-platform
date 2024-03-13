@@ -20,7 +20,7 @@ class ProviderEntity_User extends ProviderEntity
         return $data;
     }
 
-    public function getIndexMapping(string $className, array $mapping): array
+    public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['decorator_index_mapping_level_0_user'] = [0];
 

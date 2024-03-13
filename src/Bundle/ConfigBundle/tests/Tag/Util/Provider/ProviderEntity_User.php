@@ -13,7 +13,7 @@ class ProviderEntity_User extends ProviderEntity
         return User::class;
     }
 
-    public function getIndexMapping(string $className, array $mapping): array
+    public function getIndexMapping(Index $index, array $mapping): array
     {
         return [
             'test_text' => ['type' => 'text'],

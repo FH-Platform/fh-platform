@@ -11,12 +11,12 @@ trait DecoratorIndexTrait
         return $settings;
     }
 
-    public function getIndexMapping(string $className, array $mapping): array
+    public function getIndexMapping(Index $index, array $mapping): array
     {
         return $mapping;
     }
 
-    public function getIndexMappingItem(string $className, array $mappingItem, string $mappingItemKey, ?string $mappingItemType): array
+    public function getIndexMappingItem(Index $index, array $mappingItem, string $mappingItemKey, ?string $mappingItemType): array
     {
         return $mappingItem;
     }

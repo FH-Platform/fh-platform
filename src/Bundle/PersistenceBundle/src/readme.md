@@ -164,7 +164,7 @@ public function getIndexName(string $className, string $name): string
     return $name;
 }
 
-public function getIndexMapping(string $className, array $mapping): array
+public function getIndexMapping(Index $index, array $mapping): array
 {
     return $mapping;
 }

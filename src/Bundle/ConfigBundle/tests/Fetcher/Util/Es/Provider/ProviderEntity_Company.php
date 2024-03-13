@@ -28,7 +28,7 @@ class ProviderEntity_Company extends ProviderEntity
         return 'company_test';
     }
 
-    public function getIndexMapping(string $className, array $mapping): array
+    public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['decorator_index_mapping_level_0_company'] = [0];
 

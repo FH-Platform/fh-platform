@@ -66,10 +66,10 @@ class ConnectionsFetcher
         $decorators = $this->taggedProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
 
         // decorate mapping and settings
-        list($mapping, $settings) = $this->decorateMappingSettings($index, $className, $decorators);
+        list($mapping, $settings) = $this->decorateMappingSettings($index, $decorators);
 
         // decorate mapping items
-        $mapping = $this->decorateMappingItems($className, $mapping, $decorators);
+        $mapping = $this->decorateMappingItems($index, $mapping, $decorators);
 
         $index->setMapping($mapping);
         $index->setSettings($settings);
@@ -77,11 +77,11 @@ class ConnectionsFetcher
         return $index;
     }
 
-    private function decorateMappingSettings(Index $index, string $className, array $decorators): array
+    private function decorateMappingSettings(Index $index, array $decorators): array
     {
         $mapping = $settings = [];
         foreach ($decorators as $decorator) {
-            $mapping = $decorator->getIndexMapping($className, $mapping);
+            $mapping = $decorator->getIndexMapping($index, $mapping);
             $settings = $decorator->getIndexSettings($index, $settings);
         }
 
@@ -89,17 +89,17 @@ class ConnectionsFetcher
     }
 
     /** @param DecoratorIndexInterface[] $decorators */
-    private function decorateMappingItems(string $className, array $mapping, array $decorators): array
+    private function decorateMappingItems(Index $index, array $mapping, array $decorators): array
     {
         foreach ($mapping as $mappingItemKey => $mappingItem) {
             $mappingItemType = $mappingItem['type'] ?? null;
 
             foreach ($decorators as $decorator) {
-                $mapping[$mappingItemKey] = $decorator->getIndexMappingItem($className, $mappingItem, $mappingItemKey, $mappingItemType);
+                $mapping[$mappingItemKey] = $decorator->getIndexMappingItem($index, $mappingItem, $mappingItemKey, $mappingItemType);
             }
 
             if ('object' == $mappingItemType || 'nested' == $mappingItemType) {
-                $mapping[$mappingItemKey]['properties'] = $this->decorateMappingItems($className, $mappingItem['properties'], $decorators);
+                $mapping[$mappingItemKey]['properties'] = $this->decorateMappingItems($index, $mappingItem['properties'], $decorators);
             }
         }
 

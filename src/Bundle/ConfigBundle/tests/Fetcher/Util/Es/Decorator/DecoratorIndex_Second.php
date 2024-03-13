@@ -12,7 +12,7 @@ class DecoratorIndex_Second extends DecoratorIndex
         return -1;
     }
 
-    public function getIndexMapping(string $className, array $mapping): array
+    public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['decorator_index_mapping_level_-1'] = [-1];
 
