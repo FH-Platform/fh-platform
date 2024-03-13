@@ -5,6 +5,7 @@ namespace FHPlatform\ConfigBundle\Tests\Tag;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default;
+use FHPlatform\ConfigBundle\Tests\Tag\Util\Decorator\DecoratorEntity_Default;
 use FHPlatform\ConfigBundle\Tests\Tag\Util\Decorator\DecoratorIndex_Default;
 use FHPlatform\ConfigBundle\Tests\Tag\Util\Entity\User;
 use FHPlatform\ConfigBundle\Tests\Tag\Util\Provider\ProviderEntity_User;
@@ -18,6 +19,7 @@ class DecorateMappingItemTest extends TestCase
             ProviderConnection_Default::class,
             ProviderEntity_User::class,
             DecoratorIndex_Default::class,
+            DecoratorEntity_Default::class,
         ];
 
         parent::setUp();
