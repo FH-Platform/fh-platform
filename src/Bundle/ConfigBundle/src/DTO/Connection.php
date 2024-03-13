@@ -9,6 +9,7 @@ class Connection
         private readonly string $name,
         private readonly string $prefix,
         private readonly array $clientConfig,
+        private readonly array $additionalConfig = [],
         private array $indexes = [],
     ) {
     }
@@ -36,5 +37,10 @@ class Connection
     public function setIndexes(array $indexes): void
     {
         $this->indexes = $indexes;
+    }
+
+    public function getAdditionalConfig(): array
+    {
+        return $this->additionalConfig;
     }
 }

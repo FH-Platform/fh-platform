@@ -15,4 +15,9 @@ abstract class ProviderConnection
     abstract public function getIndexPrefix(): string;
 
     abstract public function getClientConfig(): array;
+
+    public function getAdditionalConfig(): array
+    {
+        return [];
+    }
 }
