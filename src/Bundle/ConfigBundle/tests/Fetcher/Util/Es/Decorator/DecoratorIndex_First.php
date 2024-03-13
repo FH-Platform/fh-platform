@@ -2,6 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator;
 
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorIndex;
 
 class DecoratorIndex_First extends DecoratorIndex
@@ -18,7 +19,7 @@ class DecoratorIndex_First extends DecoratorIndex
         return $mapping;
     }
 
-    public function getIndexSettings(string $className, array $settings): array
+    public function getIndexSettings(Index $index, array $settings): array
     {
         $settings['decorator_index_settings_level_1'] = [1];
 

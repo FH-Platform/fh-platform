@@ -169,7 +169,7 @@ public function getIndexMapping(string $className, array $mapping): array
     return $mapping;
 }
 
-public function getIndexSettings(string $className, array $settings): array
+public function getIndexSettings(Index $index, array $settings): array
 {
     return $settings;
 }

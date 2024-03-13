@@ -66,7 +66,7 @@ class ConnectionsFetcher
         $decorators = $this->taggedProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
 
         // decorate mapping and settings
-        list($mapping, $settings) = $this->decorateMappingSettings($className, $decorators);
+        list($mapping, $settings) = $this->decorateMappingSettings($index, $className, $decorators);
 
         // decorate mapping items
         $mapping = $this->decorateMappingItems($className, $mapping, $decorators);
@@ -77,12 +77,12 @@ class ConnectionsFetcher
         return $index;
     }
 
-    private function decorateMappingSettings(string $className, array $decorators): array
+    private function decorateMappingSettings(Index $index, string $className, array $decorators): array
     {
         $mapping = $settings = [];
         foreach ($decorators as $decorator) {
             $mapping = $decorator->getIndexMapping($className, $mapping);
-            $settings = $decorator->getIndexSettings($className, $settings);
+            $settings = $decorator->getIndexSettings($index, $settings);
         }
 
         return [$mapping, $settings];

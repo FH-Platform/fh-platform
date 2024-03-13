@@ -2,9 +2,11 @@
 
 namespace FHPlatform\ConfigBundle\Tag\Decorator\Trait;
 
+use FHPlatform\ConfigBundle\DTO\Index;
+
 trait DecoratorIndexTrait
 {
-    public function getIndexSettings(string $className, array $settings): array
+    public function getIndexSettings(Index $index, array $settings): array
     {
         return $settings;
     }

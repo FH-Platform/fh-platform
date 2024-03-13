@@ -27,7 +27,7 @@ class ProviderEntity_User extends ProviderEntity
         return $mapping;
     }
 
-    public function getIndexSettings(string $className, array $settings): array
+    public function getIndexSettings(Index $index, array $settings): array
     {
         $settings['decorator_index_settings_level_0_user'] = [0];
 
