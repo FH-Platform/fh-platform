@@ -47,7 +47,7 @@ class EntityFetcher
         $data = [];
         $shouldBeIndexed = true;
         foreach ($decorators as $decorator) {
-            $data = $decorator->getEntityData($entity, $data, $mapping);
+            $data = $decorator->getEntityData($index, $entity, $data, $mapping);
             $shouldBeIndexed = $decorator->getEntityShouldBeIndexed($entity, $shouldBeIndexed);
         }
         $data = $this->decorateDataItems($className, $data, $mapping, $decorators);

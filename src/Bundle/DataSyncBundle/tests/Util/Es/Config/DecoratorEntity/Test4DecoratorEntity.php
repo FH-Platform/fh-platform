@@ -2,6 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorEntity;
 
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntity;
 
 class Test4DecoratorEntity extends DecoratorEntity
@@ -11,7 +12,7 @@ class Test4DecoratorEntity extends DecoratorEntity
         return 2;
     }
 
-    public function getEntityData(mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
     {
         $data['data_test4'] = 2;
 

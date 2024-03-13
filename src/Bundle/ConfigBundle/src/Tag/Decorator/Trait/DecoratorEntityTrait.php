@@ -2,9 +2,11 @@
 
 namespace FHPlatform\ConfigBundle\Tag\Decorator\Trait;
 
+use FHPlatform\ConfigBundle\DTO\Index;
+
 trait DecoratorEntityTrait
 {
-    public function getEntityData(mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
     {
         return $data;
     }

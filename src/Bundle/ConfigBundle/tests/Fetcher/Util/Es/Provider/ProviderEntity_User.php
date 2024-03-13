@@ -2,6 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider;
 
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 
@@ -12,7 +13,7 @@ class ProviderEntity_User extends ProviderEntity
         return User::class;
     }
 
-    public function getEntityData(mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
     {
         $data['entity_data_level_0_user'] = 0;
 

@@ -3,6 +3,7 @@
 namespace App\Es\Config\Provider\Entity;
 
 use App\Entity\User;
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
 
 class ProviderEntity_User extends ProviderEntity
@@ -13,7 +14,7 @@ class ProviderEntity_User extends ProviderEntity
     }
 
     /** @param User $entity */
-    public function getEntityData(mixed $entity, array $data, array $mapping): array
+    public function getEntityData(Index $index, mixed $entity, array $data, array $mapping): array
     {
         $data['name_string'] = $entity->getNameString();
 
