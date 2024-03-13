@@ -5,7 +5,7 @@ namespace FHPlatform\ConfigBundle\Tests;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
-use FHPlatform\ConfigBundle\Tests\Util\Helper\CommandHelper;
+use FHPlatform\TestsBundle\Tests\Util\CommandHelper;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -41,9 +41,7 @@ class TestCase extends KernelTestCase
         $this->container = static::getContainer();
 
         // (3) - CommandHelper
-        /** @var CommandHelper $commandHelper */
-        $commandHelper = $this->container->get(CommandHelper::class);
-        $this->commandHelper = $commandHelper;
+        $this->commandHelper = new CommandHelper(self::$kernel);
 
         // (4) - EntityManagerInterface
         $this->entityManager = $this->container->get(EntityManagerInterface::class);
