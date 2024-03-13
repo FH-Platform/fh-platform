@@ -30,7 +30,7 @@ class DoctrineEntitiesChangedMessageHandler
 
         $event = $message->getChangedEntitiesEvent();
         foreach ($event->getEvents() as $event) {
-            // TODO check if reletable or indexable
+            // TODO check if reletable or indexable, fetch entity classNames array and check
 
             $className = $event->getClassName();
             $identifier = $event->getIdentifier();
