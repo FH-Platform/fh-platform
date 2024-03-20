@@ -52,6 +52,35 @@ class ElasticaProvider implements ProviderInterface
         return $index->refresh();
     }
 
+    public function indexDelete(Index $index): void
+    {
+        $client = $this->connectionFetcher->fetchByIndex($index);
+
+        $index = $client->getIndex($index->getNameWithPrefix());
+
+        if ($index->exists()) {
+            $index->delete();
+        }
+    }
+
+    public function indexCreate(Index $index): \Elastica\Index
+    {
+        $client = $this->connectionFetcher->fetchByIndex($index);
+
+        $index = $client->getIndex($index->getNameWithPrefix());
+
+        if (!$index->exists()) {
+            $index->create();
+
+            // TODO
+            /*$mappingObject = new Mapping();
+            $mappingObject->setProperties($mapping);
+            $mappingObject->send($index);*/
+        }
+
+        return $index;
+    }
+
     public function searchPrepare(Index $index, mixed $query = null): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);

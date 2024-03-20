@@ -14,6 +14,10 @@ interface ProviderInterface
 
     public function indexRefresh(Index $index): mixed;
 
+    public function indexDelete(Index $index): void;
+
+    public function indexCreate(Index $index): mixed;
+
     public function searchPrepare(Index $index, mixed $query = null): mixed;
 
     public function searchResults(Index $index, mixed $query = null, $limit = null, $offset = 0): mixed;

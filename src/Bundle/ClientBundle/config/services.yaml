@@ -9,9 +9,6 @@ services:
     FHPlatform\ClientBundle\Client\Index\IndexClient:
         public: true
 
-    FHPlatform\ClientBundle\Client\Index\IndexClientConnection:
-        public: true
-
     FHPlatform\ClientBundle\Client\Index\IndexClientRaw:
         public: true
 

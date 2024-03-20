@@ -2,49 +2,30 @@
 
 namespace FHPlatform\ClientBundle\Client\Index;
 
-use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 class IndexClient
 {
     public function __construct(
-        private readonly ConnectionFetcher $connectionFetcher,
+        private readonly ProviderInterface $provider,
     ) {
     }
 
     public function deleteIndex(Index $index): void
     {
-        $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
-
-        $index = $client->getIndex($index->getNameWithPrefix());
-
-        if ($index->exists()) {
-            $index->delete();
-        }
+        $this->provider->indexDelete($index);
     }
 
-    public function createIndex(Index $index): \Elastica\Index
+    public function createIndex(Index $index): mixed
     {
-        $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
-
-        $index = $client->getIndex($index->getNameWithPrefix());
-
-        if (!$index->exists()) {
-            $index->create();
-
-            // TODO
-            /*$mappingObject = new Mapping();
-            $mappingObject->setProperties($mapping);
-            $mappingObject->send($index);*/
-        }
-
-        return $index;
+        return $this->provider->indexCreate($index);
     }
 
-    public function recreateIndex(Index $index): \Elastica\Index
+    public function recreateIndex(Index $index): mixed
     {
-        $this->deleteIndex($index);
+        $this->provider->indexDelete($index);
 
-        return $this->createIndex($index);
+        return $this->provider->indexCreate($index);
     }
 }
