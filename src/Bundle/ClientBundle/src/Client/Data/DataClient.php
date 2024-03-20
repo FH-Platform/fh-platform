@@ -2,13 +2,13 @@
 
 namespace FHPlatform\ClientBundle\Client\Data;
 
-use FHPlatform\ClientBundle\Provider\Elastica\ElasticaProvider;
+use FHPlatform\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
 
 class DataClient
 {
     public function __construct(
-        private readonly ElasticaProvider $elasticaProvider,
+        private readonly ProviderInterface $provider,
     ) {
     }
 
@@ -30,15 +30,15 @@ class DataClient
                 // do the upsert/delete for each index on connection
 
                 if (count($documents['upsert'] ?? []) > 0) {
-                    $responses[] = $this->elasticaProvider->documentsUpsert($index, $documents['upsert'] ?? []);
+                    $responses[] = $this->provider->documentsUpsert($index, $documents['upsert'] ?? []);
                 }
 
                 if (count($documents['delete'] ?? []) > 0) {
-                    $responses[] = $this->elasticaProvider->documentsDelete($index, $documents['delete'] ?? []);
+                    $responses[] = $this->provider->documentsDelete($index, $documents['delete'] ?? []);
                 }
 
                 // refresh index
-                $this->elasticaProvider->indexRefresh($index);
+                $this->provider->indexRefresh($index);
             }
         }
 
@@ -61,9 +61,9 @@ class DataClient
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
 
             if ($entity->getUpsert()) {
-                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->elasticaProvider->documentPrepare($index, $entity->getIdentifier(), $entity->getData());
+                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData());
             } else {
-                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->elasticaProvider->documentPrepare($index, $entity->getIdentifier(), []);
+                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), []);
             }
         }
 

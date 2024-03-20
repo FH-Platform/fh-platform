@@ -4,9 +4,10 @@ namespace FHPlatform\ClientBundle\Provider\Elastica;
 
 use Elastica\Document;
 use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\ConfigBundle\DTO\Index;
 
-class ElasticaProvider
+class ElasticaProvider implements ProviderInterface
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
