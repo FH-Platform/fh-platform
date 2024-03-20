@@ -4,6 +4,8 @@ namespace FHPlatform\ConfigBundle\Tagged;
 
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
 use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityRelatedInterface;
@@ -57,11 +59,13 @@ class TaggedProvider
         return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsIndex), $interface, $className));
     }
 
+    /** @return DecoratorEntityInterface[] */
     public function getDecoratorsEntity(mixed $interface = null, ?string $className = null): array
     {
         return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntity), $interface, $className));
     }
 
+    /** @return DecoratorEntityRelatedInterface[] */
     public function getDecoratorsEntityRelated(mixed $interface = null, ?string $className = null): array
     {
         return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntityRelated), $interface, $className));

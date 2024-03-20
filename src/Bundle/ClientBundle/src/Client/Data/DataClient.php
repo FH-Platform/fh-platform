@@ -13,6 +13,7 @@ class DataClient
     ) {
     }
 
+    /** @param Entity[] $entities */
     public function upsertBatch(array $entities): array
     {
         if (0 === count($entities)) {
@@ -55,6 +56,7 @@ class DataClient
         return $responses;
     }
 
+    /** @param Entity[] $entities */
     public function deleteBatch(array $entities): array
     {
         if (0 === count($entities)) {
