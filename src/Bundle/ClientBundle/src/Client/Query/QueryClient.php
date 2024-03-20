@@ -17,7 +17,7 @@ class QueryClient
 
     public function getSearch(Index $index, ?Query $query = null): Search
     {
-        $client = $this->connectionFetcher->fetch($index->getConnection());
+        $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
 
         $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
         $index = $client->getIndex($indexNameWithPrefix);

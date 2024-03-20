@@ -16,7 +16,7 @@ class IndexClientRaw
 
     public function getIndexesNameByPrefix(Connection $connection): array
     {
-        $client = $this->connectionFetcher->fetch($connection);
+        $client = $this->connectionFetcher->fetchByConnection($connection);
 
         $indices = $client->getCluster()->getIndexNames();
         $indicesFiltered = [];
@@ -34,14 +34,14 @@ class IndexClientRaw
 
     public function deleteAllIndexesByPrefix(Connection $connection): void
     {
-        $client = $this->connectionFetcher->fetch($connection);
+        $client = $this->connectionFetcher->fetchByConnection($connection);
 
         $client->request(sprintf('%s*', $connection->getPrefix()), Request::DELETE)->getStatus();
     }
 
     public function createIndexByName(Connection $connection, string $indexName, array $mappings = [], $settings = []): Index
     {
-        $client = $this->connectionFetcher->fetch($connection);
+        $client = $this->connectionFetcher->fetchByConnection($connection);
 
         $indexNameWithPrefix = $connection->getPrefix().$indexName;
         $index = $client->getIndex($indexNameWithPrefix);
@@ -60,7 +60,7 @@ class IndexClientRaw
 
     public function deleteIndexByName(Connection $connection, string $indexName): void
     {
-        $client = $this->connectionFetcher->fetch($connection);
+        $client = $this->connectionFetcher->fetchByConnection($connection);
 
         $indexNameWithPrefix = $connection->getPrefix().$indexName;
 

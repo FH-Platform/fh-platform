@@ -14,7 +14,7 @@ class IndexClient
 
     public function deleteIndex(Index $index): void
     {
-        $client = $this->connectionFetcher->fetch($index->getConnection());
+        $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
 
         $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
         $index = $client->getIndex($indexNameWithPrefix);
@@ -26,7 +26,7 @@ class IndexClient
 
     public function createIndex(Index $index): \Elastica\Index
     {
-        $client = $this->connectionFetcher->fetch($index->getConnection());
+        $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
 
         $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
         $index = $client->getIndex($indexNameWithPrefix);
