@@ -8,6 +8,7 @@ class Index
         private readonly Connection $connection,
         private readonly string $className,
         private readonly string $name,
+        private readonly string $nameWithPrefix,
         private readonly array $configAdditional,
         private array $mapping = [],
         private array $settings = [],
@@ -27,6 +28,11 @@ class Index
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getNameWithPrefix(): string
+    {
+        return $this->nameWithPrefix;
     }
 
     public function getConfigAdditional(): array

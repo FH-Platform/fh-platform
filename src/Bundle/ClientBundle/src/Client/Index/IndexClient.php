@@ -16,8 +16,7 @@ class IndexClient
     {
         $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
 
-        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
-        $index = $client->getIndex($indexNameWithPrefix);
+        $index = $client->getIndex($index->getNameWithPrefix());
 
         if ($index->exists()) {
             $index->delete();
@@ -28,8 +27,7 @@ class IndexClient
     {
         $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
 
-        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
-        $index = $client->getIndex($indexNameWithPrefix);
+        $index = $client->getIndex($index->getNameWithPrefix());
 
         if (!$index->exists()) {
             $index->create();

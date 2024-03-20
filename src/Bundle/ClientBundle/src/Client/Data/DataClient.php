@@ -53,10 +53,9 @@ class DataClient
 
         foreach ($entities as $entity) {
             $index = $entity->getIndex();
-            $connection = $index->getConnection();
 
-            $connectionName = $connection->getName();
-            $indexNameWithPrefix = $connection->getPrefix().$index->getName();
+            $connectionName = $index->getConnection()->getName();
+            $indexNameWithPrefix = $index->getNameWithPrefix();
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
 

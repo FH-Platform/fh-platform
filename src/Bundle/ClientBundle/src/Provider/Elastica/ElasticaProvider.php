@@ -47,8 +47,7 @@ class ElasticaProvider implements ProviderInterface
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
-        $index = $client->getIndex($indexNameWithPrefix);
+        $index = $client->getIndex($index->getNameWithPrefix());
 
         return $index->refresh();
     }
@@ -57,8 +56,7 @@ class ElasticaProvider implements ProviderInterface
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
-        $index = $client->getIndex($indexNameWithPrefix);
+        $index = $client->getIndex($index->getNameWithPrefix());
 
         $search = new Search($client);
         $search->addIndex($index);

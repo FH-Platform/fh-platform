@@ -56,9 +56,10 @@ class ConnectionsFetcher
     {
         $className = $providerIndex->getClassName();
         $name = $providerIndex->getIndexName($className);
+        $nameWithPrefix = $connection->getPrefix().$name;
         $additionalConfig = $providerIndex->getAdditionalConfig();
 
-        $index = new Index($connection, $className, $name, $additionalConfig);
+        $index = new Index($connection, $className, $name, $nameWithPrefix, $additionalConfig);
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
