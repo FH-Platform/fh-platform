@@ -38,23 +38,23 @@ class IndexCommandsTest extends TestCase
         $connections = $connectionsFetcher->fetch();
         $connection = $connections[0];
 
-        $indexClientRaw->deleteIndexesInConnection($connection);
+        $indexClientRaw->deleteAllIndexesInConnection($connection);
 
-        $this->assertEquals(0, count($indexClientRaw->getIndexesInConnection($connection)));
+        $this->assertEquals(0, count($indexClientRaw->getAllIndexesInConnection($connection)));
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-        $indexNames = $indexClientRaw->getIndexesInConnection($connections[0]);
+        $indexNames = $indexClientRaw->getAllIndexesInConnection($connections[0]);
         $this->assertEquals(2, count($indexNames));
         $this->assertEquals('prefix_test', $indexNames[0]);
         $this->assertEquals('prefix_test2', $indexNames[1]);
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-all']);
-        $this->assertEquals(0, count($indexClientRaw->getIndexesInConnection($connection)));
+        $this->assertEquals(0, count($indexClientRaw->getAllIndexesInConnection($connection)));
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-        $this->assertEquals(2, count($indexClientRaw->getIndexesInConnection($connection)));
+        $this->assertEquals(2, count($indexClientRaw->getAllIndexesInConnection($connection)));
         $indexClient->createIndex(new Index($connection, '', 'test3', $connection->getPrefix().'test3', []));
-        $this->assertEquals(3, count($indexClientRaw->getIndexesInConnection($connection)));
+        $this->assertEquals(3, count($indexClientRaw->getAllIndexesInConnection($connection)));
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-stale']);
-        $this->assertEquals(2, count($indexClientRaw->getIndexesInConnection($connection)));
+        $this->assertEquals(2, count($indexClientRaw->getAllIndexesInConnection($connection)));
     }
 }

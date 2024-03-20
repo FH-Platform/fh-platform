@@ -2,6 +2,7 @@
 
 namespace FHPlatform\ClientBundle\Provider;
 
+use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 interface ProviderInterface
@@ -17,6 +18,10 @@ interface ProviderInterface
     public function indexDelete(Index $index): void;
 
     public function indexCreate(Index $index): mixed;
+
+    public function indexesDeleteAllInConnection(Connection $connection): void;
+
+    public function indexesGetAllInConnection(Connection $connection): array;
 
     public function searchPrepare(Index $index, mixed $query = null): mixed;
 

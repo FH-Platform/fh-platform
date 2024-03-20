@@ -4,37 +4,23 @@ namespace FHPlatform\ClientBundle\Client\Index;
 
 use Elastica\Request;
 use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\ConfigBundle\DTO\Connection;
 
 class IndexClientRaw
 {
     public function __construct(
-        private readonly ConnectionFetcher $connectionFetcher,
+        private readonly  ProviderInterface $provider,
     ) {
     }
 
-    public function getIndexesInConnection(Connection $connection): array
+    public function getAllIndexesInConnection(Connection $connection): array
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
-
-        $indices = $client->getCluster()->getIndexNames();
-        $indicesFiltered = [];
-
-        foreach ($indices as $index) {
-            if (str_starts_with($index, $connection->getPrefix())) {
-                $indicesFiltered[] = $index;
-            }
-        }
-
-        sort($indicesFiltered);
-
-        return $indicesFiltered;
+        return $this->provider->indexesGetAllInConnection($connection);
     }
 
-    public function deleteIndexesInConnection(Connection $connection): void
+    public function deleteAllIndexesInConnection(Connection $connection): void
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
-
-        $client->request(sprintf('%s*', $connection->getPrefix()), Request::DELETE)->getStatus();
+        $this->provider->indexesDeleteAllInConnection($connection);
     }
 }

@@ -3,17 +3,20 @@
 namespace FHPlatform\ClientBundle\Provider\Elastica;
 
 use Elastica\Document;
+use Elastica\Request;
 use Elastica\Result;
 use Elastica\Search;
 use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 class ElasticaProvider implements ProviderInterface
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
-    ) {
+    )
+    {
     }
 
     public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert): Document
@@ -71,6 +74,31 @@ class ElasticaProvider implements ProviderInterface
         }
 
         return $index;
+    }
+
+    public function indexesDeleteAllInConnection(Connection $connection): void
+    {
+        $client = $this->connectionFetcher->fetchByConnection($connection);
+
+        $client->request(sprintf('%s*', $connection->getPrefix()), Request::DELETE)->getStatus();
+    }
+
+    public function indexesGetAllInConnection(Connection $connection): array
+    {
+        $client = $this->connectionFetcher->fetchByConnection($connection);
+
+        $indices = $client->getCluster()->getIndexNames();
+        $indicesFiltered = [];
+
+        foreach ($indices as $index) {
+            if (str_starts_with($index, $connection->getPrefix())) {
+                $indicesFiltered[] = $index;
+            }
+        }
+
+        sort($indicesFiltered);
+
+        return $indicesFiltered;
     }
 
     public function searchPrepare(Index $index, mixed $query = null): mixed
