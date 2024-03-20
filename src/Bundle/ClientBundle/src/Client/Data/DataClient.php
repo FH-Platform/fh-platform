@@ -2,14 +2,13 @@
 
 namespace FHPlatform\ClientBundle\Client\Data;
 
-use Elastica\Document;
-use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\Elastica\ElasticaProvider;
 use FHPlatform\ConfigBundle\DTO\Entity;
 
 class DataClient
 {
     public function __construct(
-        private readonly ConnectionFetcher $connectionFetcher,
+        private readonly ElasticaProvider $elasticaProvider,
     ) {
     }
 
@@ -29,26 +28,22 @@ class DataClient
         // do the upsert for each index
         $responses = [];
         foreach ($entitiesGrouped as $connectionName => $indexes) {
-            $client = $this->connectionFetcher->fetch($connections[$connectionName]);
+            $connection = $connections[$connectionName];
 
             foreach ($indexes as $indexName => $entities) {
-                $index = $client->getIndex($indexName);
-
                 $documents = [];
                 foreach ($entities as $entity) {
                     $identifier = $entity['identifier'];
                     $data = $entity['data'];
 
-                    $document = new Document($identifier, $data);
-                    $document->setIndex($index);
-                    $document->setDocAsUpsert(true);
-                    $documents[] = $document;
+                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $indexName, $identifier, $data);
                 }
 
-                $response = $client->updateDocuments($documents);
-                $responses = [$response];
+                //do the upserts for each index on connection
+                $responses[] = $this->elasticaProvider->documentsUpsert($connection, $documents);
 
-                $index->refresh();
+                //refresh index
+                $this->elasticaProvider->indexRefresh($connection, $indexName);
             }
         }
 
@@ -72,24 +67,22 @@ class DataClient
         // do the delete for each index
         $responses = [];
         foreach ($entitiesGrouped as $connectionName => $indexes) {
-            $client = $this->connectionFetcher->fetch($connections[$connectionName]);
+            $connection = $connections[$connectionName];
 
             foreach ($indexes as $indexName => $entities) {
-                $index = $client->getIndex($indexName);
-
                 $documents = [];
                 foreach ($entities as $entity) {
-                    $identifier = $entity['identifier'];
 
-                    $document = new Document($identifier);
-                    $document->setIndex($index);
-                    $documents[] = $document;
+                    //prepare documents for upsert
+                    $identifier = $entity['identifier'];
+                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $indexName, $identifier, []);
                 }
 
-                $response = $client->deleteDocuments($documents);
-                $responses = [$response];
+                //do the deletes for each index on connection
+                $responses[] = $this->elasticaProvider->documentsDelete($connection, $documents);
 
-                $index->refresh();
+                //refresh index
+                $this->elasticaProvider->indexRefresh($connection, $indexName);
             }
         }
 

@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ClientBundle\Client\Index;
 
-use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 class IndexClient

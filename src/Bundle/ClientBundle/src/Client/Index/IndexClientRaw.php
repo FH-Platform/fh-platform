@@ -4,7 +4,7 @@ namespace FHPlatform\ClientBundle\Client\Index;
 
 use Elastica\Index;
 use Elastica\Request;
-use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\DTO\Connection;
 
 class IndexClientRaw

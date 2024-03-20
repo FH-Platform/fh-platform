@@ -5,7 +5,7 @@ namespace FHPlatform\ClientBundle\Client\Query;
 use Elastica\Query;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\ClientBundle\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 class QueryClient
