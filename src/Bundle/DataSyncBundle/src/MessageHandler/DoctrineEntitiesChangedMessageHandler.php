@@ -57,7 +57,7 @@ class DoctrineEntitiesChangedMessageHandler
         }
 
         // TODO chunk in batch from config in client bundle
-        $this->dataClient->updateBatch($entities);
+        $this->dataClient->syncEntities($entities);
     }
 
     private function prepareUpdates(mixed $entity, string $className, mixed $identifier, string $type, array &$entities): void

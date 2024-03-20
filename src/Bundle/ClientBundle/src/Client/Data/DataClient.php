@@ -13,7 +13,7 @@ class DataClient
     }
 
     /** @param Entity[] $entities */
-    public function updateBatch(array $entities): array
+    public function syncEntities(array $entities): array
     {
         if (0 === count($entities)) {
             return [];
@@ -60,9 +60,9 @@ class DataClient
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
 
             if ($entity->getUpsert()) {
-                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData());
+                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData(), true);
             } else {
-                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), []);
+                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), [], false);
             }
         }
 

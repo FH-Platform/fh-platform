@@ -19,7 +19,7 @@ class QueryClient
         return $this->provider->searchPrepare($index, $query);
     }
 
-    public function searchResults(Index $index, ?Query $query = null, $limit = null, $offset = 0): array
+    public function searchResults(Index $index, mixed $query = null, $limit = null, $offset = 0): array
     {
         return $this->provider->searchResults($index, $query, $limit, $offset);
     }

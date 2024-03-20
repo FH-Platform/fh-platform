@@ -6,7 +6,7 @@ use FHPlatform\ConfigBundle\DTO\Index;
 
 interface ProviderInterface
 {
-    public function documentPrepare(Index $index, mixed $identifier, array $data);
+    public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert);
 
     public function documentsUpsert(Index $index, mixed $documents);
 

@@ -16,7 +16,7 @@ class ElasticaProvider implements ProviderInterface
     ) {
     }
 
-    public function documentPrepare(Index $index, mixed $identifier, array $data): mixed
+    public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert): Document
     {
         $index = $this->getIndex($index);
 
