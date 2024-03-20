@@ -15,44 +15,16 @@ class DataClient
     /** @param Entity[] $entities */
     public function upsertBatch(array $entities): array
     {
-        if (0 === count($entities)) {
-            return [];
-        }
-
-        // store connections by name
-        $connections = $this->groupConnections($entities);
-
-        // group entities by connection name and index name
-        $entitiesGrouped = $this->groupEntities($entities);
-
-        // do the upsert for each index
-        $responses = [];
-        foreach ($entitiesGrouped as $connectionName => $indexes) {
-            $connection = $connections[$connectionName];
-
-            foreach ($indexes as $indexName => $entities) {
-                $documents = [];
-                foreach ($entities as $entity) {
-                    $identifier = $entity['identifier'];
-                    $data = $entity['data'];
-
-                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $indexName, $identifier, $data);
-                }
-
-                //do the upserts for each index on connection
-                $responses[] = $this->elasticaProvider->documentsUpsert($connection, $documents);
-
-                //refresh index
-                $this->elasticaProvider->indexRefresh($connection, $indexName);
-            }
-        }
-
-        // return array of responses
-        return $responses;
+        return $this->syncEntities($entities, true);
     }
 
     /** @param Entity[] $entities */
     public function deleteBatch(array $entities): array
+    {
+        return $this->syncEntities($entities, false);
+    }
+
+    private function syncEntities(array $entities, bool $upsert) : array
     {
         if (0 === count($entities)) {
             return [];
@@ -73,13 +45,18 @@ class DataClient
                 $documents = [];
                 foreach ($entities as $entity) {
 
-                    //prepare documents for upsert
+                    //prepare documents
                     $identifier = $entity['identifier'];
-                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $indexName, $identifier, []);
+                    $data = $entity['data'];
+                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $indexName, $identifier, $data);
                 }
 
                 //do the deletes for each index on connection
-                $responses[] = $this->elasticaProvider->documentsDelete($connection, $documents);
+                if($upsert){
+                    $responses[] = $this->elasticaProvider->documentsUpsert($connection, $documents);
+                }else{
+                    $responses[] = $this->elasticaProvider->documentsDelete($connection, $documents);
+                }
 
                 //refresh index
                 $this->elasticaProvider->indexRefresh($connection, $indexName);
