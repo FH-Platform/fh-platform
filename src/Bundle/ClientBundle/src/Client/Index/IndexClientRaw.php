@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ClientBundle\Client\Index;
 
-use Elastica\Index;
 use Elastica\Request;
 use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\DTO\Connection;
@@ -14,7 +13,7 @@ class IndexClientRaw
     ) {
     }
 
-    public function getIndexesNameByPrefix(Connection $connection): array
+    public function getIndexesInConnection(Connection $connection): array
     {
         $client = $this->connectionFetcher->fetchByConnection($connection);
 
@@ -32,29 +31,10 @@ class IndexClientRaw
         return $indicesFiltered;
     }
 
-    public function deleteAllIndexesByPrefix(Connection $connection): void
+    public function deleteIndexesInConnection(Connection $connection): void
     {
         $client = $this->connectionFetcher->fetchByConnection($connection);
 
         $client->request(sprintf('%s*', $connection->getPrefix()), Request::DELETE)->getStatus();
-    }
-
-    public function createIndexByName(Connection $connection, string $indexName, array $mappings = [], $settings = []): Index
-    {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
-
-        $indexNameWithPrefix = $connection->getPrefix().$indexName;
-        $index = $client->getIndex($indexNameWithPrefix);
-
-        if (!$index->exists()) {
-            $index->create();
-
-            // TODO
-            /*$mappingObject = new Mapping();
-            $mappingObject->setProperties($mapping);
-            $mappingObject->send($index);*/
-        }
-
-        return $index;
     }
 }
