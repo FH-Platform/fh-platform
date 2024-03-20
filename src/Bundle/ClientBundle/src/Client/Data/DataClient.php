@@ -30,14 +30,11 @@ class DataClient
             return [];
         }
 
-        // group
-        list($connectionsGrouped, $indexesGrouped,  $entitiesGrouped) = $this->groupEntities($entities);
+        // group indexes and entities by connection and index
+        list($indexesGrouped,  $entitiesGrouped) = $this->groupEntities($entities);
 
-        // do the delete for each index
         $responses = [];
         foreach ($entitiesGrouped as $connectionName => $indexes) {
-            $connection = $connectionsGrouped[$connectionName];
-
             foreach ($indexes as $indexName => $entities) {
                 $index = $indexesGrouped[$connectionName][$indexName];
 
@@ -47,18 +44,18 @@ class DataClient
                     //prepare documents
                     $identifier = $entity['identifier'];
                     $data = $entity['data'];
-                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $index, $identifier, $data);
+                    $documents[] = $this->elasticaProvider->documentPrepare($index, $identifier, $data);
                 }
 
                 //do the deletes for each index on connection
                 if($upsert){
-                    $responses[] = $this->elasticaProvider->documentsUpsert($connection, $documents);
+                    $responses[] = $this->elasticaProvider->documentsUpsert($index, $documents);
                 }else{
-                    $responses[] = $this->elasticaProvider->documentsDelete($connection, $documents);
+                    $responses[] = $this->elasticaProvider->documentsDelete($index, $documents);
                 }
 
                 //refresh index
-                $this->elasticaProvider->indexRefresh($connection, $indexName);
+                $this->elasticaProvider->indexRefresh($index);
             }
         }
 
@@ -66,24 +63,9 @@ class DataClient
         return $responses;
     }
 
-    /** @param Entity[] $entities */
-    private function groupConnections(array $entities): array
-    {
-        $connections = [];
-        foreach ($entities as $entity) {
-            $index = $entity->getIndex();
-            $connection = $index->getConnection();
-
-            $connections[$connection->getName()] = $connection;
-        }
-
-        return $connections;
-    }
-
-    /** @param Entity[] $entities */
     private function groupEntities(array $entities): array
     {
-        $connectionsGrouped = $indexesGrouped =  $entitiesGrouped = [];
+        $indexesGrouped =  $entitiesGrouped = [];
 
         foreach ($entities as $entity) {
             $index = $entity->getIndex();
@@ -92,7 +74,6 @@ class DataClient
             $connectionName = $connection->getName();
             $indexNameWithPrefix = $connection->getPrefix().$index->getName();
 
-            $connectionsGrouped[$connectionName] = $connection;
             $indexesGrouped[$connectionName][$indexNameWithPrefix] = $index;
             $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = [
                 'identifier' => $entity->getIdentifier(),
@@ -100,6 +81,6 @@ class DataClient
             ];
         }
 
-        return [$connectionsGrouped, $indexesGrouped,  $entitiesGrouped];
+        return [$indexesGrouped,  $entitiesGrouped];
     }
 }
