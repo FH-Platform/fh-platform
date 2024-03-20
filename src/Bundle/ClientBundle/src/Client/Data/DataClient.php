@@ -13,36 +13,28 @@ class DataClient
     }
 
     /** @param Entity[] $entities */
-    public function upsertBatch(array $entities): array
-    {
-        return $this->syncEntities($entities, true);
-    }
-
-    /** @param Entity[] $entities */
-    public function deleteBatch(array $entities): array
-    {
-        return $this->syncEntities($entities, false);
-    }
-
-    private function syncEntities(array $entities, bool $upsert): array
+    public function updateBatch(array $entities): array
     {
         if (0 === count($entities)) {
             return [];
         }
 
         // group indexes and entities by connection and index
-        list($indexesGrouped, $entitiesGrouped) = $this->groupEntities($entities);
+        $entitiesGrouped = $this->groupEntities($entities);
 
         $responses = [];
         foreach ($entitiesGrouped as $connectionName => $indexes) {
             foreach ($indexes as $indexName => $documents) {
-                $index = $indexesGrouped[$connectionName][$indexName];
+                $index = $documents['index'];
 
-                // do the deletes for each index on connection
-                if ($upsert) {
-                    $responses[] = $this->elasticaProvider->documentsUpsert($index, $documents);
-                } else {
-                    $responses[] = $this->elasticaProvider->documentsDelete($index, $documents);
+                // do the upsert/delete for each index on connection
+
+                if (count($documents['upsert'] ?? []) > 0) {
+                    $responses[] = $this->elasticaProvider->documentsUpsert($index, $documents['upsert'] ?? []);
+                }
+
+                if (count($documents['delete'] ?? []) > 0) {
+                    $responses[] = $this->elasticaProvider->documentsDelete($index, $documents['delete'] ?? []);
                 }
 
                 // refresh index
@@ -54,9 +46,10 @@ class DataClient
         return $responses;
     }
 
+    /** @param Entity[] $entities */
     private function groupEntities(array $entities): array
     {
-        $indexesGrouped = $entitiesGrouped = [];
+        $entitiesGrouped = [];
 
         foreach ($entities as $entity) {
             $index = $entity->getIndex();
@@ -65,10 +58,15 @@ class DataClient
             $connectionName = $connection->getName();
             $indexNameWithPrefix = $connection->getPrefix().$index->getName();
 
-            $indexesGrouped[$connectionName][$indexNameWithPrefix] = $index;
-            $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = $this->elasticaProvider->documentPrepare($index, $entity->getIdentifier(), $entity->getData());
+            $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
+
+            if ($entity->getUpsert()) {
+                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->elasticaProvider->documentPrepare($index, $entity->getIdentifier(), $entity->getData());
+            } else {
+                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->elasticaProvider->documentPrepare($index, $entity->getIdentifier(), []);
+            }
         }
 
-        return [$indexesGrouped,  $entitiesGrouped];
+        return $entitiesGrouped;
     }
 }

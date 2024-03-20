@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
-use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntityRelated;
+use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
@@ -29,7 +29,7 @@ class EntityRelatedFetcher
         return $entitiesRelated;
     }
 
-    /** @param  DecoratorEntityRelated[] $decorators */
+    /** @param  DecoratorEntityRelatedInterface[] $decorators */
     private function decorateEntitiesRelated(mixed $entity, array $decorators): array
     {
         $entitiesRelated = [];

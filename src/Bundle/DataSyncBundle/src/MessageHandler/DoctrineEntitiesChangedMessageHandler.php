@@ -33,7 +33,7 @@ class DoctrineEntitiesChangedMessageHandler
         $classNamesIndex = $this->doctrineClassesNamesIndexFetcher->fetch();
         $classNamesRelated = $this->doctrineClassesNamesRelatedFetcher->fetch();
 
-        $entitiesUpsert = $entitiesDelete = [];
+        $entities = [];
 
         $event = $message->getChangedEntitiesEvent();
         foreach ($event->getEvents() as $event) {
@@ -47,7 +47,7 @@ class DoctrineEntitiesChangedMessageHandler
             $entity = $this->entityHelper->refreshByClassNameId($className, $identifier);
 
             if (in_array($className, $classNamesIndex)) {
-                $this->prepareUpdates($entity, $className, $identifier, $type, $entitiesUpsert, $entitiesDelete);
+                $this->prepareUpdates($entity, $className, $identifier, $type, $entities);
             }
 
             if (in_array($className, $classNamesRelated) and $entity) {
@@ -57,11 +57,10 @@ class DoctrineEntitiesChangedMessageHandler
         }
 
         // TODO chunk in batch from config in client bundle
-        $this->dataClient->upsertBatch($entitiesUpsert);
-        $this->dataClient->deleteBatch($entitiesDelete);
+        $this->dataClient->updateBatch($entities);
     }
 
-    private function prepareUpdates(mixed $entity, string $className, mixed $identifier, string $type, array &$entitiesUpsert, array &$entitiesDelete): void
+    private function prepareUpdates(mixed $entity, string $className, mixed $identifier, string $type, array &$entities): void
     {
         // TODO cache
         $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
@@ -72,12 +71,12 @@ class DoctrineEntitiesChangedMessageHandler
             // TODO return if hash exists
 
             if (ChangedEntityEvent::TYPE_DELETE === $type) {
-                $entitiesDelete[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
+                $entities[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
             } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
                 if (!$entity) {
-                    $entitiesDelete[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
+                    $entities[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
                 } else {
-                    $entitiesUpsert[$hash] = $this->entityFetcher->fetchUpsert($entity);
+                    $entities[$hash] = $this->entityFetcher->fetchUpsert($entity);
                 }
             }
 
