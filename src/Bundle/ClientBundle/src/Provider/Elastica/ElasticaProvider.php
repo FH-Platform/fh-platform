@@ -15,8 +15,7 @@ class ElasticaProvider implements ProviderInterface
 {
     public function __construct(
         private readonly ConnectionFetcher $connectionFetcher,
-    )
-    {
+    ) {
     }
 
     public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert): Document

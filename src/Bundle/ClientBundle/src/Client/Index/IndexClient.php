@@ -3,6 +3,7 @@
 namespace FHPlatform\ClientBundle\Client\Index;
 
 use FHPlatform\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 class IndexClient
@@ -27,5 +28,15 @@ class IndexClient
         $this->provider->indexDelete($index);
 
         return $this->provider->indexCreate($index);
+    }
+
+    public function getAllIndexesInConnection(Connection $connection): array
+    {
+        return $this->provider->indexesGetAllInConnection($connection);
+    }
+
+    public function deleteAllIndexesInConnection(Connection $connection): void
+    {
+        $this->provider->indexesDeleteAllInConnection($connection);
     }
 }

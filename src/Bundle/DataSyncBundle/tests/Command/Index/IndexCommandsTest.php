@@ -3,7 +3,6 @@
 namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ClientBundle\Client\Index\IndexClientRaw;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
@@ -27,9 +26,6 @@ class IndexCommandsTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var IndexClientRaw $indexClientRaw */
-        $indexClientRaw = $this->container->get(IndexClientRaw::class);
-
         /** @var IndexClient $indexClient */
         $indexClient = $this->container->get(IndexClient::class);
 
@@ -38,23 +34,23 @@ class IndexCommandsTest extends TestCase
         $connections = $connectionsFetcher->fetch();
         $connection = $connections[0];
 
-        $indexClientRaw->deleteAllIndexesInConnection($connection);
+        $indexClient->deleteAllIndexesInConnection($connection);
 
-        $this->assertEquals(0, count($indexClientRaw->getAllIndexesInConnection($connection)));
+        $this->assertEquals(0, count($indexClient->getAllIndexesInConnection($connection)));
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-        $indexNames = $indexClientRaw->getAllIndexesInConnection($connections[0]);
+        $indexNames = $indexClient->getAllIndexesInConnection($connections[0]);
         $this->assertEquals(2, count($indexNames));
         $this->assertEquals('prefix_test', $indexNames[0]);
         $this->assertEquals('prefix_test2', $indexNames[1]);
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-all']);
-        $this->assertEquals(0, count($indexClientRaw->getAllIndexesInConnection($connection)));
+        $this->assertEquals(0, count($indexClient->getAllIndexesInConnection($connection)));
 
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
-        $this->assertEquals(2, count($indexClientRaw->getAllIndexesInConnection($connection)));
+        $this->assertEquals(2, count($indexClient->getAllIndexesInConnection($connection)));
         $indexClient->createIndex(new Index($connection, '', 'test3', $connection->getPrefix().'test3', []));
-        $this->assertEquals(3, count($indexClientRaw->getAllIndexesInConnection($connection)));
+        $this->assertEquals(3, count($indexClient->getAllIndexesInConnection($connection)));
         $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-stale']);
-        $this->assertEquals(2, count($indexClientRaw->getAllIndexesInConnection($connection)));
+        $this->assertEquals(2, count($indexClient->getAllIndexesInConnection($connection)));
     }
 }
