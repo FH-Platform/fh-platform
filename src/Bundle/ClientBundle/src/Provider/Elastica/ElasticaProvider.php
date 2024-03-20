@@ -5,6 +5,7 @@ namespace FHPlatform\ClientBundle\Provider\Elastica;
 use Elastica\Document;
 use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\DTO\Connection;
+use FHPlatform\ConfigBundle\DTO\Index;
 
 class ElasticaProvider
 {
@@ -13,11 +14,11 @@ class ElasticaProvider
     ) {
     }
 
-    public function documentPrepare(Connection $connection, string $indexName, mixed $identifier, array $data) : mixed
+    public function documentPrepare(Connection $connection, Index $index, mixed $identifier, array $data) : mixed
     {
         $client = $this->connectionFetcher->fetch($connection);
 
-        $index = $client->getIndex($indexName);
+        $index = $client->getIndex($connection->getPrefix().$index->getName());
 
         $document = new Document($identifier, $data);
         $document->setIndex($index);

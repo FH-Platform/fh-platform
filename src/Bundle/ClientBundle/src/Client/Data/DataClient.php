@@ -30,25 +30,24 @@ class DataClient
             return [];
         }
 
-        // store connections by name
-        $connections = $this->groupConnections($entities);
-
-        // group entities by connection name and index name
-        $entitiesGrouped = $this->groupEntities($entities);
+        // group
+        list($connectionsGrouped, $indexesGrouped,  $entitiesGrouped) = $this->groupEntities($entities);
 
         // do the delete for each index
         $responses = [];
         foreach ($entitiesGrouped as $connectionName => $indexes) {
-            $connection = $connections[$connectionName];
+            $connection = $connectionsGrouped[$connectionName];
 
             foreach ($indexes as $indexName => $entities) {
+                $index = $indexesGrouped[$connectionName][$indexName];
+
                 $documents = [];
                 foreach ($entities as $entity) {
 
                     //prepare documents
                     $identifier = $entity['identifier'];
                     $data = $entity['data'];
-                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $indexName, $identifier, $data);
+                    $documents[] = $this->elasticaProvider->documentPrepare($connection, $index, $identifier, $data);
                 }
 
                 //do the deletes for each index on connection
@@ -84,7 +83,8 @@ class DataClient
     /** @param Entity[] $entities */
     private function groupEntities(array $entities): array
     {
-        $entitiesGrouped = [];
+        $connectionsGrouped = $indexesGrouped =  $entitiesGrouped = [];
+
         foreach ($entities as $entity) {
             $index = $entity->getIndex();
             $connection = $index->getConnection();
@@ -92,12 +92,14 @@ class DataClient
             $connectionName = $connection->getName();
             $indexNameWithPrefix = $connection->getPrefix().$index->getName();
 
+            $connectionsGrouped[$connectionName] = $connection;
+            $indexesGrouped[$connectionName][$indexNameWithPrefix] = $index;
             $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = [
                 'identifier' => $entity->getIdentifier(),
                 'data' => $entity->getData(),
             ];
         }
 
-        return $entitiesGrouped;
+        return [$connectionsGrouped, $indexesGrouped,  $entitiesGrouped];
     }
 }
