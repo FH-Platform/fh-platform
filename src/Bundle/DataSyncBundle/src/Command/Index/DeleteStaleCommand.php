@@ -2,7 +2,9 @@
 
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
+use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Index\IndexClientRaw;
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DeleteStaleCommand extends Command
 {
     public function __construct(
+        private readonly IndexClient $indexClient,
         private readonly IndexClientRaw $indexClientRaw,
         private readonly ConnectionsFetcher $connectionsFetcher,
     ) {
@@ -30,9 +33,9 @@ class DeleteStaleCommand extends Command
             }
 
             $indexNames = $this->indexClientRaw->getIndexesNameByPrefix($connection);
-            foreach ($indexNames as $indexName) {
-                if (!in_array($indexName, $indexNamesAvailable, true)) {
-                    $this->indexClientRaw->deleteIndexByName($connection, str_replace($connection->getPrefix(), '', $indexName));
+            foreach ($indexNames as $indexNameWithPrefix) {
+                if (!in_array($indexNameWithPrefix, $indexNamesAvailable, true)) {
+                    $this->indexClient->deleteIndex(new Index($connection, '', '', $indexNameWithPrefix, []));
                 }
             }
         }

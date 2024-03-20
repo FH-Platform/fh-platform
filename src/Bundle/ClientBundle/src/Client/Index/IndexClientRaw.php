@@ -57,17 +57,4 @@ class IndexClientRaw
 
         return $index;
     }
-
-    public function deleteIndexByName(Connection $connection, string $indexName): void
-    {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
-
-        $indexNameWithPrefix = $connection->getPrefix().$indexName;
-
-        $index = $client->getIndex($indexNameWithPrefix);
-
-        if ($index->exists()) {
-            $index->delete();
-        }
-    }
 }
