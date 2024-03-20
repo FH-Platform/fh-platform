@@ -4,9 +4,7 @@ namespace FHPlatform\ClientBundle\Provider\Elastica;
 
 use Elastica\Document;
 use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
-use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
-use function Ramsey\Uuid\v1;
 
 class ElasticaProvider
 {
@@ -15,7 +13,7 @@ class ElasticaProvider
     ) {
     }
 
-    public function documentPrepare(Index $index, mixed $identifier, array $data) : mixed
+    public function documentPrepare(Index $index, mixed $identifier, array $data): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -28,21 +26,21 @@ class ElasticaProvider
         return $document;
     }
 
-    public function documentsUpsert(Index $index, mixed $documents) : mixed
+    public function documentsUpsert(Index $index, mixed $documents): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         return $client->updateDocuments($documents);
     }
 
-    public function documentsDelete(Index $index, mixed $documents) : mixed
+    public function documentsDelete(Index $index, mixed $documents): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         return $client->deleteDocuments($documents);
     }
 
-    public function indexRefresh(Index $index) : mixed
+    public function indexRefresh(Index $index): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 

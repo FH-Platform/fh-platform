@@ -8,7 +8,7 @@ class Entity
         private readonly Index $index,
         private readonly mixed $identifier,
         private readonly array $data,
-        private readonly bool  $upsert,
+        private readonly bool $upsert,
     ) {
     }
 

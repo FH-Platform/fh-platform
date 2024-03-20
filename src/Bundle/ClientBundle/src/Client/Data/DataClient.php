@@ -24,37 +24,28 @@ class DataClient
         return $this->syncEntities($entities, false);
     }
 
-    private function syncEntities(array $entities, bool $upsert) : array
+    private function syncEntities(array $entities, bool $upsert): array
     {
         if (0 === count($entities)) {
             return [];
         }
 
         // group indexes and entities by connection and index
-        list($indexesGrouped,  $entitiesGrouped) = $this->groupEntities($entities);
+        list($indexesGrouped, $entitiesGrouped) = $this->groupEntities($entities);
 
         $responses = [];
         foreach ($entitiesGrouped as $connectionName => $indexes) {
-            foreach ($indexes as $indexName => $entities) {
+            foreach ($indexes as $indexName => $documents) {
                 $index = $indexesGrouped[$connectionName][$indexName];
 
-                $documents = [];
-                foreach ($entities as $entity) {
-
-                    //prepare documents
-                    $identifier = $entity['identifier'];
-                    $data = $entity['data'];
-                    $documents[] = $this->elasticaProvider->documentPrepare($index, $identifier, $data);
-                }
-
-                //do the deletes for each index on connection
-                if($upsert){
+                // do the deletes for each index on connection
+                if ($upsert) {
                     $responses[] = $this->elasticaProvider->documentsUpsert($index, $documents);
-                }else{
+                } else {
                     $responses[] = $this->elasticaProvider->documentsDelete($index, $documents);
                 }
 
-                //refresh index
+                // refresh index
                 $this->elasticaProvider->indexRefresh($index);
             }
         }
@@ -65,7 +56,7 @@ class DataClient
 
     private function groupEntities(array $entities): array
     {
-        $indexesGrouped =  $entitiesGrouped = [];
+        $indexesGrouped = $entitiesGrouped = [];
 
         foreach ($entities as $entity) {
             $index = $entity->getIndex();
@@ -75,10 +66,7 @@ class DataClient
             $indexNameWithPrefix = $connection->getPrefix().$index->getName();
 
             $indexesGrouped[$connectionName][$indexNameWithPrefix] = $index;
-            $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = [
-                'identifier' => $entity->getIdentifier(),
-                'data' => $entity->getData(),
-            ];
+            $entitiesGrouped[$connectionName][$indexNameWithPrefix][] = $this->elasticaProvider->documentPrepare($index, $entity->getIdentifier(), $entity->getData());
         }
 
         return [$indexesGrouped,  $entitiesGrouped];
