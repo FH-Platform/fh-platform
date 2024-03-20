@@ -18,9 +18,7 @@ class ElasticaProvider implements ProviderInterface
 
     public function documentPrepare(Index $index, mixed $identifier, array $data): mixed
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
-
-        $index = $client->getIndex($index->getConnection()->getPrefix().$index->getName());
+        $index = $this->getIndex($index);
 
         $document = new Document($identifier, $data);
         $document->setIndex($index);
@@ -45,18 +43,14 @@ class ElasticaProvider implements ProviderInterface
 
     public function indexRefresh(Index $index): mixed
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
-
-        $index = $client->getIndex($index->getNameWithPrefix());
+        $index = $this->getIndex($index);
 
         return $index->refresh();
     }
 
     public function indexDelete(Index $index): void
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
-
-        $index = $client->getIndex($index->getNameWithPrefix());
+        $index = $this->getIndex($index);
 
         if ($index->exists()) {
             $index->delete();
@@ -65,9 +59,7 @@ class ElasticaProvider implements ProviderInterface
 
     public function indexCreate(Index $index): \Elastica\Index
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
-
-        $index = $client->getIndex($index->getNameWithPrefix());
+        $index = $this->getIndex($index);
 
         if (!$index->exists()) {
             $index->create();
@@ -85,7 +77,7 @@ class ElasticaProvider implements ProviderInterface
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $index = $client->getIndex($index->getNameWithPrefix());
+        $index = $this->getIndex($index);
 
         $search = new Search($client);
         $search->addIndex($index);
@@ -102,6 +94,13 @@ class ElasticaProvider implements ProviderInterface
         $search = $this->searchPrepare($index, $query);
 
         return $this->scrollSearch($search, $limit, $offset);
+    }
+
+    private function getIndex(Index $index): \Elastica\Index
+    {
+        $client = $this->connectionFetcher->fetchByIndex($index);
+
+        return $client->getIndex($index->getNameWithPrefix());
     }
 
     private function scrollSearch(Search $search, $limit, $offset): array
