@@ -38,9 +38,9 @@ class SyncCommandTest extends TestCase
         $this->prepareUsers();
 
         $this->indexClient->recreateIndex($index);
-        $this->assertCount(0, $queryClient->getResults($index));
+        $this->assertCount(0, $queryClient->searchResults($index));
         $this->commandHelper->runCommand(['command' => 'symfony-es:data:sync', 'class-name' => User::class]);
-        $this->assertCount(2, $queryClient->getResults($index));
+        $this->assertCount(2, $queryClient->searchResults($index));
     }
 
     private function prepareUsers()

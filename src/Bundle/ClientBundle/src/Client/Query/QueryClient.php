@@ -3,68 +3,24 @@
 namespace FHPlatform\ClientBundle\Client\Query;
 
 use Elastica\Query;
-use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
+use FHPlatform\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\ConfigBundle\DTO\Index;
 
 class QueryClient
 {
     public function __construct(
-        private readonly ConnectionFetcher $connectionFetcher,
+        private readonly ProviderInterface $provider,
     ) {
     }
 
-    public function getSearch(Index $index, ?Query $query = null): Search
+    public function searchPrepare(Index $index, mixed $query = null): Search
     {
-        $client = $this->connectionFetcher->fetchByConnection($index->getConnection());
-
-        $indexNameWithPrefix = $index->getConnection()->getPrefix().$index->getName();
-        $index = $client->getIndex($indexNameWithPrefix);
-
-        $search = new Search($client);
-        $search->addIndex($index);
-
-        if ($query) {
-            $search->setQuery($query);
-        }
-
-        return $search;
+        return $this->provider->searchPrepare($index, $query);
     }
 
-    public function getResults(Index $index, ?Query $query = null, $limit = null, $offset = 0): array
+    public function searchResults(Index $index, ?Query $query = null, $limit = null, $offset = 0): array
     {
-        $search = $this->getSearch($index, $query);
-
-        $results = $this->scrollSearch($search, $limit, $offset);
-
-        return $results;
-    }
-
-    private function scrollSearch(Search $search, $limit, $offset): array
-    {
-        $results = [];
-        $processedResults = 0;
-
-        foreach ($search->scroll() as $scrollId => $resultSet) {
-            if (null !== $resultSet && count($resultSet)) {
-                foreach ($resultSet as $result) {
-                    /* @var Result $result */
-
-                    if ($processedResults < $offset) {
-                        ++$processedResults;
-                        continue;
-                    }
-
-                    $results[$result->getId()] = $result;
-
-                    if (count($results) === $limit) {
-                        break 2;
-                    }
-                }
-            }
-        }
-
-        return $results;
+        return $this->provider->searchResults($index, $query, $limit, $offset);
     }
 }
