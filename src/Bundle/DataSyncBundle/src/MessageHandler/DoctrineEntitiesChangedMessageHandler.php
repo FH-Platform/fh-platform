@@ -72,12 +72,12 @@ class DoctrineEntitiesChangedMessageHandler
             // TODO return if hash exists
 
             if (ChangedEntityEvent::TYPE_DELETE === $type) {
-                $entitiesDelete[$hash] = new Entity($index, $identifier, [], false);
+                $entitiesDelete[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
             } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
                 if (!$entity) {
-                    $entitiesDelete[$hash] = new Entity($index, $identifier, [], false);
+                    $entitiesDelete[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
                 } else {
-                    $entitiesUpsert[$hash] = $this->entityFetcher->fetch($entity);
+                    $entitiesUpsert[$hash] = $this->entityFetcher->fetchUpsert($entity);
                 }
             }
 

@@ -8,7 +8,7 @@ class Entity
         private readonly Index $index,
         private readonly mixed $identifier,
         private readonly array $data,
-        private readonly bool $shouldBeIndexed,
+        private readonly bool  $upsert,
     ) {
     }
 
@@ -27,8 +27,8 @@ class Entity
         return $this->data;
     }
 
-    public function getShouldBeIndexed(): bool
+    public function getUpsert(): bool
     {
-        return $this->shouldBeIndexed;
+        return $this->upsert;
     }
 }

@@ -33,12 +33,12 @@ class EntityCommand extends Command
 
         $entity = $this->entityManager->getRepository($className)->find($identifier);
 
-        $entity = $this->entityFetcher->fetch($entity);
+        $entity = $this->entityFetcher->fetchUpsert($entity);
 
         $output->writeln('Entity:');
         $output->writeln('----------------------------------------------------------------------');
         $output->writeln('index='.$entity->getIndex()->getName());
-        $output->writeln('should_be_indexed='.$entity->getShouldBeIndexed());
+        $output->writeln('should_be_indexed='.$entity->getUpsert());
         $output->writeln('data=');
         $output->writeln(json_encode($entity->getData(), JSON_PRETTY_PRINT));
         $output->writeln('----------------------------------------------------------------------');
