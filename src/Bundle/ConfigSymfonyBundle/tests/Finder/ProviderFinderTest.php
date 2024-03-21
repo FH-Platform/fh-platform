@@ -4,6 +4,7 @@ namespace FHPlatform\ConfigSymfonyBundle\Tests\Finder;
 
 use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
+use FHPlatform\ConfigBundle\Util\Finder\ProviderFinder;
 use FHPlatform\ConfigSymfonyBundle\Tests\Finder\Util\Entity\LogEntity;
 use FHPlatform\ConfigSymfonyBundle\Tests\Finder\Util\Entity\LogEntity2;
 use FHPlatform\ConfigSymfonyBundle\Tests\Finder\Util\Entity\LogEntityRelated;
@@ -14,7 +15,6 @@ use FHPlatform\ConfigSymfonyBundle\Tests\Finder\Util\Provider\ProviderEntity_Log
 use FHPlatform\ConfigSymfonyBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_LogEntityRelated;
 use FHPlatform\ConfigSymfonyBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigSymfonyBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Util\Finder\ProviderFinder;
 
 class ProviderFinderTest extends TestCase
 {
@@ -31,7 +31,7 @@ class ProviderFinderTest extends TestCase
 
     public function testService(): void
     {
-        //TODO -> TMP
+        // TODO -> TMP
         return;
 
         /** @var ProviderFinder $providerFinder */

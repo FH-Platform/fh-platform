@@ -22,6 +22,10 @@ services:
             - !tagged fh_platform.config.decorator.entity
             - !tagged fh_platform.config.decorator.entity_related
 
+    FHPlatform\ConfigBundle\Builder\ConnectionsBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+
     FHPlatform\ConfigBundle\Builder\EntityBuilder:
         arguments:
             $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
@@ -36,6 +40,4 @@ services:
         arguments:
             $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
 
-    FHPlatform\ConfigBundle\Builder\ConnectionsBuilder:
-        autowire: true
-        autoconfigure: true
+

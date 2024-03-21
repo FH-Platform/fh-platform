@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ConfigSymfonyBundle\Tests\Service\Namer;
 
-use FHPlatform\ConfigSymfonyBundle\Tests\TestCase;
 use FHPlatform\ConfigBundle\Util\Namer\IndexNamer;
+use FHPlatform\ConfigSymfonyBundle\Tests\TestCase;
 
 class IndexNamerTest extends TestCase
 {

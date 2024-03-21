@@ -2,12 +2,12 @@
 
 namespace FHPlatform\ConfigSymfonyBundle\Tests\Service\Sorter;
 
+use FHPlatform\ConfigBundle\Util\Sorter\PrioritySorter;
 use FHPlatform\ConfigSymfonyBundle\Tests\Service\Sorter\Util\Tester;
 use FHPlatform\ConfigSymfonyBundle\Tests\Service\Sorter\Util\Tester2;
 use FHPlatform\ConfigSymfonyBundle\Tests\Service\Sorter\Util\Tester3;
 use FHPlatform\ConfigSymfonyBundle\Tests\Service\Sorter\Util\Tester4;
 use FHPlatform\ConfigSymfonyBundle\Tests\TestCase;
-use FHPlatform\ConfigBundle\Util\Sorter\PrioritySorter;
 
 class PrioritySorterTest extends TestCase
 {
