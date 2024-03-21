@@ -1,6 +1,0 @@
-services:
-    _defaults:
-        public: true  #TODO remove
-        autowire: true
-        autoconfigure: true
-

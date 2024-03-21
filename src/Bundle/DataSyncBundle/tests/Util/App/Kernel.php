@@ -3,7 +3,6 @@
 namespace FHPlatform\DataSyncBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\ConfigSymfonyBundle\ConfigSymfonyBundle;
 use FHPlatform\DataSyncBundle\DataSyncBundle;
 use FHPlatform\PersistenceBundle\PersistenceBundle;
 use FHPlatform\SymfonyBridgeBundle\SymfonyBridgeBundle;
@@ -23,7 +22,6 @@ class Kernel extends BaseKernel
             new SymfonyBridgeBundle(),
             new UtilBundle(),
             new DataSyncBundle(),
-            new ConfigSymfonyBundle(),
             new PersistenceBundle(),
         ];
     }
