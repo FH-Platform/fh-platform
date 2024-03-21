@@ -4,9 +4,7 @@ namespace FHPlatform\ConfigBundle\Tag\Decorator\Interface;
 
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
-#[AutoconfigureTag('fh_platform.config.decorator.entity')]
 interface DecoratorEntityInterface extends PriorityInterface
 {
     public function getEntityData(Index $index, mixed $entity, array $data): array;

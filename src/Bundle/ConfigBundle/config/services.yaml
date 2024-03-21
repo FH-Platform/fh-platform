@@ -15,7 +15,7 @@ services:
 
     FHPlatform\ConfigBundle\Tagged\TaggedProvider:
         arguments:
-            - !tagged fh_platform.config.provider.connection
+            - !tagged fh_platform.config.connection
             - !tagged fh_platform.config.provider.index
             - !tagged fh_platform.config.provider.entity
             - !tagged fh_platform.config.provider.entity_related
