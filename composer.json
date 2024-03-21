@@ -49,7 +49,7 @@
         "psr-4": {
             "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
             "FHPlatform\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
-            "FHPlatform\\ClientBundle\\Tests\\": "src/Bundle/ClientBundle/tests/",
+            "FHPlatform\\ClientElasticaBundle\\Tests\\": "src/Bundle/ClientElasticaBundle/tests/",
             "FHPlatform\\DataSyncBundle\\Tests\\": "src/Bundle/DataSyncBundle/tests/",
             "FHPlatform\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }

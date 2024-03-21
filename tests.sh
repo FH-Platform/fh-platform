@@ -1,6 +1,7 @@
 #!/bin/bash
 
 bundles=(
+  "ClientElasticaBundle"
   "UtilBundle"
   "PersistenceBundle"
   "ClientBundle"
