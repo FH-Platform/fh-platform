@@ -4,7 +4,6 @@ namespace FHPlatform\ClientBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\ClientBundle\ClientBundle;
-use FHPlatform\ClientElasticaBundle\ClientElasticaBundle;
 use FHPlatform\ConfigSymfonyBundle\ConfigSymfonyBundle;
 use FHPlatform\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -22,7 +21,6 @@ class Kernel extends BaseKernel
             new UtilBundle(),
             new ConfigSymfonyBundle(),
             new ClientBundle(),
-            new ClientElasticaBundle(),
         ];
     }
 

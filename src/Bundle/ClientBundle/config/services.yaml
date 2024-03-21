@@ -6,7 +6,18 @@ services:
     FHPlatform\ClientBundle\:
         resource: '../src/*'
 
+    # TODO ->> move to some bridge
     FHPlatform\ClientBundle\Provider\ProviderInterface: '@FHPlatform\ClientElasticaBundle\ElasticaProvider'
+
+    FHPlatform\ClientElasticaBundle\ElasticaProvider:
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\ClientElasticaBundle\Connection\ConnectionFetcher:
+        autowire: true
+        autoconfigure: true
+
+    # TODO ->> move to some bridge
 
     FHPlatform\ClientBundle\Client\Index\IndexClient:
         public: true
