@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tag\Decorator\Trait;
+namespace FHPlatform\ConfigBundle\Config\Decorator\Trait;
 
 use FHPlatform\ConfigBundle\DTO\Index;
 

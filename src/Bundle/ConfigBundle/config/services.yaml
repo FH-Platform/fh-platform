@@ -13,7 +13,7 @@ services:
         arguments:
             $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
 
-    FHPlatform\ConfigBundle\Tagged\TaggedProvider:
+    FHPlatform\ConfigBundle\Config\ConfigProvider:
         arguments:
             - !tagged fh_platform.config.connection
             - !tagged fh_platform.config.provider.index

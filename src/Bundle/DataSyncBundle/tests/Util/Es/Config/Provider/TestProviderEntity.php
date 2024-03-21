@@ -2,7 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
 
 class TestProviderEntity extends ProviderEntity
 {

@@ -2,7 +2,7 @@
 
 namespace App\Es\Config\Provider\Connection;
 
-use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
 
 class Provider_Connection_Another extends ProviderConnection
 {

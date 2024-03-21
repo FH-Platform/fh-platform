@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Provider;
 
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Company;
 
 class ProviderEntity_Company extends ProviderEntity

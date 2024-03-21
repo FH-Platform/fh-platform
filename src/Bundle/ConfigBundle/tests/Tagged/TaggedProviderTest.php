@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tagged;
 
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorEntityDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorEntityRelatedDefault;
 use FHPlatform\ConfigBundle\Tests\Tagged\Util\DecoratorIndexDefault;
@@ -16,7 +16,7 @@ class TaggedProviderTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProvider::$includedClasses = [
+        ConfigProvider::$includedClasses = [
             ProviderConnectionDefault::class,
             ProviderEntityDefault::class,
             ProviderEntityRelatedDefault::class,
@@ -31,8 +31,8 @@ class TaggedProviderTest extends TestCase
 
     public function testService(): void
     {
-        /** @var TaggedProvider $taggedProvider */
-        $taggedProvider = $this->container->get(TaggedProvider::class);
+        /** @var ConfigProvider $taggedProvider */
+        $taggedProvider = $this->container->get(ConfigProvider::class);
 
         $this->assertEquals(1, count($taggedProvider->getConnections()));
         $this->assertEquals(ProviderConnectionDefault::class, get_class($taggedProvider->getConnections()[0]));
@@ -65,15 +65,15 @@ class TaggedProviderTest extends TestCase
 
     public function testExcluded(): void
     {
-        /** @var TaggedProvider $taggedProvider */
-        $taggedProvider = $this->container->get(TaggedProvider::class);
+        /** @var ConfigProvider $taggedProvider */
+        $taggedProvider = $this->container->get(ConfigProvider::class);
 
         $this->assertEquals(3, count($taggedProvider->getDecoratorsIndex()));
         $this->assertEquals(DecoratorIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[0]));
         $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getDecoratorsIndex()[1]));
         $this->assertEquals(ProviderIndexDefault::class, get_class($taggedProvider->getDecoratorsIndex()[2]));
 
-        TaggedProvider::$excludedClasses = [
+        ConfigProvider::$excludedClasses = [
             DecoratorIndexDefault::class,
         ];
 

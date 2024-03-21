@@ -2,18 +2,18 @@
 
 namespace FHPlatform\ConfigBundle\Builder;
 
+use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
-use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class ConnectionsBuilder
 {
     public function __construct(
-        private readonly TaggedProvider $taggedProvider,
+        private readonly ConfigProvider $taggedProvider,
     ) {
     }
 

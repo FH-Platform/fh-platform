@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tag\Decorator\Interface;
+namespace FHPlatform\ConfigBundle\Config\Decorator\Interface;
 
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;

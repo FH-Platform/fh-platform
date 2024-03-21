@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default2;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator\DecoratorEntity_First;
@@ -20,7 +20,7 @@ class TestCase extends \FHPlatform\ConfigBundle\Tests\TestCase
 {
     protected function setUp(): void
     {
-        TaggedProvider::$includedClasses = [
+        ConfigProvider::$includedClasses = [
             ProviderConnection_Default::class,
             ProviderConnection_Default2::class,
             ProviderEntity_User::class,

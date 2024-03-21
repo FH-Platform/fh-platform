@@ -3,7 +3,7 @@
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorEntity;
 
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Config\Decorator\DecoratorEntity;
 
 class Test2DecoratorEntity extends DecoratorEntity
 {

@@ -2,16 +2,16 @@
 
 namespace FHPlatform\ConfigBundle\Finder;
 
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
 class ProviderFinder
 {
     public function __construct(
-        private readonly TaggedProvider $taggedProvider,
+        private readonly ConfigProvider $taggedProvider,
     ) {
     }
 

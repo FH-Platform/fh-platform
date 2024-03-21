@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Tag\Util\Provider;
 
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
 use FHPlatform\ConfigBundle\Tests\Tag\Util\Entity\User;
 
 class ProviderEntity_User extends ProviderEntity

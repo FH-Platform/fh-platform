@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator;
 
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntity;
+use FHPlatform\ConfigBundle\Config\Decorator\DecoratorEntity;
 
 class DecoratorEntity_Second extends DecoratorEntity
 {

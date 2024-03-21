@@ -2,9 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Finder;
 
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
 use FHPlatform\ConfigBundle\Finder\ProviderFinder;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity2;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
@@ -20,7 +20,7 @@ class ProviderFinderTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProvider::$includedClasses = [
+        ConfigProvider::$includedClasses = [
             ProviderEntity_LogEntity::class,
             ProviderIndex_LogIndex::class,
             ProviderEntityRelated_LogEntityRelated::class,

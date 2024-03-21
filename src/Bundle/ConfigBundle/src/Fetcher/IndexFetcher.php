@@ -2,12 +2,12 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher;
 
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 
 class IndexFetcher
 {
     public function __construct(
-        private readonly TaggedProvider $taggedProvider,
+        private readonly ConfigProvider $taggedProvider,
     ) {
     }
 

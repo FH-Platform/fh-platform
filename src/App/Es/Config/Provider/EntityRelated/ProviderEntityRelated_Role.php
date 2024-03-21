@@ -4,7 +4,7 @@ namespace App\Es\Config\Provider\EntityRelated;
 
 use App\Entity\Role;
 use App\Entity\User;
-use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntityRelated;
+use FHPlatform\ConfigBundle\Config\Provider\ProviderEntityRelated;
 
 class ProviderEntityRelated_Role extends ProviderEntityRelated
 {

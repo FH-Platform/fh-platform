@@ -3,7 +3,7 @@
 namespace FHPlatform\ConfigBundle\Tests\Tag\Util\Decorator;
 
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorIndex;
+use FHPlatform\ConfigBundle\Config\Decorator\DecoratorIndex;
 
 class DecoratorIndex_Default extends DecoratorIndex
 {

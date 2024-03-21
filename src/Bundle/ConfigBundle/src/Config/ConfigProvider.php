@@ -1,17 +1,17 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Tagged;
+namespace FHPlatform\ConfigBundle\Config;
 
+use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
+use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
-use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
-use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
 
-class TaggedProvider
+class ConfigProvider
 {
     public static array $includedClasses = [];
     public static array $excludedClasses = [];

@@ -3,7 +3,7 @@
 namespace App\Es\Config\Provider\Index;
 
 use App\Es\Config\Entity\Log;
-use FHPlatform\ConfigBundle\Tag\Provider\ProviderIndex;
+use FHPlatform\ConfigBundle\Config\Provider\ProviderIndex;
 
 class ProviderIndex_Log extends ProviderIndex
 {

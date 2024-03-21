@@ -16,7 +16,7 @@ In most cases you will use only one connection to ES, but this package provide o
 
 namespace Fico7489\DataSyncBundle\Tests\Util\Es\Connections;
 
-use FHPlatform\ConfigBundle\Tag\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\Config\Connection\ConnectionProvider;
 
 class ProviderDefault extends ConnectionProvider
 {
@@ -59,7 +59,7 @@ Adding more connections:
 
 namespace Fico7489\DataSyncBundle\Tests\Util\Es\Connections;
 
-use FHPlatform\ConfigBundle\Tag\Connection\ConnectionProvider;
+use FHPlatform\ConfigBundle\Config\Connection\ConnectionProvider;
 
 class ProviderSecond extends ConnectionProvider
 {
@@ -186,7 +186,7 @@ Example:
 
 namespace Fico7489\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\Tag\Index\ProviderIndex;
+use FHPlatform\ConfigBundle\Config\Index\ProviderIndex;
 use Fico7489\DataSyncBundle\Tests\Util\Es\Config\Log;
 
 class LogProviderIndex extends ProviderIndex

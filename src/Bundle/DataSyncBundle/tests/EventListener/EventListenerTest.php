@@ -2,8 +2,8 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\EventListener;
 
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
@@ -13,7 +13,7 @@ class EventListenerTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProvider::$includedClasses = [
+        ConfigProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             UserProviderEntity::class,
         ];

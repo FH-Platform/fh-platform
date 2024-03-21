@@ -8,7 +8,7 @@ use Elastica\Query;
 use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\TestsBundle\Tests\Util\CommandHelper;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -37,7 +37,7 @@ class TestCase extends KernelTestCase
     {
         parent::tearDown();
 
-        TaggedProvider::$includedClasses = [];
+        ConfigProvider::$includedClasses = [];
     }
 
     protected function prepareContainer(): void

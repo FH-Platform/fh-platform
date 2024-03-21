@@ -2,14 +2,14 @@
 
 namespace FHPlatform\ConfigBundle\Builder;
 
-use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
+use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
+use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 
 class EntitiesRelatedBuilder
 {
     public function __construct(
-        private readonly TaggedProvider $taggedProvider,
+        private readonly ConfigProvider $taggedProvider,
     ) {
     }
 

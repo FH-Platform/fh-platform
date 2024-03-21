@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Decorator;
 
-use FHPlatform\ConfigBundle\Tag\Decorator\DecoratorEntityRelated;
+use FHPlatform\ConfigBundle\Config\Decorator\DecoratorEntityRelated;
 
 class DecoratorEntityRelated_First extends DecoratorEntityRelated
 {

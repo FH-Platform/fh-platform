@@ -4,7 +4,7 @@ namespace App\Es\Config\Provider\Entity;
 
 use App\Entity\User;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tag\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
 
 class ProviderEntity_User extends ProviderEntity
 {

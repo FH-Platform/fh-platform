@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tagged\Util;
 
-use FHPlatform\ConfigBundle\Tag\Connection\ProviderConnection;
+use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
 
 class ProviderConnectionDefault extends ProviderConnection
 {

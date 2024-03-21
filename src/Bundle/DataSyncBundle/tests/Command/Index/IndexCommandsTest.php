@@ -4,8 +4,8 @@ namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\Test2ProviderEntity;
@@ -15,7 +15,7 @@ class IndexCommandsTest extends TestCase
 {
     protected function setUp(): void
     {
-        TaggedProvider::$includedClasses = [
+        ConfigProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             TestProviderEntity::class,
             Test2ProviderEntity::class,
