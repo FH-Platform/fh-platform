@@ -2,9 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\Builder;
 
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
 
 class EntitiesRelatedBuilder
 {

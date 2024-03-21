@@ -14,7 +14,7 @@ foreach ($bundles as $bundle){
     echo  $bundle;
 }
 
-echo (\FHPlatform\ConfigBundle\Finder\ProviderFinder::class);
+echo (\FHPlatform\ConfigBundle\Util\Finder\ProviderFinder::class);
 
 echo 'test';
 

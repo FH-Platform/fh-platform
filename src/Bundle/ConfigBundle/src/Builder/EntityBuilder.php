@@ -2,9 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\Builder;
 
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
@@ -13,9 +13,9 @@ use FHPlatform\UtilBundle\Helper\EntityHelper;
 class EntityBuilder
 {
     public function __construct(
-        private readonly ConfigProvider      $taggedProvider,
+        private readonly ConfigProvider $taggedProvider,
         private readonly ConnectionsProvider $connectionsProvider,
-        private readonly EntityHelper        $entityHelper,
+        private readonly EntityHelper $entityHelper,
     ) {
     }
 

@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Config\Provider\Trait;
 
-use FHPlatform\ConfigBundle\Service\Namer\IndexNamer;
+use FHPlatform\ConfigBundle\Util\Namer\IndexNamer;
 
 trait ProviderIndexTrait
 {

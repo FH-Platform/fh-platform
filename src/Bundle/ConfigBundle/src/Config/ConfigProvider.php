@@ -9,7 +9,7 @@ use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Service\Sorter\PrioritySorter;
+use FHPlatform\ConfigBundle\Util\Sorter\PrioritySorter;
 
 class ConfigProvider
 {

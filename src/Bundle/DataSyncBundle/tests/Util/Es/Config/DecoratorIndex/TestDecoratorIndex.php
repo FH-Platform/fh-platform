@@ -2,8 +2,8 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorIndex;
 
-use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Config\Decorator\DecoratorIndex;
+use FHPlatform\ConfigBundle\DTO\Index;
 
 class TestDecoratorIndex extends DecoratorIndex
 {

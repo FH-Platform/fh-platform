@@ -4,7 +4,6 @@ namespace FHPlatform\ConfigBundle\Tests\Finder;
 
 use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
-use FHPlatform\ConfigBundle\Finder\ProviderFinder;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntity2;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Entity\LogEntityRelated;
@@ -15,6 +14,7 @@ use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntity_LogEntity;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderEntityRelated_LogEntityRelated;
 use FHPlatform\ConfigBundle\Tests\Finder\Util\Provider\ProviderIndex_LogIndex;
 use FHPlatform\ConfigBundle\Tests\TestCase;
+use FHPlatform\ConfigBundle\Util\Finder\ProviderFinder;
 
 class ProviderFinderTest extends TestCase
 {

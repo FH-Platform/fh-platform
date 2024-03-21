@@ -2,10 +2,10 @@
 
 namespace FHPlatform\ConfigBundle\Config\Provider;
 
-use FHPlatform\ConfigBundle\Service\Sorter\Trait\PriorityTrait;
 use FHPlatform\ConfigBundle\Config\Decorator\Trait\DecoratorEntityRelatedTrait;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Trait\ProviderBaseTrait;
+use FHPlatform\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
 
 abstract class ProviderEntityRelated implements ProviderEntityRelatedInterface
 {

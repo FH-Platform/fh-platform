@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Service\Sorter\Trait;
+namespace FHPlatform\ConfigBundle\Util\Sorter\Trait;
 
 trait PriorityTrait
 {

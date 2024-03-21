@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Config\Provider\Interface;
 
-use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;
+use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
 
 interface ProviderBaseInterface extends PriorityInterface
 {

@@ -2,11 +2,11 @@
 
 namespace FHPlatform\ConfigBundle\Builder;
 
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
 use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 

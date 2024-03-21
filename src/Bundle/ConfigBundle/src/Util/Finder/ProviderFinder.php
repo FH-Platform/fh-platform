@@ -1,11 +1,11 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Finder;
+namespace FHPlatform\ConfigBundle\Util\Finder;
 
+use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\ConfigBundle\Exception\ProviderForClassNameNotExists;
 
 class ProviderFinder

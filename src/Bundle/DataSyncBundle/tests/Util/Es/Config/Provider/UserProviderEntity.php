@@ -2,8 +2,8 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
+use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
 
 class UserProviderEntity extends ProviderEntity

@@ -2,9 +2,9 @@
 
 namespace FHPlatform\ConfigBundle\Config\Decorator;
 
-use FHPlatform\ConfigBundle\Service\Sorter\Trait\PriorityTrait;
 use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Config\Decorator\Trait\DecoratorEntityRelatedTrait;
+use FHPlatform\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
 
 abstract class DecoratorEntityRelated implements DecoratorEntityRelatedInterface
 {

@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Config\Decorator\Interface;
 
-use FHPlatform\ConfigBundle\Service\Sorter\Interface\PriorityInterface;
+use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
 
 interface DecoratorEntityRelatedInterface extends PriorityInterface
 {
