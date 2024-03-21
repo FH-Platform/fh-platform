@@ -1,7 +1,7 @@
 {
-    "name": "fh-platform/data-sync",
+    "name": "fh-platform/persistence",
     "type": "symfony-bundle",
-    "description": "FH Platform - DataSync",
+    "description": "FH Platform - Config persistence",
     "keywords": [],
     "homepage": "https://github.com/FH-Platform",
     "license": "MIT",
@@ -27,11 +27,7 @@
         "doctrine/orm": "2.*",
         "doctrine/common" : "*",
         "symfony/yaml": "7.*",
-        "fh-platform/util": "dev-master",
-        "fh-platform/persistence": "dev-master",
-        "fh-platform/client": "dev-master",
-        "fh-platform/config": "dev-master",
-        "symfony/doctrine-messenger": "7.*"
+        "fh-platform/util": "dev-master"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "3.*",
@@ -40,10 +36,5 @@
         "ramsey/uuid-doctrine": "^2.0",
         "symfony/console": "^7.0"
     },
-    "minimum-stability": "dev",
-    "config": {
-        "allow-plugins": {
-            "php-http/discovery": false
-        }
-    }
+    "minimum-stability": "dev"
 }

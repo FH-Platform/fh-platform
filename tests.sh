@@ -3,8 +3,8 @@
 bundles=(
   "Component/ClientElastica"
   "Bundle/UtilBundle"
-  "Bundle/PersistenceBundle"
   "Bundle/PersistenceDoctrineBundle"
+  "Bundle/PersistenceBundle"
 )
 
 for bundle in "${bundles[@]}";
