@@ -7,3 +7,8 @@ services:
     FHPlatform\ConfigBundle\:
         resource: '../src/*'
         exclude: '../src/DTO/*'
+
+    FHPlatform\ConfigBundle\Provider\ConnectionsProvider:
+        factory: ['FHPlatform\ConfigBundle\Factory\ConnectionsFactory', 'create']
+        arguments:
+            $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'

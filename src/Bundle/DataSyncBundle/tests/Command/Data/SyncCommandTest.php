@@ -4,7 +4,7 @@ namespace FHPlatform\DataSyncBundle\Tests\Command\Data;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\ClientBundle\Client\Query\QueryClient;
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
@@ -25,9 +25,9 @@ class SyncCommandTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsBuilder $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
-        $index = $connectionsFetcher->fetchIndexesByClassName(User::class)[0];
+        /** @var ConnectionsProvider $connectionsProvider */
+        $connectionsProvider = $this->container->get(ConnectionsProvider::class);
+        $index = $connectionsProvider->fetchIndexesByClassName(User::class)[0];
 
         /** @var QueryClient $queryClient */
         $queryClient = $this->container->get(QueryClient::class);

@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tag;
 
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\Builder\EntityBuilder;
+use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default;
 use FHPlatform\ConfigBundle\Tests\Tag\Util\Decorator\DecoratorEntity_Default;
@@ -28,8 +28,8 @@ class DecorateMappingItemTest extends TestCase
 
     public function testFetchEntity(): void
     {
-        /** @var ConnectionsBuilder $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
+        /** @var ConnectionsProvider $connectionsProvider */
+        $connectionsProvider = $this->container->get(ConnectionsProvider::class);
 
         $this->assertEquals([
             'test_text' => ['type' => 'text', 'test' => '1234'],
@@ -76,7 +76,7 @@ class DecorateMappingItemTest extends TestCase
                     ],
                 ],
             ],
-        ], $connectionsFetcher->fetchIndexesByClassName(User::class)[0]->getMapping());
+        ], $connectionsProvider->fetchIndexesByClassName(User::class)[0]->getMapping());
 
         /** @var EntityBuilder $entityFetcher */
         $entityFetcher = $this->container->get(EntityBuilder::class);
