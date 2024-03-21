@@ -4,6 +4,7 @@ namespace FHPlatform\DataSyncBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\ClientBundle\ClientBundle;
+use FHPlatform\ClientElasticaBundle\ClientElasticaBundle;
 use FHPlatform\ConfigBundle\ConfigBundle;
 use FHPlatform\DataSyncBundle\DataSyncBundle;
 use FHPlatform\PersistenceBundle\PersistenceBundle;
@@ -26,6 +27,7 @@ class Kernel extends BaseKernel
             new PersistenceBundle(),
 
             new ClientBundle(),
+            new ClientElasticaBundle(),
         ];
     }
 

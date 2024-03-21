@@ -6,6 +6,8 @@ services:
     FHPlatform\ClientBundle\:
         resource: '../src/*'
 
+    FHPlatform\ClientBundle\Provider\ProviderInterface: '@FHPlatform\ClientElasticaBundle\ElasticaProvider'
+
     FHPlatform\ClientBundle\Client\Index\IndexClient:
         public: true
 

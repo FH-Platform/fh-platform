@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\ClientBundle\Provider\Elastica;
+namespace FHPlatform\ClientElasticaBundle;
 
 use Elastica\Document;
 use Elastica\Request;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\ClientBundle\Provider\Elastica\Connection\ConnectionFetcher;
 use FHPlatform\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\ClientElasticaBundle\Connection\ConnectionFetcher;
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
 

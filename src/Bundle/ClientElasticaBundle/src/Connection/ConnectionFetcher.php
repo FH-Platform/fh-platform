@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ClientBundle\Provider\Elastica\Connection;
+namespace FHPlatform\ClientElasticaBundle\Connection;
 
 use Elastica\Client;
 use FHPlatform\ConfigBundle\DTO\Connection;

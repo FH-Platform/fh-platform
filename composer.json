@@ -36,9 +36,10 @@
     "autoload": {
         "psr-4": {
             "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
+            "FHPlatform\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
+            "FHPlatform\\ClientElasticaBundle\\": "src/Bundle/ClientElasticaBundle/src/",
             "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
             "FHPlatform\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
-            "FHPlatform\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
             "FHPlatform\\DataSyncBundle\\": "src/Bundle/DataSyncBundle/src/",
             "App\\": "src/App/"
         }
