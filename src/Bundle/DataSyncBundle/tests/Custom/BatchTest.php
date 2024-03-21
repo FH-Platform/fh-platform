@@ -2,7 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\Custom;
 
-use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
@@ -23,9 +23,9 @@ class BatchTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var IndexFetcher $indexFetcher */
-        $indexFetcher = $this->container->get(IndexFetcher::class);
-        $index = $indexFetcher->fetchIndexesByClassName(User::class)[0];
+        /** @var ConnectionsFetcher $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
+        $index = $connectionsFetcher->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
 

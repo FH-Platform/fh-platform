@@ -42,6 +42,21 @@ class ConnectionsFetcher
         return $connections;
     }
 
+    /** @return Index[] */
+    public function fetchIndexesByClassName(string $className): array
+    {
+        $indexes = [];
+        foreach ($this->fetchConnections() as $connection) {
+            foreach ($connection->getIndexes() as $index) {
+                if ($index->getClassName() === $className) {
+                    $indexes[] = $index;
+                }
+            }
+        }
+
+        return $indexes;
+    }
+
     private function convertProviderConnectionToDto(ProviderConnection $providerConnection): Connection
     {
         return new Connection(

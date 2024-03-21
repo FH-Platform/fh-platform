@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Company;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 
@@ -10,11 +10,11 @@ class IndexFetcherTest extends TestCase
 {
     public function testFetchEntity(): void
     {
-        /** @var IndexFetcher $indexFetcher */
-        $indexFetcher = $this->container->get(IndexFetcher::class);
+        /** @var ConnectionsFetcher $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
 
         // index fetcher
-        $index = $indexFetcher->fetchIndexesByClassName(User::class)[0];
+        $index = $connectionsFetcher->fetchIndexesByClassName(User::class)[0];
         $this->assertEquals(User::class, $index->getClassName());
         $this->assertEquals([], $index->getConfigAdditional());
         $this->assertEquals('default', $index->getConnection()->getName());
@@ -30,7 +30,7 @@ class IndexFetcherTest extends TestCase
             'decorator_index_settings_level_1' => [1],
         ], $index->getSettings());
 
-        $index = $indexFetcher->fetchIndexesByClassName(Company::class)[0];
+        $index = $connectionsFetcher->fetchIndexesByClassName(Company::class)[0];
         $this->assertEquals(Company::class, $index->getClassName());
         $this->assertEquals(['test3' => 'test3'], $index->getConfigAdditional());
         $this->assertEquals('default2', $index->getConnection()->getName());

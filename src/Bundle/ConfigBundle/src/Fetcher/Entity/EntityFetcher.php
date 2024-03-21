@@ -5,7 +5,7 @@ namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
@@ -15,7 +15,7 @@ class EntityFetcher
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
-        private readonly IndexFetcher $indexFetcher,
+        private readonly ConnectionsFetcher $connectionsFetcher,
         private readonly EntityManagerInterface $entityManager,
         private readonly EntityHelper $entityHelper,
     ) {
@@ -23,7 +23,7 @@ class EntityFetcher
 
     public function fetchDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
     {
-        $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
+        $index = $this->connectionsFetcher->fetchIndexesByClassName($className)[0];
 
         return new Entity($index, $identifier, [], false);
     }
@@ -40,7 +40,7 @@ class EntityFetcher
 
         // TODO throw error if class not available for ES
 
-        $index = $this->indexFetcher->fetchIndexesByClassName($className)[0];
+        $index = $this->connectionsFetcher->fetchIndexesByClassName($className)[0];
 
         // prepare decorators
         $decorators = $this->taggedProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);

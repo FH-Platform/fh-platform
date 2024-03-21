@@ -8,7 +8,7 @@ use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesIndexFetcher;
 use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesRelatedFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityRelatedFetcher;
-use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -21,7 +21,7 @@ class DoctrineEntitiesChangedMessageHandler
         private readonly EntityHelper $entityHelper,
         private readonly DataClient $dataClient,
         private readonly EntityFetcher $entityFetcher,
-        private readonly IndexFetcher $indexFetcher,
+        private readonly ConnectionsFetcher $connectionsFetcher,
         private readonly EntityRelatedFetcher $entityRelatedFetcher,
         private readonly DoctrineClassesNamesIndexFetcher $doctrineClassesNamesIndexFetcher,
         private readonly DoctrineClassesNamesRelatedFetcher $doctrineClassesNamesRelatedFetcher,
@@ -63,7 +63,7 @@ class DoctrineEntitiesChangedMessageHandler
     private function prepareUpdates(mixed $entity, string $className, mixed $identifier, string $type, array &$entities): void
     {
         // TODO cache
-        $indexes = $this->indexFetcher->fetchIndexesByClassName($className);
+        $indexes = $this->connectionsFetcher->fetchIndexesByClassName($className);
 
         foreach ($indexes as $index) {
             $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
