@@ -4,9 +4,6 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\ConfigSymfonyBundle\:
-        resource: '../src/*'
-
     FHPlatform\ConfigBundle\Config\ConfigProvider:
         arguments:
             - !tagged fh_platform.config.connection
