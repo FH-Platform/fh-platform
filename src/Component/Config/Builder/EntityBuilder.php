@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Config\Builder;
 
-use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
@@ -14,7 +14,7 @@ class EntityBuilder
     public function __construct(
         private readonly ConfigProvider $configProvider,
         private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly EntityHelper $entityHelper,
+        private readonly DoctrineHelper $doctrineHelper,
     ) {
     }
 
@@ -30,7 +30,7 @@ class EntityBuilder
         $className = $entity::class;
 
         // TODO
-        $identifier = $this->entityHelper->getIdentifierValue($entity);
+        $identifier = $this->doctrineHelper->getIdentifierValue($entity);
 
         // TODO throw error if class not available for ES
 

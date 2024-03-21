@@ -2,7 +2,6 @@
 
 bundles=(
   "Component/ClientElastica"
-  "Bundle/UtilBundle"
   "Bundle/PersistenceDoctrineBundle"
   "Bundle/PersistenceBundle"
 )

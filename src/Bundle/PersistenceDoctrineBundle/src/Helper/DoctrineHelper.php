@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Bundle\UtilBundle\Helper;
+namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Helper;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException;
 
-class EntityHelper
+class DoctrineHelper
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,

@@ -5,3 +5,7 @@ services:
 
     FHPlatform\Bundle\PersistenceDoctrineBundle\:
         resource: '../src/*'
+
+    FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper:
+        autowire: true
+        public: true

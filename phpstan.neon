@@ -3,5 +3,5 @@ parameters:
     paths:
         - ./src
     excludePaths:
-        - 'src/Bundle/UtilBundle/src/Helper/EntityHelper.php'
+        - 'src/Bundle/PersistenceDoctrineBundle/src/Helper/DoctrineHelper.php'
 

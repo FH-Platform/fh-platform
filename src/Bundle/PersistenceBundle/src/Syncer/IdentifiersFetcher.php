@@ -3,13 +3,13 @@
 namespace FHPlatform\Bundle\PersistenceBundle\Syncer;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 
 class IdentifiersFetcher
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly EntityHelper $entityHelper,
+        private readonly DoctrineHelper $doctrineHelper,
     ) {
     }
 
@@ -38,7 +38,7 @@ class IdentifiersFetcher
 
             $identifiersBatch = [];
             foreach ($entitiesBatch as $entityBatch) {
-                $identifier = $this->entityHelper->getIdentifierValue($entityBatch);
+                $identifier = $this->doctrineHelper->getIdentifierValue($entityBatch);
 
                 // store identifiers from each batch
                 // TODO detect $shouldBeIndexed
