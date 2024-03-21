@@ -13,7 +13,7 @@ class EntityRelatedFetcher
     ) {
     }
 
-    public function fetch($entity): array
+    public function fetchEntitiesRelated($entity): array
     {
         $className = $entity::class;
 

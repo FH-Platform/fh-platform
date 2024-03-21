@@ -19,14 +19,14 @@ class EntityFetcher
     ) {
     }
 
-    public function fetchDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
+    public function fetchEntityForDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
     {
         $index = $this->connectionsFetcher->fetchIndexesByClassName($className)[0];
 
         return new Entity($index, $identifier, [], false);
     }
 
-    public function fetchUpsert($entity): Entity  // TODO rename to DTO
+    public function fetchEntityForUpsert($entity): Entity  // TODO rename to DTO
     {
         $className = $entity::class;
 

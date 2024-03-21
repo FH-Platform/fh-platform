@@ -122,6 +122,6 @@ class DecorateMappingItemTest extends TestCase
                     ],
                 ],
             ],
-        ], $entityFetcher->fetchUpsert(new User())->getData());
+        ], $entityFetcher->fetchEntityForUpsert(new User())->getData());
     }
 }

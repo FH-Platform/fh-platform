@@ -51,7 +51,7 @@ class DoctrineEntitiesChangedMessageHandler
             }
 
             if (in_array($className, $classNamesRelated) and $entity) {
-                $entitiesRelated = $this->entityRelatedFetcher->fetch($entity);
+                $entitiesRelated = $this->entityRelatedFetcher->fetchEntitiesRelated($entity);
                 // TODO
             }
         }
@@ -71,12 +71,12 @@ class DoctrineEntitiesChangedMessageHandler
             // TODO return if hash exists
 
             if (ChangedEntityEvent::TYPE_DELETE === $type) {
-                $entities[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
+                $entities[$hash] = $this->entityFetcher->fetchEntityForDelete($className, $identifier);
             } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
                 if (!$entity) {
-                    $entities[$hash] = $this->entityFetcher->fetchDelete($className, $identifier);
+                    $entities[$hash] = $this->entityFetcher->fetchEntityForDelete($className, $identifier);
                 } else {
-                    $entities[$hash] = $this->entityFetcher->fetchUpsert($entity);
+                    $entities[$hash] = $this->entityFetcher->fetchEntityForUpsert($entity);
                 }
             }
 

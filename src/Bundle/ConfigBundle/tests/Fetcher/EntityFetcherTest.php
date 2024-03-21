@@ -15,7 +15,7 @@ class EntityFetcherTest extends TestCase
 
         // entity fetcher
         $user = new User();
-        $entity = $entityFetcher->fetchUpsert($user);
+        $entity = $entityFetcher->fetchEntityForUpsert($user);
 
         $this->assertEquals('user', $entity->getIndex()->getName());
         $this->assertEquals(true, $entity->getUpsert());
@@ -26,7 +26,7 @@ class EntityFetcherTest extends TestCase
         ], $entity->getData());
 
         $company = new Company();
-        $entity = $entityFetcher->fetchUpsert($company);
+        $entity = $entityFetcher->fetchEntityForUpsert($company);
 
         $this->assertEquals(false, $entity->getUpsert());
         $this->assertEquals('company_test', $entity->getIndex()->getName());
