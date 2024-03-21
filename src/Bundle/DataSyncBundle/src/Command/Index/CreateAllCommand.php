@@ -21,7 +21,7 @@ class CreateAllCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $connections = $this->connectionsFetcher->fetch();
+        $connections = $this->connectionsFetcher->fetchConnections();
 
         foreach ($connections as $connection) {
             foreach ($connection->getIndexes() as $index) {

@@ -22,7 +22,7 @@ class DeleteStaleCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $connections = $this->connectionsFetcher->fetch();
+        $connections = $this->connectionsFetcher->fetchConnections();
 
         $indexNamesAvailable = [];
         foreach ($connections as $connection) {

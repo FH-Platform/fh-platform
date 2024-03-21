@@ -18,7 +18,7 @@ class ConnectionsFetcher
     }
 
     /** @return Connection[] */
-    public function fetch(): array
+    public function fetchConnections(): array
     {
         $providersConnection = $this->taggedProvider->getProvidersConnection();
         $providersIndex = $this->taggedProvider->getProvidersIndex();

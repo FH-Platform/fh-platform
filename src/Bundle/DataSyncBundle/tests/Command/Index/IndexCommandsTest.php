@@ -31,7 +31,7 @@ class IndexCommandsTest extends TestCase
 
         /** @var ConnectionsFetcher $connectionsFetcher */
         $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
-        $connections = $connectionsFetcher->fetch();
+        $connections = $connectionsFetcher->fetchConnections();
         $connection = $connections[0];
 
         $indexClient->deleteAllIndexesInConnection($connection);

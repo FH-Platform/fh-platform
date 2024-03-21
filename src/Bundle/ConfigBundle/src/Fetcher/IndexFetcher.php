@@ -16,7 +16,7 @@ class IndexFetcher
     public function fetchIndexesByClassName(string $className): array
     {
         $indexes = [];
-        foreach ($this->connectionsFetcher->fetch() as $connection) {
+        foreach ($this->connectionsFetcher->fetchConnections() as $connection) {
             foreach ($connection->getIndexes() as $index) {
                 if ($index->getClassName() === $className) {
                     $indexes[] = $index;

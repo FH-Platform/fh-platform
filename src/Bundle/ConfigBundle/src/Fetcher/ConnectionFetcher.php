@@ -14,7 +14,7 @@ class ConnectionFetcher
 
     public function fetch($name = 'default'): Connection
     {
-        foreach ($this->connectionsFetcher->fetch() as $connection) {
+        foreach ($this->connectionsFetcher->fetchConnections() as $connection) {
             if ($connection->getName() === $name) {
                 return $connection;
             }

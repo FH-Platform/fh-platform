@@ -12,7 +12,7 @@ class ConnectionsFetcherTest extends TestCase
         /** @var ConnectionsFetcher $connectionsFetcher */
         $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
 
-        $connections = $connectionsFetcher->fetch();
+        $connections = $connectionsFetcher->fetchConnections();
 
         /** @var Connection $connection */
         $connection = $connections[0];
