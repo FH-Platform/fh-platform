@@ -48,7 +48,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\ConfigSymfonyBundle\\Tests\\": "src/Bundle/ConfigSymfonyBundle/tests/",
             "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
             "FHPlatform\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\ClientBundle\\Tests\\": "src/Bundle/ClientBundle/tests/",

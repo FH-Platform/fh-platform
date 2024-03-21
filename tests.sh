@@ -1,7 +1,6 @@
 #!/bin/bash
 
 bundles=(
-  "ConfigSymfonyBundle"
   "UtilBundle"
   "PersistenceBundle"
   "ClientBundle"
