@@ -4,7 +4,7 @@ bundles=(
   "Component/ClientElastica"
   "Bundle/UtilBundle"
   "Bundle/PersistenceBundle"
-  "Bundle/DataSyncBundle"
+  "Bundle/PersistenceDoctrineBundle"
 )
 
 for bundle in "${bundles[@]}";

@@ -42,7 +42,7 @@
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
             "FHPlatform\\Bundle\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
             "FHPlatform\\Bundle\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
-            "FHPlatform\\Bundle\\DataSyncBundle\\": "src/Bundle/DataSyncBundle/src/",
+            "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/Bundle/PersistenceDoctrineBundle/src/",
             "App\\": "src/App/"
         }
     },
@@ -52,7 +52,7 @@
 
             "FHPlatform\\Bundle\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
             "FHPlatform\\Bundle\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
-            "FHPlatform\\Bundle\\DataSyncBundle\\Tests\\": "src/Bundle/DataSyncBundle/tests/",
+            "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\Tests\\": "src/Bundle/PersistenceDoctrineBundle/tests/",
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }
     },
