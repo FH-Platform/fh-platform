@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\UtilBundle\Tests\Util\App;
+namespace FHPlatform\Bundle\UtilBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\UtilBundle\UtilBundle;
+use FHPlatform\Bundle\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

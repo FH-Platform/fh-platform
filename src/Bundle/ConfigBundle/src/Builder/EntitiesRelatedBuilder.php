@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Builder;
+namespace FHPlatform\Bundle\ConfigBundle\Builder;
 
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
 
 class EntitiesRelatedBuilder
 {

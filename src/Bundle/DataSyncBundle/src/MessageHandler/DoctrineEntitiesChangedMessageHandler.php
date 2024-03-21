@@ -1,15 +1,15 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\MessageHandler;
+namespace FHPlatform\Bundle\DataSyncBundle\MessageHandler;
 
-use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder;
-use FHPlatform\ConfigBundle\Builder\EntityBuilder;
-use FHPlatform\ConfigBundle\Builder\IndexBuilder;
-use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
-use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
-use FHPlatform\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\ClientBundle\Client\Data\DataClient;
+use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\Bundle\ConfigBundle\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Bundle\ConfigBundle\Builder\EntityBuilder;
+use FHPlatform\Bundle\ConfigBundle\Builder\IndexBuilder;
+use FHPlatform\Bundle\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Provider\Trait;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Provider\Trait;
 
-use FHPlatform\ConfigBundle\Util\Namer\IndexNamer;
+use FHPlatform\Bundle\ConfigBundle\Util\Namer\IndexNamer;
 
 trait ProviderIndexTrait
 {

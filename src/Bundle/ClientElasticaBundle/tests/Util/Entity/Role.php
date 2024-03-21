@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ClientElasticaBundle\Tests\Util\Entity;
+namespace FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

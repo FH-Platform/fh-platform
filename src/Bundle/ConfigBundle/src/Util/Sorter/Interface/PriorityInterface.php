@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Util\Sorter\Interface;
+namespace FHPlatform\Bundle\ConfigBundle\Util\Sorter\Interface;
 
 interface PriorityInterface
 {

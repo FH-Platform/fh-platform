@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle;
+namespace FHPlatform\Bundle\DataSyncBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

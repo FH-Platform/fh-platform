@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Util\Namer;
+namespace FHPlatform\Bundle\ConfigBundle\Util\Namer;
 
 class IndexNamer
 {

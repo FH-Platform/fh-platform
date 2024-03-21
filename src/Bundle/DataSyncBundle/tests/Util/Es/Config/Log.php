@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config;
 
 class Log
 {

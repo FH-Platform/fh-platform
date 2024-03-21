@@ -3,8 +3,8 @@
 namespace App\Es\Config\Provider\Entity;
 
 use App\Entity\User;
-use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\ProviderEntity;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class ProviderEntity_User extends ProviderEntity
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace FHPlatform\TestsBundle\Tests;
+namespace FHPlatform\Bundle\TestsBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Elastica\Query;
-use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ClientBundle\Client\Query\QueryClient;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\TestsBundle\Tests\Util\CommandHelper;
+use FHPlatform\Bundle\ClientBundle\Client\Data\DataClient;
+use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\Bundle\ClientBundle\Client\Query\QueryClient;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;

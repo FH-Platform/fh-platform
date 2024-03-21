@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Command\Data;
+namespace FHPlatform\Bundle\DataSyncBundle\Command\Data;
 
-use FHPlatform\DataSyncBundle\Syncer\DataSyncer;
+use FHPlatform\Bundle\DataSyncBundle\Syncer\DataSyncer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

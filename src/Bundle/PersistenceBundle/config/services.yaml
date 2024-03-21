@@ -3,5 +3,5 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\PersistenceBundle\:
+    FHPlatform\Bundle\PersistenceBundle\:
         resource: '../src/*'

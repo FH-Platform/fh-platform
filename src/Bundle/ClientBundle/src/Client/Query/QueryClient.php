@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\ClientBundle\Client\Query;
+namespace FHPlatform\Bundle\ClientBundle\Client\Query;
 
-use FHPlatform\ClientBundle\Provider\ProviderInterface;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class QueryClient
 {

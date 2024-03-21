@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ClientElasticaBundle\Tests\Util\App;
+namespace FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\SymfonyBridgeBundle\SymfonyBridgeBundle;
-use FHPlatform\UtilBundle\UtilBundle;
+use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
+use FHPlatform\Bundle\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

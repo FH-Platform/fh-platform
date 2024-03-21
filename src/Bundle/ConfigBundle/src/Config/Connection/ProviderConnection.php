@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Connection;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Connection;
 
 abstract class ProviderConnection
 {

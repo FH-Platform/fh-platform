@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Provider\Interface;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface;
 
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
 
 interface ProviderEntityInterface extends ProviderBaseInterface, ProviderIndexInterface, ProviderEntityRelatedInterface, DecoratorEntityInterface
 {

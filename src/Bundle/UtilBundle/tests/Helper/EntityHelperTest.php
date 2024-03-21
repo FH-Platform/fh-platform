@@ -1,11 +1,11 @@
 <?php
 
-namespace FHPlatform\UtilBundle\Tests\Helper;
+namespace FHPlatform\Bundle\UtilBundle\Tests\Helper;
 
-use FHPlatform\UtilBundle\Helper\EntityHelper;
-use FHPlatform\UtilBundle\Tests\TestCase;
-use FHPlatform\UtilBundle\Tests\Util\Entity\User;
-use FHPlatform\UtilBundle\Tests\Util\Entity\UserUuid;
+use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\UtilBundle\Tests\TestCase;
+use FHPlatform\Bundle\UtilBundle\Tests\Util\Entity\User;
+use FHPlatform\Bundle\UtilBundle\Tests\Util\Entity\UserUuid;
 
 class EntityHelperTest extends TestCase
 {

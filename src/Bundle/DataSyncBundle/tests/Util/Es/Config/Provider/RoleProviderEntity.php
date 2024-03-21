@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
-use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\DataSyncBundle\Tests\Util\Entity\Role;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\ProviderEntity;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\Role;
 
 class RoleProviderEntity extends ProviderEntity
 {

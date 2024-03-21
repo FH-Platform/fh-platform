@@ -1,4 +1,4 @@
 services:
-    FHPlatform\UtilBundle\Helper\EntityHelper:
+    FHPlatform\Bundle\UtilBundle\Helper\EntityHelper:
         autowire: true
         public: true

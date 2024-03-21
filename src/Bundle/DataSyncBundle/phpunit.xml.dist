@@ -7,7 +7,7 @@
          displayDetailsOnTestsThatTriggerDeprecations="true"
          colors="true">
     <php>
-        <server name="KERNEL_CLASS" value="FHPlatform\DataSyncBundle\Tests\Util\App\Kernel" />
+        <server name="KERNEL_CLASS" value="FHPlatform\Bundle\DataSyncBundle\Tests\Util\App\Kernel" />
         <env name="APP_DEBUG" value="false" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999" />
     </php>

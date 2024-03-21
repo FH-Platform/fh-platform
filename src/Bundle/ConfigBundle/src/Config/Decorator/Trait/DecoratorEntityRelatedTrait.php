@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Decorator\Trait;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Decorator\Trait;
 
 trait DecoratorEntityRelatedTrait
 {

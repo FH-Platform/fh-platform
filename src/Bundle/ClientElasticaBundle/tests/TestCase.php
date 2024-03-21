@@ -1,7 +1,7 @@
 <?php
 
-namespace FHPlatform\ClientElasticaBundle\Tests;
+namespace FHPlatform\Bundle\ClientElasticaBundle\Tests;
 
-class TestCase extends \FHPlatform\TestsBundle\Tests\TestCase
+class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
 }

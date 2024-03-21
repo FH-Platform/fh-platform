@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Provider\Interface;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface;
 
-use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
+use FHPlatform\Bundle\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
 
 interface ProviderBaseInterface extends PriorityInterface
 {

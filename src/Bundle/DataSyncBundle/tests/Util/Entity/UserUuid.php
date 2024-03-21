@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Entity;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;

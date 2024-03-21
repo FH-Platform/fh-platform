@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Decorator\Trait;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Decorator\Trait;
 
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 trait DecoratorIndexTrait
 {

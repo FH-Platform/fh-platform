@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Util\Sorter;
+namespace FHPlatform\Bundle\ConfigBundle\Util\Sorter;
 
-use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
+use FHPlatform\Bundle\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
 
 class PrioritySorter
 {

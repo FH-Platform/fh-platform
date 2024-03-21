@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorIndex;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\DecoratorIndex;
 
-use FHPlatform\ConfigBundle\Config\Decorator\DecoratorIndex;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\DecoratorIndex;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class Test4DecoratorIndex extends DecoratorIndex
 {

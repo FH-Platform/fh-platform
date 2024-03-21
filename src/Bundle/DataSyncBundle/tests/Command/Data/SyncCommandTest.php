@@ -1,15 +1,15 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Command\Data;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Command\Data;
 
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ClientBundle\Client\Query\QueryClient;
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\DataSyncBundle\Tests\TestCase;
-use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\Bundle\ClientBundle\Client\Query\QueryClient;
+use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\User;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
 
 class SyncCommandTest extends TestCase
 {

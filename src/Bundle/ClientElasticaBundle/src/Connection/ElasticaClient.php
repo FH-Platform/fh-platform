@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\ClientElasticaBundle\Connection;
+namespace FHPlatform\Bundle\ClientElasticaBundle\Connection;
 
 use Elastica\Client;
-use FHPlatform\ConfigBundle\DTO\Connection;
+use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
 
 class ElasticaClient extends Client
 {

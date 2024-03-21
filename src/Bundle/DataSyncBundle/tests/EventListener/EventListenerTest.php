@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\EventListener;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\EventListener;
 
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\DataSyncBundle\Tests\TestCase;
-use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\User;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
 
 class EventListenerTest extends TestCase
 {

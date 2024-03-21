@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\PersistenceBundle;
+namespace FHPlatform\Bundle\PersistenceBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

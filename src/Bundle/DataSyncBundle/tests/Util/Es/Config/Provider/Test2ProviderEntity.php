@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\Config\Provider\ProviderEntity;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\ProviderEntity;
 
 class Test2ProviderEntity extends ProviderEntity
 {

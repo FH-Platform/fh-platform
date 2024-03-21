@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\TestsBundle\Tests\Util;
+namespace FHPlatform\Bundle\TestsBundle\Tests\Util;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;

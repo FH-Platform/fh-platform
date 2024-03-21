@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Syncer;
+namespace FHPlatform\Bundle\DataSyncBundle\Syncer;
 
-use FHPlatform\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DataSyncer

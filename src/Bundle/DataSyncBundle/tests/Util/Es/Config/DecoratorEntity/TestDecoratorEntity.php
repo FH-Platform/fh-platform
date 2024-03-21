@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\DecoratorEntity;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\DecoratorEntity;
 
-use FHPlatform\ConfigBundle\Config\Decorator\DecoratorEntity;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\DecoratorEntity;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class TestDecoratorEntity extends DecoratorEntity
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Builder;
+namespace FHPlatform\Bundle\ConfigBundle\Builder;
 
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\ConfigBundle\DTO\Entity;
-use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\Bundle\ConfigBundle\DTO\Entity;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 
 class EntityBuilder
 {

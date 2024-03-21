@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\UtilBundle\Tests\Util\Entity;
+namespace FHPlatform\Bundle\UtilBundle\Tests\Util\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

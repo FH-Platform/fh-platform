@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Syncer;
+namespace FHPlatform\Bundle\DataSyncBundle\Syncer;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FHPlatform\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 
 class IdentifiersFetcher
 {

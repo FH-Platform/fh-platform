@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\UtilBundle\Helper;
+namespace FHPlatform\Bundle\UtilBundle\Helper;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;

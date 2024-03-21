@@ -1,15 +1,15 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Command\Index;
 
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\DataSyncBundle\Tests\TestCase;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\Test2ProviderEntity;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider\TestProviderEntity;
+use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\Test2ProviderEntity;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\TestProviderEntity;
 
 class IndexCommandsTest extends TestCase
 {

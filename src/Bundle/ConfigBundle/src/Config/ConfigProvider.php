@@ -1,15 +1,15 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config;
+namespace FHPlatform\Bundle\ConfigBundle\Config;
 
-use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
-use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
-use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
-use FHPlatform\ConfigBundle\Util\Sorter\PrioritySorter;
+use FHPlatform\Bundle\ConfigBundle\Config\Connection\ProviderConnection;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Bundle\ConfigBundle\Util\Sorter\PrioritySorter;
 
 class ConfigProvider
 {

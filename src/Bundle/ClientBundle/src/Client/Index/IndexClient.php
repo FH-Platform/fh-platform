@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ClientBundle\Client\Index;
+namespace FHPlatform\Bundle\ClientBundle\Client\Index;
 
-use FHPlatform\ClientBundle\Provider\ProviderInterface;
-use FHPlatform\ConfigBundle\DTO\Connection;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class IndexClient
 {

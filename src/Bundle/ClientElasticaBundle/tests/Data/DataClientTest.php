@@ -1,17 +1,17 @@
 <?php
 
-namespace FHPlatform\ClientElasticaBundle\Tests\Data;
+namespace FHPlatform\Bundle\ClientElasticaBundle\Tests\Data;
 
 use Elastica\Query;
-use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ClientElasticaBundle\Tests\TestCase;
-use FHPlatform\ClientElasticaBundle\Tests\Util\Entity\Log;
-use FHPlatform\ClientElasticaBundle\Tests\Util\Entity\Role;
-use FHPlatform\ClientElasticaBundle\Tests\Util\Entity\User;
-use FHPlatform\ConfigBundle\DTO\Connection;
-use FHPlatform\ConfigBundle\DTO\Entity;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ClientBundle\Client\Data\DataClient;
+use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\Bundle\ClientElasticaBundle\Tests\TestCase;
+use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\Log;
+use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\Role;
+use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\User;
+use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
+use FHPlatform\Bundle\ConfigBundle\DTO\Entity;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class DataClientTest extends TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections;
 
-use FHPlatform\ConfigBundle\Config\Connection\ProviderConnection;
+use FHPlatform\Bundle\ConfigBundle\Config\Connection\ProviderConnection;
 
 class ProviderDefaultConnection extends ProviderConnection
 {

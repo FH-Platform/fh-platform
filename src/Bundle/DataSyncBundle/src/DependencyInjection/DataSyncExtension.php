@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\DependencyInjection;
+namespace FHPlatform\Bundle\DataSyncBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

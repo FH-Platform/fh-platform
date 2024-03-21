@@ -35,23 +35,23 @@
     },
     "autoload": {
         "psr-4": {
-            "FHPlatform\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
-            "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
-            "FHPlatform\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
-            "FHPlatform\\ClientElasticaBundle\\": "src/Bundle/ClientElasticaBundle/src/",
-            "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
-            "FHPlatform\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
-            "FHPlatform\\DataSyncBundle\\": "src/Bundle/DataSyncBundle/src/",
+            "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
+            "FHPlatform\\Bundle\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
+            "FHPlatform\\Bundle\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
+            "FHPlatform\\Bundle\\ClientElasticaBundle\\": "src/Bundle/ClientElasticaBundle/src/",
+            "FHPlatform\\Bundle\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
+            "FHPlatform\\Bundle\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
+            "FHPlatform\\Bundle\\DataSyncBundle\\": "src/Bundle/DataSyncBundle/src/",
             "App\\": "src/App/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
-            "FHPlatform\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
-            "FHPlatform\\ClientElasticaBundle\\Tests\\": "src/Bundle/ClientElasticaBundle/tests/",
-            "FHPlatform\\DataSyncBundle\\Tests\\": "src/Bundle/DataSyncBundle/tests/",
-            "FHPlatform\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
+            "FHPlatform\\Bundle\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
+            "FHPlatform\\Bundle\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
+            "FHPlatform\\Bundle\\ClientElasticaBundle\\Tests\\": "src/Bundle/ClientElasticaBundle/tests/",
+            "FHPlatform\\Bundle\\DataSyncBundle\\Tests\\": "src/Bundle/DataSyncBundle/tests/",
+            "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }
     },
     "config": {

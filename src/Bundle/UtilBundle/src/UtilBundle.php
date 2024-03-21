@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\UtilBundle;
+namespace FHPlatform\Bundle\UtilBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

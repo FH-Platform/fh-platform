@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\EventListener;
+namespace FHPlatform\Bundle\DataSyncBundle\EventListener;
 
-use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
-use FHPlatform\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\PersistenceBundle\Event\PreDeleteEntityEvent;
+use FHPlatform\Bundle\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\PreDeleteEntityEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Messenger\MessageBusInterface;
 

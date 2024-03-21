@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\ClientBundle\Provider;
+namespace FHPlatform\Bundle\ClientBundle\Provider;
 
-use FHPlatform\ConfigBundle\DTO\Connection;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 interface ProviderInterface
 {

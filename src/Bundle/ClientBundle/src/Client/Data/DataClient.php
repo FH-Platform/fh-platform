@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\ClientBundle\Client\Data;
+namespace FHPlatform\Bundle\ClientBundle\Client\Data;
 
-use FHPlatform\ClientBundle\Provider\ProviderInterface;
-use FHPlatform\ConfigBundle\DTO\Entity;
+use FHPlatform\Bundle\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\Bundle\ConfigBundle\DTO\Entity;
 
 class DataClient
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\PersistenceBundle;
+namespace FHPlatform\Bundle\PersistenceBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -9,8 +9,8 @@ use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;
-use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
-use FHPlatform\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 
 #[AsDoctrineListener(event: Events::postPersist)]
 #[AsDoctrineListener(event: Events::postUpdate)]

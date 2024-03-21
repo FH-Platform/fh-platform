@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Decorator;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Decorator;
 
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
-use FHPlatform\ConfigBundle\Config\Decorator\Trait\DecoratorIndexTrait;
-use FHPlatform\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Trait\DecoratorIndexTrait;
+use FHPlatform\Bundle\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
 
 abstract class DecoratorIndex implements DecoratorIndexInterface
 {

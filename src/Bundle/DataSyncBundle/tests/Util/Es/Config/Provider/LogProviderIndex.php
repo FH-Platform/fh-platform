@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Provider;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
-use FHPlatform\ConfigBundle\Config\Provider\ProviderIndex;
-use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Log;
+use FHPlatform\Bundle\ConfigBundle\Config\Provider\ProviderIndex;
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Log;
 
 class LogProviderIndex extends ProviderIndex
 {

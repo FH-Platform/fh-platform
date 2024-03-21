@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Builder;
+namespace FHPlatform\Bundle\ConfigBundle\Builder;
 
-use FHPlatform\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
 
 class IndexBuilder
 {

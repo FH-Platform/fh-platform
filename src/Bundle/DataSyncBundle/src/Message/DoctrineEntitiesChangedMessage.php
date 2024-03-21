@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Message;
+namespace FHPlatform\Bundle\DataSyncBundle\Message;
 
-use FHPlatform\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
 
 class DoctrineEntitiesChangedMessage
 {

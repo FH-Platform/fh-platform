@@ -11,7 +11,7 @@ doctrine:
         mappings:
             Test:
                 dir: '%kernel.project_dir%/'
-                prefix: 'FHPlatform\UtilBundle\Tests\Util\Entity'
+                prefix: 'FHPlatform\Bundle\UtilBundle\Tests\Util\Entity'
 
 services:
     _defaults:
@@ -19,9 +19,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\UtilBundle\Tests\Util\:
+    FHPlatform\Bundle\UtilBundle\Tests\Util\:
         resource: '../'
         exclude: '../{App}'
 
-    FHPlatform\UtilBundle\Tests\:
+    FHPlatform\Bundle\UtilBundle\Tests\:
         resource: '../../*/Util'

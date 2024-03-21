@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\PersistenceBundle\Tests\Util\App;
+namespace FHPlatform\Bundle\PersistenceBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\PersistenceBundle\PersistenceBundle;
-use FHPlatform\UtilBundle\UtilBundle;
+use FHPlatform\Bundle\PersistenceBundle\PersistenceBundle;
+use FHPlatform\Bundle\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

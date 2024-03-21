@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\DTO;
+namespace FHPlatform\Bundle\ConfigBundle\DTO;
 
 class Entity
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Decorator;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Decorator;
 
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\ConfigBundle\Config\Decorator\Trait\DecoratorEntityTrait;
-use FHPlatform\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Trait\DecoratorEntityTrait;
+use FHPlatform\Bundle\ConfigBundle\Util\Sorter\Trait\PriorityTrait;
 
 abstract class DecoratorEntity implements DecoratorEntityInterface
 {

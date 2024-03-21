@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\App;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\DataSyncBundle\DataSyncBundle;
-use FHPlatform\PersistenceBundle\PersistenceBundle;
-use FHPlatform\SymfonyBridgeBundle\SymfonyBridgeBundle;
-use FHPlatform\UtilBundle\UtilBundle;
+use FHPlatform\Bundle\DataSyncBundle\DataSyncBundle;
+use FHPlatform\Bundle\PersistenceBundle\PersistenceBundle;
+use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
+use FHPlatform\Bundle\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;

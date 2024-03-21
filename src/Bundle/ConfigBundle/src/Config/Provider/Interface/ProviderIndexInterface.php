@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Provider\Interface;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface;
 
-use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
 
 interface ProviderIndexInterface extends ProviderBaseInterface, DecoratorIndexInterface
 {

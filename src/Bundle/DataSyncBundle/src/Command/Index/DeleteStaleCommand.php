@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Command\Index;
+namespace FHPlatform\Bundle\DataSyncBundle\Command\Index;
 
-use FHPlatform\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\ConfigBundle\DTO\Index;
+use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

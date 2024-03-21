@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\Entity;
+namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

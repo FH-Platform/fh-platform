@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\UtilBundle\Tests;
+namespace FHPlatform\Bundle\UtilBundle\Tests;
 
-class TestCase extends \FHPlatform\TestsBundle\Tests\TestCase
+class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
     protected function setUp(): void
     {

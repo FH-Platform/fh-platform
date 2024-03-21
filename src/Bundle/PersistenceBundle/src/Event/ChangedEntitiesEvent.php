@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\PersistenceBundle\Event;
+namespace FHPlatform\Bundle\PersistenceBundle\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 

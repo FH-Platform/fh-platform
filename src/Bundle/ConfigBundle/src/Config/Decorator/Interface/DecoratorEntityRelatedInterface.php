@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Config\Decorator\Interface;
+namespace FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface;
 
-use FHPlatform\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
+use FHPlatform\Bundle\ConfigBundle\Util\Sorter\Interface\PriorityInterface;
 
 interface DecoratorEntityRelatedInterface extends PriorityInterface
 {
