@@ -2,14 +2,14 @@
 
 namespace FHPlatform\Bundle\ClientElasticaBundle;
 
-use FHPlatform\Component\Client\Provider\ProviderInterface;
+use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Index;
 use Elastica\Document;
 use Elastica\Request;
 use Elastica\Result;
 use Elastica\Search;
 use FHPlatform\Bundle\ClientElasticaBundle\Connection\ConnectionFetcher;
-use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
-use FHPlatform\Bundle\ConfigBundle\DTO\Index;
+use FHPlatform\Component\Client\Provider\ProviderInterface;
 
 class ElasticaProvider implements ProviderInterface
 {

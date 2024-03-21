@@ -2,16 +2,16 @@
 
 namespace FHPlatform\Bundle\ClientElasticaBundle\Tests\Data;
 
-use FHPlatform\Component\Client\Provider\Data\DataClient;
-use FHPlatform\Component\Client\Provider\Index\IndexClient;
+use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Config\DTO\Index;
 use Elastica\Query;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\TestCase;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\Log;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\Role;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\User;
-use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
-use FHPlatform\Bundle\ConfigBundle\DTO\Entity;
-use FHPlatform\Bundle\ConfigBundle\DTO\Index;
+use FHPlatform\Component\Client\Provider\Data\DataClient;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
 
 class DataClientTest extends TestCase
 {

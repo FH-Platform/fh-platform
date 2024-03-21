@@ -2,13 +2,13 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle;
 
-use FHPlatform\Bundle\ConfigBundle\Config\Connection\ProviderConnection;
-use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
-use FHPlatform\Bundle\ConfigBundle\Config\Decorator\Interface\DecoratorIndexInterface;
-use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderEntityInterface;
-use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\Bundle\ConfigBundle\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
+use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
+use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -2,14 +2,14 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\Command\Data;
 
-use FHPlatform\Component\Client\Provider\Index\IndexClient;
-use FHPlatform\Component\Client\Provider\Query\QueryClient;
-use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\User;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
+use FHPlatform\Component\Client\Provider\Query\QueryClient;
 
 class SyncCommandTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\EventListener;
 
-use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\User;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;

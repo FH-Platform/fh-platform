@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\ClientElasticaBundle\Connection;
 
+use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Index;
 use Elastica\Client;
-use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
-use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class ConnectionFetcher extends Client
 {

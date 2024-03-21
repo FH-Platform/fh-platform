@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Component\Client\Provider\Data;
 
+use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
-use FHPlatform\Bundle\ConfigBundle\DTO\Entity;
 
 class DataClient
 {

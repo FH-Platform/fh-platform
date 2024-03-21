@@ -31,7 +31,7 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider:
+    FHPlatform\Component\Config\Config\ConfigProvider:
         arguments:
             - !tagged fh_platform.config.connection
             - !tagged fh_platform.config.provider.index
@@ -44,26 +44,26 @@ services:
         autoconfigure: true
         public: true
 
-    FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder:
+    FHPlatform\Component\Config\Builder\ConnectionsBuilder:
         arguments:
-            $configProvider: '@FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider'
+            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
         public: true
 
-    FHPlatform\Bundle\ConfigBundle\Builder\EntityBuilder:
+    FHPlatform\Component\Config\Builder\EntityBuilder:
         arguments:
-            $configProvider: '@FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider'
-            $connectionsBuilder: '@FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder'
+            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
+            $connectionsBuilder: '@FHPlatform\Component\Config\Builder\ConnectionsBuilder'
             $entityHelper: '@FHPlatform\Bundle\UtilBundle\Helper\EntityHelper'
         public: true
 
-    FHPlatform\Bundle\ConfigBundle\Builder\EntitiesRelatedBuilder:
+    FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder:
         arguments:
-            $configProvider: '@FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider'
+            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
         public: true
 
-    FHPlatform\Bundle\ConfigBundle\Builder\IndexBuilder:
+    FHPlatform\Component\Config\Builder\IndexBuilder:
         arguments:
-            $configProvider: '@FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider'
+            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
         public: true
 
 

@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Component\Client\Provider\Index;
 
+use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
-use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
-use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 
 class IndexClient
 {

@@ -2,14 +2,14 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\MessageHandler;
 
-use FHPlatform\Component\Client\Provider\Data\DataClient;
-use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
-use FHPlatform\Bundle\ConfigBundle\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Bundle\ConfigBundle\Builder\EntityBuilder;
-use FHPlatform\Bundle\ConfigBundle\Builder\IndexBuilder;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\Config\Builder\EntityBuilder;
+use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Bundle\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
+use FHPlatform\Component\Client\Provider\Data\DataClient;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
