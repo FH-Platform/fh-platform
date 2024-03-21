@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\EventListener;
 
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\PreDeleteEntityEvent;
 use FHPlatform\Bundle\PersistenceBundle\Message\EntitiesChangedMessage;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\PreDeleteEntityEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Messenger\MessageBusInterface;
 

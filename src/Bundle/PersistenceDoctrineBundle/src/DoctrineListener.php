@@ -9,7 +9,8 @@ use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\PersistenceBundle\EventsManager;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 
 #[AsDoctrineListener(event: Events::postPersist)]

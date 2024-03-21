@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\Message;
 
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
 
 class EntitiesChangedMessage
 {

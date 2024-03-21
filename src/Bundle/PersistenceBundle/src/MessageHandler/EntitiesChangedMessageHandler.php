@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\MessageHandler;
 
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\PersistenceBundle\Message\EntitiesChangedMessage;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;

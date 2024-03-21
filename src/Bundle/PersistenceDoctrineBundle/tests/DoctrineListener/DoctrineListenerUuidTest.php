@@ -2,8 +2,8 @@
 
 namespace Fico7489\PersistenceDoctrineBundle\DoctrineListener;
 
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\TestCase;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity\UserUuid;
 

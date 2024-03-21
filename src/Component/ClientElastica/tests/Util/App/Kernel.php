@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\ClientElastica\tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use FHPlatform\Bundle\PersistenceBundle\PersistenceBundle;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\PersistenceDoctrineBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
@@ -17,6 +18,7 @@ class Kernel extends BaseKernel
             new FrameworkBundle(),
             new DoctrineBundle(),
 
+            new PersistenceBundle(),
             new PersistenceDoctrineBundle(),
             new SymfonyBridgeBundle(),
         ];
