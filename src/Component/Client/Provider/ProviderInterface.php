@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\ClientBundle\Provider;
+namespace FHPlatform\Component\Client\Provider;
 
 use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
 use FHPlatform\Bundle\ConfigBundle\DTO\Index;

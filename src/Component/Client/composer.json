@@ -7,12 +7,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Bundle\\ClientBundle\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "FHPlatform\\Bundle\\ClientBundle\\Tests\\": "tests/"
+            "FHPlatform\\Component\\Client\\": "/"
         }
     },
     "authors": [

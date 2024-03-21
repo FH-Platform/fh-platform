@@ -2,11 +2,11 @@
 
 namespace FHPlatform\Bundle\ClientElasticaBundle;
 
+use FHPlatform\Component\Client\Provider\ProviderInterface;
 use Elastica\Document;
 use Elastica\Request;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\Bundle\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\Bundle\ClientElasticaBundle\Connection\ConnectionFetcher;
 use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
 use FHPlatform\Bundle\ConfigBundle\DTO\Index;

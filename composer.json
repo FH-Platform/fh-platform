@@ -37,7 +37,7 @@
         "psr-4": {
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
             "FHPlatform\\Bundle\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
-            "FHPlatform\\Bundle\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
+            "FHPlatform\\Component\\Client\\": "src/Component/Client/",
             "FHPlatform\\Bundle\\ClientElasticaBundle\\": "src/Bundle/ClientElasticaBundle/src/",
             "FHPlatform\\Bundle\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
             "FHPlatform\\Bundle\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",

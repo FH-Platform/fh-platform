@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\Bundle\ClientBundle\Client\Index;
+namespace FHPlatform\Component\Client\Provider\Index;
 
-use FHPlatform\Bundle\ClientBundle\Provider\ProviderInterface;
+use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Bundle\ConfigBundle\DTO\Connection;
 use FHPlatform\Bundle\ConfigBundle\DTO\Index;
 

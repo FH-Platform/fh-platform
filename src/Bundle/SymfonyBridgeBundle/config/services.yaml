@@ -4,7 +4,7 @@ services:
         autoconfigure: true
 
     # TODO ->> move to some bridge
-    FHPlatform\Bundle\ClientBundle\Provider\ProviderInterface: '@FHPlatform\Bundle\ClientElasticaBundle\ElasticaProvider'
+    FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Bundle\ClientElasticaBundle\ElasticaProvider'
 
     FHPlatform\Bundle\ClientElasticaBundle\ElasticaProvider:
         autowire: true
@@ -16,17 +16,17 @@ services:
 
     # TODO ->> move to some bridge
 
-    FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient:
+    FHPlatform\Component\Client\Provider\Index\IndexClient:
         public: true
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\ClientBundle\Client\Query\QueryClient:
+    FHPlatform\Component\Client\Provider\Query\QueryClient:
         public: true
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\ClientBundle\Client\Data\DataClient:
+    FHPlatform\Component\Client\Provider\Data\DataClient:
         public: true
         autowire: true
         autoconfigure: true

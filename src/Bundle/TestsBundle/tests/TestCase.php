@@ -2,12 +2,12 @@
 
 namespace FHPlatform\Bundle\TestsBundle\Tests;
 
+use FHPlatform\Component\Client\Provider\Data\DataClient;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
+use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Elastica\Query;
-use FHPlatform\Bundle\ClientBundle\Client\Data\DataClient;
-use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\Bundle\ClientBundle\Client\Query\QueryClient;
 use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
 use Psr\EventDispatcher\EventDispatcherInterface;

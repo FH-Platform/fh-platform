@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\Command\Data;
 
-use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
-use FHPlatform\Bundle\ClientBundle\Client\Query\QueryClient;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
+use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;

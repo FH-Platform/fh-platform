@@ -1,17 +1,17 @@
 #!/bin/bash
 
 bundles=(
-  "ClientElasticaBundle"
-  "UtilBundle"
-  "PersistenceBundle"
-  "ClientBundle"
-  "DataSyncBundle"
+  "Bundle/ClientElasticaBundle"
+  "Bundle/UtilBundle"
+  "Bundle/PersistenceBundle"
+  "Component/ClientBundle"
+  "Bundle/DataSyncBundle"
 )
 
 for bundle in "${bundles[@]}";
 do
   echo $bundle
-  vendor/bin/phpunit --configuration=src/Bundle/$bundle --bootstrap=vendor/autoload.php
+  vendor/bin/phpunit --configuration=src/$bundle --bootstrap=vendor/autoload.php
 done
 
 

@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\MessageHandler;
 
-use FHPlatform\Bundle\ClientBundle\Client\Data\DataClient;
+use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\Bundle\ConfigBundle\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Bundle\ConfigBundle\Builder\EntityBuilder;

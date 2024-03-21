@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\ClientElasticaBundle\Tests\Data;
 
+use FHPlatform\Component\Client\Provider\Data\DataClient;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use Elastica\Query;
-use FHPlatform\Bundle\ClientBundle\Client\Data\DataClient;
-use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\TestCase;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\Log;
 use FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity\Role;

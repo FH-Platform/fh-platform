@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\Command\Index;
 
-use FHPlatform\Bundle\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Bundle\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\Bundle\ConfigBundle\Config\ConfigProvider;
 use FHPlatform\Bundle\ConfigBundle\DTO\Index;
