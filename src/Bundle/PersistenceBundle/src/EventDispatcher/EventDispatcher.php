@@ -7,7 +7,7 @@ use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\PersistenceBundle\Event\PreDeleteEntityEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class EventsDispatcher
+class EventDispatcher
 {
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
