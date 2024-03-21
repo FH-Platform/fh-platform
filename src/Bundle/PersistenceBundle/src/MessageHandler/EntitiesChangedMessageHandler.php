@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\MessageHandler;
 
-use FHPlatform\Bundle\PersistenceBundle\Message\DoctrineEntitiesChangedMessage;
+use FHPlatform\Bundle\PersistenceBundle\Message\EntitiesChangedMessage;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 use FHPlatform\Component\Client\Provider\Data\DataClient;
@@ -13,7 +13,7 @@ use FHPlatform\Component\Config\Builder\IndexBuilder;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-class DoctrineEntitiesChangedMessageHandler
+class EntitiesChangedMessageHandler
 {
     public function __construct(
         private readonly EntityHelper $entityHelper,
@@ -25,7 +25,7 @@ class DoctrineEntitiesChangedMessageHandler
     ) {
     }
 
-    public function __invoke(DoctrineEntitiesChangedMessage $message): void
+    public function __invoke(EntitiesChangedMessage $message): void
     {
         $classNamesIndex = $this->indexFetcher->fetchClassNamesIndex();
         $classNamesRelated = $this->entityRelatedFetcher->fetchClassNamesRelated();

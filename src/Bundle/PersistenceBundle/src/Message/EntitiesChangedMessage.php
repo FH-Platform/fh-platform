@@ -4,7 +4,7 @@ namespace FHPlatform\Bundle\PersistenceBundle\Message;
 
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Event\ChangedEntitiesEvent;
 
-class DoctrineEntitiesChangedMessage
+class EntitiesChangedMessage
 {
     public function __construct(
         private readonly ChangedEntitiesEvent $changedEntitiesEvent,
