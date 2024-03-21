@@ -23,12 +23,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "doctrine/doctrine-bundle": "2.*",
-        "doctrine/orm": "2.*",
-        "doctrine/common" : "*",
         "symfony/yaml": "7.*",
         "ruflin/elastica" : "7.*",
-        "fh-platform/util": "dev-master",
         "fh-platform/config": "dev-master"
     },
     "require-dev": {

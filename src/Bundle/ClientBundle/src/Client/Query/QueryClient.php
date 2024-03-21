@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ClientBundle\Client\Query;
 
-use Elastica\Search;
 use FHPlatform\ClientBundle\Provider\ProviderInterface;
 use FHPlatform\ConfigBundle\DTO\Index;
 
@@ -13,7 +12,7 @@ class QueryClient
     ) {
     }
 
-    public function getSearch(Index $index, mixed $query = null): Search
+    public function getSearch(Index $index, mixed $query = null): mixed
     {
         return $this->provider->searchPrepare($index, $query);
     }
