@@ -18,8 +18,8 @@ class DoctrineEntitiesChangedMessageHandler
     public function __construct(
         private readonly EntityHelper $entityHelper,
         private readonly DataClient $dataClient,
-        private readonly EntityBuilder $entityFetcher,
         private readonly ConnectionsProvider $connectionsProvider,
+        private readonly EntityBuilder $entityFetcher,
         private readonly EntitiesRelatedBuilder $entityRelatedFetcher,
         private readonly IndexFetcher $indexFetcher,
     ) {

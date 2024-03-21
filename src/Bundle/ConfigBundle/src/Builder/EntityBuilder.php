@@ -13,7 +13,7 @@ use FHPlatform\UtilBundle\Helper\EntityHelper;
 class EntityBuilder
 {
     public function __construct(
-        private readonly ConfigProvider $taggedProvider,
+        private readonly ConfigProvider $configProvider,
         private readonly ConnectionsProvider $connectionsProvider,
         private readonly EntityHelper $entityHelper,
     ) {
@@ -38,7 +38,7 @@ class EntityBuilder
         $index = $this->connectionsProvider->fetchIndexesByClassName($className)[0];
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);
+        $decorators = $this->configProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);
 
         // decorate data and should_be_indexed
         list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);

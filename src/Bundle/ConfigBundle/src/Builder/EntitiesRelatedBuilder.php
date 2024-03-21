@@ -9,7 +9,7 @@ use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
 class EntitiesRelatedBuilder
 {
     public function __construct(
-        private readonly ConfigProvider $taggedProvider,
+        private readonly ConfigProvider $configProvider,
     ) {
     }
 
@@ -20,7 +20,7 @@ class EntitiesRelatedBuilder
         // TODO throw error if class not available for ES
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
+        $decorators = $this->configProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
 
         // decorate entity_related
         $entitiesRelated = $this->decorateEntitiesRelated($entity, $decorators);
@@ -32,7 +32,7 @@ class EntitiesRelatedBuilder
     public function fetchClassNamesRelated(): array
     {
         $classNames = [];
-        foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {
+        foreach ($this->configProvider->getProvidersEntityRelated() as $provider) {
             $classNames[$provider->getClassName()] = $provider->getClassName();
         }
 

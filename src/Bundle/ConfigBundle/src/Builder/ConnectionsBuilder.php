@@ -13,15 +13,15 @@ use FHPlatform\ConfigBundle\DTO\Index;
 class ConnectionsBuilder
 {
     public function __construct(
-        private readonly ConfigProvider $taggedProvider,
+        private readonly ConfigProvider $configProvider,
     ) {
     }
 
     /** @return Connection[] */
     public function build(): array
     {
-        $providersConnection = $this->taggedProvider->getConnections();
-        $providersIndex = $this->taggedProvider->getProvidersIndex();
+        $providersConnection = $this->configProvider->getConnections();
+        $providersIndex = $this->configProvider->getProvidersIndex();
 
         $connections = [];
         foreach ($providersConnection as $providerConnection) {
@@ -62,7 +62,7 @@ class ConnectionsBuilder
         $index = new Index($connection, $className, $name, $nameWithPrefix, $additionalConfig);
 
         // prepare decorators
-        $decorators = $this->taggedProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
+        $decorators = $this->configProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
 
         // decorate mapping and settings
         list($mapping, $settings) = $this->decorateMappingSettings($index, $decorators);

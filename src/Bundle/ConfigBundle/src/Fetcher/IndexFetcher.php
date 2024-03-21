@@ -7,14 +7,14 @@ use FHPlatform\ConfigBundle\Config\ConfigProvider;
 class IndexFetcher
 {
     public function __construct(
-        private readonly ConfigProvider $taggedProvider,
+        private readonly ConfigProvider $configProvider,
     ) {
     }
 
     public function fetchClassNamesIndex(): array
     {
         $classNames = [];
-        foreach ($this->taggedProvider->getProvidersEntity() as $provider) {
+        foreach ($this->configProvider->getProvidersEntity() as $provider) {
             $classNames[$provider->getClassName()] = $provider->getClassName();
         }
 
