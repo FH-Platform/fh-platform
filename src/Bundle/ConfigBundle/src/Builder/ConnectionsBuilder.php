@@ -20,7 +20,7 @@ class ConnectionsBuilder
     /** @return Connection[] */
     public function build(): array
     {
-        $providersConnection = $this->taggedProvider->getProvidersConnection();
+        $providersConnection = $this->taggedProvider->getConnections();
         $providersIndex = $this->taggedProvider->getProvidersIndex();
 
         $connections = [];

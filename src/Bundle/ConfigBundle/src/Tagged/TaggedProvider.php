@@ -19,7 +19,7 @@ class TaggedProvider
     private PrioritySorter $prioritySorter;
 
     public function __construct(
-        private readonly iterable $providersConnection,
+        private readonly iterable $connections,
         private readonly iterable $providersIndex,
         private readonly iterable $providersEntity,
         private readonly iterable $providersEntityRelated,
@@ -31,9 +31,9 @@ class TaggedProvider
     }
 
     /** @return  ProviderConnection[] */
-    public function getProvidersConnection(): array
+    public function getConnections(): array
     {
-        return $this->toArray($this->providersConnection);
+        return $this->toArray($this->connections);
     }
 
     /** @return  ProviderIndexInterface[] */

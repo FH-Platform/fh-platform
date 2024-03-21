@@ -34,8 +34,8 @@ class TaggedProviderTest extends TestCase
         /** @var TaggedProvider $taggedProvider */
         $taggedProvider = $this->container->get(TaggedProvider::class);
 
-        $this->assertEquals(1, count($taggedProvider->getProvidersConnection()));
-        $this->assertEquals(ProviderConnectionDefault::class, get_class($taggedProvider->getProvidersConnection()[0]));
+        $this->assertEquals(1, count($taggedProvider->getConnections()));
+        $this->assertEquals(ProviderConnectionDefault::class, get_class($taggedProvider->getConnections()[0]));
 
         $this->assertEquals(1, count($taggedProvider->getProvidersEntity()));
         $this->assertEquals(ProviderEntityDefault::class, get_class($taggedProvider->getProvidersEntity()[0]));
