@@ -1,11 +1,9 @@
 services:
     _defaults:
+        public: true  #TODO remove
         autowire: true
         autoconfigure: true
 
     FHPlatform\ConfigBundle\:
         resource: '../src/*'
-
-    FHPlatform\ConfigBundle\Finder\ProviderFinder:
-        public: true
-
+        exclude: '../src/DTO/*'
