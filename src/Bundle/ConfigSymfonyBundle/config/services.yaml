@@ -31,8 +31,9 @@ services:
         arguments:
             $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
 
-    FHPlatform\ConfigBundle\Fetcher\IndexFetcher:
+    FHPlatform\ConfigBundle\Builder\IndexBuilder:
         arguments:
             $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+
 
 

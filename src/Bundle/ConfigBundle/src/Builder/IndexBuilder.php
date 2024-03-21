@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher;
+namespace FHPlatform\ConfigBundle\Builder;
 
 use FHPlatform\ConfigBundle\Config\ConfigProvider;
 
-class IndexFetcher
+class IndexBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,

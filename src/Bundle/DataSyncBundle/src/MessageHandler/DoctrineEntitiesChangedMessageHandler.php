@@ -6,7 +6,7 @@ use FHPlatform\ClientBundle\Client\Data\DataClient;
 use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder;
 use FHPlatform\ConfigBundle\Builder\EntityBuilder;
-use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
+use FHPlatform\ConfigBundle\Builder\IndexBuilder;
 use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -21,7 +21,7 @@ class DoctrineEntitiesChangedMessageHandler
         private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly EntityBuilder $entityFetcher,
         private readonly EntitiesRelatedBuilder $entityRelatedFetcher,
-        private readonly IndexFetcher $indexFetcher,
+        private readonly IndexBuilder $indexFetcher,
     ) {
     }
 
