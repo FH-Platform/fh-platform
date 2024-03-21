@@ -11,7 +11,7 @@ class DoctrineClassesNamesIndexFetcher
     ) {
     }
 
-    public function fetch(): array
+    public function fetchClassNamesIndex(): array
     {
         $classNames = [];
         foreach ($this->taggedProvider->getProvidersEntity() as $provider) {

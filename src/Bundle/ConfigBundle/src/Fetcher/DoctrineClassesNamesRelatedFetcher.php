@@ -11,7 +11,7 @@ class DoctrineClassesNamesRelatedFetcher
     ) {
     }
 
-    public function fetch(): array
+    public function fetchClassNamesRelated(): array
     {
         $classNames = [];
         foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {

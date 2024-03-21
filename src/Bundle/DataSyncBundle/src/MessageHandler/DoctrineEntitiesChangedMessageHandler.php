@@ -30,8 +30,8 @@ class DoctrineEntitiesChangedMessageHandler
 
     public function __invoke(DoctrineEntitiesChangedMessage $message): void
     {
-        $classNamesIndex = $this->doctrineClassesNamesIndexFetcher->fetch();
-        $classNamesRelated = $this->doctrineClassesNamesRelatedFetcher->fetch();
+        $classNamesIndex = $this->doctrineClassesNamesIndexFetcher->fetchClassNamesIndex();
+        $classNamesRelated = $this->doctrineClassesNamesRelatedFetcher->fetchClassNamesRelated();
 
         $entities = [];
 
