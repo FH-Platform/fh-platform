@@ -2,7 +2,6 @@
 
 namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
-use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\DTO\Index;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
@@ -16,7 +15,6 @@ class EntityFetcher
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
         private readonly ConnectionsFetcher $connectionsFetcher,
-        private readonly EntityManagerInterface $entityManager,
         private readonly EntityHelper $entityHelper,
     ) {
     }
@@ -33,10 +31,7 @@ class EntityFetcher
         $className = $entity::class;
 
         // TODO
-        $identifier = null;
-        if (!$this->entityManager->getMetadataFactory()->isTransient($className)) {
-            $identifier = $this->entityHelper->getIdentifierValue($entity);
-        }
+        $identifier = $this->entityHelper->getIdentifierValue($entity);
 
         // TODO throw error if class not available for ES
 

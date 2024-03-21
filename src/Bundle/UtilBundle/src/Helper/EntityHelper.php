@@ -16,12 +16,16 @@ class EntityHelper
     /**
      * @throws MappingException
      */
-    public function getIdentifierName(mixed $entity): string
+    public function getIdentifierName(mixed $entity): ?string
     {
         if (is_string($entity)) {
             $className = $this->getRealClass($entity);
         } else {
             $className = $this->getRealClass(get_class($entity));
+        }
+
+        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
+            return null;
         }
 
         $meta = $this->entityManager->getClassMetadata($className);
@@ -32,6 +36,10 @@ class EntityHelper
     public function getIdentifierValue(mixed $entity): mixed
     {
         $identifier = $this->getIdentifierName($entity);
+
+        if (!$identifier) {
+            return null;
+        }
 
         $getter = 'get'.ucfirst($identifier);
 
@@ -87,6 +95,11 @@ class EntityHelper
     public function getRealClass(string $className): string
     {
         $className = ClassUtils::getRealClass($className);
+
+        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
+            return $className;
+        }
+
         $className = $this->entityManager->getClassMetadata($className)->rootEntityName;
 
         return $className;
