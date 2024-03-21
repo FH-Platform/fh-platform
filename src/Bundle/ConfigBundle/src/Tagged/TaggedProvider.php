@@ -10,23 +10,24 @@ use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class TaggedProvider
 {
     public static array $includedClasses = [];
     public static array $excludedClasses = [];
 
+    private PrioritySorter $prioritySorter;
+
     public function __construct(
-        #[TaggedIterator('fh_platform.config.provider.connection')] private readonly iterable $providersConnection,
-        #[TaggedIterator('fh_platform.config.provider.index')] private readonly iterable $providersIndex,
-        #[TaggedIterator('fh_platform.config.provider.entity')] private readonly iterable $providersEntity,
-        #[TaggedIterator('fh_platform.config.provider.entity_related')] private readonly iterable $providersEntityRelated,
-        #[TaggedIterator('fh_platform.config.decorator.index')] private readonly iterable $decoratorsIndex,
-        #[TaggedIterator('fh_platform.config.decorator.entity')] private readonly iterable $decoratorsEntity,
-        #[TaggedIterator('fh_platform.config.decorator.entity_related')] private readonly iterable $decoratorsEntityRelated,
-        private readonly PrioritySorter $prioritySorter,
+        private readonly iterable $providersConnection,
+        private readonly iterable $providersIndex,
+        private readonly iterable $providersEntity,
+        private readonly iterable $providersEntityRelated,
+        private readonly iterable $decoratorsIndex,
+        private readonly iterable $decoratorsEntity,
+        private readonly iterable $decoratorsEntityRelated,
     ) {
+        $this->prioritySorter = new PrioritySorter();
     }
 
     /** @return  ProviderConnection[] */

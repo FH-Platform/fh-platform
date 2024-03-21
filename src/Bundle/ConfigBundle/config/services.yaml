@@ -12,3 +12,13 @@ services:
         factory: ['FHPlatform\ConfigBundle\Factory\ConnectionsFactory', 'create']
         arguments:
             $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
+
+    FHPlatform\ConfigBundle\Tagged\TaggedProvider:
+        arguments:
+            - !tagged fh_platform.config.provider.connection
+            - !tagged fh_platform.config.provider.index
+            - !tagged fh_platform.config.provider.entity
+            - !tagged fh_platform.config.provider.entity_related
+            - !tagged fh_platform.config.decorator.index
+            - !tagged fh_platform.config.decorator.entity
+            - !tagged fh_platform.config.decorator.entity_related
