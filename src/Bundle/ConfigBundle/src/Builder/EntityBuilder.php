@@ -7,21 +7,20 @@ use FHPlatform\ConfigBundle\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\ConfigBundle\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
 
 class EntityBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
-        private readonly ConnectionsProvider $connectionsProvider,
+        private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly EntityHelper $entityHelper,
     ) {
     }
 
     public function buildForDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
     {
-        $index = $this->connectionsProvider->fetchIndexesByClassName($className)[0];
+        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
         return new Entity($index, $identifier, [], false);
     }
@@ -35,7 +34,7 @@ class EntityBuilder
 
         // TODO throw error if class not available for ES
 
-        $index = $this->connectionsProvider->fetchIndexesByClassName($className)[0];
+        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
         // prepare decorators
         $decorators = $this->configProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);

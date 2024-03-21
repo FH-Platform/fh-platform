@@ -7,11 +7,6 @@ services:
     FHPlatform\ConfigSymfonyBundle\:
         resource: '../src/*'
 
-    FHPlatform\ConfigBundle\Provider\ConnectionsProvider:
-        factory: ['FHPlatform\ConfigSymfonyBundle\Factory\ConnectionsFactory', 'create']
-        arguments:
-            $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
-
     FHPlatform\ConfigBundle\Config\ConfigProvider:
         arguments:
             - !tagged fh_platform.config.connection
@@ -29,7 +24,7 @@ services:
     FHPlatform\ConfigBundle\Builder\EntityBuilder:
         arguments:
             $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
-            $connectionsProvider: '@FHPlatform\ConfigBundle\Provider\ConnectionsProvider'
+            $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
             $entityHelper: '@FHPlatform\UtilBundle\Helper\EntityHelper'
 
     FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder:

@@ -2,8 +2,8 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\EventListener;
 
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\Config\ConfigProvider;
-use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
@@ -23,9 +23,9 @@ class EventListenerTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsProvider $connectionsProvider */
-        $connectionsProvider = $this->container->get(ConnectionsProvider::class);
-        $index = $connectionsProvider->fetchIndexesByClassName(User::class)[0];
+        /** @var ConnectionsBuilder $connectionsBuilder */
+        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
+        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
         $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));

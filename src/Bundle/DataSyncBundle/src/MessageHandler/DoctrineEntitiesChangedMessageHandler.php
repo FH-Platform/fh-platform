@@ -3,10 +3,10 @@
 namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder;
 use FHPlatform\ConfigBundle\Builder\EntityBuilder;
 use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
-use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
 use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -18,7 +18,7 @@ class DoctrineEntitiesChangedMessageHandler
     public function __construct(
         private readonly EntityHelper $entityHelper,
         private readonly DataClient $dataClient,
-        private readonly ConnectionsProvider $connectionsProvider,
+        private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly EntityBuilder $entityFetcher,
         private readonly EntitiesRelatedBuilder $entityRelatedFetcher,
         private readonly IndexFetcher $indexFetcher,
@@ -60,7 +60,7 @@ class DoctrineEntitiesChangedMessageHandler
     private function prepareUpdates(mixed $entity, string $className, mixed $identifier, string $type, array &$entities): void
     {
         // TODO cache
-        $indexes = $this->connectionsProvider->fetchIndexesByClassName($className);
+        $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
 
         foreach ($indexes as $index) {
             $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;

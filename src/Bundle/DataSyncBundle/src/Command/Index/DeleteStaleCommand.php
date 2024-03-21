@@ -3,8 +3,8 @@
 namespace FHPlatform\DataSyncBundle\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Provider\ConnectionsProvider;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,14 +15,14 @@ class DeleteStaleCommand extends Command
 {
     public function __construct(
         private readonly IndexClient $indexClient,
-        private readonly ConnectionsProvider $connectionsProvider,
+        private readonly ConnectionsBuilder $connectionsBuilder,
     ) {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $connections = $this->connectionsProvider->getConnections();
+        $connections = $this->connectionsBuilder->build();
 
         $indexNamesAvailable = [];
         foreach ($connections as $connection) {
