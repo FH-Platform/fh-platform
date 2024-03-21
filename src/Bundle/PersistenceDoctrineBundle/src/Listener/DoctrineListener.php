@@ -23,7 +23,7 @@ class DoctrineListener
     protected array $eventsRemove = [];
 
     public function __construct(
-        private readonly DoctrineHelper  $doctrineHelper,
+        private readonly DoctrineHelper $doctrineHelper,
         private readonly EventDispatcher $eventsManager,
     ) {
     }
