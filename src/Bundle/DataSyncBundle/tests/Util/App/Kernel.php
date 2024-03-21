@@ -7,6 +7,7 @@ use FHPlatform\ClientBundle\ClientBundle;
 use FHPlatform\ConfigSymfonyBundle\ConfigSymfonyBundle;
 use FHPlatform\DataSyncBundle\DataSyncBundle;
 use FHPlatform\PersistenceBundle\PersistenceBundle;
+use FHPlatform\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use FHPlatform\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -26,6 +27,7 @@ class Kernel extends BaseKernel
             new PersistenceBundle(),
 
             new ClientBundle(),
+            new SymfonyBridgeBundle(),
         ];
     }
 

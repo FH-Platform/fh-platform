@@ -5,6 +5,7 @@ namespace FHPlatform\ClientBundle\Tests\Util\App;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\ClientBundle\ClientBundle;
 use FHPlatform\ConfigSymfonyBundle\ConfigSymfonyBundle;
+use FHPlatform\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use FHPlatform\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -21,6 +22,7 @@ class Kernel extends BaseKernel
             new UtilBundle(),
             new ConfigSymfonyBundle(),
             new ClientBundle(),
+            new SymfonyBridgeBundle(),
         ];
     }
 

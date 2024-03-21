@@ -35,6 +35,7 @@
     },
     "autoload": {
         "psr-4": {
+            "FHPlatform\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
             "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
             "FHPlatform\\ConfigSymfonyBundle\\": "src/Bundle/ConfigSymfonyBundle/src/",
             "FHPlatform\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
