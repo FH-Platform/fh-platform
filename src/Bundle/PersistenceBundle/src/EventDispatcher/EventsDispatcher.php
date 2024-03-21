@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle;
+namespace FHPlatform\Bundle\PersistenceBundle\EventDispatcher;
 
 use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
 use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\Bundle\PersistenceBundle\Event\PreDeleteEntityEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class EventsManager
+class EventsDispatcher
 {
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
