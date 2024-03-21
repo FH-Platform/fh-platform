@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrineBundle;
+namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Listener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -77,6 +77,7 @@ class DoctrineListener
             $identifierValue = $this->eventsRemove[spl_object_id($entity)];
         }
 
+        // TODO check, sometimes id, sometimes uuid
         // for persist and delete changedFields are ['id'], for update are calculated
         if ($args instanceof PostUpdateEventArgs) {
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
