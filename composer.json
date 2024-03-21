@@ -17,7 +17,6 @@
         "doctrine/orm": "2.*",
         "doctrine/common" : "*",
         "symfony/yaml": "7.*",
-        "fh-platform/util": "dev-master",
         "ruflin/elastica" : "7.*",
         "symfony/doctrine-messenger": "7.*"
     },
@@ -44,7 +43,6 @@
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/Bundle/PersistenceDoctrineBundle/src/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
-            "FHPlatform\\Bundle\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
             "App\\": "src/App/"
         }
     },
@@ -55,7 +53,6 @@
             "FHPlatform\\Bundle\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\Tests\\": "src/Bundle/PersistenceDoctrineBundle/tests/",
 
-            "FHPlatform\\Bundle\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }
     },

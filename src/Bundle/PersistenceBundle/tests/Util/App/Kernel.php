@@ -6,7 +6,6 @@ use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\Bundle\PersistenceBundle\PersistenceBundle;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\PersistenceDoctrineBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
-use FHPlatform\Bundle\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -20,7 +19,6 @@ class Kernel extends BaseKernel
             new DoctrineBundle(),
 
             new SymfonyBridgeBundle(),
-            new UtilBundle(),
             new PersistenceBundle(),
             new PersistenceDoctrineBundle(),
         ];

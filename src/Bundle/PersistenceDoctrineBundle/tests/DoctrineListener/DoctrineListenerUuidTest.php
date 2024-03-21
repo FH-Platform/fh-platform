@@ -21,7 +21,7 @@ class DoctrineListenerUuidTest extends TestCase
         $this->eventsClear(ChangedEntitiesEvent::class);
         $this->assertCount(0, $this->eventsGet(ChangedEntitiesEvent::class));
         $this->entityManager->flush();
-        $id = $user->getId();
+        $id = $user->getUuid();
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
@@ -34,7 +34,7 @@ class DoctrineListenerUuidTest extends TestCase
         $this->assertEquals($id, $value->getIdentifier());
         $this->assertEquals(ChangedEntityEvent::TYPE_CREATE, $value->getType());
         $this->assertEquals(UserUuid::class, $value->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
+        $this->assertEquals(['uuid'], $value->getChangedFields());
 
         // test update
         $this->eventsClear(ChangedEntitiesEvent::class);
@@ -72,6 +72,6 @@ class DoctrineListenerUuidTest extends TestCase
         $this->assertEquals($id, $value->getIdentifier());
         $this->assertEquals(ChangedEntityEvent::TYPE_DELETE, $value->getType());
         $this->assertEquals(UserUuid::class, $value->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
+        $this->assertEquals(['uuid'], $value->getChangedFields());
     }
 }
