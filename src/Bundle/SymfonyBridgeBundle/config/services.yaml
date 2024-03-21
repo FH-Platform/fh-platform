@@ -18,10 +18,52 @@ services:
 
     FHPlatform\ClientBundle\Client\Index\IndexClient:
         public: true
+        autowire: true
+        autoconfigure: true
 
     FHPlatform\ClientBundle\Client\Query\QueryClient:
         public: true
+        autowire: true
+        autoconfigure: true
 
     FHPlatform\ClientBundle\Client\Data\DataClient:
         public: true
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\ConfigBundle\Config\ConfigProvider:
+        arguments:
+            - !tagged fh_platform.config.connection
+            - !tagged fh_platform.config.provider.index
+            - !tagged fh_platform.config.provider.entity
+            - !tagged fh_platform.config.provider.entity_related
+            - !tagged fh_platform.config.decorator.index
+            - !tagged fh_platform.config.decorator.entity
+            - !tagged fh_platform.config.decorator.entity_related
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    FHPlatform\ConfigBundle\Builder\ConnectionsBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+        public: true
+
+    FHPlatform\ConfigBundle\Builder\EntityBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+            $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
+            $entityHelper: '@FHPlatform\UtilBundle\Helper\EntityHelper'
+        public: true
+
+    FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+        public: true
+
+    FHPlatform\ConfigBundle\Builder\IndexBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+        public: true
+
 

@@ -20,12 +20,11 @@ class Kernel extends BaseKernel
             new FrameworkBundle(),
             new DoctrineBundle(),
 
+            new SymfonyBridgeBundle(),
             new UtilBundle(),
             new DataSyncBundle(),
             new ConfigSymfonyBundle(),
             new PersistenceBundle(),
-
-            new SymfonyBridgeBundle(),
         ];
     }
 

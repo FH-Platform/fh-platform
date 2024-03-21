@@ -4,33 +4,3 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\ConfigBundle\Config\ConfigProvider:
-        arguments:
-            - !tagged fh_platform.config.connection
-            - !tagged fh_platform.config.provider.index
-            - !tagged fh_platform.config.provider.entity
-            - !tagged fh_platform.config.provider.entity_related
-            - !tagged fh_platform.config.decorator.index
-            - !tagged fh_platform.config.decorator.entity
-            - !tagged fh_platform.config.decorator.entity_related
-
-    FHPlatform\ConfigBundle\Builder\ConnectionsBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
-
-    FHPlatform\ConfigBundle\Builder\EntityBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
-            $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
-            $entityHelper: '@FHPlatform\UtilBundle\Helper\EntityHelper'
-
-    FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
-
-    FHPlatform\ConfigBundle\Builder\IndexBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
-
-
-
