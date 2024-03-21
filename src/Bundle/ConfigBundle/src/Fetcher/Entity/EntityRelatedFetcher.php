@@ -13,6 +13,16 @@ class EntityRelatedFetcher
     ) {
     }
 
+    public function fetchClassNamesRelated(): array
+    {
+        $classNames = [];
+        foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {
+            $classNames[$provider->getClassName()] = $provider->getClassName();
+        }
+
+        return $classNames;
+    }
+
     public function fetchEntitiesRelated($entity): array
     {
         $className = $entity::class;

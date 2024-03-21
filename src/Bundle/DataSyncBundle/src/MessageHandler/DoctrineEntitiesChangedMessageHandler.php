@@ -3,11 +3,9 @@
 namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ConfigBundle\DTO\Entity;
-use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesIndexFetcher;
-use FHPlatform\ConfigBundle\Fetcher\DoctrineClassesNamesRelatedFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Entity\EntityRelatedFetcher;
+use FHPlatform\ConfigBundle\Fetcher\Entity\IndexFetcher;
 use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
@@ -23,15 +21,14 @@ class DoctrineEntitiesChangedMessageHandler
         private readonly EntityFetcher $entityFetcher,
         private readonly ConnectionsFetcher $connectionsFetcher,
         private readonly EntityRelatedFetcher $entityRelatedFetcher,
-        private readonly DoctrineClassesNamesIndexFetcher $doctrineClassesNamesIndexFetcher,
-        private readonly DoctrineClassesNamesRelatedFetcher $doctrineClassesNamesRelatedFetcher,
+        private readonly IndexFetcher $indexFetcher,
     ) {
     }
 
     public function __invoke(DoctrineEntitiesChangedMessage $message): void
     {
-        $classNamesIndex = $this->doctrineClassesNamesIndexFetcher->fetchClassNamesIndex();
-        $classNamesRelated = $this->doctrineClassesNamesRelatedFetcher->fetchClassNamesRelated();
+        $classNamesIndex = $this->indexFetcher->fetchClassNamesIndex();
+        $classNamesRelated = $this->entityRelatedFetcher->fetchClassNamesRelated();
 
         $entities = [];
 

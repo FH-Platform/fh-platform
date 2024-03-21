@@ -8,8 +8,6 @@ use Symfony\Component\DependencyInjection\Container;
 
 class TestCase extends \FHPlatform\TestsBundle\Tests\TestCase
 {
-    private static array $events = [];
-
     protected Container $container;
     protected CommandHelper $commandHelper;
     protected EntityManagerInterface $entityManager;

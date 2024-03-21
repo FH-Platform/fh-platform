@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher;
+namespace FHPlatform\ConfigBundle\Fetcher\Entity;
 
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
-class DoctrineClassesNamesIndexFetcher
+class IndexFetcher
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
