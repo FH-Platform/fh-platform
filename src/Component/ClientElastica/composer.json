@@ -7,12 +7,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Bundle\\ClientElasticaBundle\\": "src/"
+            "FHPlatform\\Component\\ClientElastica\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\Bundle\\ClientElasticaBundle\\Tests\\": "tests/"
+            "FHPlatform\\Component\\ClientElastica\\Tests\\": "tests/"
         }
     },
     "authors": [

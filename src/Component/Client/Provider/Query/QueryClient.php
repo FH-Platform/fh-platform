@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Component\Client\Provider\Query;
 
-use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
+use FHPlatform\Component\Config\DTO\Index;
 
 class QueryClient
 {

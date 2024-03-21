@@ -2,12 +2,12 @@
 
 namespace FHPlatform\Component\Config\Builder;
 
+use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Bundle\UtilBundle\Helper\EntityHelper;
 
 class EntityBuilder
 {

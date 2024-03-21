@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider;
 
+use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\Role;
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\Role;
 
 class RoleProviderEntity extends ProviderEntity
 {

@@ -11,7 +11,7 @@ doctrine:
         mappings:
             Test:
                 dir: '%kernel.project_dir%/'
-                prefix: 'FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\Entity'
+                prefix: 'FHPlatform\Component\ClientElastica\Tests\Util\Entity'
 
 services:
     _defaults:
@@ -19,9 +19,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\ClientElasticaBundle\Tests\Util\:
+    FHPlatform\Component\ClientElastica\Tests\Util\:
         resource: '../'
         exclude: '../{App}'
 
-    FHPlatform\Bundle\ClientElasticaBundle\Tests\:
+    FHPlatform\Component\ClientElastica\Tests\:
         resource: '../../*/Util'

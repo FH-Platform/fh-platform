@@ -1,15 +1,15 @@
 <?php
 
-namespace FHPlatform\Bundle\ClientElasticaBundle;
+namespace FHPlatform\Component\ClientElastica;
 
-use FHPlatform\Component\Config\DTO\Connection;
-use FHPlatform\Component\Config\DTO\Index;
 use Elastica\Document;
 use Elastica\Request;
 use Elastica\Result;
 use Elastica\Search;
-use FHPlatform\Bundle\ClientElasticaBundle\Connection\ConnectionFetcher;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
+use FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher;
+use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Index;
 
 class ElasticaProvider implements ProviderInterface
 {

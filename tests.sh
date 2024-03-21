@@ -1,10 +1,9 @@
 #!/bin/bash
 
 bundles=(
-  "Bundle/ClientElasticaBundle"
+  "Component/ClientElastica"
   "Bundle/UtilBundle"
   "Bundle/PersistenceBundle"
-  "Component/ClientBundle"
   "Bundle/DataSyncBundle"
 )
 

@@ -2,12 +2,12 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\EventListener;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Entity\User;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Config\ConfigProvider;
 
 class EventListenerTest extends TestCase
 {

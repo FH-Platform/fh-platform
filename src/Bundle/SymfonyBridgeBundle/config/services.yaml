@@ -3,18 +3,15 @@ services:
         autowire: true
         autoconfigure: true
 
-    # TODO ->> move to some bridge
-    FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Bundle\ClientElasticaBundle\ElasticaProvider'
+    FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
 
-    FHPlatform\Bundle\ClientElasticaBundle\ElasticaProvider:
+    FHPlatform\Component\ClientElastica\ElasticaProvider:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\ClientElasticaBundle\Connection\ConnectionFetcher:
+    FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher:
         autowire: true
         autoconfigure: true
-
-    # TODO ->> move to some bridge
 
     FHPlatform\Component\Client\Provider\Index\IndexClient:
         public: true

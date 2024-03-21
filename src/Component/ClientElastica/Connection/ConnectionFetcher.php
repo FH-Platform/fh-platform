@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\Bundle\ClientElasticaBundle\Connection;
+namespace FHPlatform\Component\ClientElastica\Connection;
 
+use Elastica\Client;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use Elastica\Client;
 
 class ConnectionFetcher extends Client
 {

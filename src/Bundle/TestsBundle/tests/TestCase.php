@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Bundle\TestsBundle\Tests;
 
-use FHPlatform\Component\Config\Config\ConfigProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Elastica\Query;
@@ -10,6 +9,7 @@ use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
 use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Client\Provider\Query\QueryClient;
+use FHPlatform\Component\Config\Config\ConfigProvider;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;

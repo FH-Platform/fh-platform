@@ -2,14 +2,14 @@
 
 namespace FHPlatform\Bundle\DataSyncBundle\Tests\Command\Index;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Bundle\DataSyncBundle\Tests\TestCase;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\Test2ProviderEntity;
 use FHPlatform\Bundle\DataSyncBundle\Tests\Util\Es\Config\Provider\TestProviderEntity;
 use FHPlatform\Component\Client\Provider\Index\IndexClient;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\Config\DTO\Index;
 
 class IndexCommandsTest extends TestCase
 {
