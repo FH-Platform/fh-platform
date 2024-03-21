@@ -3,8 +3,8 @@
 namespace FHPlatform\DataSyncBundle\Tests\Command\Index;
 
 use FHPlatform\ClientBundle\Client\Index\IndexClient;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
@@ -29,9 +29,9 @@ class IndexCommandsTest extends TestCase
         /** @var IndexClient $indexClient */
         $indexClient = $this->container->get(IndexClient::class);
 
-        /** @var ConnectionsFetcher $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
-        $connections = $connectionsFetcher->fetchConnections();
+        /** @var ConnectionsBuilder $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
+        $connections = $connectionsFetcher->build();
         $connection = $connections[0];
 
         $indexClient->deleteAllIndexesInConnection($connection);

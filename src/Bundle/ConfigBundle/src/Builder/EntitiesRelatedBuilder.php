@@ -1,29 +1,19 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher\Entity;
+namespace FHPlatform\ConfigBundle\Builder;
 
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
-class EntityRelatedFetcher
+class EntitiesRelatedBuilder
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
     ) {
     }
 
-    public function fetchClassNamesRelated(): array
-    {
-        $classNames = [];
-        foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {
-            $classNames[$provider->getClassName()] = $provider->getClassName();
-        }
-
-        return $classNames;
-    }
-
-    public function fetchEntitiesRelated($entity): array
+    public function build($entity): array
     {
         $className = $entity::class;
 
@@ -37,6 +27,16 @@ class EntityRelatedFetcher
 
         // return
         return $entitiesRelated;
+    }
+
+    public function fetchClassNamesRelated(): array
+    {
+        $classNames = [];
+        foreach ($this->taggedProvider->getProvidersEntityRelated() as $provider) {
+            $classNames[$provider->getClassName()] = $provider->getClassName();
+        }
+
+        return $classNames;
     }
 
     /** @param  DecoratorEntityRelatedInterface[] $decorators */

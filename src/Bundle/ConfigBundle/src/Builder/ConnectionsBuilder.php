@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher\Global;
+namespace FHPlatform\ConfigBundle\Builder;
 
 use FHPlatform\ConfigBundle\DTO\Connection;
 use FHPlatform\ConfigBundle\DTO\Index;
@@ -10,7 +10,7 @@ use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
-class ConnectionsFetcher
+class ConnectionsBuilder
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
@@ -18,7 +18,7 @@ class ConnectionsFetcher
     }
 
     /** @return Connection[] */
-    public function fetchConnections(): array
+    public function build(): array
     {
         $providersConnection = $this->taggedProvider->getProvidersConnection();
         $providersIndex = $this->taggedProvider->getProvidersIndex();
@@ -46,7 +46,7 @@ class ConnectionsFetcher
     public function fetchIndexesByClassName(string $className): array
     {
         $indexes = [];
-        foreach ($this->fetchConnections() as $connection) {
+        foreach ($this->build() as $connection) {
             foreach ($connection->getIndexes() as $index) {
                 if ($index->getClassName() === $className) {
                     $indexes[] = $index;

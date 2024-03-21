@@ -2,8 +2,8 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Tag;
 
-use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\ConfigBundle\Builder\EntityBuilder;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Es\Connection\ProviderConnection_Default;
 use FHPlatform\ConfigBundle\Tests\Tag\Util\Decorator\DecoratorEntity_Default;
@@ -28,8 +28,8 @@ class DecorateMappingItemTest extends TestCase
 
     public function testFetchEntity(): void
     {
-        /** @var ConnectionsFetcher $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
+        /** @var ConnectionsBuilder $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
 
         $this->assertEquals([
             'test_text' => ['type' => 'text', 'test' => '1234'],
@@ -78,8 +78,8 @@ class DecorateMappingItemTest extends TestCase
             ],
         ], $connectionsFetcher->fetchIndexesByClassName(User::class)[0]->getMapping());
 
-        /** @var EntityFetcher $entityFetcher */
-        $entityFetcher = $this->container->get(EntityFetcher::class);
+        /** @var EntityBuilder $entityFetcher */
+        $entityFetcher = $this->container->get(EntityBuilder::class);
 
         $this->assertEquals([
             'test_text' => 'test',
@@ -122,6 +122,6 @@ class DecorateMappingItemTest extends TestCase
                     ],
                 ],
             ],
-        ], $entityFetcher->fetchEntityForUpsert(new User())->getData());
+        ], $entityFetcher->buildForUpsert(new User())->getData());
     }
 }

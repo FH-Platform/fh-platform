@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
+use FHPlatform\ConfigBundle\Builder\EntityBuilder;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Company;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 
@@ -10,12 +10,12 @@ class EntityFetcherTest extends TestCase
 {
     public function testFetchEntity(): void
     {
-        /** @var EntityFetcher $entityFetcher */
-        $entityFetcher = $this->container->get(EntityFetcher::class);
+        /** @var EntityBuilder $entityFetcher */
+        $entityFetcher = $this->container->get(EntityBuilder::class);
 
         // entity fetcher
         $user = new User();
-        $entity = $entityFetcher->fetchEntityForUpsert($user);
+        $entity = $entityFetcher->buildForUpsert($user);
 
         $this->assertEquals('user', $entity->getIndex()->getName());
         $this->assertEquals(true, $entity->getUpsert());
@@ -26,7 +26,7 @@ class EntityFetcherTest extends TestCase
         ], $entity->getData());
 
         $company = new Company();
-        $entity = $entityFetcher->fetchEntityForUpsert($company);
+        $entity = $entityFetcher->buildForUpsert($company);
 
         $this->assertEquals(false, $entity->getUpsert());
         $this->assertEquals('company_test', $entity->getIndex()->getName());

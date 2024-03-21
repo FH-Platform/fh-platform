@@ -2,17 +2,17 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\DTO\Connection;
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 
 class ConnectionsFetcherTest extends TestCase
 {
     public function testFetchEntity(): void
     {
-        /** @var ConnectionsFetcher $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
+        /** @var ConnectionsBuilder $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
 
-        $connections = $connectionsFetcher->fetchConnections();
+        $connections = $connectionsFetcher->build();
 
         /** @var Connection $connection */
         $connection = $connections[0];

@@ -3,10 +3,10 @@
 namespace FHPlatform\DataSyncBundle\MessageHandler;
 
 use FHPlatform\ClientBundle\Client\Data\DataClient;
-use FHPlatform\ConfigBundle\Fetcher\Entity\EntityFetcher;
-use FHPlatform\ConfigBundle\Fetcher\Entity\EntityRelatedFetcher;
-use FHPlatform\ConfigBundle\Fetcher\Entity\IndexFetcher;
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
+use FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder;
+use FHPlatform\ConfigBundle\Builder\EntityBuilder;
+use FHPlatform\ConfigBundle\Fetcher\IndexFetcher;
 use FHPlatform\DataSyncBundle\Message\DoctrineEntitiesChangedMessage;
 use FHPlatform\PersistenceBundle\Event\ChangedEntityEvent;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
@@ -18,9 +18,9 @@ class DoctrineEntitiesChangedMessageHandler
     public function __construct(
         private readonly EntityHelper $entityHelper,
         private readonly DataClient $dataClient,
-        private readonly EntityFetcher $entityFetcher,
-        private readonly ConnectionsFetcher $connectionsFetcher,
-        private readonly EntityRelatedFetcher $entityRelatedFetcher,
+        private readonly EntityBuilder $entityFetcher,
+        private readonly ConnectionsBuilder $connectionsFetcher,
+        private readonly EntitiesRelatedBuilder $entityRelatedFetcher,
         private readonly IndexFetcher $indexFetcher,
     ) {
     }
@@ -48,7 +48,7 @@ class DoctrineEntitiesChangedMessageHandler
             }
 
             if (in_array($className, $classNamesRelated) and $entity) {
-                $entitiesRelated = $this->entityRelatedFetcher->fetchEntitiesRelated($entity);
+                $entitiesRelated = $this->entityRelatedFetcher->build($entity);
                 // TODO
             }
         }
@@ -68,12 +68,12 @@ class DoctrineEntitiesChangedMessageHandler
             // TODO return if hash exists
 
             if (ChangedEntityEvent::TYPE_DELETE === $type) {
-                $entities[$hash] = $this->entityFetcher->fetchEntityForDelete($className, $identifier);
+                $entities[$hash] = $this->entityFetcher->buildForDelete($className, $identifier);
             } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
                 if (!$entity) {
-                    $entities[$hash] = $this->entityFetcher->fetchEntityForDelete($className, $identifier);
+                    $entities[$hash] = $this->entityFetcher->buildForDelete($className, $identifier);
                 } else {
-                    $entities[$hash] = $this->entityFetcher->fetchEntityForUpsert($entity);
+                    $entities[$hash] = $this->entityFetcher->buildForUpsert($entity);
                 }
             }
 

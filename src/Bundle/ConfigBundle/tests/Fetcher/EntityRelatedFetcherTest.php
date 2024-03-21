@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\Entity\EntityRelatedFetcher;
+use FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Role;
 
 class EntityRelatedFetcherTest extends TestCase
@@ -11,10 +11,10 @@ class EntityRelatedFetcherTest extends TestCase
     {
         $role = new Role();
 
-        /** @var EntityRelatedFetcher $entityRelatedFetcher */
-        $entityRelatedFetcher = $this->container->get(EntityRelatedFetcher::class);
+        /** @var EntitiesRelatedBuilder $entityRelatedFetcher */
+        $entityRelatedFetcher = $this->container->get(EntitiesRelatedBuilder::class);
 
-        $entityRelated = $entityRelatedFetcher->fetchEntitiesRelated($role);
+        $entityRelated = $entityRelatedFetcher->build($role);
 
         $this->assertEquals(3, count($entityRelated));
         $this->assertEquals('decorator_entity_related_level_-1', $entityRelated[0]);

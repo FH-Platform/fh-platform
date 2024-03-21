@@ -1,32 +1,31 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher\Entity;
+namespace FHPlatform\ConfigBundle\Builder;
 
 use FHPlatform\ConfigBundle\DTO\Entity;
 use FHPlatform\ConfigBundle\DTO\Index;
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
 use FHPlatform\ConfigBundle\Tag\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\ConfigBundle\Tag\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\UtilBundle\Helper\EntityHelper;
 
-class EntityFetcher
+class EntityBuilder
 {
     public function __construct(
         private readonly TaggedProvider $taggedProvider,
-        private readonly ConnectionsFetcher $connectionsFetcher,
+        private readonly ConnectionsBuilder $connectionsFetcher,
         private readonly EntityHelper $entityHelper,
     ) {
     }
 
-    public function fetchEntityForDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
+    public function buildForDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
     {
         $index = $this->connectionsFetcher->fetchIndexesByClassName($className)[0];
 
         return new Entity($index, $identifier, [], false);
     }
 
-    public function fetchEntityForUpsert($entity): Entity  // TODO rename to DTO
+    public function buildForUpsert($entity): Entity  // TODO rename to DTO
     {
         $className = $entity::class;
 

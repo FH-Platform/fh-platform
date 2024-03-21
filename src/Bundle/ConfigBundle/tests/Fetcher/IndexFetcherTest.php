@@ -2,7 +2,7 @@
 
 namespace FHPlatform\ConfigBundle\Tests\Fetcher;
 
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\Company;
 use FHPlatform\ConfigBundle\Tests\Fetcher\Util\Entity\User;
 
@@ -10,8 +10,8 @@ class IndexFetcherTest extends TestCase
 {
     public function testFetchEntity(): void
     {
-        /** @var ConnectionsFetcher $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
+        /** @var ConnectionsBuilder $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
 
         // index fetcher
         $index = $connectionsFetcher->fetchIndexesByClassName(User::class)[0];

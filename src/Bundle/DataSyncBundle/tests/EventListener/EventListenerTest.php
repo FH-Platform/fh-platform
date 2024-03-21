@@ -2,7 +2,7 @@
 
 namespace FHPlatform\DataSyncBundle\Tests\EventListener;
 
-use FHPlatform\ConfigBundle\Fetcher\Global\ConnectionsFetcher;
+use FHPlatform\ConfigBundle\Builder\ConnectionsBuilder;
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 use FHPlatform\DataSyncBundle\Tests\TestCase;
 use FHPlatform\DataSyncBundle\Tests\Util\Entity\User;
@@ -23,8 +23,8 @@ class EventListenerTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsFetcher $connectionsFetcher */
-        $connectionsFetcher = $this->container->get(ConnectionsFetcher::class);
+        /** @var ConnectionsBuilder $connectionsFetcher */
+        $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
         $index = $connectionsFetcher->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);

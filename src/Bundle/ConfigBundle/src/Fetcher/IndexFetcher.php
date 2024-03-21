@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\ConfigBundle\Fetcher\Entity;
+namespace FHPlatform\ConfigBundle\Fetcher;
 
 use FHPlatform\ConfigBundle\Tagged\TaggedProvider;
 
