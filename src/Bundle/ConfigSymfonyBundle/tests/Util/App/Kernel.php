@@ -1,13 +1,9 @@
 <?php
 
-namespace FHPlatform\DataSyncBundle\Tests\Util\App;
+namespace FHPlatform\ConfigSymfonyBundle\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\ClientBundle\ClientBundle;
-use FHPlatform\ClientElasticaBundle\ClientElasticaBundle;
 use FHPlatform\ConfigSymfonyBundle\ConfigSymfonyBundle;
-use FHPlatform\DataSyncBundle\DataSyncBundle;
-use FHPlatform\PersistenceBundle\PersistenceBundle;
 use FHPlatform\UtilBundle\UtilBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -22,12 +18,7 @@ class Kernel extends BaseKernel
             new DoctrineBundle(),
 
             new UtilBundle(),
-            new DataSyncBundle(),
             new ConfigSymfonyBundle(),
-            new PersistenceBundle(),
-
-            new ClientBundle(),
-            new ClientElasticaBundle(),
         ];
     }
 

@@ -36,6 +36,7 @@
     "autoload": {
         "psr-4": {
             "FHPlatform\\ConfigBundle\\": "src/Bundle/ConfigBundle/src/",
+            "FHPlatform\\ConfigSymfonyBundle\\": "src/Bundle/ConfigSymfonyBundle/src/",
             "FHPlatform\\ClientBundle\\": "src/Bundle/ClientBundle/src/",
             "FHPlatform\\ClientElasticaBundle\\": "src/Bundle/ClientElasticaBundle/src/",
             "FHPlatform\\UtilBundle\\": "src/Bundle/UtilBundle/src/",
@@ -46,7 +47,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\ConfigBundle\\Tests\\": "src/Bundle/ConfigBundle/tests/",
+            "FHPlatform\\ConfigSymfonyBundle\\Tests\\": "src/Bundle/ConfigSymfonyBundle/tests/",
             "FHPlatform\\UtilBundle\\Tests\\": "src/Bundle/UtilBundle/tests/",
             "FHPlatform\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\ClientBundle\\Tests\\": "src/Bundle/ClientBundle/tests/",

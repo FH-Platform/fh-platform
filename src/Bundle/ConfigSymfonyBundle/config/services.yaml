@@ -1,0 +1,41 @@
+services:
+    _defaults:
+        public: true  #TODO remove
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\ConfigSymfonyBundle\:
+        resource: '../src/*'
+
+    FHPlatform\ConfigBundle\Provider\ConnectionsProvider:
+        factory: ['FHPlatform\ConfigSymfonyBundle\Factory\ConnectionsFactory', 'create']
+        arguments:
+            $connectionsBuilder: '@FHPlatform\ConfigBundle\Builder\ConnectionsBuilder'
+
+    FHPlatform\ConfigBundle\Config\ConfigProvider:
+        arguments:
+            - !tagged fh_platform.config.connection
+            - !tagged fh_platform.config.provider.index
+            - !tagged fh_platform.config.provider.entity
+            - !tagged fh_platform.config.provider.entity_related
+            - !tagged fh_platform.config.decorator.index
+            - !tagged fh_platform.config.decorator.entity
+            - !tagged fh_platform.config.decorator.entity_related
+
+    FHPlatform\ConfigBundle\Builder\EntityBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+            $connectionsProvider: '@FHPlatform\ConfigBundle\Provider\ConnectionsProvider'
+            $entityHelper: '@FHPlatform\UtilBundle\Helper\EntityHelper'
+
+    FHPlatform\ConfigBundle\Builder\EntitiesRelatedBuilder:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+
+    FHPlatform\ConfigBundle\Fetcher\IndexFetcher:
+        arguments:
+            $configProvider: '@FHPlatform\ConfigBundle\Config\ConfigProvider'
+
+    FHPlatform\ConfigBundle\Builder\ConnectionsBuilder:
+        autowire: true
+        autoconfigure: true
