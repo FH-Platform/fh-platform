@@ -3,7 +3,7 @@
 namespace FHPlatform\Bundle\PersistenceBundle\Syncer;
 
 use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DataSyncer

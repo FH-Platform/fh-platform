@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\EventDispatcher;
+namespace FHPlatform\Bundle\PersistenceBundle\Event\EventDispatcher;
 
 use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher
@@ -15,15 +15,6 @@ class EventDispatcher
 
     protected array $events = [];
 
-    public function addEvent(string $className, mixed $identifierValue, $type, $changedFields): void
-    {
-        // make changes unique
-        $hash = $className.'_'.$identifierValue;
-        $this->events[$hash] = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
-
-        // TODO when there are more updates merge changedFields, or when is delete remove all updates
-    }
-
     public function flushEvent(): void
     {
         // TODO by config flush or onKernelFinishRequest
@@ -33,6 +24,15 @@ class EventDispatcher
     public function kernelFinishRequestEvent(): void
     {
         // TODO
+    }
+
+    public function addEvent(string $className, mixed $identifierValue, $type, $changedFields): void
+    {
+        // make changes unique
+        $hash = $className.'_'.$identifierValue;
+        $this->events[$hash] = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
+
+        // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
 
     public function dispatchEvents(): void

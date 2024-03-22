@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle;
 
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\EventListener\PersistenceListener;
+use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\EventListener\PersistenceListener;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;

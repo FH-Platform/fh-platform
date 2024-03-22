@@ -1,8 +1,8 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\Message;
+namespace FHPlatform\Bundle\PersistenceBundle\Message\Message;
 
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
 
 class EntitiesChangedMessage
 {

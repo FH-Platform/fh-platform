@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\EventListener;
+namespace FHPlatform\Bundle\PersistenceBundle\Event\EventListener;
 
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\Message\EntitiesChangedMessage;
+use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Message\Message\EntitiesChangedMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class PersistenceListener

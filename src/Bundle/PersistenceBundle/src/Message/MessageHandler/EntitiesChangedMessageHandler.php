@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\MessageHandler;
+namespace FHPlatform\Bundle\PersistenceBundle\Message\MessageHandler;
 
 use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
-use FHPlatform\Bundle\PersistenceBundle\Message\EntitiesChangedMessage;
+use FHPlatform\Bundle\PersistenceBundle\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;

@@ -2,7 +2,7 @@
 
 namespace Fico7489\PersistenceDoctrineBundle\DoctrineListener;
 
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
+use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\TestCase;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity\User;
 
