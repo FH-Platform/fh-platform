@@ -22,6 +22,9 @@ services:
     #define persistence
     FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine'
 
+    #define dispatcher
+    FHPlatform\Component\Persistence\Dispatcher\DispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\Dispatcher'
+
     FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener:
         public: true
         autoconfigure: true
