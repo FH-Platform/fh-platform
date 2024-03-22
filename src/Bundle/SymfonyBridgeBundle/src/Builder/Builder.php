@@ -25,6 +25,7 @@ use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
@@ -46,6 +47,8 @@ class Builder
     private function buildPersistence(ContainerBuilder $container): void
     {
         // define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
+
+        $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         $container->register(DoctrineListener::class)
             ->setAutowired(true)

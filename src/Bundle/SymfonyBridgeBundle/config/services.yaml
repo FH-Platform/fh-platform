@@ -7,11 +7,6 @@ services:
         resource: '../src/*'
 
 
-
-    #TODO
-    FHPlatform\Component\Persistence\Syncer\DataSyncer:
-        public: true
-
     FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher:
         autowire: true
         autoconfigure: true
