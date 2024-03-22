@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\Event\EventDispatcher;
+namespace FHPlatform\Bundle\PersistenceDoctrineBundle\EventDispatcher;
 
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;

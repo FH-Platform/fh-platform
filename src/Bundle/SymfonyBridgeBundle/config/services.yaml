@@ -13,10 +13,6 @@ services:
     FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
 
     #TODO
-    FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcher:
-        public: true
-
-    #TODO
     FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler:
         public: true
         autowire: true
