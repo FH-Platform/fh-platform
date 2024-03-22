@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity;
+namespace FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

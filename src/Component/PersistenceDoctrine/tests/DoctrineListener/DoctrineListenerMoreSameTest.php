@@ -2,10 +2,10 @@
 
 namespace Fico7489\PersistenceDoctrine\DoctrineListener;
 
-use FHPlatform\Bundle\PersistenceDoctrine\Tests\TestCase;
-use FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
+use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 
 class DoctrineListenerMoreSameTest extends TestCase
 {

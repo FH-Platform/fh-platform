@@ -3,7 +3,6 @@
 namespace FHPlatform\Component\ClientElastica\tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\Bundle\PersistenceDoctrine\PersistenceDoctrine;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;

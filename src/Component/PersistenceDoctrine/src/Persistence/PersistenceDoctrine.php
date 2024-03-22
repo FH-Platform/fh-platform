@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrine\Persistence;
+namespace FHPlatform\Component\PersistenceDoctrine\Persistence;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
