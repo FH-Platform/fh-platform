@@ -16,21 +16,6 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Component\Client\Provider\Index\IndexClient:
-        public: true
-        autowire: true
-        autoconfigure: true
-
-    FHPlatform\Component\Client\Provider\Query\QueryClient:
-        public: true
-        autowire: true
-        autoconfigure: true
-
-    FHPlatform\Component\Client\Provider\Data\DataClient:
-        public: true
-        autowire: true
-        autoconfigure: true
-
     FHPlatform\Component\Config\Builder\ConnectionsBuilder:
         arguments:
             $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'

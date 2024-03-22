@@ -5,7 +5,10 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
 use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher;
+use FHPlatform\Component\Client\Provider\Data\DataClient;
+use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
+use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
@@ -37,6 +40,7 @@ class Builder
         $this->buildEventDispatcher($container);
 
         $this->buildComponentConfig($container);
+        $this->buildComponentClient($container);
     }
 
     private function buildPersistence(ContainerBuilder $container): void
@@ -120,5 +124,12 @@ class Builder
             new TaggedIteratorArgument('fh_platform.config.decorator.entity_related'),
             new TaggedIteratorArgument('fh_platform.config.connection'),
         ]);
+    }
+
+    private function buildComponentClient(ContainerBuilder $container): void
+    {
+        $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(DataClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }
