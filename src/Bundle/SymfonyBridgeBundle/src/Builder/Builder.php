@@ -10,6 +10,10 @@ use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\Config\Builder\EntityBuilder;
+use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
@@ -126,6 +130,24 @@ class Builder
             new TaggedIteratorArgument('fh_platform.config.decorator.entity'),
             new TaggedIteratorArgument('fh_platform.config.decorator.entity_related'),
             new TaggedIteratorArgument('fh_platform.config.connection'),
+        ]);
+
+        $container->register(ConnectionsBuilder::class)->setPublic(true)->setArguments([
+            '$configProvider' => $container->findDefinition(ConfigProvider::class),
+        ]);
+
+        $container->register(EntityBuilder::class)->setPublic(true)->setArguments([
+            '$configProvider' => $container->findDefinition(ConfigProvider::class),
+            '$connectionsBuilder' => $container->findDefinition(ConnectionsBuilder::class),
+            '$persistence' => $container->findDefinition(PersistenceInterface::class),
+        ]);
+
+        $container->register(EntitiesRelatedBuilder::class)->setPublic(true)->setArguments([
+            '$configProvider' => $container->findDefinition(ConfigProvider::class),
+        ]);
+
+        $container->register(IndexBuilder::class)->setPublic(true)->setArguments([
+            '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
     }
 

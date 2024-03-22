@@ -4,26 +4,4 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Component\Config\Builder\ConnectionsBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
-        public: true
-
-    FHPlatform\Component\Config\Builder\EntityBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
-            $connectionsBuilder: '@FHPlatform\Component\Config\Builder\ConnectionsBuilder'
-            $persistence: '@FHPlatform\Component\Persistence\Persistence\PersistenceInterface'
-        public: true
-
-    FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
-        public: true
-
-    FHPlatform\Component\Config\Builder\IndexBuilder:
-        arguments:
-            $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
-        public: true
-
 
