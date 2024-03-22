@@ -6,24 +6,31 @@ services:
     FHPlatform\Bundle\SymfonyBridgeBundle\:
         resource: '../src/*'
 
-    #TODO
+    #define persistence
     FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine:
         autowire: true
-        public: true
+
+    FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine'
+    #define persistence
+
+    #define provider
+    FHPlatform\Component\ClientElastica\ElasticaProvider:
+        autowire: true
+
+    FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
+    #define provider
+
+    #define dispatcher
+    FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\Dispatcher:
+        autowire: true
+    FHPlatform\Component\Persistence\Dispatcher\DispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\Dispatcher'
+    #define dispatcher
+
 
     #TODO
     FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher:
         autowire: true
         public: true
-
-    #define provider
-    FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
-
-    #define persistence
-    FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine'
-
-    #define dispatcher
-    FHPlatform\Component\Persistence\Dispatcher\DispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\Dispatcher'
 
     FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener:
         public: true
@@ -50,10 +57,6 @@ services:
     #TODO
     FHPlatform\Component\Persistence\Syncer\DataSyncer:
         public: true
-
-    FHPlatform\Component\ClientElastica\ElasticaProvider:
-        autowire: true
-        autoconfigure: true
 
     FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher:
         autowire: true
