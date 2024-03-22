@@ -2,10 +2,12 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
+use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
 use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
+use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
@@ -20,7 +22,9 @@ use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class Builder
@@ -38,6 +42,14 @@ class Builder
     private function buildPersistence(ContainerBuilder $container): void
     {
         // define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
+
+        $container->register(DoctrineListener::class)
+            ->setAutowired(true)
+            ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
+            ->addTag('doctrine.event_listener', ['event' => Events::postUpdate])
+            ->addTag('doctrine.event_listener', ['event' => Events::postRemove])
+            ->addTag('doctrine.event_listener', ['event' => Events::preRemove])
+            ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
 
         $container->register(PersistenceDoctrine::class)->setAutowired(true);
         $container->addAliases([PersistenceInterface::class => PersistenceDoctrine::class]);
@@ -90,5 +102,16 @@ class Builder
         $container->registerForAutoconfiguration(DecoratorIndexInterface::class)->addTag('fh_platform.config.decorator.index');
         $container->registerForAutoconfiguration(DecoratorEntityInterface::class)->addTag('fh_platform.config.decorator.entity');
         $container->registerForAutoconfiguration(DecoratorEntityRelatedInterface::class)->addTag('fh_platform.config.decorator.entity_related');
+
+        $container->register(ConfigProvider::class)->setAutowired(true)->setArguments([
+            new TaggedIteratorArgument('fh_platform.config.connection'),
+            new TaggedIteratorArgument('fh_platform.config.provider.index'),
+            new TaggedIteratorArgument('fh_platform.config.provider.entity'),
+            new TaggedIteratorArgument('fh_platform.config.provider.entity_related'),
+            new TaggedIteratorArgument('fh_platform.config.decorator.index'),
+            new TaggedIteratorArgument('fh_platform.config.decorator.entity'),
+            new TaggedIteratorArgument('fh_platform.config.decorator.entity_related'),
+            new TaggedIteratorArgument('fh_platform.config.connection'),
+        ]);
     }
 }

@@ -7,18 +7,6 @@ services:
         resource: '../src/*'
 
 
-
-
-    FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener:
-        public: true
-        autoconfigure: true
-        autowire: true
-        tags:
-            - { name: doctrine.event_listener, event: postPersist, priority: 10 }
-            - { name: doctrine.event_listener, event: postUpdate, priority: 10 }
-            - { name: doctrine.event_listener, event: postRemove, priority: 10 }
-            - { name: doctrine.event_listener, event: preRemove, priority: 10 }
-            - { name: doctrine.event_listener, event: postFlush, priority: 10 }
     #TODO
     FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler:
         public: true
@@ -57,19 +45,6 @@ services:
         autoconfigure: true
 
 
-
-    FHPlatform\Component\Config\Config\ConfigProvider:
-        arguments:
-            - !tagged fh_platform.config.connection
-            - !tagged fh_platform.config.provider.index
-            - !tagged fh_platform.config.provider.entity
-            - !tagged fh_platform.config.provider.entity_related
-            - !tagged fh_platform.config.decorator.index
-            - !tagged fh_platform.config.decorator.entity
-            - !tagged fh_platform.config.decorator.entity_related
-        autowire: true
-        autoconfigure: true
-        public: true
 
     FHPlatform\Component\Config\Builder\ConnectionsBuilder:
         arguments:
