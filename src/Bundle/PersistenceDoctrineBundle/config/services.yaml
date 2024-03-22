@@ -1,7 +1,7 @@
 services:
-    _defaults:
-        autowire: true
+    FHPlatform\Bundle\PersistenceDoctrineBundle\Listener\DoctrineListener:
+        public: true
         autoconfigure: true
+        autowire: true
 
-    FHPlatform\Bundle\PersistenceDoctrineBundle\:
-        resource: '../src/*'
+
