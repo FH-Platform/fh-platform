@@ -3,7 +3,8 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle;
 
 use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\Event\EventListener\PersistenceListener;
+use FHPlatform\Bundle\PersistenceBundle\Event\EventListener\EventListener;
+use FHPlatform\Bundle\PersistenceBundle\Message\MessageHandler\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
@@ -31,9 +32,11 @@ class SymfonyBridgeBundle extends Bundle
         $container->registerForAutoconfiguration(DecoratorEntityInterface::class)->addTag('fh_platform.config.decorator.entity');
         $container->registerForAutoconfiguration(DecoratorEntityRelatedInterface::class)->addTag('fh_platform.config.decorator.entity_related');
 
-        $container->registerForAutoconfiguration(PersistenceListener::class)->addTag('kernel.event_listener', [
+        $container->registerForAutoconfiguration(EventListener::class)->addTag('kernel.event_listener', [
             'event' => ChangedEntitiesEvent::class,
             'method' => 'onChangedEntities',
         ]);
+
+        $container->registerForAutoconfiguration(EntitiesChangedMessageHandler::class)->addTag('messenger.message_handler');
     }
 }

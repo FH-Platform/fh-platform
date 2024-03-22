@@ -10,9 +10,7 @@ use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\Config\Builder\EntityBuilder;
 use FHPlatform\Component\Config\Builder\IndexBuilder;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler]
 class EntitiesChangedMessageHandler
 {
     public function __construct(

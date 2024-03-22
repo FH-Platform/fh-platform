@@ -4,7 +4,6 @@ namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Helper;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\MappingException;
 
 class DoctrineHelper
 {
@@ -13,9 +12,6 @@ class DoctrineHelper
     ) {
     }
 
-    /**
-     * @throws MappingException
-     */
     public function getIdentifierName(mixed $entity): ?string
     {
         if (is_string($entity)) {
@@ -103,5 +99,46 @@ class DoctrineHelper
         $className = $this->entityManager->getClassMetadata($className)->rootEntityName;
 
         return $className;
+    }
+
+    public function getAllIds(string $className): array
+    {
+        // TODO add to config
+        $maxResults = 10;
+
+        $firstResult = 0;
+        $identifiers = [];
+        while (true) {
+            // TODO order by identifier
+            $query = $this->entityManager->createQuery(
+                'SELECT e FROM '.$className.' e '.
+                ' ORDER BY e.id DESC'
+            )
+                ->setMaxResults($maxResults)
+                ->setFirstResult($firstResult);
+
+            $entitiesBatch = $query->getResult();
+
+            // when we reach batch where there are no results break while(true)
+            if (0 === count($entitiesBatch)) {
+                break;
+            }
+
+            $identifiersBatch = [];
+            foreach ($entitiesBatch as $entityBatch) {
+                $identifier = $this->getIdentifierValue($entityBatch);
+
+                // store identifiers from each batch
+                // TODO detect $shouldBeIndexed
+                $identifiers[] = $identifier;
+            }
+
+            // increase firstResult(offset)
+            $firstResult += $maxResults;
+
+            $this->entityManager->clear();
+        }
+
+        return $identifiers;
     }
 }
