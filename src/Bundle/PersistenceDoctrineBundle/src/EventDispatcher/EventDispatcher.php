@@ -13,12 +13,12 @@ class EventDispatcher
     ) {
     }
 
-    protected array $events = [];
+    protected array $entities = [];
 
     public function flushEvent(): void
     {
         // TODO by config flush or onKernelFinishRequest
-        $this->dispatchEvents();
+        $this->dispatch();
     }
 
     public function kernelFinishRequestEvent(): void
@@ -26,27 +26,23 @@ class EventDispatcher
         // TODO
     }
 
-    public function addEvent(string $className, mixed $identifierValue, $type, $changedFields): void
+    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields): void
     {
         // make changes unique
         $hash = $className.'_'.$identifierValue;
-        $this->events[$hash] = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
+        $this->entities[$hash] = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
 
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
 
-    public function dispatchEvents(): void
+    public function dispatch(): void
     {
-        if (count($this->events)) {
-            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($this->events));
-        }
-
-        foreach ($this->events as $event) {
-            $this->eventDispatcher->dispatch($event);
+        if (count($this->entities)) {
+            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($this->entities));
         }
 
         // reset var
-        $this->events = [];
+        $this->entities = [];
     }
 
     public function dispatchEventsPreDelete(string $className, mixed $identifierValue, array $changedFields): void

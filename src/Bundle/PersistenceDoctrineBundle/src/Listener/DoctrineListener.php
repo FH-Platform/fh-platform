@@ -83,6 +83,6 @@ class DoctrineListener
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
         }
 
-        $this->eventsManager->addEvent($className, $identifierValue, $type, $changedFields);
+        $this->eventsManager->addEntity($className, $identifierValue, $type, $changedFields);
     }
 }
