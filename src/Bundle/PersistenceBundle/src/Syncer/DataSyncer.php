@@ -4,19 +4,19 @@ namespace FHPlatform\Bundle\PersistenceBundle\Syncer;
 
 use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\Event\EventDispatcher\EventDispatcher;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine;
+use FHPlatform\Bundle\PersistenceBundle\Persistence\PersistenceInterface;
 
 class DataSyncer
 {
     public function __construct(
-        private readonly PersistenceDoctrine $persistenceDoctrine,
+        private readonly PersistenceInterface $persistence,
         private readonly EventDispatcher $eventDispatcher,
     ) {
     }
 
     public function sync(string $className): void
     {
-        $identifiers = $this->persistenceDoctrine->getAllIds($className);
+        $identifiers = $this->persistence->getAllIds($className);
 
         // TODO temp index
         $events = [];

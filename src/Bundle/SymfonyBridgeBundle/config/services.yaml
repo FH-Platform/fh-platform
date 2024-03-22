@@ -5,6 +5,8 @@ services:
 
     FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
 
+    FHPlatform\Bundle\PersistenceBundle\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
+
     FHPlatform\Component\ClientElastica\ElasticaProvider:
         autowire: true
         autoconfigure: true
