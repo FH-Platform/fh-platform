@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\Command\Index;
+namespace FHPlatform\Bundle\SymfonyBridgeBundle\Command\Index;
 
 use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
@@ -9,8 +9,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'symfony-es:index:create-all')]
-class CreateAllCommand extends Command
+#[AsCommand(name: 'symfony-es:index:delete-all')]
+class DeleteAllCommand extends Command
 {
     public function __construct(
         private readonly IndexClient $indexClient,
@@ -25,7 +25,7 @@ class CreateAllCommand extends Command
 
         foreach ($connections as $connection) {
             foreach ($connection->getIndexes() as $index) {
-                $this->indexClient->createIndex($index);
+                $this->indexClient->deleteIndex($index);
             }
         }
 

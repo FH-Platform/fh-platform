@@ -3,8 +3,13 @@ services:
         autowire: true
         autoconfigure: true
 
+    FHPlatform\Bundle\SymfonyBridgeBundle\:
+        resource: '../src/*'
+
+    #define provider
     FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
 
+    #define persistence
     FHPlatform\Bundle\PersistenceBundle\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
 
     FHPlatform\Component\ClientElastica\ElasticaProvider:

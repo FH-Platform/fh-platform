@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\Command\Data;
+namespace FHPlatform\Bundle\SymfonyBridgeBundle\Command\Data;
 
 use FHPlatform\Bundle\PersistenceBundle\Syncer\DataSyncer;
 use Symfony\Component\Console\Attribute\AsCommand;

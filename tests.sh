@@ -4,6 +4,7 @@ packages=(
   "Component/ClientElastica"
   "Bundle/PersistenceDoctrineBundle"
   "Bundle/PersistenceBundle"
+  "Bundle/SymfonyBridgeBundle"
 )
 
 for package in "${packages[@]}";

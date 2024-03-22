@@ -43,6 +43,7 @@
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/Bundle/PersistenceDoctrineBundle/src/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
+
             "App\\": "src/App/"
         }
     },
@@ -52,6 +53,8 @@
 
             "FHPlatform\\Bundle\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\Tests\\": "src/Bundle/PersistenceDoctrineBundle/tests/",
+
+            "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
 
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }

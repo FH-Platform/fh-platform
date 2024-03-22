@@ -1,11 +1,11 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\Tests\Command\Data;
+namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Command\Data;
 
-use FHPlatform\Bundle\PersistenceBundle\Tests\TestCase;
-use FHPlatform\Bundle\PersistenceBundle\Tests\Util\Entity\User;
-use FHPlatform\Bundle\PersistenceBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\Bundle\PersistenceBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity\User;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
 use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
