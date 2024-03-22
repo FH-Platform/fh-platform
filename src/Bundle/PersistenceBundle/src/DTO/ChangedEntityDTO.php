@@ -1,10 +1,8 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceBundle\Event;
+namespace FHPlatform\Bundle\PersistenceBundle\DTO;
 
-use Symfony\Contracts\EventDispatcher\Event;
-
-class ChangedEntityEvent extends Event
+class ChangedEntityDTO
 {
     final public const TYPE_CREATE = 'create';
     final public const TYPE_UPDATE = 'update';

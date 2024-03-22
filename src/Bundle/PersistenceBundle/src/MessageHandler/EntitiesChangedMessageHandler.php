@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\MessageHandler;
 
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\Message\EntitiesChangedMessage;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 use FHPlatform\Component\Client\Provider\Data\DataClient;
@@ -33,7 +33,7 @@ class EntitiesChangedMessageHandler
         $entities = [];
 
         $event = $message->getChangedEntitiesEvent();
-        foreach ($event->getEvents() as $event) {
+        foreach ($event->getChangedEntities() as $event) {
             // TODO check if reletable or indexable, fetch entity classNames array and check
 
             $className = $event->getClassName();
@@ -67,9 +67,9 @@ class EntitiesChangedMessageHandler
 
             // TODO return if hash exists
 
-            if (ChangedEntityEvent::TYPE_DELETE === $type) {
+            if (ChangedEntityDTO::TYPE_DELETE === $type) {
                 $entities[$hash] = $this->entityFetcher->buildForDelete($className, $identifier);
-            } elseif (in_array($type, [ChangedEntityEvent::TYPE_UPDATE, ChangedEntityEvent::TYPE_CREATE])) {
+            } elseif (in_array($type, [ChangedEntityDTO::TYPE_UPDATE, ChangedEntityDTO::TYPE_CREATE])) {
                 if (!$entity) {
                     $entities[$hash] = $this->entityFetcher->buildForDelete($className, $identifier);
                 } else {

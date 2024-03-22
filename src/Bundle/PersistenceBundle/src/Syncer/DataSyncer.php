@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\Syncer;
 
+use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class DataSyncer
@@ -21,7 +21,7 @@ class DataSyncer
         // TODO temp index
         $events = [];
         foreach ($identifiers as $identifier) {
-            $events[] = new ChangedEntityEvent($className, $identifier, ChangedEntityEvent::TYPE_UPDATE, ['id']);
+            $events[] = new ChangedEntityDTO($className, $identifier, ChangedEntityDTO::TYPE_UPDATE, ['id']);
         }
 
         $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($events));

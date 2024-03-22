@@ -9,14 +9,14 @@ use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
+use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\EventDispatcher\EventDispatcher;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
 
 #[AsDoctrineListener(event: Events::postPersist)]
 #[AsDoctrineListener(event: Events::postUpdate)]
-#[AsDoctrineListener(event: Events::preRemove)]
 #[AsDoctrineListener(event: Events::postRemove)]
+#[AsDoctrineListener(event: Events::preRemove)]
 #[AsDoctrineListener(event: Events::postFlush)]
 class DoctrineListener
 {
@@ -30,22 +30,22 @@ class DoctrineListener
 
     public function postPersist(PostPersistEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityEvent::TYPE_CREATE);
+        $this->addEntity($args, ChangedEntityDTO::TYPE_CREATE);
     }
 
     public function postUpdate(PostUpdateEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityEvent::TYPE_UPDATE);
+        $this->addEntity($args, ChangedEntityDTO::TYPE_UPDATE);
     }
 
     public function preRemove(PreRemoveEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityEvent::TYPE_DELETE);
+        $this->addEntity($args, ChangedEntityDTO::TYPE_DELETE);
     }
 
     public function postRemove(PostRemoveEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityEvent::TYPE_DELETE);
+        $this->addEntity($args, ChangedEntityDTO::TYPE_DELETE);
     }
 
     public function postFlush(PostFlushEventArgs $args): void
@@ -67,7 +67,7 @@ class DoctrineListener
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
             // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
-            $this->eventsManager->dispatchPreDeleteEntityEvent($className, $identifierValue);
+            $this->eventsManager->dispatchEventsPreDelete($className, $identifierValue, $changedFields);
 
             return;
         }

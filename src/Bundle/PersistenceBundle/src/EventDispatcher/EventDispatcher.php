@@ -2,9 +2,8 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\EventDispatcher;
 
+use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntityEvent;
-use FHPlatform\Bundle\PersistenceBundle\Event\PreDeleteEntityEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 class EventDispatcher
@@ -16,16 +15,11 @@ class EventDispatcher
 
     protected array $events = [];
 
-    public function dispatchPreDeleteEntityEvent($className, $identifierValue): void
-    {
-        $this->eventDispatcher->dispatch(new PreDeleteEntityEvent($className, $identifierValue));
-    }
-
-    public function addEvent($className, $identifierValue, $type = ChangedEntityEvent::TYPE_UPDATE, $changedFields = ['id']): void
+    public function addEvent(string $className, mixed $identifierValue, $type, $changedFields): void
     {
         // make changes unique
         $hash = $className.'_'.$identifierValue;
-        $this->events[$hash] = new ChangedEntityEvent($className, $identifierValue, $type, $changedFields);
+        $this->events[$hash] = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
 
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
@@ -53,5 +47,13 @@ class EventDispatcher
 
         // reset var
         $this->events = [];
+    }
+
+    public function dispatchEventsPreDelete(string $className, mixed $identifierValue, array $changedFields): void
+    {
+        $hash = $className.'_'.$identifierValue;
+        $events[$hash] = new ChangedEntityDTO($className, $identifierValue, ChangedEntityDTO::TYPE_DELETE_PRE, $changedFields);
+
+        $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($events));
     }
 }

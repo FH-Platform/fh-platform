@@ -2,18 +2,18 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\Event;
 
-use Symfony\Contracts\EventDispatcher\Event;
+use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 
-class ChangedEntitiesEvent extends Event
+class ChangedEntitiesEvent
 {
-    /** @param ChangedEntityEvent[] $events */
+    /** @param ChangedEntityDTO[] $changedEntities */
     public function __construct(
-        private readonly array $events,
+        private readonly array $changedEntities,
     ) {
     }
 
-    public function getEvents(): array
+    public function getChangedEntities(): array
     {
-        return $this->events;
+        return $this->changedEntities;
     }
 }

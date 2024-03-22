@@ -1,15 +1,15 @@
 #!/bin/bash
 
-bundles=(
+packages=(
   "Component/ClientElastica"
   "Bundle/PersistenceDoctrineBundle"
   "Bundle/PersistenceBundle"
 )
 
-for bundle in "${bundles[@]}";
+for package in "${packages[@]}";
 do
-  echo $bundle
-  vendor/bin/phpunit --configuration=src/$bundle --bootstrap=vendor/autoload.php
+  echo $package
+  vendor/bin/phpunit --configuration=src/$package --bootstrap=vendor/autoload.php
 done
 
 

@@ -3,7 +3,6 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle;
 
 use FHPlatform\Bundle\PersistenceBundle\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\Event\PreDeleteEntityEvent;
 use FHPlatform\Bundle\PersistenceBundle\EventListener\PersistenceListener;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
@@ -35,11 +34,6 @@ class SymfonyBridgeBundle extends Bundle
         $container->registerForAutoconfiguration(PersistenceListener::class)->addTag('kernel.event_listener', [
             'event' => ChangedEntitiesEvent::class,
             'method' => 'onChangedEntities',
-        ]);
-
-        $container->registerForAutoconfiguration(PersistenceListener::class)->addTag('kernel.event_listener', [
-            'event' => PreDeleteEntityEvent::class,
-            'method' => 'onPreDeleteEntity',
         ]);
     }
 }
