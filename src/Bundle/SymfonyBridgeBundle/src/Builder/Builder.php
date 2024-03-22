@@ -81,6 +81,10 @@ class Builder
 
         $container->register(ElasticaProvider::class)->setAutowired(true);
         $container->addAliases([ProviderInterface::class => $clientImplementation]);
+
+        $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(DataClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     private function buildMessageDispatcher(ContainerBuilder $container): void
@@ -162,10 +166,6 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
-        $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(DataClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-
         return ElasticaProvider::class;
     }
 }
