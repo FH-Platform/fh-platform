@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Tests;
+namespace FHPlatform\Bundle\PersistenceDoctrine\Tests;
 
 class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fico7489\PersistenceDoctrineBundle\DoctrineListener;
+namespace Fico7489\PersistenceDoctrine\DoctrineListener;
 
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\TestCase;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity\User;
+use FHPlatform\Bundle\PersistenceDoctrine\Tests\TestCase;
+use FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 
 class DoctrineListenerTest extends TestCase

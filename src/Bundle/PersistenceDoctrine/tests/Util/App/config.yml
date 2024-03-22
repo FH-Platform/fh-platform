@@ -11,7 +11,7 @@ doctrine:
         mappings:
             Test:
                 dir: '%kernel.project_dir%/'
-                prefix: 'FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity'
+                prefix: 'FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity'
 
 services:
     _defaults:
@@ -19,9 +19,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\:
+    FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\:
         resource: '../'
         exclude: '../{App}'
 
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\:
+    FHPlatform\Bundle\PersistenceDoctrine\Tests\:
         resource: '../../*/Util'

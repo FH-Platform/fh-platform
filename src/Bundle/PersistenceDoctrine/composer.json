@@ -7,12 +7,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/"
+            "FHPlatform\\Bundle\\PersistenceDoctrine\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\Tests\\": "tests/"
+            "FHPlatform\\Bundle\\PersistenceDoctrine\\Tests\\": "tests/"
         }
     },
     "authors": [

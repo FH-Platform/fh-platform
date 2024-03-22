@@ -1,11 +1,11 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Helper;
+namespace FHPlatform\Bundle\PersistenceDoctrine\Tests\Helper;
 
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\TestCase;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity\User;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity\UserUuid;
+use FHPlatform\Bundle\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Bundle\PersistenceDoctrine\Tests\TestCase;
+use FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity\User;
+use FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity\UserUuid;
 
 class EntityHelperTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity;
+namespace FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;

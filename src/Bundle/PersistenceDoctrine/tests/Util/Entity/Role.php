@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity;
+namespace FHPlatform\Bundle\PersistenceDoctrine\Tests\Util\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-class User
+class Role
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -17,15 +17,12 @@ class User
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $nameString = '';
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $nameText = '';
-
-    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
-    private Collection $roles;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles')]
+    private Collection $users;
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,23 +40,13 @@ class User
         $this->nameString = $nameString;
     }
 
-    public function getNameText(): ?string
+    public function getUsers(): Collection
     {
-        return $this->nameText;
+        return $this->users;
     }
 
-    public function setNameText(?string $nameText): void
+    public function setUsers(Collection $users): void
     {
-        $this->nameText = $nameText;
-    }
-
-    public function getRoles(): Collection
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(Collection $roles): void
-    {
-        $this->roles = $roles;
+        $this->users = $users;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Listener;
+namespace FHPlatform\Bundle\PersistenceDoctrine\Listener;
 
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -9,7 +9,7 @@ use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine;
+use FHPlatform\Bundle\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher;
 

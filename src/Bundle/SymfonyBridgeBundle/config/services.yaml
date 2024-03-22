@@ -7,7 +7,7 @@ services:
         resource: '../src/*'
 
     #TODO
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine:
+    FHPlatform\Bundle\PersistenceDoctrine\Persistence\PersistenceDoctrine:
         autowire: true
         public: true
 
@@ -20,9 +20,9 @@ services:
     FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
 
     #define persistence
-    FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
+    FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrine\Persistence\PersistenceDoctrine'
 
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Listener\DoctrineListener:
+    FHPlatform\Bundle\PersistenceDoctrine\Listener\DoctrineListener:
         public: true
         autoconfigure: true
         autowire: true

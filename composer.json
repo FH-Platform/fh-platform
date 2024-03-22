@@ -39,7 +39,7 @@
             "FHPlatform\\Component\\ClientElastica\\": "src/Component/ClientElastica/src/",
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
 
-            "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/Bundle/PersistenceDoctrineBundle/src/",
+            "FHPlatform\\Bundle\\PersistenceDoctrine\\": "src/Bundle/PersistenceDoctrine/src/",
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
 
             "App\\": "src/App/"
@@ -50,7 +50,7 @@
             "FHPlatform\\Component\\ClientElastica\\Tests\\": "src/Component/ClientElastica/tests/",
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
 
-            "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\Tests\\": "src/Bundle/PersistenceDoctrineBundle/tests/",
+            "FHPlatform\\Bundle\\PersistenceDoctrine\\Tests\\": "src/Bundle/PersistenceDoctrine/tests/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
 
