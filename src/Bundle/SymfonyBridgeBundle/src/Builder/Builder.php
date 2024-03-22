@@ -68,8 +68,15 @@ class Builder
         // define message dispatcher (Symfony messenger, laravel queues, ...)
 
         // TODO
-        $container->registerForAutoconfiguration(EntitiesChangedMessageHandler::class)->addTag('messenger.message_handler');
-        // $container->register(EventListener::class)->setAutowired(true);
+        $container->register(EntitiesChangedMessageHandler::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true)
+            ->addTag('messenger.message_handler');
+
+        $container->register(EventListener::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true);
+
         $container->register(MessageDispatcher::class)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => MessageDispatcher::class]);
     }

@@ -7,17 +7,6 @@ services:
         resource: '../src/*'
 
 
-    #TODO
-    FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler:
-        public: true
-        autowire: true
-        autoconfigure: true
-
-    #TODO
-    FHPlatform\Component\Persistence\Event\EventListener\EventListener:
-        public: true
-        autowire: true
-        autoconfigure: true
 
     #TODO
     FHPlatform\Component\Persistence\Syncer\DataSyncer:
@@ -26,8 +15,6 @@ services:
     FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher:
         autowire: true
         autoconfigure: true
-
-
 
     FHPlatform\Component\Client\Provider\Index\IndexClient:
         public: true
@@ -43,8 +30,6 @@ services:
         public: true
         autowire: true
         autoconfigure: true
-
-
 
     FHPlatform\Component\Config\Builder\ConnectionsBuilder:
         arguments:
