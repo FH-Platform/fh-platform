@@ -39,16 +39,16 @@ class Builder
 {
     public function build(ContainerBuilder $container): void
     {
-        $this->buildPersistence($container);
-        $this->buildProvider($container);
         $this->buildMessageDispatcher($container);
         $this->buildEventDispatcher($container);
 
+        $this->buildComponentPersistence($container);
         $this->buildComponentConfig($container);
         $this->buildComponentClient($container);
+        $this->buildComponentClientElastica($container);
     }
 
-    private function buildPersistence(ContainerBuilder $container): void
+    private function buildComponentPersistence(ContainerBuilder $container): void
     {
         // define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
 
@@ -66,7 +66,7 @@ class Builder
         $container->addAliases([PersistenceInterface::class => PersistenceDoctrine::class]);
     }
 
-    private function buildProvider(ContainerBuilder $container): void
+    private function buildComponentClient(ContainerBuilder $container): void
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
@@ -151,7 +151,7 @@ class Builder
         ]);
     }
 
-    private function buildComponentClient(ContainerBuilder $container): void
+    private function buildComponentClientElastica(ContainerBuilder $container): void
     {
         $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
