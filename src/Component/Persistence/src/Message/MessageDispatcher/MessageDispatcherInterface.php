@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\MessageDispatcher;
+namespace FHPlatform\Component\Persistence\Message\MessageDispatcher;
 
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 

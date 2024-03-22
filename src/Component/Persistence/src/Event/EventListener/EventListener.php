@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Component\Persistence\Event\EventListener;
 
-use FHPlatform\Component\Persistence\MessageDispatcher\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
+use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
 
 class EventListener
 {

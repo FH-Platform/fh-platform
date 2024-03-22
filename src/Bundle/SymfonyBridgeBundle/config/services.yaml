@@ -23,7 +23,7 @@ services:
     #define message dispatcher (Symfony messenger, laravel queues, ...)
     FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\MessageDispatcher:
         autowire: true
-    FHPlatform\Component\Persistence\MessageDispatcher\MessageDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher'
+    FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher'
     #define message dispatcher
 
 
