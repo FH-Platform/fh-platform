@@ -5,7 +5,3 @@ services:
 
     FHPlatform\Bundle\PersistenceDoctrineBundle\:
         resource: '../src/*'
-
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine:
-        autowire: true
-        public: true

@@ -6,6 +6,14 @@ services:
     FHPlatform\Bundle\SymfonyBridgeBundle\:
         resource: '../src/*'
 
+    FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine:
+        autowire: true
+        public: true
+
+    FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher:
+        autowire: true
+        public: true
+
     #define provider
     FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
 
