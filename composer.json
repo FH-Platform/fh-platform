@@ -38,7 +38,7 @@
 
             "FHPlatform\\Component\\Client\\": "src/Component/Client/",
             "FHPlatform\\Component\\ClientElastica\\": "src/Component/ClientElastica/",
-            "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/",
+            "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
 
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/Bundle/PersistenceDoctrineBundle/src/",
 
