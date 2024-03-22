@@ -8,6 +8,7 @@ use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\EventHelper;
+use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
@@ -43,6 +44,8 @@ class Builder
     {
         // define message dispatcher (Symfony messenger, laravel queues, ...)
 
+        //TODO
+        //$container->register(EventListener::class)->setAutowired(true);
         $container->register(MessageDispatcher::class)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => MessageDispatcher::class]);
     }
