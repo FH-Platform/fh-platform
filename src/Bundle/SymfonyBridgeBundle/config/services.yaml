@@ -27,6 +27,9 @@ services:
     #define message dispatcher
 
 
+    FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher'
+
+
     #TODO
     FHPlatform\Component\Persistence\Event\EventHelper:
         autowire: true

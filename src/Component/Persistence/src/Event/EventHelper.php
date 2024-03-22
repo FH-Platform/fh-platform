@@ -4,7 +4,7 @@ namespace FHPlatform\Component\Persistence\Event;
 
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 
 class EventHelper
 {
