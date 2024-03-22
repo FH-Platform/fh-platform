@@ -42,18 +42,26 @@ class Builder
         $this->buildMessageDispatcher($container);
         $this->buildEventDispatcher($container);
 
-        $this->buildComponentPersistence($container);
+        $clientImplementation = $this->buildComponentClientElastica($container);
+        $this->buildComponentClient($container, $clientImplementation);
+
+        $persistenceImplementation = $this->buildComponentPersistenceImplementation($container);
+        $this->buildComponentPersistence($container, $persistenceImplementation);
+
         $this->buildComponentConfig($container);
-        $this->buildComponentClient($container);
-        $this->buildComponentClientElastica($container);
     }
 
-    private function buildComponentPersistence(ContainerBuilder $container): void
+    private function buildComponentPersistence(ContainerBuilder $container, string $persistenceImplementation): void
     {
         // define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
 
         $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
+        $container->addAliases([PersistenceInterface::class => $persistenceImplementation]);
+    }
+
+    private function buildComponentPersistenceImplementation($container): string
+    {
         $container->register(DoctrineListener::class)
             ->setAutowired(true)
             ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
@@ -63,15 +71,16 @@ class Builder
             ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
 
         $container->register(PersistenceDoctrine::class)->setAutowired(true);
-        $container->addAliases([PersistenceInterface::class => PersistenceDoctrine::class]);
+
+        return PersistenceDoctrine::class;
     }
 
-    private function buildComponentClient(ContainerBuilder $container): void
+    private function buildComponentClient(ContainerBuilder $container, string $clientImplementation): void
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
         $container->register(ElasticaProvider::class)->setAutowired(true);
-        $container->addAliases([ProviderInterface::class => ElasticaProvider::class]);
+        $container->addAliases([ProviderInterface::class => $clientImplementation]);
     }
 
     private function buildMessageDispatcher(ContainerBuilder $container): void
@@ -151,10 +160,12 @@ class Builder
         ]);
     }
 
-    private function buildComponentClientElastica(ContainerBuilder $container): void
+    private function buildComponentClientElastica(ContainerBuilder $container): string
     {
         $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(DataClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+
+        return ElasticaProvider::class;
     }
 }
