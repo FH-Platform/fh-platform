@@ -73,7 +73,7 @@ services:
         arguments:
             $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
             $connectionsBuilder: '@FHPlatform\Component\Config\Builder\ConnectionsBuilder'
-            $persistenceDoctrine: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
+            $persistence: '@FHPlatform\Component\Persistence\Persistence\PersistenceInterface'
         public: true
 
     FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder:

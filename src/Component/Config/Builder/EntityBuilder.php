@@ -2,19 +2,19 @@
 
 namespace FHPlatform\Component\Config\Builder;
 
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EntityBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
         private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly PersistenceDoctrine $persistenceDoctrine,
+        private readonly PersistenceInterface $persistence,
     ) {
     }
 
@@ -30,7 +30,7 @@ class EntityBuilder
         $className = $entity::class;
 
         // TODO
-        $identifier = $this->persistenceDoctrine->getIdentifierValue($entity);
+        $identifier = $this->persistence->getIdentifierValue($entity);
 
         // TODO throw error if class not available for ES
 
