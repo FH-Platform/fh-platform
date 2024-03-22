@@ -13,9 +13,11 @@ use FHPlatform\Component\Config\DTO\Index;
 
 class ElasticaProvider implements ProviderInterface
 {
+    private ConnectionFetcher $connectionFetcher;
+
     public function __construct(
-        private readonly ConnectionFetcher $connectionFetcher,
     ) {
+        $this->connectionFetcher = new ConnectionFetcher();
     }
 
     public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert): Document

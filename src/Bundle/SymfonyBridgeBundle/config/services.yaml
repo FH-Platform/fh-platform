@@ -4,14 +4,6 @@ services:
         autowire: true
         autoconfigure: true
 
-    #TODO
-    FHPlatform\Component\Persistence\Syncer\DataSyncer:
-        public: true
-
-    FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher:
-        autowire: true
-        autoconfigure: true
-
     FHPlatform\Component\Config\Builder\ConnectionsBuilder:
         arguments:
             $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
