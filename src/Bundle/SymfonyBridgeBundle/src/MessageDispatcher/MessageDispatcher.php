@@ -13,8 +13,8 @@ class MessageDispatcher implements MessageDispatcherInterface
     ) {
     }
 
-    public function dispatch(EntitiesChangedMessage $entitiesChangedMessage): void
+    public function dispatch(EntitiesChangedMessage $message): void
     {
-        $this->messageBus->dispatch($entitiesChangedMessage);
+        $this->messageBus->dispatch($message);
     }
 }

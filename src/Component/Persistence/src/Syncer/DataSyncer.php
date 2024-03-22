@@ -10,7 +10,7 @@ class DataSyncer
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
-        private readonly EventHelper          $eventDispatcher,
+        private readonly EventHelper $eventDispatcher,
     ) {
     }
 

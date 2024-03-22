@@ -6,5 +6,5 @@ use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 
 interface MessageDispatcherInterface
 {
-    public function dispatch(EntitiesChangedMessage $entitiesChangedMessage): void;
+    public function dispatch(EntitiesChangedMessage $message): void;
 }
