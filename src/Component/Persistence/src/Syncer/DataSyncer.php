@@ -19,11 +19,10 @@ class DataSyncer
         $identifiers = $this->persistence->getAllIds($className);
 
         // TODO temp index
-        $events = [];
         foreach ($identifiers as $identifier) {
-            $this->eventDispatcher->addEntity($className, $identifier, ChangedEntityDTO::TYPE_UPDATE, ['id']);
+            $this->eventDispatcher->addEntity($className, $identifier, ChangedEntityDTO::TYPE_UPDATE, ['id'], false);
         }
 
-        $this->eventDispatcher->dispatch();
+        $this->eventDispatcher->dispatch($this->eventDispatcher->getChangedEntitiesDTO());
     }
 }

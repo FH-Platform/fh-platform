@@ -67,7 +67,7 @@ class DoctrineListener
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
             // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
-            $this->eventsManager->dispatchEventsPreDelete($className, $identifierValue, $changedFields);
+            $this->eventsManager->addEntity($className, $identifierValue, ChangedEntityDTO::TYPE_DELETE_PRE, $changedFields, true);
 
             return;
         }
@@ -83,6 +83,6 @@ class DoctrineListener
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
         }
 
-        $this->eventsManager->addEntity($className, $identifierValue, $type, $changedFields);
+        $this->eventsManager->addEntity($className, $identifierValue, $type, $changedFields, false);
     }
 }

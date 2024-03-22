@@ -13,12 +13,16 @@ class EventDispatcher
     ) {
     }
 
-    protected array $entities = [];
+    protected array $changedEntitiesDTO = [];
 
     public function flushEvent(): void
     {
         // TODO by config flush or onKernelFinishRequest
-        $this->dispatch();
+
+        $this->dispatch($this->changedEntitiesDTO);
+
+        // reset var
+        $this->changedEntitiesDTO = [];
     }
 
     public function kernelFinishRequestEvent(): void
@@ -26,30 +30,32 @@ class EventDispatcher
         // TODO
     }
 
-    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields): void
+    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields, bool $dispatch): void
     {
         // make changes unique
         $hash = $className.'_'.$identifierValue;
-        $this->entities[$hash] = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
+        $changedEntityDTO = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
+
+        if ($dispatch) {
+            $this->dispatch([$hash => $changedEntityDTO]);
+
+            return;
+        }
+
+        $this->changedEntitiesDTO[$hash] = $changedEntityDTO;
 
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
 
-    public function dispatch(): void
+    public function dispatch($entities): void
     {
-        if (count($this->entities)) {
-            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($this->entities));
+        if (count($entities)) {
+            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($entities));
         }
-
-        // reset var
-        $this->entities = [];
     }
 
-    public function dispatchEventsPreDelete(string $className, mixed $identifierValue, array $changedFields): void
+    public function getChangedEntitiesDTO(): array
     {
-        $hash = $className.'_'.$identifierValue;
-        $events[$hash] = new ChangedEntityDTO($className, $identifierValue, ChangedEntityDTO::TYPE_DELETE_PRE, $changedFields);
-
-        $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($events));
+        return $this->changedEntitiesDTO;
     }
 }
