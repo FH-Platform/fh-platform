@@ -6,10 +6,12 @@ services:
     FHPlatform\Bundle\SymfonyBridgeBundle\:
         resource: '../src/*'
 
+    #TODO
     FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine:
         autowire: true
         public: true
 
+    #TODO
     FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher:
         autowire: true
         public: true
