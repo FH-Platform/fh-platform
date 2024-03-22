@@ -21,13 +21,17 @@ services:
     #define provider
 
     #define message dispatcher (Symfony messenger, laravel queues, ...)
-    FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\MessageDispatcher:
+    FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher:
         autowire: true
     FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher'
     #define message dispatcher
 
-
+    #define event dispatcher (Symfony events, laravel events, ...)
+    FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher:
+        autowire: true
     FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher'
+
+
 
 
     #TODO
