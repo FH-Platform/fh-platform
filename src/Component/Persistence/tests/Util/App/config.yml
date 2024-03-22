@@ -1,0 +1,27 @@
+framework:
+    secret: "test"
+    test: ~
+
+doctrine:
+    dbal:
+        url:   "sqlite:///:memory:"
+        types:
+            uuid: Ramsey\Uuid\Doctrine\UuidType
+    orm:
+        mappings:
+            Test:
+                dir: '%kernel.project_dir%/'
+                prefix: 'FHPlatform\Component\Persistence\Tests\Util\Entity'
+
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\Component\Persistence\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
+
+    FHPlatform\Component\Persistence\Tests\:
+        resource: '../../*/Util'

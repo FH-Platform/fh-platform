@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Command\Data;
 
-use FHPlatform\Bundle\PersistenceBundle\Syncer\DataSyncer;
+use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

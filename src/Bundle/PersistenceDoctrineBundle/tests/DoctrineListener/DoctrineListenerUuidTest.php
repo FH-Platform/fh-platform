@@ -2,10 +2,10 @@
 
 namespace Fico7489\PersistenceDoctrineBundle\DoctrineListener;
 
-use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
-use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\TestCase;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\Tests\Util\Entity\UserUuid;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 
 class DoctrineListenerUuidTest extends TestCase
 {

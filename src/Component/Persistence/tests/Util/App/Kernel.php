@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\App;
+namespace FHPlatform\Component\Persistence\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\Bundle\PersistenceDoctrineBundle\PersistenceDoctrineBundle;

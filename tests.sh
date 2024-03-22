@@ -2,8 +2,8 @@
 
 packages=(
   "Component/ClientElastica"
+  "Component/Persistence"
   "Bundle/PersistenceDoctrineBundle"
-  "Bundle/PersistenceBundle"
   "Bundle/SymfonyBridgeBundle"
 )
 

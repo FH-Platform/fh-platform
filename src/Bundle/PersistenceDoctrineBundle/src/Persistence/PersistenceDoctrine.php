@@ -4,7 +4,7 @@ namespace FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
-use FHPlatform\Bundle\PersistenceBundle\Persistence\PersistenceInterface;
+use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class PersistenceDoctrine implements PersistenceInterface
 {

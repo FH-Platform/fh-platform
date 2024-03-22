@@ -10,7 +10,27 @@ services:
     FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
 
     #define persistence
-    FHPlatform\Bundle\PersistenceBundle\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
+    FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
+
+    #TODO
+    FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcher:
+        public: true
+
+    #TODO
+    FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    #TODO
+    FHPlatform\Component\Persistence\Event\EventListener\EventListener:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    #TODO
+    FHPlatform\Component\Persistence\Syncer\DataSyncer:
+        public: true
 
     FHPlatform\Component\ClientElastica\ElasticaProvider:
         autowire: true

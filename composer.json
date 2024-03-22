@@ -38,8 +38,8 @@
 
             "FHPlatform\\Component\\Client\\": "src/Component/Client/",
             "FHPlatform\\Component\\ClientElastica\\": "src/Component/ClientElastica/",
+            "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/",
 
-            "FHPlatform\\Bundle\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\": "src/Bundle/PersistenceDoctrineBundle/src/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
@@ -50,8 +50,8 @@
     "autoload-dev": {
         "psr-4": {
             "FHPlatform\\Component\\ClientElastica\\Tests\\": "src/Component/ClientElastica/tests/",
+            "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
 
-            "FHPlatform\\Bundle\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\Bundle\\PersistenceDoctrineBundle\\Tests\\": "src/Bundle/PersistenceDoctrineBundle/tests/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",

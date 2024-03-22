@@ -2,9 +2,6 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle;
 
-use FHPlatform\Bundle\PersistenceBundle\Event\Event\ChangedEntitiesEvent;
-use FHPlatform\Bundle\PersistenceBundle\Event\EventListener\EventListener;
-use FHPlatform\Bundle\PersistenceBundle\Message\MessageHandler\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
@@ -12,6 +9,9 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
+use FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
