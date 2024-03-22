@@ -2,22 +2,15 @@
 
 namespace FHPlatform\Component\PersistenceDoctrine\Listener;
 
-use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
-use Doctrine\ORM\Events;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 
-#[AsDoctrineListener(event: Events::postPersist)]
-#[AsDoctrineListener(event: Events::postUpdate)]
-#[AsDoctrineListener(event: Events::postRemove)]
-#[AsDoctrineListener(event: Events::preRemove)]
-#[AsDoctrineListener(event: Events::postFlush)]
 class DoctrineListener
 {
     protected array $eventsRemove = [];
