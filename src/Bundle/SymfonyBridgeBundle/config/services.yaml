@@ -39,6 +39,8 @@ services:
         autowire: true
         autoconfigure: true
 
+
+
     FHPlatform\Component\Client\Provider\Index\IndexClient:
         public: true
         autowire: true
@@ -53,6 +55,8 @@ services:
         public: true
         autowire: true
         autoconfigure: true
+
+
 
     FHPlatform\Component\Config\Config\ConfigProvider:
         arguments:

@@ -34,13 +34,6 @@ class SymfonyBridgeBundle extends Bundle
         $container->registerForAutoconfiguration(DecoratorEntityInterface::class)->addTag('fh_platform.config.decorator.entity');
         $container->registerForAutoconfiguration(DecoratorEntityRelatedInterface::class)->addTag('fh_platform.config.decorator.entity_related');
 
-        $container->registerForAutoconfiguration(EventListener::class)->addTag('kernel.event_listener', [
-            'event' => ChangedEntitiesEvent::class,
-            'method' => 'onChangedEntities',
-        ]);
-
-        $container->registerForAutoconfiguration(EntitiesChangedMessageHandler::class)->addTag('messenger.message_handler');
-
         $container->registerForAutoconfiguration(DoctrineListener::class)->setAutoconfigured(true)->setPublic(true)->setAutowired(true);
         /*$container->registerForAutoconfiguration(DoctrineListener::class)->addTag(AsDoctrineListener::class, ['event' => Events::postPersist]);
         $container->registerForAutoconfiguration(DoctrineListener::class)->addTag('doctrine.orm.entity_listener', ['event' => Events::postUpdate]);

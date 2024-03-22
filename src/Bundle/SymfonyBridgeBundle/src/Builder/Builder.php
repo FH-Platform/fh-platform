@@ -6,10 +6,12 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
 use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
+use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
+use FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -45,6 +47,7 @@ class Builder
         // define message dispatcher (Symfony messenger, laravel queues, ...)
 
         //TODO
+        $container->registerForAutoconfiguration(EntitiesChangedMessageHandler::class)->addTag('messenger.message_handler');
         //$container->register(EventListener::class)->setAutowired(true);
         $container->register(MessageDispatcher::class)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => MessageDispatcher::class]);
@@ -55,6 +58,10 @@ class Builder
         // define event dispatcher (Symfony events, laravel events, ...)
 
         //TODO
+        $container->registerForAutoconfiguration(EventListener::class)->addTag('kernel.event_listener', [
+            'event' => ChangedEntitiesEvent::class,
+            'method' => 'onChangedEntities',
+        ]);
         $container->register(EventHelper::class)->setAutowired(true);
         $container->register(EventDispatcher::class)->setAutowired(true);
         $container->addAliases([EventDispatcherInterface::class => EventDispatcher::class]);
