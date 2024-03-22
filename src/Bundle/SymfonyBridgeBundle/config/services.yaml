@@ -1,11 +1,12 @@
 services:
-    _defaults:
+    FHPlatform\Bundle\SymfonyBridgeBundle\Command\:
+        resource: '../src/Command/*'
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Bundle\SymfonyBridgeBundle\:
-        resource: '../src/*'
-
+    #TODO
+    FHPlatform\Component\Persistence\Syncer\DataSyncer:
+        public: true
 
     FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher:
         autowire: true
