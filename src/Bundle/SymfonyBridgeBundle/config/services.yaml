@@ -22,6 +22,11 @@ services:
     #define persistence
     FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
 
+    FHPlatform\Bundle\PersistenceDoctrineBundle\Listener\DoctrineListener:
+        public: true
+        autoconfigure: true
+        autowire: true
+
     #TODO
     FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler:
         public: true

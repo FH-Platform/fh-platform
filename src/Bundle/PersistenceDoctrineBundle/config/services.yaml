@@ -1,7 +1,2 @@
 services:
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Listener\DoctrineListener:
-        public: true
-        autoconfigure: true
-        autowire: true
-
 
