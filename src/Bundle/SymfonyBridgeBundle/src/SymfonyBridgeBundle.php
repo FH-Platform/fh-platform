@@ -2,8 +2,7 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle;
 
-use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
-use Doctrine\ORM\Events;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Builder\Builder;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
@@ -48,5 +47,7 @@ class SymfonyBridgeBundle extends Bundle
         $container->registerForAutoconfiguration(DoctrineListener::class)->addTag('doctrine.orm.entity_listener', ['event' => Events::postRemove]);
         $container->registerForAutoconfiguration(DoctrineListener::class)->addTag('doctrine.orm.entity_listener', ['event' => Events::preRemove]);
         $container->registerForAutoconfiguration(DoctrineListener::class)->addTag('doctrine.orm.entity_listener', ['event' => Events::postFlush]);*/
+
+        (new Builder())->build($container);
     }
 }

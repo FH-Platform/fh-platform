@@ -6,33 +6,6 @@ services:
     FHPlatform\Bundle\SymfonyBridgeBundle\:
         resource: '../src/*'
 
-    #define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
-    FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine:
-        autowire: true
-
-    FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine'
-    #define persistence
-
-    #define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
-    FHPlatform\Component\ClientElastica\ElasticaProvider:
-        autowire: true
-
-    FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
-    #define provider
-
-    #define message dispatcher (Symfony messenger, laravel queues, ...)
-    FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher:
-        autowire: true
-    FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher'
-    #define message dispatcher
-
-    #define event dispatcher (Symfony events, laravel events, ...)
-    FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher:
-        autowire: true
-    FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher'
-
-
-
 
     #TODO
     FHPlatform\Component\Persistence\Event\EventHelper:
