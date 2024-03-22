@@ -50,7 +50,7 @@ services:
         arguments:
             $configProvider: '@FHPlatform\Component\Config\Config\ConfigProvider'
             $connectionsBuilder: '@FHPlatform\Component\Config\Builder\ConnectionsBuilder'
-            $doctrineHelper: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper'
+            $persistenceDoctrine: '@FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine'
         public: true
 
     FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder:

@@ -4,7 +4,7 @@ namespace FHPlatform\Bundle\PersistenceBundle\Message\MessageHandler;
 
 use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\Message\Message\EntitiesChangedMessage;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
+use FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine;
 use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
@@ -14,7 +14,7 @@ use FHPlatform\Component\Config\Builder\IndexBuilder;
 class EntitiesChangedMessageHandler
 {
     public function __construct(
-        private readonly DoctrineHelper $doctrineHelper,
+        private readonly PersistenceDoctrine $persistenceDoctrine,
         private readonly DataClient $dataClient,
         private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly EntityBuilder $entityFetcher,
@@ -39,7 +39,7 @@ class EntitiesChangedMessageHandler
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
-            $entity = $this->doctrineHelper->refreshByClassNameId($className, $identifier);
+            $entity = $this->persistenceDoctrine->refreshByClassNameId($className, $identifier);
 
             if (in_array($className, $classNamesIndex)) {
                 $this->prepareUpdates($entity, $className, $identifier, $type, $entities);

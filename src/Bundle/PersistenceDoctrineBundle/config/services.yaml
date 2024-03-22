@@ -6,6 +6,6 @@ services:
     FHPlatform\Bundle\PersistenceDoctrineBundle\:
         resource: '../src/*'
 
-    FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper:
+    FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine:
         autowire: true
         public: true

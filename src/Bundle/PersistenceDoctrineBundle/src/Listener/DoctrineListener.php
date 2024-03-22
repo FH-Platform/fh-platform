@@ -11,7 +11,7 @@ use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\PersistenceBundle\DTO\ChangedEntityDTO;
 use FHPlatform\Bundle\PersistenceBundle\Event\EventDispatcher\EventDispatcher;
-use FHPlatform\Bundle\PersistenceDoctrineBundle\Helper\DoctrineHelper;
+use FHPlatform\Bundle\PersistenceDoctrineBundle\Persistence\PersistenceDoctrine;
 
 #[AsDoctrineListener(event: Events::postPersist)]
 #[AsDoctrineListener(event: Events::postUpdate)]
@@ -23,7 +23,7 @@ class DoctrineListener
     protected array $eventsRemove = [];
 
     public function __construct(
-        private readonly DoctrineHelper $doctrineHelper,
+        private readonly PersistenceDoctrine $persistenceDoctrine,
         private readonly EventDispatcher $eventsManager,
     ) {
     }
@@ -57,10 +57,10 @@ class DoctrineListener
     {
         $entity = $args->getObject();
 
-        $className = $this->doctrineHelper->getRealClass($entity::class);
-        $identifierValue = $this->doctrineHelper->getIdentifierValue($entity);
+        $className = $this->persistenceDoctrine->getRealClass($entity::class);
+        $identifierValue = $this->persistenceDoctrine->getIdentifierValue($entity);
 
-        $changedFields = [$this->doctrineHelper->getIdentifierName($className)];
+        $changedFields = [$this->persistenceDoctrine->getIdentifierName($className)];
 
         // on pre remove store identifier and return
         if ($args instanceof PreRemoveEventArgs) {
