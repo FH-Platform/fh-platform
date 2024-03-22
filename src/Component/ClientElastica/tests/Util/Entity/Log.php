@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\ClientElastica\tests\Util\Entity;
+namespace FHPlatform\Component\ClientElastica\Tests\Util\Entity;
 
 class Log
 {

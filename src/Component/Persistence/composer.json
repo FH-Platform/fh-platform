@@ -7,7 +7,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\Persistence\\": "/"
+            "FHPlatform\\Component\\Persistence\\": "src/"
         }
     },
     "autoload-dev": {

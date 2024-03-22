@@ -7,7 +7,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\ClientElastica\\": "src"
+            "FHPlatform\\Component\\ClientElastica\\": "src/"
         }
     },
     "autoload-dev": {
