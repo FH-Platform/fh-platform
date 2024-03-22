@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\Dispatcher;
+namespace FHPlatform\Component\Persistence\MessageDispatcher;
 
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 
-interface DispatcherInterface
+interface MessageDispatcherInterface
 {
     public function dispatch(EntitiesChangedMessage $entitiesChangedMessage): void;
 }

@@ -6,25 +6,25 @@ services:
     FHPlatform\Bundle\SymfonyBridgeBundle\:
         resource: '../src/*'
 
-    #define persistence
+    #define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
     FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine:
         autowire: true
 
     FHPlatform\Component\Persistence\Persistence\PersistenceInterface: '@FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine'
     #define persistence
 
-    #define provider
+    #define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
     FHPlatform\Component\ClientElastica\ElasticaProvider:
         autowire: true
 
     FHPlatform\Component\Client\Provider\ProviderInterface: '@FHPlatform\Component\ClientElastica\ElasticaProvider'
     #define provider
 
-    #define dispatcher
-    FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\Dispatcher:
+    #define message dispatcher (Symfony messenger, laravel queues, ...)
+    FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\MessageDispatcher:
         autowire: true
-    FHPlatform\Component\Persistence\Dispatcher\DispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher\Dispatcher'
-    #define dispatcher
+    FHPlatform\Component\Persistence\MessageDispatcher\MessageDispatcherInterface: '@FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher'
+    #define message dispatcher
 
 
     #TODO

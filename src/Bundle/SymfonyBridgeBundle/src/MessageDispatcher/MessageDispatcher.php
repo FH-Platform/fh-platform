@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Bundle\SymfonyBridgeBundle\Dispatcher;
+namespace FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher;
 
-use FHPlatform\Component\Persistence\Dispatcher\DispatcherInterface;
+use FHPlatform\Component\Persistence\MessageDispatcher\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class Dispatcher implements DispatcherInterface
+class MessageDispatcher implements MessageDispatcherInterface
 {
     public function __construct(
         private readonly MessageBusInterface $messageBus,
