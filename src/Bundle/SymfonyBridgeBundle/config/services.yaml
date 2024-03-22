@@ -28,7 +28,7 @@ services:
 
 
     #TODO
-    FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher:
+    FHPlatform\Component\Persistence\Event\EventHelper:
         autowire: true
         public: true
 

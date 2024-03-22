@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\EventDispatcher;
+namespace FHPlatform\Component\Persistence\Event;
 
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class EventDispatcher
+class EventHelper
 {
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,

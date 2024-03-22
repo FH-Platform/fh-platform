@@ -3,14 +3,14 @@
 namespace FHPlatform\Component\Persistence\Syncer;
 
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
-use FHPlatform\Component\Persistence\EventDispatcher\EventDispatcher;
+use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class DataSyncer
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
-        private readonly EventDispatcher $eventDispatcher,
+        private readonly EventHelper          $eventDispatcher,
     ) {
     }
 
