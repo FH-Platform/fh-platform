@@ -81,27 +81,43 @@ class DataClientTest extends TestCase
 
 
 
-        //////////////
+        //create (bulk)
         $this->dataClient->syncEntities([
             new Entity($indexUser, 1, ['test' => '1'], true),
             new Entity($indexUser, 2, ['test2' => '2'], true),
+            new Entity($indexUser, 3, ['test3' => '3'], true),
         ]);
         $results = $this->queryClient->getResultHits($indexUser, new Query());
-        $this->assertEquals(2, count($results));
+        $this->assertEquals(3, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
         $this->assertEquals(['test2' => 2], $results[1]['_source']);
         $this->assertEquals(2, $results[1]['_id']);
+        $this->assertEquals(['test3' => 3], $results[2]['_source']);
+        $this->assertEquals(3, $results[2]['_id']);
 
+        //update (bulk)
         $this->dataClient->syncEntities([
-            new Entity($indexUser, 1, ['test' => '1'], true),
-            new Entity($indexUser, 2, ['test3' => '3'], true),
+            new Entity($indexUser, 2, ['test2' => '22'], true),
+            new Entity($indexUser, 3, ['test3' => '33'], true),
         ]);
-        /*$results = $this->queryClient->getResultHits($indexUser, new Query());
-        $this->assertEquals(2, count($results));
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(3, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
-        $this->assertEquals(['test3' => 3], $results[1]['_source']);
-        $this->assertEquals(2, $results[1]['_id']);*/
+        $this->assertEquals(['test2' => 22], $results[1]['_source']);
+        $this->assertEquals(2, $results[1]['_id']);
+        $this->assertEquals(['test3' => 33], $results[2]['_source']);
+        $this->assertEquals(3, $results[2]['_id']);
+
+        //delete (bulk)
+        $this->dataClient->syncEntities([
+            new Entity($indexUser, 2, [], false),
+            new Entity($indexUser, 3, [], false),
+        ]);
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(['test' => 1], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
     }
 }
