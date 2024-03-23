@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\ClientElastica\tests\Util\App;
+namespace FHPlatform\Component\Client\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;

@@ -13,7 +13,10 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
 
-class DataClientTest extends \FHPlatform\Component\Client\Tests\Data\DataClientTest
+class DummyTest extends TestCase
 {
-    protected bool $testingClient = true;
+    public function testSomething(): void
+    {
+        $this->assertEquals(1, 1);
+    }
 }

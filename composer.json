@@ -47,13 +47,12 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "FHPlatform\\Component\\Client\\Tests\\": "src/Component/Client/tests/",
             "FHPlatform\\Component\\ClientElastica\\Tests\\": "src/Component/ClientElastica/tests/",
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
-
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
-
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }
     },

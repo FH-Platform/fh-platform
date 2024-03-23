@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\ClientElastica\Tests;
+namespace FHPlatform\Component\Client\Tests;
 
 class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {

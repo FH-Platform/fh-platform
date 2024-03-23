@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\ClientElastica\Tests\Util\Entity;
+namespace FHPlatform\Component\Client\Tests\Util\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
