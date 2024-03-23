@@ -15,8 +15,8 @@ class ElasticaProvider implements ProviderInterface
 {
     private ConnectionFetcher $connectionFetcher;
 
-    public function __construct(
-    ) {
+    public function __construct()
+    {
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
@@ -118,7 +118,7 @@ class ElasticaProvider implements ProviderInterface
         return $search;
     }
 
-    public function searchResults(Index $index, mixed $query = null, $limit = null, $offset = 0): mixed
+    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed
     {
         $search = $this->searchPrepare($index, $query);
 

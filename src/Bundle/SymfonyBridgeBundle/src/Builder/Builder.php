@@ -79,7 +79,6 @@ class Builder
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
-        $container->register(ElasticaProvider::class)->setAutowired(true);
         $container->addAliases([ProviderInterface::class => $clientImplementation]);
 
         $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
@@ -166,6 +165,8 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
+        $container->register(ElasticaProvider::class)->setAutowired(true);
+
         return ElasticaProvider::class;
     }
 }

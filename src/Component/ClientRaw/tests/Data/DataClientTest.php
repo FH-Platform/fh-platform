@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\ClientElastica\Tests\Data;
+namespace FHPlatform\Component\ClientRaw\Tests\Data;
 
 class DataClientTest extends \FHPlatform\Component\Client\Tests\Data\DataClientTest
 {

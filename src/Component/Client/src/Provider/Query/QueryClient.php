@@ -17,7 +17,7 @@ class QueryClient
         return $this->provider->searchPrepare($index, $query);
     }
 
-    public function getResults(Index $index, mixed $query = null, $limit = null, $offset = 0): array
+    public function getResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
     {
         return $this->provider->searchResults($index, $query, $limit, $offset);
     }

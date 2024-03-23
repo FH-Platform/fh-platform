@@ -19,8 +19,9 @@ class DataClientTest extends TestCase
 
     public function testSomething(): void
     {
-        if($this->testingClient === false){
+        if (false === $this->testingClient) {
             $this->assertEquals(1, 1);
+
             return;
         }
 
