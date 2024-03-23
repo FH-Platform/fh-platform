@@ -35,7 +35,7 @@ class RawProvider implements ProviderInterface
                 ],
             ],
             [
-                'doc' => $data,
+                $data,
             ],
         ];
     }
@@ -133,8 +133,7 @@ class RawProvider implements ProviderInterface
         ]);
 
         $data = json_decode($results->getBody()->getContents(), true);
-        dump($data);
 
-        return $data['hits']['hits'];
+        return $data;
     }
 }
