@@ -17,13 +17,6 @@ class EntityBuilder
     ) {
     }
 
-    public function buildForDelete(string $className, mixed $identifier): Entity  // TODO rename to DTO
-    {
-        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
-
-        return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
-    }
-
     public function build($entity, $className, $identifier, $type): Entity  // TODO rename to DTO
     {
         // TODO throw error if class not available for ES
