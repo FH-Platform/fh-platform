@@ -10,8 +10,7 @@ class DataClient
 {
     public function __construct(
         private readonly ProviderInterface $provider,
-    )
-    {
+    ) {
     }
 
     /** @param Entity[] $entities */

@@ -42,7 +42,19 @@ class EntitiesChangedMessageHandler
             $entity = $this->persistence->refreshByClassNameId($className, $identifier);
 
             if (in_array($className, $classNamesIndex)) {
-                $this->prepareUpdates($entity, $className, $identifier, $type, $entities);
+                $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
+
+                foreach ($indexes as $index) {
+                    $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
+
+                    // TODO return if hash exists
+
+                    if (ChangedEntityDTO::TYPE_DELETE_PRE !== $type) {
+                        $entities[$hash] = $this->entityFetcher->build($entity, $className, $identifier, $type);
+                    } else {
+                        // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
+                    }
+                }
             }
 
             if (in_array($className, $classNamesRelated) and $entity) {
@@ -53,23 +65,5 @@ class EntitiesChangedMessageHandler
 
         // TODO chunk in batch from config in client bundle
         $this->dataClient->syncEntities($entities);
-    }
-
-    private function prepareUpdates(mixed $entity, string $className, mixed $identifier, string $type, array &$entities): void
-    {
-        // TODO cache
-        $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
-
-        foreach ($indexes as $index) {
-            $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
-
-            // TODO return if hash exists
-
-            if (ChangedEntityDTO::TYPE_DELETE_PRE !== $type) {
-                $entities[$hash] = $this->entityFetcher->build($entity, $className, $identifier, $type);
-            } else {
-                // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
-            }
-        }
     }
 }
