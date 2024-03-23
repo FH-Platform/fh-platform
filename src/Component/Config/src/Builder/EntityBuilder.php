@@ -7,6 +7,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterf
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EntityBuilder
@@ -22,7 +23,7 @@ class EntityBuilder
     {
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
-        return new Entity($index, $identifier, [], false);
+        return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
     }
 
     public function buildForUpsert($entity): Entity  // TODO rename to DTO
@@ -46,7 +47,7 @@ class EntityBuilder
         $data = $this->decorateDataItems($index, $className, $data, $index->getMapping(), $decorators);
 
         // return
-        return new Entity($index, $identifier, $data, $shouldBeIndexed);
+        return new Entity($index, $identifier, $data, $shouldBeIndexed ? ChangedEntityDTO::TYPE_UPDATE : ChangedEntityDTO::TYPE_DELETE);
     }
 
     private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators): array

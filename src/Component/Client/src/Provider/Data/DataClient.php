@@ -4,6 +4,7 @@ namespace FHPlatform\Component\Client\Provider\Data;
 
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
 class DataClient
 {
@@ -59,7 +60,7 @@ class DataClient
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
 
-            if ($entity->getUpsert()) {
+            if ($entity->getType() !== ChangedEntityDTO::TYPE_DELETE) {
                 $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData(), true);
             } else {
                 $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), [], false);

@@ -8,7 +8,7 @@ class Entity
         private readonly Index $index,
         private readonly mixed $identifier,
         private readonly array $data,
-        private readonly bool $upsert,
+        private readonly string $type,
     ) {
     }
 
@@ -27,8 +27,8 @@ class Entity
         return $this->data;
     }
 
-    public function getUpsert(): bool
+    public function getType(): string
     {
-        return $this->upsert;
+        return $this->type;
     }
 }

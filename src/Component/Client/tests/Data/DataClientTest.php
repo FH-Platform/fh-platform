@@ -12,6 +12,7 @@ use FHPlatform\Component\Client\Tests\Util\Entity\User;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
 class DataClientTest extends TestCase
 {
@@ -50,11 +51,11 @@ class DataClientTest extends TestCase
         $this->assertEquals(0, count($this->queryClient->getResultHits($indexLog, new Query())));
 
         $this->dataClient->syncEntities([
-            new Entity($indexUser, 1, ['test' => '1'], true),
-            new Entity($indexUser, 2, ['test2' => '2'], true),
-            new Entity($indexRole, 3, ['test3' => '3'], true),
-            new Entity($indexUser2, 4, ['test4' => '4'], true),
-            new Entity($indexLog, 5, ['test5' => '5'], true),
+            new Entity($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexUser, 2, ['test2' => '2'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexRole, 3, ['test3' => '3'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexUser2, 4, ['test4' => '4'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexLog, 5, ['test5' => '5'], ChangedEntityDTO::TYPE_CREATE),
         ]);
 
         $results = $this->queryClient->getResultHits($indexUser, new Query());
@@ -79,13 +80,11 @@ class DataClientTest extends TestCase
         $this->assertEquals(['test5' => 5], $results[0]['_source']);
         $this->assertEquals(5, $results[0]['_id']);
 
-
-
-        //create (bulk)
+        // create (bulk)
         $this->dataClient->syncEntities([
-            new Entity($indexUser, 1, ['test' => '1'], true),
-            new Entity($indexUser, 2, ['test2' => '2'], true),
-            new Entity($indexUser, 3, ['test3' => '3'], true),
+            new Entity($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexUser, 2, ['test2' => '2'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexUser, 3, ['test3' => '3'], ChangedEntityDTO::TYPE_CREATE),
         ]);
         $results = $this->queryClient->getResultHits($indexUser, new Query());
         $this->assertEquals(3, count($results));
@@ -96,10 +95,10 @@ class DataClientTest extends TestCase
         $this->assertEquals(['test3' => 3], $results[2]['_source']);
         $this->assertEquals(3, $results[2]['_id']);
 
-        //update (bulk)
+        // update (bulk)
         $this->dataClient->syncEntities([
-            new Entity($indexUser, 2, ['test2' => '22'], true),
-            new Entity($indexUser, 3, ['test3' => '33'], true),
+            new Entity($indexUser, 2, ['test2' => '22'], ChangedEntityDTO::TYPE_CREATE),
+            new Entity($indexUser, 3, ['test3' => '33'], ChangedEntityDTO::TYPE_CREATE),
         ]);
         $results = $this->queryClient->getResultHits($indexUser, new Query());
         $this->assertEquals(3, count($results));
@@ -110,10 +109,10 @@ class DataClientTest extends TestCase
         $this->assertEquals(['test3' => 33], $results[2]['_source']);
         $this->assertEquals(3, $results[2]['_id']);
 
-        //delete (bulk)
+        // delete (bulk)
         $this->dataClient->syncEntities([
-            new Entity($indexUser, 2, [], false),
-            new Entity($indexUser, 3, [], false),
+            new Entity($indexUser, 2, [], ChangedEntityDTO::TYPE_DELETE),
+            new Entity($indexUser, 3, [], ChangedEntityDTO::TYPE_DELETE),
         ]);
         $results = $this->queryClient->getResultHits($indexUser, new Query());
         $this->assertEquals(1, count($results));
