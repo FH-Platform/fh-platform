@@ -78,5 +78,30 @@ class DataClientTest extends TestCase
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test5' => 5], $results[0]['_source']);
         $this->assertEquals(5, $results[0]['_id']);
+
+
+
+        //////////////
+        $this->dataClient->syncEntities([
+            new Entity($indexUser, 1, ['test' => '1'], true),
+            new Entity($indexUser, 2, ['test2' => '2'], true),
+        ]);
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(2, count($results));
+        $this->assertEquals(['test' => 1], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
+        $this->assertEquals(['test2' => 2], $results[1]['_source']);
+        $this->assertEquals(2, $results[1]['_id']);
+
+        $this->dataClient->syncEntities([
+            new Entity($indexUser, 1, ['test' => '1'], true),
+            new Entity($indexUser, 2, ['test3' => '3'], true),
+        ]);
+        /*$results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(2, count($results));
+        $this->assertEquals(['test' => 1], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
+        $this->assertEquals(['test3' => 3], $results[1]['_source']);
+        $this->assertEquals(2, $results[1]['_id']);*/
     }
 }
