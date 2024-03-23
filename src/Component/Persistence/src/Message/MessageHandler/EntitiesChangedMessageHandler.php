@@ -4,8 +4,8 @@ namespace FHPlatform\Component\Persistence\Message\MessageHandler;
 
 use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Config\Builder\EntityBuilder;
 use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
@@ -17,15 +17,15 @@ class EntitiesChangedMessageHandler
         private readonly PersistenceInterface $persistence,
         private readonly DataClient $dataClient,
         private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly EntityBuilder $entityFetcher,
+        private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entityRelatedFetcher,
-        private readonly IndexBuilder $indexFetcher,
+        private readonly IndexBuilder $indexBuilder,
     ) {
     }
 
     public function __invoke(EntitiesChangedMessage $message): void
     {
-        $classNamesIndex = $this->indexFetcher->fetchClassNamesIndex();
+        $classNamesIndex = $this->indexBuilder->fetchClassNamesIndex();
         $classNamesRelated = $this->entityRelatedFetcher->fetchClassNamesRelated();
 
         $entities = [];
@@ -50,7 +50,7 @@ class EntitiesChangedMessageHandler
                     // TODO return if hash exists
 
                     if (ChangedEntityDTO::TYPE_DELETE_PRE !== $type) {
-                        $entities[$hash] = $this->entityFetcher->build($entity, $className, $identifier, $type);
+                        $entities[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
                     } else {
                         // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
                     }

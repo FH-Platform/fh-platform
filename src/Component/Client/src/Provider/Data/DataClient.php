@@ -3,7 +3,7 @@
 namespace FHPlatform\Component\Client\Provider\Data;
 
 use FHPlatform\Component\Client\Provider\ProviderInterface;
-use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
 class DataClient
@@ -13,7 +13,7 @@ class DataClient
     ) {
     }
 
-    /** @param Entity[] $entities */
+    /** @param Document[] $entities */
     public function syncEntities(array $entities): array
     {
         if (0 === count($entities)) {
@@ -50,7 +50,7 @@ class DataClient
         return $responses;
     }
 
-    /** @param Entity[] $entities */
+    /** @param Document[] $entities */
     private function groupEntities(array $entities): array
     {
         $entitiesGrouped = [];

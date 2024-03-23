@@ -5,11 +5,11 @@ namespace FHPlatform\Component\Config\Builder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
-use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
-class EntityBuilder
+class DocumentBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
@@ -17,14 +17,14 @@ class EntityBuilder
     ) {
     }
 
-    public function build($entity, $className, $identifier, $type): Entity  // TODO rename to DTO
+    public function build($entity, $className, $identifier, $type): Document  // TODO rename to DTO
     {
         // TODO throw error if class not available for ES
 
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
         if (ChangedEntityDTO::TYPE_DELETE === $type) {
-            return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
+            return new Document($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
         }
 
         // prepare decorators
@@ -34,14 +34,14 @@ class EntityBuilder
         list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);
 
         if (!$shouldBeIndexed) {
-            return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
+            return new Document($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
         }
 
         // decorate data items
         $data = $this->decorateDataItems($index, $className, $data, $index->getMapping(), $decorators);
 
         // return
-        return new Entity($index, $identifier, $data, $type);
+        return new Document($index, $identifier, $data, $type);
     }
 
     private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators): array

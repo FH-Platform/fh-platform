@@ -3,12 +3,12 @@
 namespace FHPlatform\Component\Client\Provider;
 
 use FHPlatform\Component\Config\DTO\Connection;
-use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 
 interface ProviderInterface
 {
-    public function documentPrepare(Entity $entity): mixed;
+    public function documentPrepare(Document $document): mixed;
 
     public function documentsUpsert(Index $index, mixed $documents): mixed;
 

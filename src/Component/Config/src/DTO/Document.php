@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Config\DTO;
 
-class Entity
+class Document
 {
     public function __construct(
         private readonly Index $index,

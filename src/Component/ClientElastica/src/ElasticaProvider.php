@@ -2,14 +2,13 @@
 
 namespace FHPlatform\Component\ClientElastica;
 
-use Elastica\Document;
 use Elastica\Request;
 use Elastica\Result;
 use Elastica\Search;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher;
 use FHPlatform\Component\Config\DTO\Connection;
-use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 
 class ElasticaProvider implements ProviderInterface
@@ -21,11 +20,11 @@ class ElasticaProvider implements ProviderInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentPrepare(Entity $entity): Document
+    public function documentPrepare(Document $document): \Elastica\Document
     {
-        $index = $this->getIndex($entity->getIndex());
+        $index = $this->getIndex($document->getIndex());
 
-        $document = new Document($entity->getIdentifier(), $entity->getData());
+        $document = new \Elastica\Document($document->getIdentifier(), $document->getData());
         $document->setIndex($index);
         $document->setDocAsUpsert(true);
 

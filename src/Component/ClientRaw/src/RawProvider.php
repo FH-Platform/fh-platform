@@ -5,7 +5,7 @@ namespace FHPlatform\Component\ClientRaw;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientRaw\Connection\ConnectionFetcher;
 use FHPlatform\Component\Config\DTO\Connection;
-use FHPlatform\Component\Config\DTO\Entity;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
@@ -18,15 +18,15 @@ class RawProvider implements ProviderInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentPrepare(Entity $entity): mixed
+    public function documentPrepare(Document $document): mixed
     {
-        $index = $entity->getIndex();
+        $index = $document->getIndex();
 
-        if (ChangedEntityDTO::TYPE_DELETE === $entity->getType()) {
+        if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
             return [
                 'delete' => [
                     '_index' => $index->getNameWithPrefix(),
-                    '_id' => $entity->getIdentifier(),
+                    '_id' => $document->getIdentifier(),
                 ],
             ];
         }
@@ -35,11 +35,11 @@ class RawProvider implements ProviderInterface
             [
                 'create' => [
                     '_index' => $index->getNameWithPrefix(),
-                    '_id' => $entity->getIdentifier(),
+                    '_id' => $document->getIdentifier(),
                 ],
             ],
             [
-                $entity->getData(),
+                $document->getData(),
             ],
         ];
     }

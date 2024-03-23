@@ -12,8 +12,8 @@ use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
 use FHPlatform\Component\ClientRaw\RawProvider;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Config\Builder\EntityBuilder;
 use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
@@ -149,7 +149,7 @@ class Builder
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
 
-        $container->register(EntityBuilder::class)->setPublic(true)->setArguments([
+        $container->register(DocumentBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
             '$connectionsBuilder' => $container->findDefinition(ConnectionsBuilder::class),
         ]);
