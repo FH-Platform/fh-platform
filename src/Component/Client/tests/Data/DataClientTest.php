@@ -119,5 +119,25 @@ class DataClientTest extends TestCase
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
+
+        //type update for creating
+        $indexClientNew->recreateIndex($indexUser);
+        $this->dataClient->syncEntities([
+            new Document($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
+        ]);
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(['test' => 1], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
+
+        //type create for updating
+        $indexClientNew->recreateIndex($indexUser);
+        $this->dataClient->syncEntities([
+            new Document($indexUser, 1, ['test' => '2'], ChangedEntityDTO::TYPE_UPDATE),
+        ]);
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(['test' => 2], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
     }
 }
