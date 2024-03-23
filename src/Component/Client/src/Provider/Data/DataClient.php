@@ -60,7 +60,7 @@ class DataClient
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
 
-            if ($entity->getType() !== ChangedEntityDTO::TYPE_DELETE) {
+            if (ChangedEntityDTO::TYPE_DELETE !== $entity->getType()) {
                 $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData(), true);
             } else {
                 $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), [], false);

@@ -152,7 +152,6 @@ class Builder
         $container->register(EntityBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
             '$connectionsBuilder' => $container->findDefinition(ConnectionsBuilder::class),
-            '$persistence' => $container->findDefinition(PersistenceInterface::class),
         ]);
 
         $container->register(EntitiesRelatedBuilder::class)->setPublic(true)->setArguments([

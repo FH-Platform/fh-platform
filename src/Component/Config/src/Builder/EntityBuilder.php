@@ -8,14 +8,12 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EntityBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
         private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly PersistenceInterface $persistence,
     ) {
     }
 
@@ -26,16 +24,15 @@ class EntityBuilder
         return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
     }
 
-    public function buildForUpsert($entity): Entity  // TODO rename to DTO
+    public function build($entity, $className, $identifier, $type): Entity  // TODO rename to DTO
     {
-        $className = $entity::class;
-
-        // TODO
-        $identifier = $this->persistence->getIdentifierValue($entity);
-
         // TODO throw error if class not available for ES
 
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
+
+        if (ChangedEntityDTO::TYPE_DELETE === $type) {
+            return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
+        }
 
         // prepare decorators
         $decorators = $this->configProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);
@@ -43,11 +40,15 @@ class EntityBuilder
         // decorate data and should_be_indexed
         list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);
 
+        if (!$shouldBeIndexed) {
+            return new Entity($index, $identifier, [], ChangedEntityDTO::TYPE_DELETE);
+        }
+
         // decorate data items
         $data = $this->decorateDataItems($index, $className, $data, $index->getMapping(), $decorators);
 
         // return
-        return new Entity($index, $identifier, $data, $shouldBeIndexed ? ChangedEntityDTO::TYPE_UPDATE : ChangedEntityDTO::TYPE_DELETE);
+        return new Entity($index, $identifier, $data, $type);
     }
 
     private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators): array

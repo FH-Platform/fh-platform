@@ -65,17 +65,11 @@ class EntitiesChangedMessageHandler
 
             // TODO return if hash exists
 
-            if (ChangedEntityDTO::TYPE_DELETE === $type) {
-                $entities[$hash] = $this->entityFetcher->buildForDelete($className, $identifier);
-            } elseif (in_array($type, [ChangedEntityDTO::TYPE_UPDATE, ChangedEntityDTO::TYPE_CREATE])) {
-                if (!$entity) {
-                    $entities[$hash] = $this->entityFetcher->buildForDelete($className, $identifier);
-                } else {
-                    $entities[$hash] = $this->entityFetcher->buildForUpsert($entity);
-                }
+            if (ChangedEntityDTO::TYPE_DELETE_PRE !== $type) {
+                $entities[$hash] = $this->entityFetcher->build($entity, $className, $identifier, $type);
+            } else {
+                // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
             }
-
-            // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
         }
     }
 }
