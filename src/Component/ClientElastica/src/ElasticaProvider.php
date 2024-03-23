@@ -9,6 +9,7 @@ use Elastica\Search;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher;
 use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Entity;
 use FHPlatform\Component\Config\DTO\Index;
 
 class ElasticaProvider implements ProviderInterface
@@ -20,11 +21,11 @@ class ElasticaProvider implements ProviderInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentPrepare(Index $index, mixed $identifier, array $data, string $type): Document
+    public function documentPrepare(Entity $entity): Document
     {
-        $index = $this->getIndex($index);
+        $index = $this->getIndex($entity->getIndex());
 
-        $document = new Document($identifier, $data);
+        $document = new Document($entity->getIdentifier(), $entity->getData());
         $document->setIndex($index);
         $document->setDocAsUpsert(true);
 

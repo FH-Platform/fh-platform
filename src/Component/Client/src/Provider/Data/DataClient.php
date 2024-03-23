@@ -62,7 +62,7 @@ class DataClient
             $indexNameWithPrefix = $index->getNameWithPrefix();
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-            $entitiesGrouped[$connectionName][$indexNameWithPrefix][$entity->getType()][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData(), $entity->getType());
+            $entitiesGrouped[$connectionName][$indexNameWithPrefix][$entity->getType()][] = $this->provider->documentPrepare($entity);
         }
 
         return $entitiesGrouped;
