@@ -16,9 +16,9 @@ class RawProvider implements ProviderInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert): mixed
+    public function documentPrepare(Index $index, mixed $identifier, array $data, string $type): mixed
     {
-        if (!$upsert) {
+        if (!$type) {
             return [
                 'delete' => [
                     '_index' => $index->getNameWithPrefix(),

@@ -20,7 +20,7 @@ class ElasticaProvider implements ProviderInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentPrepare(Index $index, mixed $identifier, array $data, bool $upsert): Document
+    public function documentPrepare(Index $index, mixed $identifier, array $data, string $type): Document
     {
         $index = $this->getIndex($index);
 

@@ -10,7 +10,8 @@ class DataClient
 {
     public function __construct(
         private readonly ProviderInterface $provider,
-    ) {
+    )
+    {
     }
 
     /** @param Entity[] $entities */
@@ -30,12 +31,15 @@ class DataClient
 
                 // do the upsert/delete for each index on connection
 
-                if (count($documents['upsert'] ?? []) > 0) {
-                    $responses[] = $this->provider->documentsUpsert($index, $documents['upsert'] ?? []);
+                $documentsUpsert = array_merge($documents[ChangedEntityDTO::TYPE_CREATE] ?? [], $documents[ChangedEntityDTO::TYPE_UPDATE] ?? []);
+                $documentsDelete = $documents[ChangedEntityDTO::TYPE_DELETE] ?? [];
+
+                if (count($documentsUpsert) > 0) {
+                    $responses[] = $this->provider->documentsUpsert($index, $documentsUpsert);
                 }
 
-                if (count($documents['delete'] ?? []) > 0) {
-                    $responses[] = $this->provider->documentsDelete($index, $documents['delete'] ?? []);
+                if (count($documentsDelete) > 0) {
+                    $responses[] = $this->provider->documentsDelete($index, $documentsDelete);
                 }
 
                 // refresh index
@@ -59,12 +63,7 @@ class DataClient
             $indexNameWithPrefix = $index->getNameWithPrefix();
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-
-            if (ChangedEntityDTO::TYPE_DELETE !== $entity->getType()) {
-                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['upsert'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData(), true);
-            } else {
-                $entitiesGrouped[$connectionName][$indexNameWithPrefix]['delete'][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), [], false);
-            }
+            $entitiesGrouped[$connectionName][$indexNameWithPrefix][$entity->getType()][] = $this->provider->documentPrepare($index, $entity->getIdentifier(), $entity->getData(), $entity->getType());
         }
 
         return $entitiesGrouped;
