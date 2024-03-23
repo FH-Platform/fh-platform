@@ -4,7 +4,6 @@ namespace FHPlatform\Component\Client\Provider\Data;
 
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\Config\DTO\Document;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
 class DataClient
 {
@@ -30,15 +29,8 @@ class DataClient
 
                 // do the upsert/delete for each index on connection
 
-                $documentsUpsert = array_merge($documents[ChangedEntityDTO::TYPE_CREATE] ?? [], $documents[ChangedEntityDTO::TYPE_UPDATE] ?? []);
-                $documentsDelete = $documents[ChangedEntityDTO::TYPE_DELETE] ?? [];
-
-                if (count($documentsUpsert) > 0) {
-                    $responses[] = $this->provider->documentsUpsert($index, $documentsUpsert);
-                }
-
-                if (count($documentsDelete) > 0) {
-                    $responses[] = $this->provider->documentsDelete($index, $documentsDelete);
+                if (count($documents['documents']) > 0) {
+                    $responses[] = $this->provider->documentsUpdate($index, $documents['documents']);
                 }
 
                 // refresh index
@@ -62,7 +54,7 @@ class DataClient
             $indexNameWithPrefix = $index->getNameWithPrefix();
 
             $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-            $entitiesGrouped[$connectionName][$indexNameWithPrefix][$entity->getType()][] = $this->provider->documentPrepare($entity);
+            $entitiesGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $this->provider->documentPrepare($entity);
         }
 
         return $entitiesGrouped;

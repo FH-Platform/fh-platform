@@ -24,25 +24,34 @@ class ElasticaProvider implements ProviderInterface
     {
         $index = $this->getIndex($document->getIndex());
 
-        $document = new \Elastica\Document($document->getIdentifier(), $document->getData());
-        $document->setIndex($index);
+        $document = new \Elastica\Document($document->getIdentifier(), $document->getData(), $index);
         $document->setDocAsUpsert(true);
 
         return $document;
     }
 
-    public function documentsUpsert(Index $index, mixed $documents): mixed
+    public function documentsUpdate(Index $index, mixed $documents): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        return $client->updateDocuments($documents);
-    }
+        $documentsDelete = [];
+        foreach ($documents as $k => $document) {
+            /** @var Document $document */
+            if (0 === count($document->getData())) {
+                $documentsDelete[] = $document;
+                unset($documents[$k]);
+            }
+        }
 
-    public function documentsDelete(Index $index, mixed $documents): mixed
-    {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        if (count($documentsDelete) > 0) {
+            $client->deleteDocuments($documentsDelete);
+        }
 
-        return $client->deleteDocuments($documents);
+        if (count($documents)) {
+            $client->updateDocuments($documents);
+        }
+
+        return null;
     }
 
     public function indexRefresh(Index $index): mixed

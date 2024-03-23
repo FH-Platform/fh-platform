@@ -7,7 +7,6 @@ use FHPlatform\Component\ClientRaw\Connection\ConnectionFetcher;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
 class RawProvider implements ProviderInterface
 {
@@ -22,29 +21,20 @@ class RawProvider implements ProviderInterface
     {
         $index = $document->getIndex();
 
-        if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
-            return [
-                'delete' => [
-                    '_index' => $index->getNameWithPrefix(),
-                    '_id' => $document->getIdentifier(),
-                ],
-            ];
-        }
+        $data = ['doc' => $document->getData(), 'doc_as_upsert' => true];
 
         return [
             [
-                'create' => [
+                'update' => [
                     '_index' => $index->getNameWithPrefix(),
                     '_id' => $document->getIdentifier(),
                 ],
             ],
-            [
-                $document->getData(),
-            ],
+            $data,
         ];
     }
 
-    public function documentsUpsert(Index $index, mixed $documents): mixed
+    public function documentsUpdate(Index $index, mixed $documents): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -52,30 +42,19 @@ class RawProvider implements ProviderInterface
         foreach ($documents as $document) {
             $documentJson .= json_encode($document[0])."\n";
             $documentJson .= json_encode($document[1])."\n";
-
-            // $documentProcessed = array_merge($documentProcessed, [$document[0], $document[1]]);
         }
         $documentJson .= "\n";
-
+        dump($documentJson);
         // TODO mapping
         $response = $client->request('POST', '/_bulk',
             [
-                'headers' => ['content-type' => 'application/json'],
+                'headers' => ['Content-type' => 'application/json'],
                 'body' => $documentJson."\n",
             ]
         );
 
+        // dd($response->getBody()->getContents());
         return $response;
-    }
-
-    public function documentsDelete(Index $index, mixed $documents): mixed
-    {
-        $client = $this->connectionFetcher->fetchByIndex($index);
-
-        // TODO mapping
-        return $client->request('POST', '/_bulk', [
-            'json' => $documents,
-        ]);
     }
 
     public function indexRefresh(Index $index): mixed
@@ -101,7 +80,9 @@ class RawProvider implements ProviderInterface
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         // TODO mapping
-        return $client->request('PUT', '/'.$index->getNameWithPrefix());
+        $response = $client->request('PUT', '/'.$index->getNameWithPrefix());
+
+        return $response;
     }
 
     public function indexesDeleteAllInConnection(Connection $connection): void
@@ -131,8 +112,8 @@ class RawProvider implements ProviderInterface
 
         $results = $client->request('GET', '/'.$index->getNameWithPrefix().'/_search', [
             'json' => [
-                'from' => $offset,
                 'size' => $limit,
+                'from' => $offset,
             ],
         ]);
 

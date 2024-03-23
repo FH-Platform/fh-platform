@@ -169,6 +169,7 @@ class Builder
         $container->register(ElasticaProvider::class)->setAutowired(true);
 
         return ElasticaProvider::class;
-        // return RawProvider::class;
+
+        return RawProvider::class;
     }
 }

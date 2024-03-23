@@ -10,9 +10,7 @@ interface ProviderInterface
 {
     public function documentPrepare(Document $document): mixed;
 
-    public function documentsUpsert(Index $index, mixed $documents): mixed;
-
-    public function documentsDelete(Index $index, mixed $documents): mixed;
+    public function documentsUpdate(Index $index, mixed $documents): mixed;
 
     public function indexRefresh(Index $index): mixed;
 

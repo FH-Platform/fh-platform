@@ -50,6 +50,24 @@ class DataClientTest extends TestCase
         $this->assertEquals(0, count($this->queryClient->getResultHits($indexRole, new Query())));
         $this->assertEquals(0, count($this->queryClient->getResultHits($indexLog, new Query())));
 
+        // test empty
+        $indexClientNew->recreateIndex($indexUser);
+        $this->dataClient->syncEntities([]);
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(0, count($results));
+
+        // insert one
+        $indexClientNew->recreateIndex($indexUser);
+        $this->dataClient->syncEntities([
+            new Document($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
+        ]);
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(['test' => 1], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
+
+        // insert more
+        $indexClientNew->recreateIndex($indexUser);
         $this->dataClient->syncEntities([
             new Document($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
             new Document($indexUser, 2, ['test2' => '2'], ChangedEntityDTO::TYPE_CREATE),
@@ -120,7 +138,7 @@ class DataClientTest extends TestCase
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
 
-        //type update for creating
+        // type update for creating
         $indexClientNew->recreateIndex($indexUser);
         $this->dataClient->syncEntities([
             new Document($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
@@ -130,7 +148,7 @@ class DataClientTest extends TestCase
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
 
-        //type create for updating
+        // type create for updating
         $indexClientNew->recreateIndex($indexUser);
         $this->dataClient->syncEntities([
             new Document($indexUser, 1, ['test' => '2'], ChangedEntityDTO::TYPE_UPDATE),
