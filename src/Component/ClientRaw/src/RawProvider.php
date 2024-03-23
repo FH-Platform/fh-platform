@@ -28,11 +28,15 @@ class RawProvider implements ProviderInterface
         }
 
         return [
-            'update' => [
-                '_index' => $index->getNameWithPrefix(),
-                '_id' => $identifier,
+            [
+                'create' => [
+                    '_index' => $index->getNameWithPrefix(),
+                    '_id' => $identifier,
+                ],
             ],
-            'doc' => $data,
+            [
+                'doc' => $data,
+            ],
         ];
     }
 
@@ -40,10 +44,24 @@ class RawProvider implements ProviderInterface
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
+        $documentJson = '';
+        foreach ($documents as $document) {
+            $documentJson .= json_encode($document[0])."\n";
+            $documentJson .= json_encode($document[1])."\n";
+
+            // $documentProcessed = array_merge($documentProcessed, [$document[0], $document[1]]);
+        }
+        $documentJson .= "\n";
+
         // TODO mapping
-        return $client->request('POST', '/_bulk', [
-            'json' => $documents,
-        ]);
+        $response = $client->request('POST', '/_bulk',
+            [
+                'headers' => ['content-type' => 'application/json'],
+                'body' => $documentJson."\n",
+            ]
+        );
+
+        return $response;
     }
 
     public function documentsDelete(Index $index, mixed $documents): mixed
@@ -67,7 +85,11 @@ class RawProvider implements ProviderInterface
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $client->request('DELETE', '/'.$index->getNameWithPrefix());
+        try {
+            $client->request('DELETE', '/'.$index->getNameWithPrefix());
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            // TODO
+        }
     }
 
     public function indexCreate(Index $index): mixed
@@ -103,11 +125,16 @@ class RawProvider implements ProviderInterface
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        return $client->request('GET', '/'.$index->getNameWithPrefix().'/_search', [
+        $results = $client->request('GET', '/'.$index->getNameWithPrefix().'/_search', [
             'json' => [
                 'from' => $offset,
                 'size' => $limit,
             ],
         ]);
+
+        $data = json_decode($results->getBody()->getContents(), true);
+        dump($data);
+
+        return $data['hits']['hits'];
     }
 }

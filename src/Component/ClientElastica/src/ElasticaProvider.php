@@ -122,6 +122,8 @@ class ElasticaProvider implements ProviderInterface
     {
         $search = $this->searchPrepare($index, $query);
 
+        return $search->search()->getResponse()->getData();
+
         return $this->scrollSearch($search, $limit, $offset);
     }
 

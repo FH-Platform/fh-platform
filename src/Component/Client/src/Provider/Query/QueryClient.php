@@ -21,4 +21,9 @@ class QueryClient
     {
         return $this->provider->searchResults($index, $query, $limit, $offset);
     }
+
+    public function getResultHits(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
+    {
+        return $this->getResults($index, $query, $limit, $offset)['hits']['hits'];
+    }
 }

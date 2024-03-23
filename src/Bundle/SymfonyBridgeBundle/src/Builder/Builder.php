@@ -10,6 +10,7 @@ use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Component\ClientElastica\ElasticaProvider;
+use FHPlatform\Component\ClientRaw\RawProvider;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\Config\Builder\EntityBuilder;
@@ -165,6 +166,7 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
+        $container->register(RawProvider::class)->setAutowired(true);
         $container->register(ElasticaProvider::class)->setAutowired(true);
 
         return ElasticaProvider::class;

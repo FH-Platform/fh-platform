@@ -44,10 +44,10 @@ class DataClientTest extends TestCase
         $indexClientNew->recreateIndex($indexRole);
         $indexClientNew->recreateIndex($indexLog);
 
-        $this->assertEquals(0, count($this->queryClient->getResults($indexUser, new Query())));
-        $this->assertEquals(0, count($this->queryClient->getResults($indexUser2, new Query())));
-        $this->assertEquals(0, count($this->queryClient->getResults($indexRole, new Query())));
-        $this->assertEquals(0, count($this->queryClient->getResults($indexLog, new Query())));
+        $this->assertEquals(0, count($this->queryClient->getResultHits($indexUser, new Query())));
+        $this->assertEquals(0, count($this->queryClient->getResultHits($indexUser2, new Query())));
+        $this->assertEquals(0, count($this->queryClient->getResultHits($indexRole, new Query())));
+        $this->assertEquals(0, count($this->queryClient->getResultHits($indexLog, new Query())));
 
         $this->dataClient->syncEntities([
             new Entity($indexUser, 1, ['test' => '1'], true),
@@ -57,21 +57,26 @@ class DataClientTest extends TestCase
             new Entity($indexLog, 5, ['test5' => '5'], true),
         ]);
 
-        $results = $this->queryClient->getResults($indexUser, new Query());
+        $results = $this->queryClient->getResultHits($indexUser, new Query());
         $this->assertEquals(2, count($results));
-        $this->assertEquals(['test' => 1], $results[1]->getSource());
-        $this->assertEquals(['test2' => 2], $results[2]->getSource());
+        $this->assertEquals(['test' => 1], $results[0]['_source']);
+        $this->assertEquals(1, $results[0]['_id']);
+        $this->assertEquals(['test2' => 2], $results[1]['_source']);
+        $this->assertEquals(2, $results[1]['_id']);
 
-        $results = $this->queryClient->getResults($indexRole, new Query());
+        $results = $this->queryClient->getResultHits($indexRole, new Query());
         $this->assertEquals(1, count($results));
-        $this->assertEquals(['test3' => 3], $results[3]->getSource());
+        $this->assertEquals(['test3' => 3], $results[0]['_source']);
+        $this->assertEquals(3, $results[0]['_id']);
 
-        $results = $this->queryClient->getResults($indexUser2, new Query());
+        $results = $this->queryClient->getResultHits($indexUser2, new Query());
         $this->assertEquals(1, count($results));
-        $this->assertEquals(['test4' => 4], $results[4]->getSource());
+        $this->assertEquals(['test4' => 4], $results[0]['_source']);
+        $this->assertEquals(4, $results[0]['_id']);
 
-        $results = $this->queryClient->getResults($indexLog, new Query());
+        $results = $this->queryClient->getResultHits($indexLog, new Query());
         $this->assertEquals(1, count($results));
-        $this->assertEquals(['test5' => 5], $results[5]->getSource());
+        $this->assertEquals(['test5' => 5], $results[0]['_source']);
+        $this->assertEquals(5, $results[0]['_id']);
     }
 }

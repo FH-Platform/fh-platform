@@ -13,7 +13,8 @@ class ConnectionFetcher
         // dd($connection->getConfigClient());
 
         return new Client([
-            'base_uri' => 'http:/elasticsearch:9200',  // TODO
+            'base_uri' => 'http://elasticsearch:9200',  // TODO
+            // 'port' => 9200,
             'timeout' => 2.0,
         ]);
     }

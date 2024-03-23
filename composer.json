@@ -35,12 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
             "FHPlatform\\Component\\Client\\": "src/Component/Client/src/",
             "FHPlatform\\Component\\ClientElastica\\": "src/Component/ClientElastica/src/",
+            "FHPlatform\\Component\\ClientRaw\\": "src/Component/ClientRaw/src/",
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
-
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
+            "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
+
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
 
             "App\\": "src/App/"
@@ -50,6 +51,7 @@
         "psr-4": {
             "FHPlatform\\Component\\Client\\Tests\\": "src/Component/Client/tests/",
             "FHPlatform\\Component\\ClientElastica\\Tests\\": "src/Component/ClientElastica/tests/",
+            "FHPlatform\\Component\\ClientRaw\\Tests\\": "src/Component/ClientRaw/tests/",
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
 
