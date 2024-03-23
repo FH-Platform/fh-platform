@@ -7,6 +7,7 @@ use FHPlatform\Component\ClientRaw\Connection\ConnectionFetcher;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 
 class RawProvider implements ProviderInterface
 {
@@ -20,6 +21,17 @@ class RawProvider implements ProviderInterface
     public function documentPrepare(Document $document): mixed
     {
         $index = $document->getIndex();
+
+        if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
+            return [
+                [
+                    'delete' => [
+                        '_index' => $index->getNameWithPrefix(),
+                        '_id' => $document->getIdentifier(),
+                    ],
+                ],
+            ];
+        }
 
         $data = ['doc' => $document->getData(), 'doc_as_upsert' => true];
 
@@ -41,10 +53,13 @@ class RawProvider implements ProviderInterface
         $documentJson = '';
         foreach ($documents as $document) {
             $documentJson .= json_encode($document[0])."\n";
-            $documentJson .= json_encode($document[1])."\n";
+
+            if (isset($document[1])) {
+                $documentJson .= json_encode($document[1])."\n";
+            }
         }
         $documentJson .= "\n";
-        dump($documentJson);
+
         // TODO mapping
         $response = $client->request('POST', '/_bulk',
             [
