@@ -5,6 +5,7 @@
          bootstrap="vendor/autoload.php"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
+         cacheResult ="false"
          colors="true">
     <php>
         <server name="KERNEL_CLASS" value="FHPlatform\Component\SearchEngine\Tests\Util\App\Kernel" />
