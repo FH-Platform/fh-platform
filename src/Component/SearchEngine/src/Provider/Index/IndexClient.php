@@ -4,12 +4,12 @@ namespace FHPlatform\Component\SearchEngine\Provider\Index;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
 
 class IndexClient
 {
     public function __construct(
-        private readonly SearchEngineInterface $provider,
+        private readonly SearchEngineAdapterInterface $provider,
     ) {
     }
 

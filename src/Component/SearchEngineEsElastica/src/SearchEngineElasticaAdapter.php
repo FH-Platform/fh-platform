@@ -7,10 +7,10 @@ use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
 use FHPlatform\Component\SearchEngineEsElastica\Connection\ConnectionFetcher;
 
-class ElasticaSearchEngine implements SearchEngineInterface
+class SearchEngineElasticaAdapter implements SearchEngineAdapterInterface
 {
     private ConnectionFetcher $connectionFetcher;
 

@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 
-interface SearchEngineInterface
+interface SearchEngineAdapterInterface
 {
     /** @param Document[] $documents */
     public function documentsUpdate(Index $index, mixed $documents): mixed;

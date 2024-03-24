@@ -3,12 +3,12 @@
 namespace FHPlatform\Component\SearchEngine\Provider\Query;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
 
 class QueryClient
 {
     public function __construct(
-        private readonly SearchEngineInterface $provider,
+        private readonly SearchEngineAdapterInterface $provider,
     ) {
     }
 

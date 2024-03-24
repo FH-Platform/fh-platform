@@ -3,12 +3,12 @@
 namespace FHPlatform\Component\SearchEngine\Provider\Data;
 
 use FHPlatform\Component\Config\DTO\Document;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
 
 class DataClient
 {
     public function __construct(
-        private readonly SearchEngineInterface $provider,
+        private readonly SearchEngineAdapterInterface $provider,
     ) {
     }
 

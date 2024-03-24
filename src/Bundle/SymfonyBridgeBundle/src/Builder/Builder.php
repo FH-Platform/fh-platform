@@ -30,9 +30,9 @@ use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
 use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
 use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
-use FHPlatform\Component\SearchEngineEsElastica\ElasticaSearchEngine;
-use FHPlatform\Component\SearchEngineEsGuzzle\RawSearchEngine;
+use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
+use FHPlatform\Component\SearchEngineEsElastica\SearchEngineElasticaAdapter;
+use FHPlatform\Component\SearchEngineEsGuzzle\SearchEngineGuzzleAdapter;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -80,7 +80,7 @@ class Builder
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
-        $container->addAliases([SearchEngineInterface::class => $clientImplementation]);
+        $container->addAliases([SearchEngineAdapterInterface::class => $clientImplementation]);
 
         $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
@@ -165,13 +165,13 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
-        $container->register(RawSearchEngine::class)->setAutowired(true);
-        $container->register(ElasticaSearchEngine::class)->setAutowired(true);
+        $container->register(SearchEngineGuzzleAdapter::class)->setAutowired(true);
+        $container->register(SearchEngineElasticaAdapter::class)->setAutowired(true);
 
         if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
             return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
         }
 
-        return ElasticaSearchEngine::class;
+        return SearchEngineElasticaAdapter::class;
     }
 }
