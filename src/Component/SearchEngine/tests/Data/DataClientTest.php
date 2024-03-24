@@ -45,15 +45,15 @@ class DataClientTest extends TestCase
         $indexClientNew->recreateIndex($indexRole);
         $indexClientNew->recreateIndex($indexLog);
 
-        $this->assertEquals(0, count($this->queryClient->getResultHits($indexUser, new Query())));
-        $this->assertEquals(0, count($this->queryClient->getResultHits($indexUser2, new Query())));
-        $this->assertEquals(0, count($this->queryClient->getResultHits($indexRole, new Query())));
-        $this->assertEquals(0, count($this->queryClient->getResultHits($indexLog, new Query())));
+        $this->assertEquals(0, count($this->getResults($indexUser)));
+        $this->assertEquals(0, count($this->getResults($indexUser2)));
+        $this->assertEquals(0, count($this->getResults($indexRole)));
+        $this->assertEquals(0, count($this->getResults($indexLog)));
 
         // test empty
         $indexClientNew->recreateIndex($indexUser);
         $this->dataClient->syncDocuments([]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(0, count($results));
 
         // insert one
@@ -61,7 +61,7 @@ class DataClientTest extends TestCase
         $this->dataClient->syncDocuments([
             new Document($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
         ]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
@@ -76,24 +76,24 @@ class DataClientTest extends TestCase
             new Document($indexLog, 5, ['test5' => '5'], ChangedEntityDTO::TYPE_CREATE),
         ]);
 
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(2, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
         $this->assertEquals(['test2' => 2], $results[1]['_source']);
         $this->assertEquals(2, $results[1]['_id']);
 
-        $results = $this->queryClient->getResultHits($indexRole, new Query());
+        $results = $this->getResults($indexRole);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test3' => 3], $results[0]['_source']);
         $this->assertEquals(3, $results[0]['_id']);
 
-        $results = $this->queryClient->getResultHits($indexUser2, new Query());
+        $results = $this->getResults($indexUser2);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test4' => 4], $results[0]['_source']);
         $this->assertEquals(4, $results[0]['_id']);
 
-        $results = $this->queryClient->getResultHits($indexLog, new Query());
+        $results = $this->getResults($indexLog);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test5' => 5], $results[0]['_source']);
         $this->assertEquals(5, $results[0]['_id']);
@@ -105,7 +105,7 @@ class DataClientTest extends TestCase
             new Document($indexUser, 2, ['test2' => '2'], ChangedEntityDTO::TYPE_CREATE),
             new Document($indexUser, 3, ['test3' => '3'], ChangedEntityDTO::TYPE_CREATE),
         ]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(3, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
@@ -119,7 +119,7 @@ class DataClientTest extends TestCase
             new Document($indexUser, 2, ['test2' => '22'], ChangedEntityDTO::TYPE_UPDATE),
             new Document($indexUser, 3, ['test3' => '33'], ChangedEntityDTO::TYPE_UPDATE),
         ]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(3, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
@@ -133,7 +133,7 @@ class DataClientTest extends TestCase
             new Document($indexUser, 2, [], ChangedEntityDTO::TYPE_DELETE),
             new Document($indexUser, 3, [], ChangedEntityDTO::TYPE_DELETE),
         ]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
@@ -143,7 +143,7 @@ class DataClientTest extends TestCase
         $this->dataClient->syncDocuments([
             new Document($indexUser, 1, ['test' => '1'], ChangedEntityDTO::TYPE_CREATE),
         ]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test' => 1], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
@@ -153,9 +153,14 @@ class DataClientTest extends TestCase
         $this->dataClient->syncDocuments([
             new Document($indexUser, 1, ['test' => '2'], ChangedEntityDTO::TYPE_UPDATE),
         ]);
-        $results = $this->queryClient->getResultHits($indexUser, new Query());
+        $results = $this->getResults($indexUser);
         $this->assertEquals(1, count($results));
         $this->assertEquals(['test' => 2], $results[0]['_source']);
         $this->assertEquals(1, $results[0]['_id']);
+    }
+
+    private function getResults(Index $index): array
+    {
+        return $this->queryClient->getResultHits($index, new Query())['hits']['hits'];
     }
 }
