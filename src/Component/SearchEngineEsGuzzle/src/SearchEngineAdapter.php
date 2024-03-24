@@ -7,6 +7,7 @@ use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngineEsGuzzle\Connection\ConnectionFetcher;
+use GuzzleHttp\Exception\ClientException;
 
 class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter
 {
@@ -60,7 +61,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
             }
         }
 
-        if($documentJson === ''){
+        if ('' === $documentJson) {
             return;
         }
 
@@ -88,7 +89,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
         try {
             $client->request('DELETE', '/'.$index->getNameWithPrefix());
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException $e) {
             // TODO
         }
     }
@@ -97,8 +98,18 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        // TODO mapping
-        $client->request('PUT', '/'.$index->getNameWithPrefix());
+        try {
+            // TODO mapping
+            $client->request('PUT', '/'.$index->getNameWithPrefix());
+        } catch (ClientException $ce) {
+            $type = json_decode($ce->getResponse()->getBody()->getContents(), true)['error']['type'];
+
+            if ('resource_already_exists_exception' === $type) {
+                return;
+            }
+
+            throw $ce;
+        }
     }
 
     public function indexesDeleteAllInConnection(Connection $connection): void
@@ -114,7 +125,18 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
         $response = $client->request('GET', '/_aliases');
 
-        dd($response->getBody()->getContents());
+        $indexes = json_decode($response->getBody()->getContents(), true);
+
+        $indexesFiltered = [];
+        foreach ($indexes as $name => $conf) {
+            if (str_starts_with($name, $connection->getPrefix())) {
+                $indexesFiltered[] = $name;
+            }
+        }
+
+        sort($indexesFiltered);
+
+        return $indexesFiltered;
     }
 
     public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array

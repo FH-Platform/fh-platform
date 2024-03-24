@@ -5,16 +5,18 @@
          bootstrap="vendor/autoload.php"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
+         cacheResult ="false"
          colors="true">
     <php>
         <server name="KERNEL_CLASS" value="FHPlatform\Component\SearchEngine\Tests\Util\App\Kernel" />
         <env name="APP_DEBUG" value="false" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999" />
+        <env name="FHPLATFORM_CLIENT_PROVIDER" value="FHPlatform\Component\SearchEngineEsElastica\SearchEngineAdapter" />
     </php>
 
     <testsuites>
         <testsuite name="test">
-            <directory>./tests/</directory>
+            <directory>./../SearchEngine/tests/Adapter</directory>
         </testsuite>
     </testsuites>
 </phpunit>
