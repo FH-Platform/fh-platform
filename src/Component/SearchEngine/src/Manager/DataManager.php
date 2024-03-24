@@ -30,7 +30,7 @@ class DataManager
                 // do the upsert/delete for each index on connection
 
                 if (count($data['documents']) > 0) {
-                    $this->adapter->documentsUpdate($index, $data['documents']);
+                    $this->adapter->dataUpdate($index, $data['documents']);
                 }
 
                 // refresh index

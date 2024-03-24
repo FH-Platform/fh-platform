@@ -46,7 +46,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         ];
     }
 
-    public function documentsUpdate(Index $index, mixed $documents): void
+    public function dataUpdate(Index $index, mixed $documents): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -139,7 +139,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         return $indexesFiltered;
     }
 
-    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
+    public function queryResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 

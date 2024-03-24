@@ -21,7 +21,7 @@ class QueryManager
 
     public function getResults(Index $index, mixed $query = null, $limit = 100, $offset = 0, $type = self::TYPE_RAW): array
     {
-        $results = $this->adapter->searchResults($index, $query, $limit, $offset);
+        $results = $this->adapter->queryResults($index, $query, $limit, $offset);
 
         if (self::TYPE_ENTITIES === $type) {
             // TODO for ES

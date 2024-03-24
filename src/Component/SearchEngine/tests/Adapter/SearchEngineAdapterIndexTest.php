@@ -62,7 +62,7 @@ class SearchEngineAdapterIndexTest extends TestCase
         // refresh
         $adapter->indexCreate($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
-        $adapter->documentsUpdate($indexUser, [new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE)]);
+        $adapter->dataUpdate($indexUser, [new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE)]);
         $this->assertEquals(0, count($this->getResults($indexUser)));
         $adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
