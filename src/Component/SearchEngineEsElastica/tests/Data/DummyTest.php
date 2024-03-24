@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineElastica\Tests\Data;
+namespace FHPlatform\Component\SearchEngineEsElastica\Tests\Data;
 
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineRaw\Connection;
+namespace FHPlatform\Component\SearchEngineEsGuzzle\Connection;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;

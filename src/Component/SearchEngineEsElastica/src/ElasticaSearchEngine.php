@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineElastica;
+namespace FHPlatform\Component\SearchEngineEsElastica;
 
 use Elastica\Request;
 use Elastica\Search;
@@ -8,7 +8,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
-use FHPlatform\Component\SearchEngineElastica\Connection\ConnectionFetcher;
+use FHPlatform\Component\SearchEngineEsElastica\Connection\ConnectionFetcher;
 
 class ElasticaSearchEngine implements SearchEngineInterface
 {

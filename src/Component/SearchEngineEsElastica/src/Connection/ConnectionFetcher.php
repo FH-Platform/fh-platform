@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineElastica\Connection;
+namespace FHPlatform\Component\SearchEngineEsElastica\Connection;
 
 use Elastica\Client;
 use FHPlatform\Component\Config\DTO\Connection;

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 packages=(
-  "Component//SearchEngineRaw"
-  "Component//SearchEngineElastica"
+  "Component//SearchEngineEsGuzzle"
+  "Component//SearchEngineEsElastica"
   "Component/Persistence"
   "Component/PersistenceDoctrine"
   "Bundle/SymfonyBridgeBundle"

@@ -31,8 +31,8 @@ use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
 use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
 use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
 use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
-use FHPlatform\Component\SearchEngineElastica\ElasticaSearchEngine;
-use FHPlatform\Component\SearchEngineRaw\RawSearchEngine;
+use FHPlatform\Component\SearchEngineEsElastica\ElasticaSearchEngine;
+use FHPlatform\Component\SearchEngineEsGuzzle\RawSearchEngine;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

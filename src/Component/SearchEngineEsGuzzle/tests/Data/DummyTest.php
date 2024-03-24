@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineRaw\Tests\Data;
+namespace FHPlatform\Component\SearchEngineEsGuzzle\Tests\Data;
 
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
 

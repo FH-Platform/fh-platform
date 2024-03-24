@@ -7,12 +7,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\SearchEngineElastica\\": "src/"
+            "FHPlatform\\Component\\SearchEngineEsElastica\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\Component\\SearchEngineElastica\\Tests\\": "tests/"
+            "FHPlatform\\Component\\SearchEngineEsElastica\\Tests\\": "tests/"
         }
     },
     "authors": [

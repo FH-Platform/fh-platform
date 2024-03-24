@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineRaw;
+namespace FHPlatform\Component\SearchEngineEsGuzzle;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
-use FHPlatform\Component\SearchEngineRaw\Connection\ConnectionFetcher;
+use FHPlatform\Component\SearchEngineEsGuzzle\Connection\ConnectionFetcher;
 
 class RawSearchEngine implements SearchEngineInterface
 {
