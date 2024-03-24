@@ -3,7 +3,6 @@
 namespace FHPlatform\Component\ClientElastica;
 
 use Elastica\Request;
-use Elastica\Result;
 use Elastica\Search;
 use FHPlatform\Component\Client\Provider\ProviderInterface;
 use FHPlatform\Component\ClientElastica\Connection\ConnectionFetcher;
@@ -109,7 +108,7 @@ class ElasticaProvider implements ProviderInterface
         return $indicesFiltered;
     }
 
-    public function searchPrepare(Index $index, mixed $query = null): mixed
+    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -122,16 +121,7 @@ class ElasticaProvider implements ProviderInterface
             $search->setQuery($query);
         }
 
-        return $search;
-    }
-
-    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed
-    {
-        $search = $this->searchPrepare($index, $query);
-
         return $search->search()->getResponse()->getData();
-
-        return $this->scrollSearch($search, $limit, $offset);
     }
 
     private function getIndex(Index $index): \Elastica\Index
@@ -139,32 +129,5 @@ class ElasticaProvider implements ProviderInterface
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         return $client->getIndex($index->getNameWithPrefix());
-    }
-
-    private function scrollSearch(Search $search, $limit, $offset): array
-    {
-        $results = [];
-        $processedResults = 0;
-
-        foreach ($search->scroll() as $scrollId => $resultSet) {
-            if (null !== $resultSet && count($resultSet)) {
-                foreach ($resultSet as $result) {
-                    /* @var Result $result */
-
-                    if ($processedResults < $offset) {
-                        ++$processedResults;
-                        continue;
-                    }
-
-                    $results[$result->getId()] = $result;
-
-                    if (count($results) === $limit) {
-                        break 2;
-                    }
-                }
-            }
-        }
-
-        return $results;
     }
 }

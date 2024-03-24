@@ -117,11 +117,6 @@ class RawProvider implements ProviderInterface
         dd($response->getBody()->getContents());
     }
 
-    public function searchPrepare(Index $index, mixed $query = null): mixed
-    {
-        // TODO: Implement searchPrepare() method.
-    }
-
     public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);

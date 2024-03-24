@@ -12,18 +12,10 @@ class QueryClient
     ) {
     }
 
-    public function getSearch(Index $index, mixed $query = null): mixed
-    {
-        return $this->provider->searchPrepare($index, $query);
-    }
-
-    public function getResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
-    {
-        return $this->provider->searchResults($index, $query, $limit, $offset);
-    }
-
     public function getResultHits(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
     {
-        return $this->getResults($index, $query, $limit, $offset)['hits']['hits'];
+        $results = $this->provider->searchResults($index, $query, $limit, $offset);
+
+        return $results['hits']['hits'];
     }
 }

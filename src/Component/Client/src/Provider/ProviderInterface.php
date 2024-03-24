@@ -21,7 +21,5 @@ interface ProviderInterface
 
     public function indexesGetAllInConnection(Connection $connection): array;
 
-    public function searchPrepare(Index $index, mixed $query = null): mixed;
-
     public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed;
 }
