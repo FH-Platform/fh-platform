@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\SearchEngineEsElastica\Tests\Data;
 
-class DataClientTest extends \FHPlatform\Component\SearchEngine\Tests\Data\DataClientTest
+class DataClientTest extends \FHPlatform\Component\SearchEngine\Tests\Adapter\SearchEngineAdapterDataTest
 {
-    protected bool $testingClient = true;
+    protected bool $testingAdapter = true;
 }

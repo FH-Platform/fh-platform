@@ -59,6 +59,11 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
                 $documentJson .= json_encode($data[1])."\n";
             }
         }
+
+        if($documentJson === ''){
+            return;
+        }
+
         $documentJson .= "\n";
 
         // TODO mapping
@@ -74,7 +79,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
+        $response = $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
     }
 
     public function indexDelete(Index $index): void

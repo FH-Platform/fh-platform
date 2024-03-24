@@ -15,8 +15,16 @@ use FHPlatform\Component\SearchEngine\Tests\Util\Entity\User;
 
 class SearchEngineAdapterDataTest extends TestCase
 {
+    protected bool $testingAdapter = false;
+
     public function testSomething(): void
     {
+        if (false === $this->testingAdapter) {
+            $this->assertEquals(1, 1);
+
+            return;
+        }
+
         /** @var SearchEngineAdapter $adapter */
         $adapter = $this->container->get(SearchEngineAdapter::class);
 
@@ -88,14 +96,42 @@ class SearchEngineAdapterDataTest extends TestCase
         // delete two
         $adapter->documentsUpdate($indexUser, [
             new Document($indexUser, 2, [], ChangedEntityDTO::TYPE_DELETE),
-            new Document($indexUser, 3, ['test3' => 33], ChangedEntityDTO::TYPE_DELETE),
+            new Document($indexUser, 3, [], ChangedEntityDTO::TYPE_DELETE),
         ]);
+        $adapter->indexRefresh($indexUser);
+        $this->assertEquals(0, count($this->getResults($indexUser)));
+
+        // create with update
+        $adapter->documentsUpdate($indexUser, [
+            new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_UPDATE),
+        ]);
+        $adapter->indexRefresh($indexUser);
+        $this->assertEquals(1, count($this->getResults($indexUser)));
+        $this->assertEquals(['test' => 1], $this->getResults($indexUser)[0]);
+
+        // update with create
+        $adapter->documentsUpdate($indexUser, [
+            new Document($indexUser, 1, ['test' => 11], ChangedEntityDTO::TYPE_CREATE),
+        ]);
+        $adapter->indexRefresh($indexUser);
+        $this->assertEquals(1, count($this->getResults($indexUser)));
+        $this->assertEquals(['test' => 11], $this->getResults($indexUser)[0]);
+
+        // delete data not empty
+        $adapter->documentsUpdate($indexUser, [
+            new Document($indexUser, 1, ['test' => 111], ChangedEntityDTO::TYPE_DELETE),
+        ]);
+        $adapter->indexRefresh($indexUser);
+        $this->assertEquals(0, count($this->getResults($indexUser)));
+
+        // test empty
+        $adapter->documentsUpdate($indexUser, []);
         $adapter->indexRefresh($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
     }
 
     private function getResults(Index $index): array
     {
-        return $this->queryClient->getResults($index, new Query(), 0, 10, QueryManager::TYPE_RAW_SOURCE);
+        return $this->queryClient->getResults($index, new Query(), 10, 0, QueryManager::TYPE_RAW_SOURCE);
     }
 }
