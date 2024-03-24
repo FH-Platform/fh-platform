@@ -46,7 +46,7 @@ class ManagerAdapter implements ManagerAdapterInterface
         ];
     }
 
-    public function documentsUpdate(Index $index, mixed $documents): mixed
+    public function documentsUpdate(Index $index, mixed $documents): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -69,15 +69,13 @@ class ManagerAdapter implements ManagerAdapterInterface
                 'body' => $documentJson."\n",
             ]
         );
-
-        return $response;
     }
 
-    public function indexRefresh(Index $index): mixed
+    public function indexRefresh(Index $index): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        return $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
+        $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
     }
 
     public function indexDelete(Index $index): void
@@ -91,14 +89,12 @@ class ManagerAdapter implements ManagerAdapterInterface
         }
     }
 
-    public function indexCreate(Index $index): mixed
+    public function indexCreate(Index $index): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         // TODO mapping
-        $response = $client->request('PUT', '/'.$index->getNameWithPrefix());
-
-        return $response;
+        $client->request('PUT', '/'.$index->getNameWithPrefix());
     }
 
     public function indexesDeleteAllInConnection(Connection $connection): void
@@ -117,7 +113,7 @@ class ManagerAdapter implements ManagerAdapterInterface
         dd($response->getBody()->getContents());
     }
 
-    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed
+    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 

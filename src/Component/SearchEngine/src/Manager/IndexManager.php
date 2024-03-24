@@ -17,16 +17,16 @@ class IndexManager
         $this->provider->indexDelete($index);
     }
 
-    public function createIndex(Index $index): mixed
+    public function createIndex(Index $index): void
     {
-        return $this->provider->indexCreate($index);
+        $this->provider->indexCreate($index);
     }
 
-    public function recreateIndex(Index $index): mixed
+    public function recreateIndex(Index $index): void
     {
         $this->provider->indexDelete($index);
 
-        return $this->provider->indexCreate($index);
+        $this->provider->indexCreate($index);
     }
 
     public function getAllIndexesInConnection(Connection $connection): array

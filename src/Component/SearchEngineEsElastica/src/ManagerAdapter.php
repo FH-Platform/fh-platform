@@ -19,7 +19,7 @@ class ManagerAdapter implements ManagerAdapterInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentsUpdate(Index $index, mixed $documents): mixed
+    public function documentsUpdate(Index $index, mixed $documents): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -47,15 +47,13 @@ class ManagerAdapter implements ManagerAdapterInterface
         if (count($documentsElasticaDelete) > 0) {
             $client->deleteDocuments($documentsElasticaDelete);
         }
-
-        return null;
     }
 
-    public function indexRefresh(Index $index): mixed
+    public function indexRefresh(Index $index): void
     {
         $index = $this->getIndex($index);
 
-        return $index->refresh();
+        $index->refresh();
     }
 
     public function indexDelete(Index $index): void
@@ -67,7 +65,7 @@ class ManagerAdapter implements ManagerAdapterInterface
         }
     }
 
-    public function indexCreate(Index $index): \Elastica\Index
+    public function indexCreate(Index $index): void
     {
         $index = $this->getIndex($index);
 
@@ -79,8 +77,6 @@ class ManagerAdapter implements ManagerAdapterInterface
             $mappingObject->setProperties($mapping);
             $mappingObject->send($index);*/
         }
-
-        return $index;
     }
 
     public function indexesDeleteAllInConnection(Connection $connection): void
@@ -108,7 +104,7 @@ class ManagerAdapter implements ManagerAdapterInterface
         return $indicesFiltered;
     }
 
-    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed
+    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 

@@ -12,10 +12,10 @@ class DataManager
     }
 
     /** @param Document[] $documents */
-    public function syncDocuments(array $documents): array
+    public function syncDocuments(array $documents): void
     {
         if (0 === count($documents)) {
-            return [];
+            return;
         }
 
         // group indexes and documents by connection and index
@@ -29,16 +29,13 @@ class DataManager
                 // do the upsert/delete for each index on connection
 
                 if (count($data['documents']) > 0) {
-                    $responses[] = $this->provider->documentsUpdate($index, $data['documents']);
+                    $this->provider->documentsUpdate($index, $data['documents']);
                 }
 
                 // refresh index
                 $this->provider->indexRefresh($index);
             }
         }
-
-        // return array of responses
-        return $responses;
     }
 
     /** @param Document[] $documents */

@@ -9,17 +9,17 @@ use FHPlatform\Component\Config\DTO\Index;
 interface ManagerAdapterInterface
 {
     /** @param Document[] $documents */
-    public function documentsUpdate(Index $index, mixed $documents): mixed;
+    public function documentsUpdate(Index $index, mixed $documents): void;
 
-    public function indexRefresh(Index $index): mixed;
+    public function indexRefresh(Index $index): void;
 
     public function indexDelete(Index $index): void;
 
-    public function indexCreate(Index $index): mixed;
+    public function indexCreate(Index $index): void;
 
     public function indexesDeleteAllInConnection(Connection $connection): void;
 
     public function indexesGetAllInConnection(Connection $connection): array;
 
-    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): mixed;
+    public function searchResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array;
 }
