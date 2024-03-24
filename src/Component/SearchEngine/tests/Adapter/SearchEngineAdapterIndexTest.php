@@ -9,6 +9,7 @@ use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
+use GuzzleHttp\Client;
 
 class SearchEngineAdapterIndexTest extends TestCase
 {
@@ -66,10 +67,49 @@ class SearchEngineAdapterIndexTest extends TestCase
         $this->assertEquals(0, count($this->getResults($indexUser)));
         $adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
+
+        // test get and delete by prefix
+        $indexUser2 = new Index($connection, '', 'user2', 'prefix2_user2', [], [], []);
+        $this->deleteIndex($indexUser2);
+        $this->assertEquals(false, $this->getAllIndexNames()['prefix2_user2'] ?? false);
+        $adapter->indexCreate($indexUser2);
+        $this->assertEquals(true, $this->getAllIndexNames()['prefix2_user2'] ?? false);
+        $this->assertEquals(true, $this->getAllIndexNames()['prefix_user'] ?? false);
+
+        $this->assertEquals([
+            'prefix_user',
+        ], $adapter->indexesGetAllInConnection($connection));
+
+        $adapter->indexesDeleteAllInConnection($connection);
+        $this->assertEquals(true, $this->getAllIndexNames()['prefix2_user2'] ?? false);
+        $this->assertEquals(false, $this->getAllIndexNames()['prefix_user'] ?? false);
     }
 
     private function getResults(Index $index): array
     {
         return $this->queryClient->getResults($index, new Query())['hits']['hits'];
+    }
+
+    private function getAllIndexNames(): array
+    {
+        $client = new Client(['base_uri' => 'http://elasticsearch:9200']);
+        $response = $client->request('GET', '/_aliases');
+        $indexes = json_decode($response->getBody()->getContents(), true);
+
+        $indexesFiltered = [];
+        foreach ($indexes as $name => $conf) {
+            $indexesFiltered[$name] = $name;
+        }
+
+        return $indexesFiltered;
+    }
+
+    private function deleteIndex(Index $index)
+    {
+        try {
+            $client = new Client(['base_uri' => 'http://elasticsearch:9200']);
+            $client->request('DELETE', '/'.$index->getNameWithPrefix());
+        } catch (\Throwable $throwable) {
+        }
     }
 }
