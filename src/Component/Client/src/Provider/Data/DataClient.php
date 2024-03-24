@@ -12,25 +12,25 @@ class DataClient
     ) {
     }
 
-    /** @param Document[] $entities */
-    public function syncDocuments(array $entities): array
+    /** @param Document[] $documents */
+    public function syncDocuments(array $documents): array
     {
-        if (0 === count($entities)) {
+        if (0 === count($documents)) {
             return [];
         }
 
-        // group indexes and entities by connection and index
-        $entitiesGrouped = $this->groupEntities($entities);
+        // group indexes and documents by connection and index
+        $documentsGrouped = $this->groupDocuments($documents);
 
         $responses = [];
-        foreach ($entitiesGrouped as $connectionName => $indexes) {
-            foreach ($indexes as $indexName => $documents) {
-                $index = $documents['index'];
+        foreach ($documentsGrouped as $connectionName => $indexes) {
+            foreach ($indexes as $indexName => $data) {
+                $index = $data['index'];
 
                 // do the upsert/delete for each index on connection
 
-                if (count($documents['documents']) > 0) {
-                    $responses[] = $this->provider->documentsUpdate($index, $documents['documents']);
+                if (count($data['documents']) > 0) {
+                    $responses[] = $this->provider->documentsUpdate($index, $data['documents']);
                 }
 
                 // refresh index
@@ -42,21 +42,21 @@ class DataClient
         return $responses;
     }
 
-    /** @param Document[] $entities */
-    private function groupEntities(array $entities): array
+    /** @param Document[] $documents */
+    private function groupDocuments(array $documents): array
     {
-        $entitiesGrouped = [];
+        $documentsGrouped = [];
 
-        foreach ($entities as $entity) {
-            $index = $entity->getIndex();
+        foreach ($documents as $document) {
+            $index = $document->getIndex();
 
             $connectionName = $index->getConnection()->getName();
             $indexNameWithPrefix = $index->getNameWithPrefix();
 
-            $entitiesGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-            $entitiesGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $this->provider->documentPrepare($entity);
+            $documentsGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
+            $documentsGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $this->provider->documentPrepare($document);
         }
 
-        return $entitiesGrouped;
+        return $documentsGrouped;
     }
 }
