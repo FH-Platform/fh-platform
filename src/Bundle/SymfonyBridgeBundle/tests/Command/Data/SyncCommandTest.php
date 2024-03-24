@@ -6,10 +6,10 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity\User;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
-use FHPlatform\Component\Client\Provider\Index\IndexClient;
-use FHPlatform\Component\Client\Provider\Query\QueryClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
+use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
 
 class SyncCommandTest extends TestCase
 {

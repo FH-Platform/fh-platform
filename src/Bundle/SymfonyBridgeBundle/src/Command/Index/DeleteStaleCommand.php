@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Command\Index;
 
-use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

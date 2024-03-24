@@ -6,10 +6,10 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\Test2ProviderEntity;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\TestProviderEntity;
-use FHPlatform\Component\Client\Provider\Index\IndexClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
 
 class IndexCommandsTest extends TestCase
 {

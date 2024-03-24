@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\Persistence\Message\MessageHandler;
 
-use FHPlatform\Component\Client\Provider\Data\DataClient;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
@@ -10,6 +9,7 @@ use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
 
 class EntitiesChangedMessageHandler
 {

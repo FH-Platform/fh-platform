@@ -5,12 +5,6 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
 use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher;
-use FHPlatform\Component\Client\Provider\Data\DataClient;
-use FHPlatform\Component\Client\Provider\Index\IndexClient;
-use FHPlatform\Component\Client\Provider\ProviderInterface;
-use FHPlatform\Component\Client\Provider\Query\QueryClient;
-use FHPlatform\Component\ClientElastica\ElasticaProvider;
-use FHPlatform\Component\ClientRaw\RawProvider;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
@@ -33,6 +27,12 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
+use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
+use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
+use FHPlatform\Component\SearchEngine\Provider\SearchEngineInterface;
+use FHPlatform\Component\SearchEngineElastica\ElasticaSearchEngine;
+use FHPlatform\Component\SearchEngineRaw\RawSearchEngine;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -80,7 +80,7 @@ class Builder
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
-        $container->addAliases([ProviderInterface::class => $clientImplementation]);
+        $container->addAliases([SearchEngineInterface::class => $clientImplementation]);
 
         $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
@@ -165,13 +165,13 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
-        $container->register(RawProvider::class)->setAutowired(true);
-        $container->register(ElasticaProvider::class)->setAutowired(true);
+        $container->register(RawSearchEngine::class)->setAutowired(true);
+        $container->register(ElasticaSearchEngine::class)->setAutowired(true);
 
         if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
             return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
         }
 
-        return ElasticaProvider::class;
+        return ElasticaSearchEngine::class;
     }
 }
