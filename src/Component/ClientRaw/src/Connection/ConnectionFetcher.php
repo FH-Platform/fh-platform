@@ -10,8 +10,6 @@ class ConnectionFetcher
 {
     public function fetchByConnection(Connection $connection): Client
     {
-        // dd($connection->getConfigClient());
-
         return new Client([
             'base_uri' => 'http://elasticsearch:9200',  // TODO
             // 'port' => 9200,

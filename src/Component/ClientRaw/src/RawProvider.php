@@ -68,7 +68,6 @@ class RawProvider implements ProviderInterface
             ]
         );
 
-        // dd($response->getBody()->getContents());
         return $response;
     }
 
