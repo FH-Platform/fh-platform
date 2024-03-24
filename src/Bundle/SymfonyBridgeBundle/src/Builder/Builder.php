@@ -165,6 +165,7 @@ class Builder
     {
         $container->register(\FHPlatform\Component\SearchEngineEsElastica\SearchEngineAdapter::class)->setAutowired(true);
         $container->register(\FHPlatform\Component\SearchEngineEsGuzzle\SearchEngineAdapter::class)->setAutowired(true);
+        $container->register(\FHPlatform\Component\SearchEngineMeilisearch\SearchEngineAdapter::class)->setAutowired(true);
 
         if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
             return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];

@@ -28,7 +28,15 @@ services:
             - ./:/app
         ports:
             - "33308:3306"
-
+    meilisearch:
+        container_name: fh_platform_meilisearch
+        build: ./.docker/meilisearch
+        ports:
+            - 7700:7700
+        volumes:
+            - 'fh_platform_meilisearch-data:/usr/share/meilisearch/data'
+        environment:
+            - MEILI_MASTER_KEY=root
     elasticsearch:
         container_name: fh_platform_elasticsearch
         build: ./.docker/elasticsearch
@@ -80,6 +88,7 @@ services:
 volumes:
     fh_platform_es-data:
     fh_platform_es-data2:
+    fh_platform_meilisearch-data:
     db-data-fh_platform:
 
 

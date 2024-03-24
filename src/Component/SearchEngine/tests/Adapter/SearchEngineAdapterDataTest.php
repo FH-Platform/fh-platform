@@ -14,16 +14,8 @@ use FHPlatform\Component\SearchEngine\Tests\Util\Entity\User;
 
 class SearchEngineAdapterDataTest extends TestCase
 {
-    protected bool $testingAdapter = false;
-
     public function testSomething(): void
     {
-        if (false === $this->testingAdapter) {
-            $this->assertEquals(1, 1);
-
-            return;
-        }
-
         /** @var SearchEngineAdapter $adapter */
         $adapter = $this->container->get(SearchEngineAdapter::class);
 
