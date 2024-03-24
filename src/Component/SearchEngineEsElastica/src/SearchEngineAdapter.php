@@ -7,10 +7,10 @@ use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Manager\ManagerAdapterInterface;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngineEsElastica\Connection\ConnectionFetcher;
 
-class ManagerAdapter implements ManagerAdapterInterface
+class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter
 {
     private ConnectionFetcher $connectionFetcher;
 
@@ -31,7 +31,7 @@ class ManagerAdapter implements ManagerAdapterInterface
             $documentElastica = new \Elastica\Document($document->getIdentifier(), $document->getData(), $indexElastica);
 
             /** @var Document $document */
-            if (0 === count($document->getData())) {
+            if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
                 $documentsElasticaDelete[] = $documentElastica;
             } else {
                 $documentElastica->setDocAsUpsert(true);

@@ -27,9 +27,9 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
-use FHPlatform\Component\SearchEngine\Manager\ManagerAdapterInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -78,7 +78,7 @@ class Builder
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
-        $container->addAliases([ManagerAdapterInterface::class => $clientImplementation]);
+        $container->addAliases([SearchEngineAdapter::class => $clientImplementation]);
 
         $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
@@ -163,13 +163,13 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
-        $container->register(\FHPlatform\Component\SearchEngineEsElastica\ManagerAdapter::class)->setAutowired(true);
-        $container->register(\FHPlatform\Component\SearchEngineEsGuzzle\ManagerAdapter::class)->setAutowired(true);
+        $container->register(\FHPlatform\Component\SearchEngineEsElastica\SearchEngineAdapter::class)->setAutowired(true);
+        $container->register(\FHPlatform\Component\SearchEngineEsGuzzle\SearchEngineAdapter::class)->setAutowired(true);
 
         if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
             return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
         }
 
-        return \FHPlatform\Component\SearchEngineEsElastica\ManagerAdapter::class;
+        return \FHPlatform\Component\SearchEngineEsElastica\SearchEngineAdapter::class;
     }
 }

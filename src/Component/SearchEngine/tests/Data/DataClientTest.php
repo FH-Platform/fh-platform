@@ -161,6 +161,6 @@ class DataClientTest extends TestCase
 
     private function getResults(Index $index): array
     {
-        return $this->queryClient->getResultHits($index, new Query())['hits']['hits'];
+        return $this->queryClient->getResults($index, new Query())['hits']['hits'];
     }
 }

@@ -111,6 +111,6 @@ class TestCase extends KernelTestCase
 
     protected function findEsBy($index, $key, $value): array
     {
-        return $this->queryClient->getResultHits($index, (new Query())->setQuery(new Query\MatchQuery($key, $value)))['hits']['hits'];
+        return $this->queryClient->getResults($index, (new Query())->setQuery(new Query\MatchQuery($key, $value)))['hits']['hits'];
     }
 }

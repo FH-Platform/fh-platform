@@ -89,6 +89,26 @@ class PersistenceDoctrine implements PersistenceInterface
         return null;
     }
 
+    public function getEntities(string $className, array $identifiers): array
+    {
+        $identifierName = $this->getIdentifierName($className);
+
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+
+        $queryBuilder
+            ->select('o')
+            ->from($className, 'o');
+
+        $queryBuilder->andWhere('o.'.$identifierName.' IN(:identifiers)')
+            ->setParameter('identifiers', $identifiers);
+
+        if (!empty($identifierValues)) {
+            // TODO sort
+        }
+
+        return $queryBuilder->getQuery()->execute();
+    }
+
     public function getRealClass(string $className): string
     {
         $className = ClassUtils::getRealClass($className);

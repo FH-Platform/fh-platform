@@ -3,11 +3,12 @@
 namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Document;
+use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
 
 class DataManager
 {
     public function __construct(
-        private readonly ManagerAdapterInterface $provider,
+        private readonly SearchEngineAdapter $adapter,
     ) {
     }
 
@@ -29,11 +30,11 @@ class DataManager
                 // do the upsert/delete for each index on connection
 
                 if (count($data['documents']) > 0) {
-                    $this->provider->documentsUpdate($index, $data['documents']);
+                    $this->adapter->documentsUpdate($index, $data['documents']);
                 }
 
                 // refresh index
-                $this->provider->indexRefresh($index);
+                $this->adapter->indexRefresh($index);
             }
         }
     }

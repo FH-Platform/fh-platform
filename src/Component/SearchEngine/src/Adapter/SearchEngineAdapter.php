@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngine\Manager;
+namespace FHPlatform\Component\SearchEngine\Adapter;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 
-interface ManagerAdapterInterface
+interface SearchEngineAdapter
 {
     /** @param Document[] $documents */
     public function documentsUpdate(Index $index, mixed $documents): void;
