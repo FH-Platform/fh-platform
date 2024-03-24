@@ -168,8 +168,10 @@ class Builder
         $container->register(RawProvider::class)->setAutowired(true);
         $container->register(ElasticaProvider::class)->setAutowired(true);
 
-        return ElasticaProvider::class;
+        if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
+            return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
+        }
 
-        return RawProvider::class;
+        return ElasticaProvider::class;
     }
 }
