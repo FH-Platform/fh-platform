@@ -1,14 +1,13 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngine\Provider\Data;
+namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Document;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
 
-class DataClient
+class DataManager
 {
     public function __construct(
-        private readonly SearchEngineAdapterInterface $provider,
+        private readonly ManagerAdapterInterface $provider,
     ) {
     }
 

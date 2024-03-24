@@ -9,13 +9,13 @@ use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
+use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
 class EntitiesChangedMessageHandler
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
-        private readonly DataClient $dataClient,
+        private readonly DataManager $dataClient,
         private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entityRelatedFetcher,

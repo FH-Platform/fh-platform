@@ -6,10 +6,10 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
+use FHPlatform\Component\SearchEngine\Manager\ManagerAdapterInterface;
 use FHPlatform\Component\SearchEngineEsGuzzle\Connection\ConnectionFetcher;
 
-class SearchEngineGuzzleAdapter implements SearchEngineAdapterInterface
+class ManagerAdapter implements ManagerAdapterInterface
 {
     private ConnectionFetcher $connectionFetcher;
 

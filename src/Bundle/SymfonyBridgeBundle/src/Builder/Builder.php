@@ -27,12 +27,10 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
-use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
-use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
-use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
-use FHPlatform\Component\SearchEngineEsElastica\SearchEngineElasticaAdapter;
-use FHPlatform\Component\SearchEngineEsGuzzle\SearchEngineGuzzleAdapter;
+use FHPlatform\Component\SearchEngine\Manager\DataManager;
+use FHPlatform\Component\SearchEngine\Manager\IndexManager;
+use FHPlatform\Component\SearchEngine\Manager\ManagerAdapterInterface;
+use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -80,11 +78,11 @@ class Builder
     {
         // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
 
-        $container->addAliases([SearchEngineAdapterInterface::class => $clientImplementation]);
+        $container->addAliases([ManagerAdapterInterface::class => $clientImplementation]);
 
-        $container->register(IndexClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(QueryClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(DataClient::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     private function buildMessageDispatcher(ContainerBuilder $container): void
@@ -165,13 +163,13 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
-        $container->register(SearchEngineGuzzleAdapter::class)->setAutowired(true);
-        $container->register(SearchEngineElasticaAdapter::class)->setAutowired(true);
+        $container->register(\FHPlatform\Component\SearchEngineEsElastica\ManagerAdapter::class)->setAutowired(true);
+        $container->register(\FHPlatform\Component\SearchEngineEsGuzzle\ManagerAdapter::class)->setAutowired(true);
 
         if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
             return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
         }
 
-        return SearchEngineElasticaAdapter::class;
+        return \FHPlatform\Component\SearchEngineEsElastica\ManagerAdapter::class;
     }
 }

@@ -7,8 +7,8 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
-use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
-use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
+use FHPlatform\Component\SearchEngine\Manager\DataManager;
+use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
 use FHPlatform\Component\SearchEngine\Tests\Util\Entity\Log;
 use FHPlatform\Component\SearchEngine\Tests\Util\Entity\Role;
@@ -26,11 +26,11 @@ class DataClientTest extends TestCase
             return;
         }
 
-        /** @var DataClient $dataClient */
-        $dataClient = $this->container->get(DataClient::class);
+        /** @var DataManager $dataClient */
+        $dataClient = $this->container->get(DataManager::class);
 
-        /** @var IndexClient $indexClientNew */
-        $indexClientNew = $this->container->get(IndexClient::class);
+        /** @var IndexManager $indexClientNew */
+        $indexClientNew = $this->container->get(IndexManager::class);
 
         $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200']]]);
         $connection2 = new Connection('default2', 'prefix2_', ['servers' => [['host' => 'elasticsearch2', 'port' => '9200']]]);

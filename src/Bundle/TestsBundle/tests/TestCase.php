@@ -7,9 +7,9 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Elastica\Query;
 use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
 use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\SearchEngine\Provider\Data\DataClient;
-use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
-use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
+use FHPlatform\Component\SearchEngine\Manager\DataManager;
+use FHPlatform\Component\SearchEngine\Manager\IndexManager;
+use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Container;
@@ -23,9 +23,9 @@ class TestCase extends KernelTestCase
     protected CommandHelper $commandHelper;
     protected EntityManagerInterface $entityManager;
 
-    protected IndexClient $indexClient;
-    protected QueryClient $queryClient;
-    protected DataClient $dataClient;
+    protected IndexManager $indexClient;
+    protected QueryManager $queryClient;
+    protected DataManager $dataClient;
 
     protected function setUp(): void
     {
@@ -59,9 +59,9 @@ class TestCase extends KernelTestCase
 
     protected function prepareServices(): void
     {
-        $this->indexClient = $this->container->get(IndexClient::class);
-        $this->queryClient = $this->container->get(QueryClient::class);
-        $this->dataClient = $this->container->get(DataClient::class);
+        $this->indexClient = $this->container->get(IndexManager::class);
+        $this->queryClient = $this->container->get(QueryManager::class);
+        $this->dataClient = $this->container->get(DataManager::class);
     }
 
     protected function eventsStartListen(string $eventClass): void

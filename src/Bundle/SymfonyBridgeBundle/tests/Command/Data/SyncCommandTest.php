@@ -8,8 +8,8 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Connections\Provi
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
-use FHPlatform\Component\SearchEngine\Provider\Query\QueryClient;
+use FHPlatform\Component\SearchEngine\Manager\IndexManager;
+use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class SyncCommandTest extends TestCase
 {
@@ -29,11 +29,11 @@ class SyncCommandTest extends TestCase
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
         $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
-        /** @var QueryClient $queryClient */
-        $queryClient = $this->container->get(QueryClient::class);
+        /** @var QueryManager $queryClient */
+        $queryClient = $this->container->get(QueryManager::class);
 
-        /** @var IndexClient $indexClient */
-        $indexClient = $this->container->get(IndexClient::class);
+        /** @var IndexManager $indexClient */
+        $indexClient = $this->container->get(IndexManager::class);
 
         $this->prepareUsers();
 

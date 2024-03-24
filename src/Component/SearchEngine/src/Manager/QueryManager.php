@@ -1,14 +1,13 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngine\Provider\Query;
+namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Provider\SearchEngineAdapterInterface;
 
-class QueryClient
+class QueryManager
 {
     public function __construct(
-        private readonly SearchEngineAdapterInterface $provider,
+        private readonly ManagerAdapterInterface $provider,
     ) {
     }
 

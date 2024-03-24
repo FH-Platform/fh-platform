@@ -9,7 +9,7 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\TestProv
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Provider\Index\IndexClient;
+use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 
 class IndexCommandsTest extends TestCase
 {
@@ -26,8 +26,8 @@ class IndexCommandsTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var IndexClient $indexClient */
-        $indexClient = $this->container->get(IndexClient::class);
+        /** @var IndexManager $indexClient */
+        $indexClient = $this->container->get(IndexManager::class);
 
         /** @var ConnectionsBuilder $connectionsFetcher */
         $connectionsFetcher = $this->container->get(ConnectionsBuilder::class);
