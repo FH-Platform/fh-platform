@@ -13,7 +13,7 @@ class DataClient
     }
 
     /** @param Document[] $entities */
-    public function syncEntities(array $entities): array
+    public function syncDocuments(array $entities): array
     {
         if (0 === count($entities)) {
             return [];

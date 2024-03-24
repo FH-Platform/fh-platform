@@ -28,7 +28,7 @@ class EntitiesChangedMessageHandler
         $classNamesIndex = $this->indexBuilder->fetchClassNamesIndex();
         $classNamesRelated = $this->entityRelatedFetcher->fetchClassNamesRelated();
 
-        $entities = [];
+        $documents = [];
 
         $event = $message->getChangedEntitiesEvent();
         foreach ($event->getChangedEntities() as $event) {
@@ -50,7 +50,7 @@ class EntitiesChangedMessageHandler
                     // TODO return if hash exists
 
                     if (ChangedEntityDTO::TYPE_DELETE_PRE !== $type) {
-                        $entities[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
+                        $documents[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
                     } else {
                         // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
                     }
@@ -64,6 +64,6 @@ class EntitiesChangedMessageHandler
         }
 
         // TODO chunk in batch from config in client bundle
-        $this->dataClient->syncEntities($entities);
+        $this->dataClient->syncDocuments($documents);
     }
 }
