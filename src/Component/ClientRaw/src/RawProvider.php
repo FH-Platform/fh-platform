@@ -52,10 +52,12 @@ class RawProvider implements ProviderInterface
 
         $documentJson = '';
         foreach ($documents as $document) {
-            $documentJson .= json_encode($document[0])."\n";
+            $data = $this->documentPrepare($document);
 
-            if (isset($document[1])) {
-                $documentJson .= json_encode($document[1])."\n";
+            $documentJson .= json_encode($data[0])."\n";
+
+            if (isset($data[1])) {
+                $documentJson .= json_encode($data[1])."\n";
             }
         }
         $documentJson .= "\n";

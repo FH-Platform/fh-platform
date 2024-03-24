@@ -8,8 +8,7 @@ use FHPlatform\Component\Config\DTO\Index;
 
 interface ProviderInterface
 {
-    public function documentPrepare(Document $document): mixed;
-
+    /** @param Document[] $documents */
     public function documentsUpdate(Index $index, mixed $documents): mixed;
 
     public function indexRefresh(Index $index): mixed;

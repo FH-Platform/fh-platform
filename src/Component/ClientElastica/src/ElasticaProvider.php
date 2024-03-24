@@ -20,35 +20,33 @@ class ElasticaProvider implements ProviderInterface
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function documentPrepare(Document $document): \Elastica\Document
-    {
-        $index = $this->getIndex($document->getIndex());
-
-        $document = new \Elastica\Document($document->getIdentifier(), $document->getData(), $index);
-        $document->setDocAsUpsert(true);
-
-        return $document;
-    }
-
     public function documentsUpdate(Index $index, mixed $documents): mixed
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $documentsDelete = [];
-        foreach ($documents as $k => $document) {
+        $documentsElasticaUpsert = [];
+        $documentsElasticaDelete = [];
+        $indexElastica = $this->getIndex($index);
+
+        foreach ($documents as $document) {
+            $documentElastica = new \Elastica\Document($document->getIdentifier(), $document->getData(), $indexElastica);
+
             /** @var Document $document */
             if (0 === count($document->getData())) {
-                $documentsDelete[] = $document;
-                unset($documents[$k]);
+                $documentsElasticaDelete[] = $documentElastica;
+            } else {
+                $documentElastica->setDocAsUpsert(true);
+
+                $documentsElasticaUpsert[] = $documentElastica;
             }
         }
 
-        if (count($documentsDelete) > 0) {
-            $client->deleteDocuments($documentsDelete);
+        if (count($documentsElasticaUpsert)) {
+            $client->updateDocuments($documentsElasticaUpsert);
         }
 
-        if (count($documents)) {
-            $client->updateDocuments($documents);
+        if (count($documentsElasticaDelete) > 0) {
+            $client->deleteDocuments($documentsElasticaDelete);
         }
 
         return null;

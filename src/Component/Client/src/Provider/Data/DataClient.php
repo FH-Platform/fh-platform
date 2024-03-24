@@ -54,7 +54,7 @@ class DataClient
             $indexNameWithPrefix = $index->getNameWithPrefix();
 
             $documentsGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-            $documentsGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $this->provider->documentPrepare($document);
+            $documentsGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $document;
         }
 
         return $documentsGrouped;
