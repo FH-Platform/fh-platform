@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\SearchEngine\Tests\Adapter;
 
-use Elastica\Query;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
@@ -87,7 +86,7 @@ class SearchEngineAdapterIndexTest extends TestCase
 
     private function getResults(Index $index): array
     {
-        return $this->queryClient->getResults($index, new Query())['hits']['hits'];
+        return $this->queryClient->getResults($index)['hits']['hits'];
     }
 
     private function getAllIndexNames(): array

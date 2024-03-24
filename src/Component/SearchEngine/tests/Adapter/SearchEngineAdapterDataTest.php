@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\SearchEngine\Tests\Adapter;
 
-use Elastica\Query;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
@@ -132,6 +131,6 @@ class SearchEngineAdapterDataTest extends TestCase
 
     private function getResults(Index $index): array
     {
-        return $this->queryClient->getResults($index, new Query(), 10, 0, QueryManager::TYPE_RAW_SOURCE);
+        return $this->queryClient->getResults($index, null, 10, 0, QueryManager::TYPE_RAW_SOURCE);
     }
 }
