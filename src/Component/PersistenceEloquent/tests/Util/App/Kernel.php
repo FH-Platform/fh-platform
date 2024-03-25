@@ -2,12 +2,10 @@
 
 namespace FHPlatform\Component\PersistenceEloquent\Tests\Util\App;
 
-use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use WouterJ\EloquentBundle\WouterJEloquentBundle;
 
 class Kernel extends BaseKernel
 {
@@ -16,7 +14,6 @@ class Kernel extends BaseKernel
         return [
             new FrameworkBundle(),
 
-            new WouterJEloquentBundle(),
             new SymfonyBridgeBundle(),
         ];
     }

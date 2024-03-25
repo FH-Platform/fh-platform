@@ -27,7 +27,6 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
-use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceEloquent;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
@@ -79,7 +78,7 @@ class Builder
         $container->addAliases([PersistenceInterface::class => $persistence]);
         $container->register($persistence)->setAutowired(true);
 
-        if($persistence instanceof PersistenceDoctrine){
+        if (PersistenceDoctrine::class === $persistence) {
             $container->register(DoctrineListener::class)
                 ->setAutowired(true)
                 ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority

@@ -31,8 +31,7 @@
         "symfony/runtime": "7.*",
         "symfony/flex": "2.*",
         "symfony/dotenv": "7.*",
-        "doctrine/doctrine-migrations-bundle": "3.*",
-        "wouterj/eloquent-bundle": "2.*"
+        "illuminate/database": "11.*"
     },
     "autoload": {
         "psr-4": {

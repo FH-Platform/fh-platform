@@ -3,7 +3,6 @@
 namespace FHPlatform\Component\PersistenceDoctrine\Tests\Helper;
 
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
-use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceEloquent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\UserUuid;

@@ -7,7 +7,6 @@ use FHPlatform\Component\PersistenceEloquent\Tests\TestCase;
 use FHPlatform\Component\PersistenceEloquent\Tests\Util\Entity\User;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class PersistenceEloquentTest extends TestCase
 {
@@ -19,7 +18,7 @@ class PersistenceEloquentTest extends TestCase
         $capsule = new Manager();
         $capsule->addConnection([
             'driver' => 'sqlite',
-            'database' => ':memory:'
+            'database' => ':memory:',
         ]);
         $capsule->bootEloquent();
         $capsule->setAsGlobal();
@@ -41,10 +40,10 @@ class PersistenceEloquentTest extends TestCase
         $this->assertEquals($user->id, $persistence->refreshByClassNameId($user::class, 1)->id);
         $this->assertEquals([1, 2], $persistence->getAllIds($user::class, 1));
 
-        $entities = $persistence->getEntities(User::class, [1,2]);
+        $entities = $persistence->getEntities(User::class, [1, 2]);
 
         $ids = [];
-        foreach ($entities as $entity){
+        foreach ($entities as $entity) {
             $ids[] = $entity->id;
         }
 

@@ -9,32 +9,32 @@ class PersistenceEloquent implements PersistenceInterface
 {
     public function getIdentifierName(mixed $entity): ?string
     {
-        if(is_string($entity)){
-            $entity = new $entity;
+        if (is_string($entity)) {
+            $entity = new $entity();
         }
 
-        /** @var  Model $entity */
+        /* @var  Model $entity */
         return $entity->getKeyName();
     }
 
     public function getIdentifierValue(mixed $entity): mixed
     {
-        /** @var  Model $entity */
+        /* @var  Model $entity */
         return $entity->{$this->getIdentifierName($entity)};
     }
 
     public function refreshByClassNameId(string $className, mixed $identifierValue): mixed
     {
-        return (new $className)->find($identifierValue);
+        return (new $className())->find($identifierValue);
     }
 
     public function getEntities(string $className, array $identifiers): array
     {
-        //TODO sort
-        $results = (new $className)->whereIn($this->getIdentifierName($className), $identifiers)->get();
+        // TODO sort
+        $results = (new $className())->whereIn($this->getIdentifierName($className), $identifiers)->get();
 
         $resultsArray = [];
-        foreach ($results as $result){
+        foreach ($results as $result) {
             $resultsArray[] = $result;
         }
 
@@ -48,11 +48,11 @@ class PersistenceEloquent implements PersistenceInterface
 
     public function getAllIds(string $className): array
     {
-        //TODO batch
-        $entities = (new $className)->all();
+        // TODO batch
+        $entities = (new $className())->all();
 
         $identifiers = [];
-        foreach ($entities as $entity){
+        foreach ($entities as $entity) {
             $identifiers[] = $entity->{$this->getIdentifierName($entity)};
         }
 

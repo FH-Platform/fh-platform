@@ -7,7 +7,6 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use WouterJ\EloquentBundle\WouterJEloquentBundle;
 
 class Kernel extends BaseKernel
 {

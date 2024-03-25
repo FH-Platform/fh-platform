@@ -5,6 +5,7 @@ packages=(
   "Component/SearchEngineMs"
   "Component/Persistence"
   "Component/PersistenceDoctrine"
+  "Component/PersistenceEloquent"
   "Bundle/SymfonyBridgeBundle"
 )
 

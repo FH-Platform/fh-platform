@@ -2,12 +2,6 @@ framework:
     secret: "test"
     test: ~
 
-
-wouterj_eloquent:
-    connections:
-        default:
-            database:  ':memory:'
-
 services:
     _defaults:
         public: true
@@ -20,3 +14,4 @@ services:
 
     FHPlatform\Component\PersistenceEloquent\Tests\:
         resource: '../../*/Util'
+
