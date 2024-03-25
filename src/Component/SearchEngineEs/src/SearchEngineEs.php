@@ -146,7 +146,6 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         $search->addIndex($index);
 
         if ($query) {
-
             $search->setQuery($query);
         }
 
