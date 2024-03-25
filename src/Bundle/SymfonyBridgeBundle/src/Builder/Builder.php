@@ -19,6 +19,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Filter\Converter\ApplicatorInterface;
 use FHPlatform\Component\Filter\Converter\FilterInterface;
 use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
@@ -195,10 +196,12 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
+        $container->registerForAutoconfiguration(ApplicatorInterface::class)->addTag('fh_platform.filter.applicator');
         $container->registerForAutoconfiguration(FilterInterface::class)->addTag('fh_platform.filter.filter');
 
         $container->register(FilterQuery::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true)
             ->setArguments([
+                '$applicatorConverters' => new TaggedIteratorArgument('fh_platform.filter.applicator'),
                 '$filterConverters' => new TaggedIteratorArgument('fh_platform.filter.filter'),
             ]);
     }

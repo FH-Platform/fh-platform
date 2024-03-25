@@ -35,3 +35,5 @@ services:
     FHPlatform\Component\Filter\Converter\Filter\:
         resource: '../../../src/Converter/Filter/'
 
+    FHPlatform\Component\Filter\Converter\Applicator\:
+        resource: '../../../src/Converter/Applicator/'
