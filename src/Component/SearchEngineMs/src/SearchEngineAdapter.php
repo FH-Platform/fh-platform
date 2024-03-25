@@ -18,7 +18,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function dataUpdate(Index $index, mixed $documents): void
+    public function dataUpdate(Index $index, mixed $documents, bool $asyc = false): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 

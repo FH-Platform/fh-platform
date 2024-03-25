@@ -35,7 +35,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
             ];
         }
 
-        $data = ['doc' => $document->getData(), 'doc_as_upsert' => true];
+        $data = ['doc' => array_merge(['id' => $document->getIdentifier()], $document->getData()), 'doc_as_upsert' => true];
 
         return [
             [
@@ -48,7 +48,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         ];
     }
 
-    public function dataUpdate(Index $index, mixed $documents): void
+    public function dataUpdate(Index $index, mixed $documents, bool $asyc = false): void
     {
         $client = new Client([
             'base_uri' => 'http://elasticsearch:9200',  // TODO
@@ -72,8 +72,12 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
         $documentJson .= "\n";
 
-        // TODO mapping
-        $response = $client->request('POST', '/_bulk',
+        $url = '/_bulk';
+        if($asyc){
+            $url .= '?refresh=wait_for';
+        }
+
+        $response = $client->request('POST', $url,
             [
                 'headers' => ['Content-type' => 'application/json'],
                 'body' => $documentJson . "\n",
