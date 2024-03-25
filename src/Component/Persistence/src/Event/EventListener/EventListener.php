@@ -13,7 +13,7 @@ class EventListener
     ) {
     }
 
-    public function onChangedEntities(ChangedEntitiesEvent $event): void
+    public function handle(ChangedEntitiesEvent $event): void
     {
         $this->dispatcher->dispatch(new EntitiesChangedMessage($event));
     }

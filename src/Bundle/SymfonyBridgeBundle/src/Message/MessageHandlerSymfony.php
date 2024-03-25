@@ -9,8 +9,7 @@ class MessageHandlerSymfony
 {
     public function __construct(
         private readonly MessageHandler $messageHandler,
-    )
-    {
+    ) {
     }
 
     public function __invoke(EntitiesChangedMessage $message): void

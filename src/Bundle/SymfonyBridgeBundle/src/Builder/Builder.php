@@ -4,6 +4,7 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventListenerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageHandlerSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
@@ -47,7 +48,6 @@ class Builder implements BuilderInterface
         $this->buildSearchEngine();
         $this->buildPersistence();
         $this->buildMessageDispatcher();
-
 
         $this->buildEventDispatcher($container);
         $this->buildComponentConfig($container);
@@ -107,17 +107,17 @@ class Builder implements BuilderInterface
         }
 
         // TODO
-        if($messageDispatcher === MessageDispatcherSymfony::class){
+        if (MessageDispatcherSymfony::class === $messageDispatcher) {
             $container->register(MessageHandlerSymfony::class)
                 ->setAutoconfigured(true)
                 ->setAutowired(true)
                 ->addTag('messenger.message_handler');
         }
 
-        //register message handler
+        // register message handler
         $container->register(MessageHandler::class)->setAutowired(true);
 
-        //register message dispatcher
+        // register message dispatcher
         $container->register($messageDispatcher)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => $messageDispatcher]);
     }
@@ -126,18 +126,24 @@ class Builder implements BuilderInterface
     {
         // define event dispatcher (Symfony events, laravel events, ...)
 
-        $container->register(EventListener::class)
-            ->setAutoconfigured(true)
-            ->setAutowired(true);
+        if (1 === 1) {
+            // TODO
+            $container->register(EventListenerSymfony::class)->addTag('kernel.event_listener', [
+                'event' => ChangedEntitiesEvent::class,
+                'method' => 'handle',
+            ])->setAutoconfigured(true)
+                ->setAutowired(true);
+        }
 
-        // TODO
-        $container->registerForAutoconfiguration(EventListener::class)->addTag('kernel.event_listener', [
-            'event' => ChangedEntitiesEvent::class,
-            'method' => 'onChangedEntities',
-        ]);
-        $container->register(EventHelper::class)->setAutowired(true);
+        // register event listener
+        $container->register(EventListener::class)->setAutowired(true);
+
+        // register event dispatcher
         $container->register(EventDispatcherSymfony::class)->setAutowired(true);
         $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
+
+        // other
+        $container->register(EventHelper::class)->setAutowired(true);
     }
 
     private function buildComponentConfig(ContainerBuilder $container): void
