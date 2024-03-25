@@ -163,7 +163,7 @@ class Builder
 
     private function buildComponentClientElastica(ContainerBuilder $container): string
     {
-        $container->register(\FHPlatform\Component\SearchEngineEsElastica\SearchEngineAdapter::class)->setAutowired(true);
+        $container->register(\FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class)->setAutowired(true);
         $container->register(\FHPlatform\Component\SearchEngineEsGuzzle\SearchEngineAdapter::class)->setAutowired(true);
         $container->register(\FHPlatform\Component\SearchEngineMs\SearchEngineAdapter::class)->setAutowired(true);
 
@@ -171,6 +171,6 @@ class Builder
             return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
         }
 
-        return \FHPlatform\Component\SearchEngineEsElastica\SearchEngineAdapter::class;
+        return \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
     }
 }

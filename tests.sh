@@ -2,7 +2,7 @@
 
 packages=(
   "Component/SearchEngineEsGuzzle"
-  "Component/SearchEngineEsElastica"
+  "Component/SearchEngineEs"
   "Component/Persistence"
   "Component/PersistenceDoctrine"
   "Bundle/SymfonyBridgeBundle"

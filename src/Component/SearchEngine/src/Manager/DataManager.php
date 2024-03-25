@@ -32,9 +32,6 @@ class DataManager
                 if (count($data['documents']) > 0) {
                     $this->adapter->dataUpdate($index, $data['documents']);
                 }
-
-                // refresh index
-                $this->adapter->indexRefresh($index);
             }
         }
     }

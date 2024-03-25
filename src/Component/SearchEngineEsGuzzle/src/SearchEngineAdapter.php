@@ -76,13 +76,6 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         );
     }
 
-    public function indexRefresh(Index $index): void
-    {
-        $client = $this->connectionFetcher->fetchByIndex($index);
-
-        $response = $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
-    }
-
     public function indexDelete(Index $index): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);

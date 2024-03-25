@@ -36,7 +36,7 @@
     "autoload": {
         "psr-4": {
             "FHPlatform\\Component\\SearchEngine\\": "src/Component/SearchEngine/src/",
-            "FHPlatform\\Component\\SearchEngineEsElastica\\": "src/Component/SearchEngineEsElastica/src/",
+            "FHPlatform\\Component\\SearchEngineEs\\": "src/Component/SearchEngineEs/src/",
             "FHPlatform\\Component\\SearchEngineEsGuzzle\\": "src/Component/SearchEngineEsGuzzle/src/",
             "FHPlatform\\Component\\SearchEngineMs\\": "src/Component/SearchEngineMs/src/",
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
@@ -51,7 +51,7 @@
     "autoload-dev": {
         "psr-4": {
             "FHPlatform\\Component\\SearchEngine\\Tests\\": "src/Component/SearchEngine/tests/",
-            "FHPlatform\\Component\\SearchEngineEsElastica\\Tests\\": "src/Component/SearchEngineEsElastica/tests/",
+            "FHPlatform\\Component\\SearchEngineEs\\Tests\\": "src/Component/SearchEngineEs/tests/",
             "FHPlatform\\Component\\SearchEngineEsGuzzle\\Tests\\": "src/Component/SearchEngineEsGuzzle/tests/",
             "FHPlatform\\Component\\SearchEngineMs\\Tests\\": "src/Component/SearchEngineMs/tests/",
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",

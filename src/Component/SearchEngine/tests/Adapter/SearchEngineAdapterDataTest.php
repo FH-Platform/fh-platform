@@ -76,7 +76,7 @@ class SearchEngineAdapterDataTest extends TestCase
             new Document($indexUser, 1, [], ChangedEntityDTO::TYPE_DELETE),
         ]);
         $this->assertEquals(2, count($this->getResults($indexUser)));
-        $this->assertEquals(['id' => 2,'test2' => 22], $this->getResults($indexUser)[0]);
+        $this->assertEquals(['id' => 2, 'test2' => 22], $this->getResults($indexUser)[0]);
         $this->assertEquals(['id' => 3, 'test3' => 33], $this->getResults($indexUser)[1]);
 
         // delete two

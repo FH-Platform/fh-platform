@@ -35,13 +35,13 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         }
 
         if (count($documentsUpsert)) {
-            $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents', [
+            $client->request('POST', '/indexes/'.$index->getNameWithPrefix().'/documents', [
                 'json' => $documentsUpsert,
             ]);
         }
 
         if (count($documentsDelete) > 0) {
-            $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/delete-batch', [
+            $client->request('POST', '/indexes/'.$index->getNameWithPrefix().'/documents/delete-batch', [
                 'json' => $documentsDelete,
             ]);
         }
@@ -54,7 +54,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         try {
-            $client->request('DELETE', '/indexes/' . $index->getNameWithPrefix());
+            $client->request('DELETE', '/indexes/'.$index->getNameWithPrefix());
         } catch (ClientException $e) {
             // TODO
         }
@@ -69,9 +69,9 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         // TODO mapping
         $client->request('POST', '/indexes', [
             'json' => [
-                "uid" => $index->getNameWithPrefix(),
-                "primaryKey" => "id",
-            ]
+                'uid' => $index->getNameWithPrefix(),
+                'primaryKey' => 'id',
+            ],
         ]);
 
         usleep(100000);
@@ -84,7 +84,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $indexNames = $this->indexesGetAllInConnection($connection);
 
         foreach ($indexNames as $indexName) {
-            $client->request('DELETE', '/indexes/' . $indexName, []);
+            $client->request('DELETE', '/indexes/'.$indexName, []);
         }
 
         usleep(100000);
@@ -102,7 +102,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         foreach ($indexes as $index) {
             $uid = $index['uid'];
             if ($byPrefix) {
-                if(str_starts_with($uid, $connection->getPrefix())){
+                if (str_starts_with($uid, $connection->getPrefix())) {
                     $indexNames[] = $uid;
                 }
             } else {
@@ -117,7 +117,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $results = $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/fetch', [
+        $results = $client->request('POST', '/indexes/'.$index->getNameWithPrefix().'/documents/fetch', [
             'json' => [
                 'limit' => $limit,
                 'offset' => $offset,

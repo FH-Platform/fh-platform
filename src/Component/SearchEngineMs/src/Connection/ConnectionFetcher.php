@@ -18,8 +18,7 @@ class ConnectionFetcher
             ],
         ]);
 
-
-        return  $client;
+        return $client;
     }
 
     public function fetchByIndex(Index $index): Client

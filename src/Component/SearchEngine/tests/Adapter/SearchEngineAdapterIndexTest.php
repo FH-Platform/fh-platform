@@ -9,7 +9,6 @@ use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
-use GuzzleHttp\Client;
 
 class SearchEngineAdapterIndexTest extends TestCase
 {
@@ -64,8 +63,6 @@ class SearchEngineAdapterIndexTest extends TestCase
         $adapter->indexCreate($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
         $adapter->dataUpdate($indexUser, [new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE)]);
-        //$this->assertEquals(0, count($this->getResults($indexUser)));
-        //$adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
 
         // test get and delete by prefix
