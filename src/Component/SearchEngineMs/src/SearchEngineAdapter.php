@@ -46,7 +46,9 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
             ]);
         }
 
-        usleep(100000);
+        if($asyc){
+            usleep(100000);
+        }
     }
 
     public function indexDelete(Index $index): void

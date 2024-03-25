@@ -14,8 +14,6 @@ class SearchEngineAdapterIndexTest extends TestCase
 {
     public function testSomething(): void
     {
-        $this->assertEquals(1, 1);
-        return;
         /** @var SearchEngineAdapter $adapter */
         $adapter = $this->container->get(SearchEngineAdapter::class);
 
@@ -64,7 +62,7 @@ class SearchEngineAdapterIndexTest extends TestCase
         // refresh
         $adapter->indexCreate($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
-        $adapter->dataUpdate($indexUser, [new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE)]);
+        $adapter->dataUpdate($indexUser, [new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE)], true);
         $this->assertEquals(1, count($this->getResults($indexUser)));
 
         // test get and delete by prefix

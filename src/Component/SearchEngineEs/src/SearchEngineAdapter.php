@@ -72,17 +72,16 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
         $documentJson .= "\n";
 
-        $url = '/_bulk';
-        if($asyc){
-            $url .= '?refresh=wait_for';
-        }
-
-        $response = $client->request('POST', $url,
+        $response = $client->request('POST', '/_bulk',
             [
                 'headers' => ['Content-type' => 'application/json'],
                 'body' => $documentJson . "\n",
             ]
         );
+
+        if($asyc){
+            $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
+        }
     }
 
     public function indexDelete(Index $index): void
@@ -123,7 +122,11 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $indicesFiltered = [];
 
         foreach ($indices as $index) {
-            if (str_starts_with($index, $connection->getPrefix())) {
+            if ($byPrefix) {
+                if (str_starts_with($index, $connection->getPrefix())) {
+                    $indicesFiltered[] = $index;
+                }
+            } else {
                 $indicesFiltered[] = $index;
             }
         }
