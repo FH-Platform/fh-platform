@@ -7,6 +7,7 @@ use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
+use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
 use GuzzleHttp\Client;
 
@@ -14,7 +15,6 @@ class SearchEngineAdapterIndexTest extends TestCase
 {
     public function testSomething(): void
     {
-        return;
         /** @var SearchEngineAdapter $adapter */
         $adapter = $this->container->get(SearchEngineAdapter::class);
 
@@ -64,52 +64,30 @@ class SearchEngineAdapterIndexTest extends TestCase
         $adapter->indexCreate($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
         $adapter->dataUpdate($indexUser, [new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE)]);
-        $this->assertEquals(0, count($this->getResults($indexUser)));
-        $adapter->indexRefresh($indexUser);
+        //$this->assertEquals(0, count($this->getResults($indexUser)));
+        //$adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
 
         // test get and delete by prefix
         $indexUser2 = new Index($connection, '', 'user2', 'prefix2_user2', [], [], []);
-        $this->deleteIndex($indexUser2);
-        $this->assertEquals(false, $this->getAllIndexNames()['prefix2_user2'] ?? false);
+        $adapter->indexDelete($indexUser2);
+        $this->assertEquals(false, $adapter->indexesGetAllInConnection($connection, false)['prefix2_user2'] ?? false);
         $adapter->indexCreate($indexUser2);
-        $this->assertEquals(true, $this->getAllIndexNames()['prefix2_user2'] ?? false);
-        $this->assertEquals(true, $this->getAllIndexNames()['prefix_user'] ?? false);
+
+        $this->assertEquals(true, in_array('prefix2_user2', $adapter->indexesGetAllInConnection($connection, false)));
+        $this->assertEquals(true, in_array('prefix_user', $adapter->indexesGetAllInConnection($connection, false)));
 
         $this->assertEquals([
             'prefix_user',
         ], $adapter->indexesGetAllInConnection($connection));
 
         $adapter->indexesDeleteAllInConnection($connection);
-        $this->assertEquals(true, $this->getAllIndexNames()['prefix2_user2'] ?? false);
-        $this->assertEquals(false, $this->getAllIndexNames()['prefix_user'] ?? false);
+        $this->assertEquals(true, in_array('prefix2_user2', $adapter->indexesGetAllInConnection($connection, false)));
+        $this->assertEquals(false, in_array('prefix_user', $adapter->indexesGetAllInConnection($connection, false)));
     }
 
     private function getResults(Index $index): array
     {
-        return $this->queryClient->getResults($index)['hits']['hits'];
-    }
-
-    private function getAllIndexNames(): array
-    {
-        $client = new Client(['base_uri' => 'http://elasticsearch:9200']);
-        $response = $client->request('GET', '/_aliases');
-        $indexes = json_decode($response->getBody()->getContents(), true);
-
-        $indexesFiltered = [];
-        foreach ($indexes as $name => $conf) {
-            $indexesFiltered[$name] = $name;
-        }
-
-        return $indexesFiltered;
-    }
-
-    private function deleteIndex(Index $index)
-    {
-        try {
-            $client = new Client(['base_uri' => 'http://elasticsearch:9200']);
-            $client->request('DELETE', '/'.$index->getNameWithPrefix());
-        } catch (\Throwable $throwable) {
-        }
+        return $this->queryClient->getResults($index, null, 10, 0, QueryManager::TYPE_RAW_SOURCE);
     }
 }

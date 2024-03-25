@@ -54,8 +54,13 @@ class QueryManager
             return $resultsResponse;
         } elseif (self::TYPE_RAW_SOURCE === $type) {
             $resultsResponse = [];
-            foreach ($results['hits']['hits'] as $result) {
+            //TODO
+            /*foreach ($results['hits']['hits'] as $result) {
                 $resultsResponse[] = $result['_source'];
+            }*/
+
+            foreach ($results['results'] as $result) {
+                $resultsResponse[] = $result;
             }
 
             return $resultsResponse;

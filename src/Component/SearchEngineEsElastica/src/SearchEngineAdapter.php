@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineEsElastica;
+namespace FHPlatform\Component\SearchEngineEs;
 
 use Elastica\Request;
 use Elastica\Search;
@@ -8,7 +8,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
-use FHPlatform\Component\SearchEngineEsElastica\Connection\ConnectionFetcher;
+use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 
 class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter
 {
@@ -19,41 +19,62 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
+    public function documentPrepare(Document $document): mixed
+    {
+        $index = $document->getIndex();
+
+        if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
+            return [
+                [
+                    'delete' => [
+                        '_index' => $index->getNameWithPrefix(),
+                        '_id' => $document->getIdentifier(),
+                    ],
+                ],
+            ];
+        }
+
+        $data = ['doc' => $document->getData(), 'doc_as_upsert' => true];
+
+        return [
+            [
+                'update' => [
+                    '_index' => $index->getNameWithPrefix(),
+                    '_id' => $document->getIdentifier(),
+                ],
+            ],
+            $data,
+        ];
+    }
+
     public function dataUpdate(Index $index, mixed $documents): void
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $documentsElasticaUpsert = [];
-        $documentsElasticaDelete = [];
-        $indexElastica = $this->getIndex($index);
-
+        $documentJson = '';
         foreach ($documents as $document) {
-            $documentElastica = new \Elastica\Document($document->getIdentifier(), $document->getData(), $indexElastica);
+            $data = $this->documentPrepare($document);
 
-            /** @var Document $document */
-            if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
-                $documentsElasticaDelete[] = $documentElastica;
-            } else {
-                $documentElastica->setDocAsUpsert(true);
+            $documentJson .= json_encode($data[0])."\n";
 
-                $documentsElasticaUpsert[] = $documentElastica;
+            if (isset($data[1])) {
+                $documentJson .= json_encode($data[1])."\n";
             }
         }
 
-        if (count($documentsElasticaUpsert)) {
-            $client->updateDocuments($documentsElasticaUpsert);
+        if ('' === $documentJson) {
+            return;
         }
 
-        if (count($documentsElasticaDelete) > 0) {
-            $client->deleteDocuments($documentsElasticaDelete);
-        }
-    }
+        $documentJson .= "\n";
 
-    public function indexRefresh(Index $index): void
-    {
-        $index = $this->getIndex($index);
-
-        $index->refresh();
+        // TODO mapping
+        $response = $client->request('POST', '/_bulk',
+            [
+                'headers' => ['Content-type' => 'application/json'],
+                'body' => $documentJson."\n",
+            ]
+        );
     }
 
     public function indexDelete(Index $index): void
@@ -86,7 +107,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $client->request(sprintf('%s*', $connection->getPrefix()), Request::DELETE)->getStatus();
     }
 
-    public function indexesGetAllInConnection(Connection $connection): array
+    public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
     {
         $client = $this->connectionFetcher->fetchByConnection($connection);
 

@@ -30,41 +30,23 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
             if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
                 $documentsDelete[] = $document->getIdentifier();
             } else {
-                $documentsUpsert[] = $document->getData();
+                $documentsUpsert[] = array_merge(['id' => $document->getIdentifier()], $document->getData());
             }
         }
 
         if (count($documentsUpsert)) {
-            $r = $client->request('PUT', '/indexes/' . $index->getNameWithPrefix().'/documents', [
+            $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents', [
                 'json' => $documentsUpsert,
             ]);
-
-            sleep(5);
-
-            $results = $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/fetch', [
-                'json' => [
-                    'limit' => 1000,
-                    'offset' => 0,
-                ],
-            ]);
-
-            dd($results->getBody()->getContents());
         }
 
         if (count($documentsDelete) > 0) {
-            $client->request('POST', '/indexes/' . $index->getNameWithPrefix().'/documents/delete-batch', [
-                'json' => $documentsUpsert,
+            $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/delete-batch', [
+                'json' => $documentsDelete,
             ]);
         }
 
-        sleep(2);
-    }
-
-    public function indexRefresh(Index $index): void
-    {
-        //$client = $this->connectionFetcher->fetchByIndex($index);
-
-        //$response = $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
+        usleep(100000);
     }
 
     public function indexDelete(Index $index): void
@@ -76,6 +58,8 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         } catch (ClientException $e) {
             // TODO
         }
+
+        usleep(100000);
     }
 
     public function indexCreate(Index $index): void
@@ -95,12 +79,38 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
     public function indexesDeleteAllInConnection(Connection $connection): void
     {
+        $client = $this->connectionFetcher->fetchByConnection($connection);
 
+        $indexNames = $this->indexesGetAllInConnection($connection);
+
+        foreach ($indexNames as $indexName) {
+            $client->request('DELETE', '/indexes/' . $indexName, []);
+        }
+
+        usleep(100000);
     }
 
-    public function indexesGetAllInConnection(Connection $connection): array
+    public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
     {
+        $client = $this->connectionFetcher->fetchByConnection($connection);
 
+        $results = $client->request('GET', '/indexes', []);
+
+        $indexes = json_decode($results->getBody()->getContents(), true)['results'];
+
+        $indexNames = [];
+        foreach ($indexes as $index) {
+            $uid = $index['uid'];
+            if ($byPrefix) {
+                if(str_starts_with($uid, $connection->getPrefix())){
+                    $indexNames[] = $uid;
+                }
+            } else {
+                $indexNames[] = $uid;
+            }
+        }
+
+        return $indexNames;
     }
 
     public function queryResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
@@ -109,15 +119,12 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
         $results = $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/fetch', [
             'json' => [
-                //"q" => "american ninja"
                 'limit' => $limit,
                 'offset' => $offset,
             ],
         ]);
 
         $data = json_decode($results->getBody()->getContents(), true);
-
-        dump($data);
 
         return $data;
     }

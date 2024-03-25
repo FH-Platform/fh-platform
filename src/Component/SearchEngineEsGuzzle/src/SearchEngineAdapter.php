@@ -119,7 +119,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $client->request('DELETE', '/'.$connection->getPrefix().'*');
     }
 
-    public function indexesGetAllInConnection(Connection $connection): array
+    public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
     {
         $client = $this->connectionFetcher->fetchByConnection($connection);
 

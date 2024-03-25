@@ -45,7 +45,6 @@ class SearchEngineAdapterDataTest extends TestCase
         $adapter->dataUpdate($indexUser, [
             new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_CREATE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
 
         // insert two
@@ -53,71 +52,62 @@ class SearchEngineAdapterDataTest extends TestCase
             new Document($indexUser, 2, ['test2' => 2], ChangedEntityDTO::TYPE_CREATE),
             new Document($indexUser, 3, ['test3' => 3], ChangedEntityDTO::TYPE_CREATE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(3, count($this->getResults($indexUser)));
 
         // update one
         $adapter->dataUpdate($indexUser, [
             new Document($indexUser, 1, ['test' => 11], ChangedEntityDTO::TYPE_UPDATE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(3, count($this->getResults($indexUser)));
-        $this->assertEquals(['test' => 11], $this->getResults($indexUser)[2]);
+        $this->assertEquals(['id' => 1, 'test' => 11], $this->getResults($indexUser)[0]);
 
         // update two
         $adapter->dataUpdate($indexUser, [
-            new Document($indexUser, 2, ['test2' => 22], ChangedEntityDTO::TYPE_UPDATE),
-            new Document($indexUser, 3, ['test3' => 33], ChangedEntityDTO::TYPE_UPDATE),
+            new Document($indexUser, 2, ['id' => 2, 'test2' => 22], ChangedEntityDTO::TYPE_UPDATE),
+            new Document($indexUser, 3, ['id' => 3, 'test3' => 33], ChangedEntityDTO::TYPE_UPDATE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(3, count($this->getResults($indexUser)));
-        $this->assertEquals(['test' => 11], $this->getResults($indexUser)[0]);
-        $this->assertEquals(['test2' => 22], $this->getResults($indexUser)[1]);
-        $this->assertEquals(['test3' => 33], $this->getResults($indexUser)[2]);
+        $this->assertEquals(['id' => 1, 'test' => 11], $this->getResults($indexUser)[0]);
+        $this->assertEquals(['id' => 2, 'test2' => 22], $this->getResults($indexUser)[1]);
+        $this->assertEquals(['id' => 3, 'test3' => 33], $this->getResults($indexUser)[2]);
 
         // delete one
         $adapter->dataUpdate($indexUser, [
             new Document($indexUser, 1, [], ChangedEntityDTO::TYPE_DELETE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(2, count($this->getResults($indexUser)));
-        $this->assertEquals(['test2' => 22], $this->getResults($indexUser)[0]);
-        $this->assertEquals(['test3' => 33], $this->getResults($indexUser)[1]);
+        $this->assertEquals(['id' => 2,'test2' => 22], $this->getResults($indexUser)[0]);
+        $this->assertEquals(['id' => 3, 'test3' => 33], $this->getResults($indexUser)[1]);
 
         // delete two
         $adapter->dataUpdate($indexUser, [
             new Document($indexUser, 2, [], ChangedEntityDTO::TYPE_DELETE),
             new Document($indexUser, 3, [], ChangedEntityDTO::TYPE_DELETE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
 
         // create with update
         $adapter->dataUpdate($indexUser, [
-            new Document($indexUser, 1, ['test' => 1], ChangedEntityDTO::TYPE_UPDATE),
+            new Document($indexUser, 1, ['id' => 1, 'test' => 1], ChangedEntityDTO::TYPE_UPDATE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
-        $this->assertEquals(['test' => 1], $this->getResults($indexUser)[0]);
+        $this->assertEquals(['id' => 1, 'test' => 1], $this->getResults($indexUser)[0]);
 
         // update with create
         $adapter->dataUpdate($indexUser, [
             new Document($indexUser, 1, ['test' => 11], ChangedEntityDTO::TYPE_CREATE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(1, count($this->getResults($indexUser)));
-        $this->assertEquals(['test' => 11], $this->getResults($indexUser)[0]);
+        $this->assertEquals(['id' => 1, 'test' => 11], $this->getResults($indexUser)[0]);
 
         // delete data not empty
         $adapter->dataUpdate($indexUser, [
-            new Document($indexUser, 1, ['test' => 111], ChangedEntityDTO::TYPE_DELETE),
+            new Document($indexUser, 1, ['id' => 1, 'test' => 111], ChangedEntityDTO::TYPE_DELETE),
         ]);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
 
         // test empty
         $adapter->dataUpdate($indexUser, []);
-        $adapter->indexRefresh($indexUser);
         $this->assertEquals(0, count($this->getResults($indexUser)));
     }
 
