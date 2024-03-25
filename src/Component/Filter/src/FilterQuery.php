@@ -2,6 +2,9 @@
 
 namespace FHPlatform\Component\Filter;
 
+use Elastica\Query\BoolQuery;
+use Elastica\Query\MatchQuery;
+use Elastica\Query\Terms;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
@@ -13,11 +16,25 @@ class FilterQuery
     {
     }
 
-    public function search(Index $index, array $filters = [], $limit = 100, $offset = 0): array
+    public function search(Index $index, array $filters = [], $limit = 100, $offset = 0,  string $type = QueryManager::TYPE_IDENTIFIERS): array
     {
         $results = [];
 
+        $queryFilter = new BoolQuery();
 
-        return $this->queryManager->getResults($index, null, 10, 0, QueryManager::TYPE_IDENTIFIERS);
+        foreach ($filters as $field => $filter){
+            foreach ($filter as $operator => $value){
+                if($operator === 'equals'){
+                    $matchQuery = new MatchQuery();
+                    $matchQuery->setField($field, $value);
+                    $queryFilter->addMust($matchQuery);
+                }elseif($operator === 'in'){
+                    $terms = new Terms($field, $value);
+                    $queryFilter->addMust($terms);
+                }
+            }
+        }
+
+        return $this->queryManager->getResults($index, $queryFilter, 10, 0, $type);
     }
 }
