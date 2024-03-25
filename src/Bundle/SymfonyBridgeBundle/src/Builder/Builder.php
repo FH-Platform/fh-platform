@@ -98,6 +98,13 @@ class Builder implements BuilderInterface
 
     private function buildMessageDispatcher(ContainerBuilder $container): void
     {
+        $container = $this->container;
+
+        $messageDispatcher = MessageDispatcher::class;
+        if (isset($_ENV['FHPLATFORM_MESSAGE_DISPATCHER'])) {
+            $messageDispatcher = $_ENV['FHPLATFORM_MESSAGE_DISPATCHER'];
+        }
+
         // define message dispatcher (Symfony messenger, laravel queues, ...)
 
         // TODO
@@ -106,17 +113,17 @@ class Builder implements BuilderInterface
             ->setAutowired(true)
             ->addTag('messenger.message_handler');
 
-        $container->register(EventListener::class)
-            ->setAutoconfigured(true)
-            ->setAutowired(true);
-
-        $container->register(MessageDispatcher::class)->setAutowired(true);
-        $container->addAliases([MessageDispatcherInterface::class => MessageDispatcher::class]);
+        $container->register($messageDispatcher)->setAutowired(true);
+        $container->addAliases([MessageDispatcherInterface::class => $messageDispatcher]);
     }
 
     private function buildEventDispatcher(ContainerBuilder $container): void
     {
         // define event dispatcher (Symfony events, laravel events, ...)
+
+        $container->register(EventListener::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true);
 
         // TODO
         $container->registerForAutoconfiguration(EventListener::class)->addTag('kernel.event_listener', [
