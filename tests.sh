@@ -1,8 +1,8 @@
 #!/bin/bash
 
 packages=(
-  "Component/SearchEngineEsGuzzle"
   "Component/SearchEngineEs"
+  "Component/SearchEngineMs"
   "Component/Persistence"
   "Component/PersistenceDoctrine"
   "Bundle/SymfonyBridgeBundle"
