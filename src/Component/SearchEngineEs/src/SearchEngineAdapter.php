@@ -48,7 +48,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         ];
     }
 
-    public function dataUpdate(Index $index, mixed $documents, bool $asyc = false): void
+    public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): void
     {
         $client = new Client([
             'base_uri' => 'http://elasticsearch:9200',  // TODO

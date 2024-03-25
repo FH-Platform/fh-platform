@@ -13,7 +13,3 @@ do
   echo $package
   vendor/bin/phpunit --configuration=src/$package --bootstrap=tests/bootstrap.php
 done
-
-
-
-

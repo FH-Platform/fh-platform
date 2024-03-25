@@ -9,7 +9,7 @@ use FHPlatform\Component\Config\DTO\Index;
 interface SearchEngineAdapter
 {
     /** @param Document[] $documents */
-    public function dataUpdate(Index $index, mixed $documents, bool $asyc = false): void;
+    public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): void;
 
     public function indexDelete(Index $index): void;
 
