@@ -4,6 +4,7 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
+use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageHandlerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
@@ -23,7 +24,7 @@ use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterf
 use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
-use FHPlatform\Component\Persistence\Message\MessageHandler\EntitiesChangedMessageHandler;
+use FHPlatform\Component\Persistence\Message\MessageHandler\MessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
@@ -45,10 +46,10 @@ class Builder implements BuilderInterface
 
         $this->buildSearchEngine();
         $this->buildPersistence();
-
         $this->buildMessageDispatcher();
-        $this->buildEventDispatcher($container);
 
+
+        $this->buildEventDispatcher($container);
         $this->buildComponentConfig($container);
     }
 
@@ -105,13 +106,16 @@ class Builder implements BuilderInterface
             $messageDispatcher = $_ENV['FHPLATFORM_MESSAGE_DISPATCHER'];
         }
 
+        $container->register(MessageHandler::class)->setAutowired(true);
+
         // TODO
         if($messageDispatcher === MessageDispatcherSymfony::class){
-            $container->register(EntitiesChangedMessageHandler::class)
+            $container->register(MessageHandlerSymfony::class)
                 ->setAutoconfigured(true)
                 ->setAutowired(true)
                 ->addTag('messenger.message_handler');
         }
+
 
         $container->register($messageDispatcher)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => $messageDispatcher]);

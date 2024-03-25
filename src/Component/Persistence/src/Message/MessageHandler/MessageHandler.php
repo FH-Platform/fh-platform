@@ -11,7 +11,7 @@ use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
-class EntitiesChangedMessageHandler
+class MessageHandler
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
@@ -23,7 +23,7 @@ class EntitiesChangedMessageHandler
     ) {
     }
 
-    public function __invoke(EntitiesChangedMessage $message): void
+    public function handle(EntitiesChangedMessage $message): void
     {
         $classNamesIndex = $this->indexBuilder->fetchClassNamesIndex();
         $classNamesRelated = $this->entityRelatedFetcher->fetchClassNamesRelated();
