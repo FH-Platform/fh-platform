@@ -59,10 +59,10 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         foreach ($documents as $document) {
             $data = $this->documentPrepare($document);
 
-            $documentJson .= json_encode($data[0]) . "\n";
+            $documentJson .= json_encode($data[0])."\n";
 
             if (isset($data[1])) {
-                $documentJson .= json_encode($data[1]) . "\n";
+                $documentJson .= json_encode($data[1])."\n";
             }
         }
 
@@ -75,11 +75,11 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $response = $client->request('POST', '/_bulk',
             [
                 'headers' => ['Content-type' => 'application/json'],
-                'body' => $documentJson . "\n",
+                'body' => $documentJson."\n",
             ]
         );
 
-        if($asyc){
+        if ($asyc) {
             $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
         }
     }
@@ -157,5 +157,16 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         return $client->getIndex($index->getNameWithPrefix());
+    }
+
+    public function convertResultsSource($results): array
+    {
+        $resultsResponse = [];
+
+        foreach ($results['hits']['hits'] as $result) {
+            $resultsResponse[] = $result['_source'];
+        }
+
+        return $resultsResponse;
     }
 }

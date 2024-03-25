@@ -115,9 +115,8 @@ class SearchEngineAdapterDataTest extends TestCase
     {
         $results = $this->queryClient->getResults($index, null, 10, 0, QueryManager::TYPE_RAW_SOURCE);
 
-        usort($results, function ($a, $b)
-        {
-            return strcmp($a["id"], $b["id"]);
+        usort($results, function ($a, $b) {
+            return strcmp($a['id'], $b['id']);
         });
 
         return $results;

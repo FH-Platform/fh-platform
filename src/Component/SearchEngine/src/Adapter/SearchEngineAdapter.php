@@ -20,4 +20,6 @@ interface SearchEngineAdapter
     public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array;
 
     public function queryResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array;
+
+    public function convertResultsSource($results): array;
 }

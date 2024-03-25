@@ -46,7 +46,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
             ]);
         }
 
-        if($asyc){
+        if ($asyc) {
             usleep(100000);
         }
     }
@@ -129,5 +129,16 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $data = json_decode($results->getBody()->getContents(), true);
 
         return $data;
+    }
+
+    public function convertResultsSource($results): array
+    {
+        $resultsResponse = [];
+
+        foreach ($results['results'] as $result) {
+            $resultsResponse[] = $result;
+        }
+
+        return $resultsResponse;
     }
 }
