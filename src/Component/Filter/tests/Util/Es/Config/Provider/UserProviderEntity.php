@@ -17,7 +17,9 @@ class UserProviderEntity extends ProviderEntity
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['id'] = $entity->getId();
-        $data['name_string'] = $entity->getNameString();
+        $data['name_string'] = $entity->getName();
+        $data['number'] = $entity->getNumber();
+        $data['number2'] = $entity->getNumber2();
 
         $role = $entity->getRoles()->first();
         if ($role) {
@@ -30,7 +32,9 @@ class UserProviderEntity extends ProviderEntity
     public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['id'] = ['type' => 'int'];
-        $mapping['name_string'] = ['type' => 'text'];
+        $mapping['name'] = ['type' => 'text'];
+        $mapping['number'] = ['type' => 'int'];
+        $mapping['number2'] = ['type' => 'int'];
         $mapping['role'] = ['type' => 'text'];
 
         return $mapping;

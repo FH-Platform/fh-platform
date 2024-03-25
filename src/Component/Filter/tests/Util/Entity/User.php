@@ -15,10 +15,13 @@ class User
     public ?int $id = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $nameString = '';
+    private ?string $name;
 
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $nameText = '';
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $number;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $number2;
 
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
     private Collection $roles;
@@ -33,24 +36,34 @@ class User
         return $this->id;
     }
 
-    public function getNameString(): ?string
+    public function getName(): ?string
     {
-        return $this->nameString;
+        return $this->name;
     }
 
-    public function setNameString(?string $nameString): void
+    public function setName(?string $name): void
     {
-        $this->nameString = $nameString;
+        $this->name = $name;
     }
 
-    public function getNameText(): ?string
+    public function getNumber(): ?int
     {
-        return $this->nameText;
+        return $this->number;
     }
 
-    public function setNameText(?string $nameText): void
+    public function setNumber(?int $number): void
     {
-        $this->nameText = $nameText;
+        $this->number = $number;
+    }
+
+    public function getNumber2(): ?int
+    {
+        return $this->number2;
+    }
+
+    public function setNumber2(?int $number2): void
+    {
+        $this->number2 = $number2;
     }
 
     public function getRoles(): Collection
