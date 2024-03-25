@@ -41,8 +41,7 @@ class Builder
         $this->buildMessageDispatcher($container);
         $this->buildEventDispatcher($container);
 
-        $clientImplementation = $this->buildComponentClientElastica($container);
-        $this->buildComponentClient($container, $clientImplementation);
+        $this->buildSearchEngine($container);
 
         $persistenceImplementation = $this->buildComponentPersistenceImplementation($container);
         $this->buildComponentPersistence($container, $persistenceImplementation);
@@ -72,17 +71,6 @@ class Builder
         $container->register(PersistenceDoctrine::class)->setAutowired(true);
 
         return PersistenceDoctrine::class;
-    }
-
-    private function buildComponentClient(ContainerBuilder $container, string $clientImplementation): void
-    {
-        // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
-
-        $container->addAliases([SearchEngineAdapter::class => $clientImplementation]);
-
-        $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     private function buildMessageDispatcher(ContainerBuilder $container): void
@@ -161,15 +149,23 @@ class Builder
         ]);
     }
 
-    private function buildComponentClientElastica(ContainerBuilder $container): string
+    private function buildSearchEngine(ContainerBuilder $container): string
     {
-        $container->register(\FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class)->setAutowired(true);
-        $container->register(\FHPlatform\Component\SearchEngineMs\SearchEngineAdapter::class)->setAutowired(true);
-
-        if (isset($_ENV['FHPLATFORM_CLIENT_PROVIDER'])) {
-            return $_ENV['FHPLATFORM_CLIENT_PROVIDER'];
+        $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
+        if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
+            $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
         }
 
-        return \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
+        $container->register($searchEngine)->setAutowired(true);
+
+        // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
+
+        $container->addAliases([SearchEngineAdapter::class => $searchEngine]);
+
+        $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+
+        return $searchEngine;
     }
 }
