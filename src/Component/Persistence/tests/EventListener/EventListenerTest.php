@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\TestsEventListener;
+namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;

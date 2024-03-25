@@ -25,5 +25,3 @@ services:
 
     FHPlatform\Component\Filter\Tests\:
         resource: '../../*/Util'
-
-

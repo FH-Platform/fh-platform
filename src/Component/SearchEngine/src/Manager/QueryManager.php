@@ -8,6 +8,7 @@ use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 
 class QueryManager
 {
+    public const TYPE_IDENTIFIERS = 'ids';
     public const TYPE_RAW = 'raw';
     public const TYPE_RAW_SOURCE = 'raw_source';
     public const TYPE_ENTITIES = 'entities';
@@ -23,7 +24,16 @@ class QueryManager
     {
         $results = $this->adapter->queryResults($index, $query, $limit, $offset);
 
-        if (self::TYPE_ENTITIES === $type) {
+        if (self::TYPE_IDENTIFIERS === $type) {
+            $results = $this->adapter->convertResultsSource($results);
+
+            $identifiers = [];
+            foreach ($results as $result) {
+                $identifiers[] = $result['id'];
+            }
+
+            return $identifiers;
+        }elseif (self::TYPE_ENTITIES === $type) {
             $results = $this->adapter->convertResultsSource($results);
 
             $identifiers = [];

@@ -19,6 +19,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
@@ -49,6 +50,7 @@ class Builder implements BuilderInterface
         $this->buildMessageDispatcher();
         $this->buildEventDispatcher();
         $this->buildConfig();
+        $this->buildFilter();
     }
 
     public function buildSearchEngine(): void
@@ -184,5 +186,12 @@ class Builder implements BuilderInterface
         $container->register(IndexBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
+    }
+
+    public function buildFilter(): void
+    {
+        $container = $this->container;
+
+        $container->register(FilterQuery::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }
