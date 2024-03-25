@@ -101,39 +101,32 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        $messageDispatcher = MessageDispatcherSymfony::class;
-        if (isset($_ENV['FHPLATFORM_MESSAGE_DISPATCHER'])) {
-            $messageDispatcher = $_ENV['FHPLATFORM_MESSAGE_DISPATCHER'];
-        }
-
-        // TODO
-        if (MessageDispatcherSymfony::class === $messageDispatcher) {
-            $container->register(MessageHandlerSymfony::class)
-                ->setAutoconfigured(true)
-                ->setAutowired(true)
-                ->addTag('messenger.message_handler');
-        }
+        //register symfony handler
+        $container->register(MessageHandlerSymfony::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true)
+            ->addTag('messenger.message_handler');
 
         // register message handler
         $container->register(MessageHandler::class)->setAutowired(true);
 
         // register message dispatcher
-        $container->register($messageDispatcher)->setAutowired(true);
-        $container->addAliases([MessageDispatcherInterface::class => $messageDispatcher]);
+        $container->register(MessageDispatcherSymfony::class)->setAutowired(true);
+        $container->addAliases([MessageDispatcherInterface::class => MessageDispatcherSymfony::class]);
     }
 
-    private function buildEventDispatcher(ContainerBuilder $container): void
+    public function buildEventDispatcher(): void
     {
-        // define event dispatcher (Symfony events, laravel events, ...)
+        $container = $this->container;
 
-        if (1 === 1) {
-            // TODO
-            $container->register(EventListenerSymfony::class)->addTag('kernel.event_listener', [
+        //register symfony listener
+        $container->register(EventListenerSymfony::class)
+            ->setAutoconfigured(true)
+            ->setAutowired(true)
+            ->addTag('kernel.event_listener', [
                 'event' => ChangedEntitiesEvent::class,
                 'method' => 'handle',
-            ])->setAutoconfigured(true)
-                ->setAutowired(true);
-        }
+            ]);
 
         // register event listener
         $container->register(EventListener::class)->setAutowired(true);
