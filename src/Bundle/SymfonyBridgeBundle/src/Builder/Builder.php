@@ -55,34 +55,40 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
+        // fetch implementation
         $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineEs::class;
         if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
             $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
         }
 
+        // register search_engine
         $container->register($searchEngine)->setAutowired(true);
-
         $container->addAliases([SearchEngineInterface::class => $searchEngine]);
 
-        $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        // register services
+        $container->register(IndexManager::class)->setAutowired(true)->setPublic(true);
+        $container->register(QueryManager::class)->setAutowired(true)->setPublic(true);
+        $container->register(DataManager::class)->setAutowired(true)->setPublic(true);
     }
 
     public function buildPersistence(): void
     {
         $container = $this->container;
 
+        // fetch implementation
         $persistence = PersistenceDoctrine::class;
         if (isset($_ENV['FHPLATFORM_PERSISTENCE'])) {
             $persistence = $_ENV['FHPLATFORM_PERSISTENCE'];
         }
 
+        // register persistance
+        $container->register($persistence)->setAutowired(true);
+        $container->addAliases([PersistenceInterface::class => $persistence]);
+
+        // register services
         $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
-        $container->addAliases([PersistenceInterface::class => $persistence]);
-        $container->register($persistence)->setAutowired(true);
-
+        // register each implementation
         if (PersistenceDoctrine::class === $persistence) {
             // TODO move to bridge
             $container->register(DoctrineListener::class)
@@ -99,14 +105,13 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        // register symfony handler
+        // register message handler
         $container->register(MessageHandlerSymfony::class)
             ->setAutoconfigured(true)
-            ->setAutowired(true)
-            ->addTag('messenger.message_handler');
-
-        // register message handler
-        $container->register(MessageHandler::class)->setAutowired(true);
+            ->addTag('messenger.message_handler')
+            ->setArguments([
+                '$messageHandler' => $container->register(MessageHandler::class)->setAutowired(true),
+            ]);
 
         // register message dispatcher
         $container->register(MessageDispatcherSymfony::class)->setAutowired(true);
@@ -117,17 +122,16 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        // register symfony listener
+        // register event listener
         $container->register(EventListenerSymfony::class)
             ->setAutoconfigured(true)
-            ->setAutowired(true)
             ->addTag('kernel.event_listener', [
                 'event' => ChangedEntitiesEvent::class,
                 'method' => 'handle',
+            ])
+            ->setArguments([
+                '$eventListener' => $container->register(EventListener::class)->setAutowired(true),
             ]);
-
-        // register event listener
-        $container->register(EventListener::class)->setAutowired(true);
 
         // register event dispatcher
         $container->register(EventDispatcherSymfony::class)->setAutowired(true);
@@ -163,6 +167,7 @@ class Builder implements BuilderInterface
             new TaggedIteratorArgument('fh_platform.config.connection'),
         ]);
 
+        // register services
         $container->register(ConnectionsBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
