@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngineMeilisearch\Connection;
+namespace FHPlatform\Component\SearchEngineMs\Connection;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
