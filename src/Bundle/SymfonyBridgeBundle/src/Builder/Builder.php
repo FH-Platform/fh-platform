@@ -22,7 +22,6 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
-use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Message\MessageHandler\MessageHandler;
@@ -48,9 +47,8 @@ class Builder implements BuilderInterface
         $this->buildSearchEngine();
         $this->buildPersistence();
         $this->buildMessageDispatcher();
-
-        $this->buildEventDispatcher($container);
-        $this->buildComponentConfig($container);
+        $this->buildEventDispatcher();
+        $this->buildConfig();
     }
 
     public function buildSearchEngine(): void
@@ -101,7 +99,7 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        //register symfony handler
+        // register symfony handler
         $container->register(MessageHandlerSymfony::class)
             ->setAutoconfigured(true)
             ->setAutowired(true)
@@ -119,7 +117,7 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        //register symfony listener
+        // register symfony listener
         $container->register(EventListenerSymfony::class)
             ->setAutoconfigured(true)
             ->setAutowired(true)
@@ -136,21 +134,24 @@ class Builder implements BuilderInterface
         $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
     }
 
-    private function buildComponentConfig(ContainerBuilder $container): void
+    public function buildConfig(): void
     {
-        // connection
+        $container = $this->container;
+
+        // add_tag -> connection
         $container->registerForAutoconfiguration(ProviderConnection::class)->addTag('fh_platform.config.connection');
 
-        // provider
+        // add_tag -> provider
         $container->registerForAutoconfiguration(ProviderIndexInterface::class)->addTag('fh_platform.config.provider.index');
         $container->registerForAutoconfiguration(ProviderEntityInterface::class)->addTag('fh_platform.config.provider.entity');
         $container->registerForAutoconfiguration(ProviderEntityRelatedInterface::class)->addTag('fh_platform.config.provider.entity_related');
 
-        // decorator
+        // add_tag -> decorator
         $container->registerForAutoconfiguration(DecoratorIndexInterface::class)->addTag('fh_platform.config.decorator.index');
         $container->registerForAutoconfiguration(DecoratorEntityInterface::class)->addTag('fh_platform.config.decorator.entity');
         $container->registerForAutoconfiguration(DecoratorEntityRelatedInterface::class)->addTag('fh_platform.config.decorator.entity_related');
 
+        // set up ConfigProvider
         $container->register(ConfigProvider::class)->setAutowired(true)->setArguments([
             new TaggedIteratorArgument('fh_platform.config.connection'),
             new TaggedIteratorArgument('fh_platform.config.provider.index'),

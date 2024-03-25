@@ -15,4 +15,7 @@ interface BuilderInterface
 
     // define event dispatcher (Symfony events, laravel events, ...)
     public function buildEventDispatcher(): void;
+
+    // TODO
+    public function buildConfig(): void;
 }
