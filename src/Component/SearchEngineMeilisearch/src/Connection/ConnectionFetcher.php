@@ -10,7 +10,16 @@ class ConnectionFetcher
 {
     public function fetchByConnection(Connection $connection): Client
     {
-        return new Client(['base_uri' => 'http://meilisearch:7700/']);
+        $client = new Client([
+            'base_uri' => 'http://meilisearch:7700/',
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer root',
+            ],
+        ]);
+
+
+        return  $client;
     }
 
     public function fetchByIndex(Index $index): Client

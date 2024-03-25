@@ -3,7 +3,9 @@
 namespace FHPlatform\Component\SearchEngineMeilisearch;
 
 use FHPlatform\Component\Config\DTO\Connection;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngineMeilisearch\Connection\ConnectionFetcher;
 use GuzzleHttp\Exception\ClientException;
 
@@ -18,7 +20,44 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
     public function dataUpdate(Index $index, mixed $documents): void
     {
+        $client = $this->connectionFetcher->fetchByIndex($index);
 
+        $documentsUpsert = [];
+        $documentsDelete = [];
+
+        foreach ($documents as $document) {
+            /** @var Document $document */
+            if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
+                $documentsDelete[] = $document->getIdentifier();
+            } else {
+                $documentsUpsert[] = $document->getData();
+            }
+        }
+
+        if (count($documentsUpsert)) {
+            $r = $client->request('PUT', '/indexes/' . $index->getNameWithPrefix().'/documents', [
+                'json' => $documentsUpsert,
+            ]);
+
+            sleep(5);
+
+            $results = $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/fetch', [
+                'json' => [
+                    'limit' => 1000,
+                    'offset' => 0,
+                ],
+            ]);
+
+            dd($results->getBody()->getContents());
+        }
+
+        if (count($documentsDelete) > 0) {
+            $client->request('POST', '/indexes/' . $index->getNameWithPrefix().'/documents/delete-batch', [
+                'json' => $documentsUpsert,
+            ]);
+        }
+
+        sleep(2);
     }
 
     public function indexRefresh(Index $index): void
@@ -33,7 +72,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         try {
-            $client->request('DELETE', '/indexes/'.$index->getNameWithPrefix());
+            $client->request('DELETE', '/indexes/' . $index->getNameWithPrefix());
         } catch (ClientException $e) {
             // TODO
         }
@@ -45,56 +84,40 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
         // TODO mapping
         $client->request('POST', '/indexes', [
-            'headers' => [
-                'Content-type' => 'application/json',
-                'Authorization' => 'Bearer root',
-            ],
             'json' => [
                 "uid" => $index->getNameWithPrefix(),
                 "primaryKey" => "id",
             ]
         ]);
+
+        usleep(100000);
     }
 
     public function indexesDeleteAllInConnection(Connection $connection): void
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
 
-        $client->request('DELETE', '/'.$connection->getPrefix().'*');
     }
 
     public function indexesGetAllInConnection(Connection $connection): array
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
 
-        $response = $client->request('GET', '/_aliases');
-
-        $indexes = json_decode($response->getBody()->getContents(), true);
-
-        $indexesFiltered = [];
-        foreach ($indexes as $name => $conf) {
-            if (str_starts_with($name, $connection->getPrefix())) {
-                $indexesFiltered[] = $name;
-            }
-        }
-
-        sort($indexesFiltered);
-
-        return $indexesFiltered;
     }
 
     public function queryResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
-        $results = $client->request('GET', '/'.$index->getNameWithPrefix().'/_search', [
+        $results = $client->request('POST', '/indexes/' . $index->getNameWithPrefix() . '/documents/fetch', [
             'json' => [
-                'size' => $limit,
-                'from' => $offset,
+                //"q" => "american ninja"
+                'limit' => $limit,
+                'offset' => $offset,
             ],
         ]);
 
         $data = json_decode($results->getBody()->getContents(), true);
+
+        dump($data);
 
         return $data;
     }
