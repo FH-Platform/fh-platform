@@ -3,12 +3,12 @@
 namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Document;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
+use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 
 class DataManager
 {
     public function __construct(
-        private readonly SearchEngineAdapter $adapter,
+        private readonly SearchEngineInterface $adapter,
     ) {
     }
 

@@ -9,7 +9,7 @@ use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngineMs\Connection\ConnectionFetcher;
 use GuzzleHttp\Exception\ClientException;
 
-class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter
+class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface
 {
     private ConnectionFetcher $connectionFetcher;
 

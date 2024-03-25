@@ -11,7 +11,7 @@
         <server name="KERNEL_CLASS" value="FHPlatform\Component\SearchEngine\Tests\Util\App\Kernel" />
         <env name="APP_DEBUG" value="false" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999" />
-        <env name="FHPLATFORM_SEARCH_ENGINE" value="FHPlatform\Component\SearchEngineEs\SearchEngineAdapter" />
+        <env name="FHPLATFORM_SEARCH_ENGINE" value="FHPlatform\Component\SearchEngineEs\SearchEngineEs" />
     </php>
 
     <testsuites>

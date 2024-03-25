@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 
-interface SearchEngineAdapter
+interface SearchEngineInterface
 {
     /** @param Document[] $documents */
     public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): void;

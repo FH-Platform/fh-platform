@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
+use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
 
@@ -14,8 +14,8 @@ class SearchEngineAdapterIndexTest extends TestCase
 {
     public function testSomething(): void
     {
-        /** @var SearchEngineAdapter $adapter */
-        $adapter = $this->container->get(SearchEngineAdapter::class);
+        /** @var SearchEngineInterface $adapter */
+        $adapter = $this->container->get(SearchEngineInterface::class);
 
         // prepare connection and indexes
         $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200']]]);

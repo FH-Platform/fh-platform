@@ -11,7 +11,7 @@ use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use GuzzleHttp\Client;
 
-class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter
+class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface
 {
     private ConnectionFetcher $connectionFetcher;
 

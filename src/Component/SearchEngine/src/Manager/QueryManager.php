@@ -4,7 +4,7 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
+use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 
 class QueryManager
 {
@@ -14,7 +14,7 @@ class QueryManager
     public const TYPE_ENTITIES_RAW = 'entities_raw';
 
     public function __construct(
-        private readonly SearchEngineAdapter $adapter,
+        private readonly SearchEngineInterface $adapter,
         private readonly PersistenceInterface $persistence,
     ) {
     }

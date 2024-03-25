@@ -28,7 +28,7 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
+use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
@@ -56,14 +56,14 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
+        $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineEs::class;
         if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
             $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
         }
 
         $container->register($searchEngine)->setAutowired(true);
 
-        $container->addAliases([SearchEngineAdapter::class => $searchEngine]);
+        $container->addAliases([SearchEngineInterface::class => $searchEngine]);
 
         $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
@@ -85,6 +85,7 @@ class Builder implements BuilderInterface
         $container->register($persistence)->setAutowired(true);
 
         if (PersistenceDoctrine::class === $persistence) {
+            // TODO move to bridge
             $container->register(DoctrineListener::class)
                 ->setAutowired(true)
                 ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
