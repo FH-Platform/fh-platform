@@ -17,7 +17,8 @@ class UserProviderEntity extends ProviderEntity
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['id'] = $entity->getId();
-        $data['name_string'] = $entity->getName();
+        $data['name'] = $entity->getName();
+        $data['name2'] = $entity->getName2();
         $data['number'] = $entity->getNumber();
         $data['number2'] = $entity->getNumber2();
 
@@ -33,6 +34,7 @@ class UserProviderEntity extends ProviderEntity
     {
         $mapping['id'] = ['type' => 'int'];
         $mapping['name'] = ['type' => 'text'];
+        $mapping['name2'] = ['type' => 'text'];
         $mapping['number'] = ['type' => 'int'];
         $mapping['number2'] = ['type' => 'int'];
         $mapping['role'] = ['type' => 'text'];

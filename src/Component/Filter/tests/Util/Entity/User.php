@@ -17,6 +17,9 @@ class User
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $name;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $name2;
+
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $number;
 
@@ -44,6 +47,16 @@ class User
     public function setName(?string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getName2(): ?string
+    {
+        return $this->name2;
+    }
+
+    public function setName2(?string $name2): void
+    {
+        $this->name2 = $name2;
     }
 
     public function getNumber(): ?int
