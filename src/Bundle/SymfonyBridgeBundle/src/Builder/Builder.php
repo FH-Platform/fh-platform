@@ -38,13 +38,13 @@ class Builder
 {
     public function build(ContainerBuilder $container): void
     {
-        $this->buildMessageDispatcher($container);
-        $this->buildEventDispatcher($container);
-
         $this->buildSearchEngine($container);
         $this->buildPersistence($container);
 
         $this->buildComponentConfig($container);
+
+        $this->buildMessageDispatcher($container);
+        $this->buildEventDispatcher($container);
     }
 
     private function buildSearchEngine(ContainerBuilder $container): void

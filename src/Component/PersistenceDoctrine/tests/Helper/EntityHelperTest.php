@@ -1,14 +1,27 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceDoctrine\Tests\Helper;
+namespace FHPlatform\Component\Persistence\Tests\Helper;
 
+use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\UserUuid;
+use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Es\Config\Provider\UserProviderEntity;
 
 class EntityHelperTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        ConfigProvider::$includedClasses = [
+            ProviderDefaultConnection::class,
+            UserProviderEntity::class,
+        ];
+
+        parent::setUp();
+    }
+
     public function testHelper(): void
     {
         /** @var PersistenceDoctrine $persistenceDoctrine */
