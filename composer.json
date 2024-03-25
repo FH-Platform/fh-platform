@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
+            "FHPlatform\\Component\\FrameworkBridge\\": "src/Component/FrameworkBridge/src/",
             "FHPlatform\\Component\\SearchEngine\\": "src/Component/SearchEngine/src/",
             "FHPlatform\\Component\\SearchEngineEs\\": "src/Component/SearchEngineEs/src/",
             "FHPlatform\\Component\\SearchEngineMs\\": "src/Component/SearchEngineMs/src/",
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
             "FHPlatform\\Component\\PersistenceEloquent\\": "src/Component/PersistenceEloquent/src/",
-
             "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
 
@@ -50,6 +50,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "FHPlatform\\Component\\FrameworkBridge\\Tests\\": "src/Component/FrameworkBridge/tests/",
             "FHPlatform\\Component\\SearchEngine\\Tests\\": "src/Component/SearchEngine/tests/",
             "FHPlatform\\Component\\SearchEngineEs\\Tests\\": "src/Component/SearchEngineEs/tests/",
             "FHPlatform\\Component\\SearchEngineMs\\Tests\\": "src/Component/SearchEngineMs/tests/",

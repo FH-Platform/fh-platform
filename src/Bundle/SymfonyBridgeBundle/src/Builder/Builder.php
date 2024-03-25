@@ -17,6 +17,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\FrameworkBridge\BuilderInterface;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\EventHelper;
@@ -34,29 +35,33 @@ use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class Builder
+class Builder implements BuilderInterface
 {
+    private ContainerBuilder $container;
+
     public function build(ContainerBuilder $container): void
     {
+        $this->container = $container;
+
+        $this->buildSearchEngine();
+        $this->buildPersistence();
+
         $this->buildMessageDispatcher($container);
         $this->buildEventDispatcher($container);
-
-        $this->buildSearchEngine($container);
-        $this->buildPersistence($container);
 
         $this->buildComponentConfig($container);
     }
 
-    private function buildSearchEngine(ContainerBuilder $container): void
+    public function buildSearchEngine(): void
     {
+        $container = $this->container;
+
         $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
         if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
             $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
         }
 
         $container->register($searchEngine)->setAutowired(true);
-
-        // define provider (elasticsearch, meilisearch, etc, ...)
 
         $container->addAliases([SearchEngineAdapter::class => $searchEngine]);
 
@@ -65,9 +70,10 @@ class Builder
         $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
-    private function buildPersistence(ContainerBuilder $container): void
+    public function buildPersistence(): void
     {
-        // define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
+        $container = $this->container;
+
         $persistence = PersistenceDoctrine::class;
         if (isset($_ENV['FHPLATFORM_PERSISTENCE'])) {
             $persistence = $_ENV['FHPLATFORM_PERSISTENCE'];
