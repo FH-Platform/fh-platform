@@ -34,6 +34,7 @@ use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
+use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -68,6 +69,7 @@ class Builder implements BuilderInterface
         $container->addAliases([SearchEngineInterface::class => $searchEngine]);
 
         // register services
+        $container->register(ConnectionFetcher::class)->setAutowired(true)->setPublic(true);
         $container->register(IndexManager::class)->setAutowired(true)->setPublic(true);
         $container->register(QueryManager::class)->setAutowired(true)->setPublic(true);
         $container->register(DataManager::class)->setAutowired(true)->setPublic(true);

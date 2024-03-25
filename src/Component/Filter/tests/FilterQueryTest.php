@@ -8,7 +8,6 @@ use FHPlatform\Component\Filter\Tests\TestCase;
 use FHPlatform\Component\Filter\Tests\Util\Entity\User;
 use FHPlatform\Component\Filter\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
 use FHPlatform\Component\Filter\Tests\Util\Es\Config\Provider\UserProviderEntity;
-use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class FilterQueryTest extends TestCase
 {
@@ -44,11 +43,13 @@ class FilterQueryTest extends TestCase
 
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
+        $filters = [];
         $filters['name_string']['equals'] = 'test';
         $this->assertEquals([1], $filterQuery->search($index, $filters));
 
+        $filters = [];
         $filters['name_string']['in'] = ['test', 'test2'];
-        //$this->assertEquals([1, 2], $filterQuery->search($index, $filters));
+        $this->assertEquals([1, 2], $filterQuery->search($index, $filters));
 
         $this->assertEquals(1, 1);
     }

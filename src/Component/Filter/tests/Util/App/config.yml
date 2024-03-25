@@ -2,6 +2,11 @@ framework:
     secret: "test"
     test: ~
 
+monolog:
+    handlers:
+        elastica:
+            type: stream
+            path: "%kernel.logs_dir%/elastica_%kernel.environment%.log"
 doctrine:
     dbal:
         url:   "sqlite:///:memory:"

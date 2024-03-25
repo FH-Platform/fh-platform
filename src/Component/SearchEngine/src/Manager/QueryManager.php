@@ -33,7 +33,7 @@ class QueryManager
             }
 
             return $identifiers;
-        }elseif (self::TYPE_ENTITIES === $type) {
+        } elseif (self::TYPE_ENTITIES === $type) {
             $results = $this->adapter->convertResultsSource($results);
 
             $identifiers = [];

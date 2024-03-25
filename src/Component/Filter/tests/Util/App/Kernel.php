@@ -5,6 +5,7 @@ namespace FHPlatform\Component\Filter\Tests\Util\App;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends BaseKernel
         return [
             new FrameworkBundle(),
             new DoctrineBundle(),
+            new MonologBundle(),
 
             new SymfonyBridgeBundle(),
         ];
