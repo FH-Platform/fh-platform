@@ -11,11 +11,10 @@ use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 class FilterQuery
 {
     public function __construct(
-        private readonly iterable     $applicatorConverters,
-        private readonly iterable     $filterConverters,
+        private readonly iterable $applicatorConverters,
+        private readonly iterable $filterConverters,
         private readonly QueryManager $queryManager,
-    )
-    {
+    ) {
     }
 
     public function search(Index $index, array $filters = [], $limit = 100, $offset = 0, string $type = QueryManager::TYPE_IDENTIFIERS): array
@@ -45,8 +44,7 @@ class FilterQuery
                 }
 
                 if (false === $matched) {
-                    //TODO
-                    throw new \Exception('Filter "' . $operator . '"  does not exists');
+                    throw new \Exception('Filter "'.$operator.'"  does not exists');
                 }
             }
         }
@@ -54,7 +52,8 @@ class FilterQuery
         return $queryFilters;
     }
 
-    private function applyApplicators(array $applicators): Query{
+    private function applyApplicators(array $applicators): Query
+    {
         $queryBase = new Query();
 
         foreach ($applicators as $field => $applicator) {
@@ -70,8 +69,7 @@ class FilterQuery
                 }
 
                 if (false === $matched) {
-                    //TODO
-                    throw new \Exception('Applicator "' . $operator . '" does not exists');
+                    throw new \Exception('Applicator "'.$operator.'" does not exists');
                 }
             }
         }
