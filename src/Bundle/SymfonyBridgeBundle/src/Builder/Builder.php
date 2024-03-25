@@ -27,6 +27,7 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceEloquent;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
@@ -76,16 +77,17 @@ class Builder
         $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         $container->addAliases([PersistenceInterface::class => $persistence]);
+        $container->register($persistence)->setAutowired(true);
 
-        $container->register(DoctrineListener::class)
-            ->setAutowired(true)
-            ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
-            ->addTag('doctrine.event_listener', ['event' => Events::postUpdate])
-            ->addTag('doctrine.event_listener', ['event' => Events::postRemove])
-            ->addTag('doctrine.event_listener', ['event' => Events::preRemove])
-            ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
-
-        $container->register(PersistenceDoctrine::class)->setAutowired(true);
+        if($persistence instanceof PersistenceDoctrine){
+            $container->register(DoctrineListener::class)
+                ->setAutowired(true)
+                ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
+                ->addTag('doctrine.event_listener', ['event' => Events::postUpdate])
+                ->addTag('doctrine.event_listener', ['event' => Events::postRemove])
+                ->addTag('doctrine.event_listener', ['event' => Events::preRemove])
+                ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
+        }
     }
 
     private function buildMessageDispatcher(ContainerBuilder $container): void

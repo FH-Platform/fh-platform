@@ -1,0 +1,34 @@
+framework:
+    secret: "test"
+    test: ~
+
+
+wouterj_eloquent:
+    connections:
+        default:
+            database:  ':memory:'
+            driver: mysql
+            host: localhost
+            port: null
+            username: root
+            password: ''
+            charset: utf8
+            collation: utf8_unicode_ci
+            prefix: ''
+            sticky: false
+    default_connection: default
+    eloquent: false
+    aliases: false
+
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\Component\PersistenceEloquent\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
+
+    FHPlatform\Component\PersistenceEloquent\Tests\:
+        resource: '../../*/Util'

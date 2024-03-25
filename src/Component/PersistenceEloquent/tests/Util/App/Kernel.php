@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceDoctrine\Tests\Util\App;
+namespace FHPlatform\Component\PersistenceEloquent\Tests\Util\App;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
@@ -15,8 +15,8 @@ class Kernel extends BaseKernel
     {
         return [
             new FrameworkBundle(),
-            new DoctrineBundle(),
 
+            new WouterJEloquentBundle(),
             new SymfonyBridgeBundle(),
         ];
     }

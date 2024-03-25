@@ -9,15 +9,15 @@ use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\Persistence\Event\EventHelper;
-use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceEloquent;
 
 class DoctrineListener
 {
     protected array $eventsRemove = [];
 
     public function __construct(
-        private readonly EventHelper $eventsManager,
-        private readonly PersistenceDoctrine $persistenceDoctrine,
+        private readonly EventHelper         $eventsManager,
+        private readonly PersistenceEloquent $persistenceDoctrine,
     ) {
     }
 
