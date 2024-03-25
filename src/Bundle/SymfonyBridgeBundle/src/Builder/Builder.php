@@ -42,24 +42,41 @@ class Builder
         $this->buildEventDispatcher($container);
 
         $this->buildSearchEngine($container);
-
-        $persistenceImplementation = $this->buildComponentPersistenceImplementation($container);
-        $this->buildComponentPersistence($container, $persistenceImplementation);
+        $this->buildPersistence($container);
 
         $this->buildComponentConfig($container);
     }
 
-    private function buildComponentPersistence(ContainerBuilder $container, string $persistenceImplementation): void
+    private function buildSearchEngine(ContainerBuilder $container): void
+    {
+        $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
+        if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
+            $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
+        }
+
+        $container->register($searchEngine)->setAutowired(true);
+
+        // define provider (elasticsearch, meilisearch, etc, ...)
+
+        $container->addAliases([SearchEngineAdapter::class => $searchEngine]);
+
+        $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+    }
+
+    private function buildPersistence(ContainerBuilder $container): void
     {
         // define persistence (doctrine orm, doctrine mongodb orm, eloquent, propel, ...)
+        $persistence = PersistenceDoctrine::class;
+        if (isset($_ENV['FHPLATFORM_PERSISTENCE'])) {
+            $persistence = $_ENV['FHPLATFORM_PERSISTENCE'];
+        }
 
         $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
-        $container->addAliases([PersistenceInterface::class => $persistenceImplementation]);
-    }
+        $container->addAliases([PersistenceInterface::class => $persistence]);
 
-    private function buildComponentPersistenceImplementation($container): string
-    {
         $container->register(DoctrineListener::class)
             ->setAutowired(true)
             ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
@@ -69,8 +86,6 @@ class Builder
             ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
 
         $container->register(PersistenceDoctrine::class)->setAutowired(true);
-
-        return PersistenceDoctrine::class;
     }
 
     private function buildMessageDispatcher(ContainerBuilder $container): void
@@ -147,25 +162,5 @@ class Builder
         $container->register(IndexBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
-    }
-
-    private function buildSearchEngine(ContainerBuilder $container): string
-    {
-        $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineAdapter::class;
-        if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
-            $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
-        }
-
-        $container->register($searchEngine)->setAutowired(true);
-
-        // define provider (elasticsearch - elastica, elasticsearch - elasticsearch-php, algolia, solr, ...)
-
-        $container->addAliases([SearchEngineAdapter::class => $searchEngine]);
-
-        $container->register(IndexManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(QueryManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(DataManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-
-        return $searchEngine;
     }
 }
