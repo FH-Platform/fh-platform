@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher;
+namespace FHPlatform\Bundle\SymfonyBridgeBundle\Message;
 
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;

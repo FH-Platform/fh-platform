@@ -3,9 +3,9 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
-use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
-use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageHandlerSymfony;
-use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcherSymfony;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageHandlerSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
@@ -106,8 +106,6 @@ class Builder implements BuilderInterface
             $messageDispatcher = $_ENV['FHPLATFORM_MESSAGE_DISPATCHER'];
         }
 
-        $container->register(MessageHandler::class)->setAutowired(true);
-
         // TODO
         if($messageDispatcher === MessageDispatcherSymfony::class){
             $container->register(MessageHandlerSymfony::class)
@@ -116,7 +114,10 @@ class Builder implements BuilderInterface
                 ->addTag('messenger.message_handler');
         }
 
+        //register message handler
+        $container->register(MessageHandler::class)->setAutowired(true);
 
+        //register message dispatcher
         $container->register($messageDispatcher)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => $messageDispatcher]);
     }
@@ -135,8 +136,8 @@ class Builder implements BuilderInterface
             'method' => 'onChangedEntities',
         ]);
         $container->register(EventHelper::class)->setAutowired(true);
-        $container->register(EventDispatcher::class)->setAutowired(true);
-        $container->addAliases([EventDispatcherInterface::class => EventDispatcher::class]);
+        $container->register(EventDispatcherSymfony::class)->setAutowired(true);
+        $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
     }
 
     private function buildComponentConfig(ContainerBuilder $container): void
