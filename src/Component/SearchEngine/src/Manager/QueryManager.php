@@ -24,23 +24,24 @@ class QueryManager
         $results = $this->adapter->queryResults($index, $query, $limit, $offset);
 
         if (self::TYPE_ENTITIES === $type) {
-            // TODO for ES
+            $results = $this->adapter->convertResultsSource($results);
+
             $identifiers = [];
-            foreach ($results['hits']['hits'] as $result) {
-                $identifiers[] = $result['_id'];
+            foreach ($results as $result) {
+                $identifiers[] = $result['id'];
             }
 
-            $entities = $this->persistence->getEntities($index->getClassName(), $identifiers);
-
-            return $entities;
+            // TODO sort by ids (mysql vs sqlite)
+            return $this->persistence->getEntities($index->getClassName(), $identifiers);
         } elseif (self::TYPE_ENTITIES_RAW === $type) {
-            // TODO for ES
-            $identifiers = [];
-            $resultsResponse = [];
-            foreach ($results['hits']['hits'] as $result) {
-                $id = $result['_id'];
-                $identifiers[] = $id;
+            $results = $this->adapter->convertResultsSource($results);
+
+            $identifiers = $resultsResponse = [];
+            foreach ($results as $result) {
+                $id = $result['id'];
+
                 $resultsResponse[$id] = ['raw' => $result];
+                $identifiers[] = $id;
             }
 
             $entities = $this->persistence->getEntities($index->getClassName(), $identifiers);
