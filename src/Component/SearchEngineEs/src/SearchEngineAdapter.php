@@ -9,6 +9,7 @@ use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
+use GuzzleHttp\Client;
 
 class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineAdapter
 {
@@ -49,16 +50,19 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
 
     public function dataUpdate(Index $index, mixed $documents): void
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = new Client([
+            'base_uri' => 'http://elasticsearch:9200',  // TODO
+            'timeout' => 2.0,
+        ]);
 
         $documentJson = '';
         foreach ($documents as $document) {
             $data = $this->documentPrepare($document);
 
-            $documentJson .= json_encode($data[0])."\n";
+            $documentJson .= json_encode($data[0]) . "\n";
 
             if (isset($data[1])) {
-                $documentJson .= json_encode($data[1])."\n";
+                $documentJson .= json_encode($data[1]) . "\n";
             }
         }
 
@@ -72,7 +76,7 @@ class SearchEngineAdapter implements \FHPlatform\Component\SearchEngine\Adapter\
         $response = $client->request('POST', '/_bulk',
             [
                 'headers' => ['Content-type' => 'application/json'],
-                'body' => $documentJson."\n",
+                'body' => $documentJson . "\n",
             ]
         );
     }
