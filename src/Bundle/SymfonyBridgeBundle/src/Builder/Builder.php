@@ -4,7 +4,7 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\EventDispatcher\EventDispatcher;
-use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcher;
+use FHPlatform\Bundle\SymfonyBridgeBundle\MessageDispatcher\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
@@ -46,7 +46,7 @@ class Builder implements BuilderInterface
         $this->buildSearchEngine();
         $this->buildPersistence();
 
-        $this->buildMessageDispatcher($container);
+        $this->buildMessageDispatcher();
         $this->buildEventDispatcher($container);
 
         $this->buildComponentConfig($container);
@@ -96,22 +96,22 @@ class Builder implements BuilderInterface
         }
     }
 
-    private function buildMessageDispatcher(ContainerBuilder $container): void
+    public function buildMessageDispatcher(): void
     {
         $container = $this->container;
 
-        $messageDispatcher = MessageDispatcher::class;
+        $messageDispatcher = MessageDispatcherSymfony::class;
         if (isset($_ENV['FHPLATFORM_MESSAGE_DISPATCHER'])) {
             $messageDispatcher = $_ENV['FHPLATFORM_MESSAGE_DISPATCHER'];
         }
 
-        // define message dispatcher (Symfony messenger, laravel queues, ...)
-
         // TODO
-        $container->register(EntitiesChangedMessageHandler::class)
-            ->setAutoconfigured(true)
-            ->setAutowired(true)
-            ->addTag('messenger.message_handler');
+        if($messageDispatcher === MessageDispatcherSymfony::class){
+            $container->register(EntitiesChangedMessageHandler::class)
+                ->setAutoconfigured(true)
+                ->setAutowired(true)
+                ->addTag('messenger.message_handler');
+        }
 
         $container->register($messageDispatcher)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => $messageDispatcher]);

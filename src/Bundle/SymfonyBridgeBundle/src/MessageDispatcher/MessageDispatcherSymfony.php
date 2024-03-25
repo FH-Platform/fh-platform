@@ -6,7 +6,7 @@ use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class MessageDispatcher implements MessageDispatcherInterface
+class MessageDispatcherSymfony implements MessageDispatcherInterface
 {
     public function __construct(
         private readonly MessageBusInterface $messageBus,

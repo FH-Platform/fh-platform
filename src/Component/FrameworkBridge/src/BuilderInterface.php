@@ -9,4 +9,7 @@ interface BuilderInterface
 
     // define persistence (doctrine, eloquent, ...)
     public function buildPersistence(): void;
+
+    // define message dispatcher (Symfony messenger, laravel queues, ...)
+    public function buildMessageDispatcher(): void;
 }
