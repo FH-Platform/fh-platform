@@ -30,3 +30,8 @@ services:
 
     FHPlatform\Component\Filter\Tests\:
         resource: '../../*/Util'
+
+    #TODO move to framework builder
+    FHPlatform\Component\Filter\Converter\Filter\:
+        resource: '../../../src/Converter/Filter/'
+
