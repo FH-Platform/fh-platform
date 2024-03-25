@@ -134,9 +134,6 @@ class Builder implements BuilderInterface
         // register event dispatcher
         $container->register(EventDispatcherSymfony::class)->setAutowired(true);
         $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
-
-        // other
-        $container->register(EventHelper::class)->setAutowired(true);
     }
 
     private function buildComponentConfig(ContainerBuilder $container): void

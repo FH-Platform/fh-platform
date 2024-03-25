@@ -8,17 +8,20 @@ use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 
 class DoctrineListener
 {
     protected array $eventsRemove = [];
+    private EventHelper $eventHelper;
 
     public function __construct(
-        private readonly EventHelper $eventsManager,
+        EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceDoctrine $persistenceDoctrine,
     ) {
+        $this->eventHelper = new EventHelper($eventDispatcher);
     }
 
     public function postPersist(PostPersistEventArgs $args): void
@@ -43,7 +46,7 @@ class DoctrineListener
 
     public function postFlush(PostFlushEventArgs $args): void
     {
-        $this->eventsManager->flushEvent();
+        $this->eventHelper->flushEvent();
     }
 
     private function addEntity(PostPersistEventArgs|PostUpdateEventArgs|PostRemoveEventArgs|PreRemoveEventArgs $args, string $type): void
@@ -60,7 +63,7 @@ class DoctrineListener
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
             // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
-            $this->eventsManager->addEntity($className, $identifierValue, ChangedEntityDTO::TYPE_DELETE_PRE, $changedFields, true);
+            $this->eventHelper->addEntity($className, $identifierValue, ChangedEntityDTO::TYPE_DELETE_PRE, $changedFields, true);
 
             return;
         }
@@ -76,6 +79,6 @@ class DoctrineListener
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
         }
 
-        $this->eventsManager->addEntity($className, $identifierValue, $type, $changedFields, false);
+        $this->eventHelper->addEntity($className, $identifierValue, $type, $changedFields, false);
     }
 }
