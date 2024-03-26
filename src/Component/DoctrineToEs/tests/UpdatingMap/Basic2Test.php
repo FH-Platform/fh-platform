@@ -10,7 +10,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class BasicTest extends TestCaseUpdatingMap
+class Basic2Test extends TestCaseUpdatingMap
 {
     public function testSomething(): void
     {
@@ -28,6 +28,11 @@ class BasicTest extends TestCaseUpdatingMap
                         ]
                     ],
                 ],
+                Location::class => [
+                    'locationItems' => [
+                        'testString',
+                    ]
+                ]
             ]
         ];
 
@@ -56,6 +61,12 @@ class BasicTest extends TestCaseUpdatingMap
                         "relations" => "location.users",
                         "changed_fields" => [
                             "testFloat"
+                        ],
+                    ],
+                    Location::class => [
+                        "relations" => "location",
+                        "changed_fields" => [
+                            "testString"
                         ],
                     ],
                 ],
