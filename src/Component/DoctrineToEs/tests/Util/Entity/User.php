@@ -209,4 +209,14 @@ class User
     {
         return $this->setting;
     }
+
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function setStudents(Collection $students): void
+    {
+        $this->students = $students;
+    }
 }
