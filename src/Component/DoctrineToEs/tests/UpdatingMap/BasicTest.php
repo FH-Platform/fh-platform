@@ -34,32 +34,34 @@ class BasicTest extends TestCaseUpdatingMap
         ];
 
         $this->assertEquals([
-            Setting::class => [
-                User::class => [
-                    "relations" => "user",
-                    "changed_fields" => [
-                        "id",
-                        "testBoolean",
-                    ],
-                ],
-            ],
-            Location::class => [
-                User::class => [
-                    "relations" => "users",
-                    "changed_fields" =>
-                        [
-                            "testString"
+            'default' => [
+                Setting::class => [
+                    User::class => [
+                        "relations" => "user",
+                        "changed_fields" => [
+                            "id",
+                            "testBoolean",
                         ],
-                ]
-            ],
-            LocationItem::class => [
-                User::class => [
-                    "relations" => "location.users",
-                    "changed_fields" => [
-                        "testFloat"
                     ],
                 ],
-            ],
+                Location::class => [
+                    User::class => [
+                        "relations" => "users",
+                        "changed_fields" =>
+                            [
+                                "testString"
+                            ],
+                    ]
+                ],
+                LocationItem::class => [
+                    User::class => [
+                        "relations" => "location.users",
+                        "changed_fields" => [
+                            "testFloat"
+                        ],
+                    ],
+                ],
+            ]
         ], $this->updatingMapBuilder->build($connections));
     }
 }

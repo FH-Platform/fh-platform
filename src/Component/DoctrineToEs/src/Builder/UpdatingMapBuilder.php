@@ -24,7 +24,7 @@ class UpdatingMapBuilder
                 // add for root class
                 // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
 
-                $this->calculateForAssociations($className, $className, $config, '', $updatingMap);
+                $this->calculateForAssociations($className, $className, $config, '', $updatingMap['default']);
             }
         }
 
