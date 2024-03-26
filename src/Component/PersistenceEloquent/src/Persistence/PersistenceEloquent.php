@@ -23,6 +23,11 @@ class PersistenceEloquent implements PersistenceInterface
         return $entity->{$this->getIdentifierName($entity)};
     }
 
+    public function refresh(mixed $entity): mixed
+    {
+        return (new ($entity::class))->find($this->getIdentifierName($entity));
+    }
+
     public function refreshByClassNameId(string $className, mixed $identifierValue): mixed
     {
         return (new $className())->find($identifierValue);
