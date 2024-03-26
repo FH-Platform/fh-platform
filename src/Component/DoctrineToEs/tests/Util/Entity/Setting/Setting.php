@@ -35,9 +35,6 @@ class Setting
     #[ORM\ManyToMany(targetEntity: SettingMeta::class, mappedBy: 'settings')]
     private Collection $settingMetas;
 
-    #[ORM\OneToOne(mappedBy: 'settingTestGetterEmpty', targetEntity: User::class)]
-    private ?User $user2 = null;
-
     public function __construct()
     {
         $this->settingItems = new ArrayCollection();

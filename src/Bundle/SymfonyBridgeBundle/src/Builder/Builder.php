@@ -57,7 +57,6 @@ class Builder implements BuilderInterface
         $this->buildEventDispatcher();
         $this->buildConfig();
         $this->buildFilter();
-        $this->buildDoctrineToEs();
     }
 
     public function buildSearchEngine(): void
@@ -108,6 +107,8 @@ class Builder implements BuilderInterface
                 ->addTag('doctrine.event_listener', ['event' => Events::postRemove])
                 ->addTag('doctrine.event_listener', ['event' => Events::preRemove])
                 ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
+
+            $this->buildDoctrineToEs();
         }
     }
 

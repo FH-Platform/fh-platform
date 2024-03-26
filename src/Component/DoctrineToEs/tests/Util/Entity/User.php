@@ -69,17 +69,6 @@ class User
     #[ORM\ManyToMany(targetEntity: User::class)]
     private Collection $friends;
 
-    // ALL_TYPES relations testing
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $nameTestGetterNotSet;
-
-    #[ORM\OneToOne]
-    private ?Setting $settingTestTargetEmpty = null;
-
-    #[ORM\OneToOne(inversedBy: 'user2', targetEntity: Setting::class)]
-    private ?Setting $settingTestGetterEmpty = null;
-
     public function __construct()
     {
         $this->bills = new ArrayCollection();
