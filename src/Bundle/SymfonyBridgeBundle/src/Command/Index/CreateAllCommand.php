@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'symfony-es:index:create-all')]
+#[AsCommand(name: 'fhplatform:index:create-all')]
 class CreateAllCommand extends Command
 {
     public function __construct(

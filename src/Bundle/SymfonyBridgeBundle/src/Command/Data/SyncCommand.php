@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'symfony-es:data:sync')]
+#[AsCommand(name: 'fhplatform:data:sync')]
 class SyncCommand extends Command
 {
     public function __construct(

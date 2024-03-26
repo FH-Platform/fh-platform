@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'symfony-es:index:delete-all')]
+#[AsCommand(name: 'fhplatform:index:delete-all')]
 class DeleteAllCommand extends Command
 {
     public function __construct(

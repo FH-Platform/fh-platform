@@ -10,7 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'symfony-es:index:delete-stale')]
+#[AsCommand(name: 'fhplatform:index:delete-stale')]
 class DeleteStaleCommand extends Command
 {
     public function __construct(

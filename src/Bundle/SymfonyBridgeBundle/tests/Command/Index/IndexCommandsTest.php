@@ -37,20 +37,20 @@ class IndexCommandsTest extends TestCase
         $indexClient->deleteAllIndexesInConnection($connection);
 
         $this->assertEquals(0, count($indexClient->getAllIndexesInConnection($connection)));
-        $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
+        $this->commandHelper->runCommand(['command' => 'fhplatform:index:create-all']);
         $indexNames = $indexClient->getAllIndexesInConnection($connections[0]);
         $this->assertEquals(2, count($indexNames));
         $this->assertEquals('prefix_test', $indexNames[0]);
         $this->assertEquals('prefix_test2', $indexNames[1]);
 
-        $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-all']);
+        $this->commandHelper->runCommand(['command' => 'fhplatform:index:delete-all']);
         $this->assertEquals(0, count($indexClient->getAllIndexesInConnection($connection)));
 
-        $this->commandHelper->runCommand(['command' => 'symfony-es:index:create-all']);
+        $this->commandHelper->runCommand(['command' => 'fhplatform:index:create-all']);
         $this->assertEquals(2, count($indexClient->getAllIndexesInConnection($connection)));
         $indexClient->createIndex(new Index($connection, '', 'test3', $connection->getPrefix().'test3', []));
         $this->assertEquals(3, count($indexClient->getAllIndexesInConnection($connection)));
-        $this->commandHelper->runCommand(['command' => 'symfony-es:index:delete-stale']);
+        $this->commandHelper->runCommand(['command' => 'fhplatform:index:delete-stale']);
         $this->assertEquals(2, count($indexClient->getAllIndexesInConnection($connection)));
     }
 }
