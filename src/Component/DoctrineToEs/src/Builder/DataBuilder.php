@@ -26,7 +26,7 @@ class DataBuilder
         return $this->buildRecursive($className, $entity, $config, $data);
     }
 
-    private function buildRecursive(string $className, $entity, array $config, array &$data = [], $levels = [])
+    private function buildRecursive(string $className, $entity, array $config, array &$data = [], $levels = []): array
     {
         $associations = $this->associationsProvider->provide($className, $config);
 

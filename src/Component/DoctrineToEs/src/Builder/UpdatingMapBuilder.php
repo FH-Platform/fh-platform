@@ -3,7 +3,6 @@
 namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\ORM\EntityManagerInterface;
-use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
 
 class UpdatingMapBuilder
@@ -20,11 +19,13 @@ class UpdatingMapBuilder
 
         // for each nestable(and searchable) provider calculate config for update
         foreach ($connections as $connectionName => $classNames) {
+            $updatingMap[$connectionName] = [];
+
             foreach ($classNames as $className => $config) {
                 // add for root class
                 // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
 
-                $this->calculateForAssociations($className, $className, $config, '', $updatingMap['default']);
+                $this->calculateForAssociations($className, $className, $config, '', $updatingMap[$connectionName]);
             }
         }
 

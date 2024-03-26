@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
-class EntitiesRelatedProvider
+class EntitiesRelatedBuilder
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
