@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\DoctrineToEs\Es;
 
 use FHPlatform\Component\Config\Config\Decorator\DecoratorEntityRelated;
+use FHPlatform\Component\DoctrineToEs\Es\Helper\ConfigHelper;
 
 class EntityRelatedDecorator extends DecoratorEntityRelated
 {
@@ -13,6 +14,10 @@ class EntityRelatedDecorator extends DecoratorEntityRelated
 
     public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
     {
+        /*if (($config = (new ConfigHelper())->getConfig($index)) === null) {
+            return $entitiesRelated;
+        }*/
+
         return $entitiesRelated;
     }
 }

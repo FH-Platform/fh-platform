@@ -5,6 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Es;
 use FHPlatform\Component\Config\Config\Decorator\DecoratorIndex;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
+use FHPlatform\Component\DoctrineToEs\Es\Helper\ConfigHelper;
 
 class MappingDecorator extends DecoratorIndex
 {
@@ -20,7 +21,7 @@ class MappingDecorator extends DecoratorIndex
 
     public function getIndexMapping(Index $index, array $mapping): array
     {
-        if (null === ($config = ($index->getConfigAdditional()['doctrine_to_es'] ?? null))) {
+        if (($config = (new ConfigHelper())->getConfig($index)) === null) {
             return $mapping;
         }
 

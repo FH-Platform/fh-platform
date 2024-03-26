@@ -5,6 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Es;
 use FHPlatform\Component\Config\Config\Decorator\DecoratorEntity;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
+use FHPlatform\Component\DoctrineToEs\Es\Helper\ConfigHelper;
 
 class DataDecorator extends DecoratorEntity
 {
@@ -20,7 +21,7 @@ class DataDecorator extends DecoratorEntity
 
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
-        if (null === ($config = ($index->getConfigAdditional()['doctrine_to_es'] ?? null))) {
+        if (($config = (new ConfigHelper())->getConfig($index)) === null) {
             return $data;
         }
 
