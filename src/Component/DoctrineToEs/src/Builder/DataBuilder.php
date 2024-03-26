@@ -17,11 +17,11 @@ class DataBuilder
     ) {
     }
 
-    public function build(Index $index, $entity, array $config = null): array
+    public function build(Index $index, $entity, ?array $config = null): array
     {
         $data = [];
 
-        if($config === null){
+        if (null === $config) {
             return $data;
         }
 

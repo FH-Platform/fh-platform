@@ -4,10 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Es;
 
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Es\DataDecorator;
-use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\LocationItem;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
@@ -39,10 +35,10 @@ class DataDecoratorTest extends TestCaseEs
         $this->save([$user]);
 
         $this->assertEquals([
-            "testInteger" => 16,
-            "setting" => [
-                "testFloat" => 18.16
-            ]
+            'testInteger' => 16,
+            'setting' => [
+                'testFloat' => 18.16,
+            ],
         ], $this->documentBuilder->build($user, User::class, 1, ChangedEntityDTO::TYPE_UPDATE)->getData());
     }
 }

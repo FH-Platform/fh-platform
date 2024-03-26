@@ -41,7 +41,6 @@ use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -218,17 +217,12 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader->load('services.yaml');
+
         $container->register(MappingBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(DataBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(UpdatingMapBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(\FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-
-        //$a = (new DirectoryResource('src/Component/DoctrineToEs/src/'));
-        //$container->addResource($a)->autowire(true)->setPublic(true);
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-
-        $loader->load('services.yaml');
-
     }
 }

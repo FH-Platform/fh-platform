@@ -18,7 +18,7 @@ class UserProviderEntity extends ProviderEntity
             'doctrine_to_es' => [
                 'testInteger',
                 'setting' => [
-                    'testFloat'
+                    'testFloat',
                 ],
             ],
         ];
