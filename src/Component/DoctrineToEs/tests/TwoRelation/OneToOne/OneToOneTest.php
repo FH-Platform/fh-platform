@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\TwoRelation;
+namespace FHPlatform\Component\DoctrineToEs\Tests\TwoRelation\OneToOne;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
@@ -9,7 +9,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToOneOneToOneTest extends TestCaseOneRelation
+class OneToOneTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
