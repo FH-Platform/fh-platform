@@ -18,7 +18,7 @@ class EntitiesRelatedBuilder
         $className = ClassUtils::getClass($entity);
 
         $entitiesRelated = [];
-        foreach ($updatingMap as $connectionName => $updatingMapConnection){
+        foreach ($updatingMap as $connectionName => $updatingMapConnection) {
             $updatingMapForEntity = $updatingMapConnection[$className] ?? [];
 
             foreach ($updatingMapForEntity as $updatingMapForEntityRow) {
@@ -83,7 +83,6 @@ class EntitiesRelatedBuilder
 
             // use hash className + associationString to prevent adding the same entity
             $identifierValue = $this->persistence->getIdentifierValue($entity);
-
 
             $entitiesFiltered[$associationString][$identifierValue] = $entity;
         }

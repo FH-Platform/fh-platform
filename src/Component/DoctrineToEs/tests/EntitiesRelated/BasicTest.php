@@ -2,8 +2,6 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\EntitiesRelated;
 
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\LocationItem;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
@@ -34,9 +32,7 @@ class BasicTest extends TestCaseEntitiesRelated
         $this->assertEquals([
             'user' => [
                 1 => $user,
-            ]
+            ],
         ], $this->entitiesRelatedBuilder->build($setting, $data, ['testBoolean']));
-
-        $this->assertEquals(1, 1);
     }
 }
