@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Es;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
@@ -24,9 +23,7 @@ class MappingDecoratorTest extends TestCaseEs
 
     public function testSomething(): void
     {
-        /** @var ConnectionsBuilder $connectionsBuilder */
-        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
+        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $this->assertEquals(
             [

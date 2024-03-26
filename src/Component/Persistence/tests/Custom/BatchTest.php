@@ -32,8 +32,6 @@ class BatchTest extends TestCase
         $this->prepareUsers();
 
         $this->entityManager->flush();
-
-        $this->assertEquals(1, 1);
     }
 
     private function prepareUsers(): void
