@@ -10,6 +10,7 @@ use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
 
 class DoctrineToEsFacade
 {
+    // TODO move
     final public const DOCTRINE_TYPES_TO_ES_TYPES = [
         'boolean' => 'boolean',
         'integer' => 'integer',
