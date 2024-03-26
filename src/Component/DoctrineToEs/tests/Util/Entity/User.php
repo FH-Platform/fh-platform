@@ -53,12 +53,9 @@ class User
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Bill::class)]
     private Collection $bills;
 
-
     // One-To-Many, Bidirectional-Self-referencing
     #[ORM\OneToMany(mappedBy: 'mentor', targetEntity: User::class)]
     private Collection $students;
-
-    // One-To-Many, Self-referencing
 
     // Many-To-Many, Unidirectional
     #[ORM\ManyToMany(targetEntity: Invite::class)]
