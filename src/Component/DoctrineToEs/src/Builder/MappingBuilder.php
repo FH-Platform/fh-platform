@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Provider;
+namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\DoctrineToEsFacade;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsProvider;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
 
-class MappingProvider
+class MappingBuilder
 {
     public function __construct(
         private readonly AssociationsProvider $associationsProvider,

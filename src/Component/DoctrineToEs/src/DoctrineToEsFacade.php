@@ -3,10 +3,10 @@
 namespace FHPlatform\Component\DoctrineToEs;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
-use FHPlatform\Component\DoctrineToEs\Provider\EntitiesRelatedProvider;
-use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
-use FHPlatform\Component\DoctrineToEs\Provider\UpdatingMapProvider;
+use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
+use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedProvider;
+use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
+use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapProvider;
 
 class DoctrineToEsFacade
 {
@@ -24,10 +24,10 @@ class DoctrineToEsFacade
     ];
 
     public function __construct(
-        private readonly DataProvider $dataProvider,
-        private readonly MappingProvider $mappingProvider,
+        private readonly DataBuilder             $dataProvider,
+        private readonly MappingBuilder          $mappingProvider,
         private readonly EntitiesRelatedProvider $entitiesRelatedProvider,
-        private readonly UpdatingMapProvider $updatingMapProvider,
+        private readonly UpdatingMapProvider     $updatingMapProvider,
     ) {
     }
 

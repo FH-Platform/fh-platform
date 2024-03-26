@@ -2,24 +2,24 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
 
-use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
-use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
+use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
+use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 
 class TestCaseOneRelation extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
-    protected MappingProvider $mappingProvider;
-    protected DataProvider $dataProvider;
+    protected MappingBuilder $mappingProvider;
+    protected DataBuilder $dataProvider;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var MappingProvider $mappingProvider */
-        $mappingProvider = $this->container->get(MappingProvider::class);
+        /** @var MappingBuilder $mappingProvider */
+        $mappingProvider = $this->container->get(MappingBuilder::class);
         $this->mappingProvider = $mappingProvider;
 
-        /** @var DataProvider $dataProvider */
-        $dataProvider = $this->container->get(DataProvider::class);
+        /** @var DataBuilder $dataProvider */
+        $dataProvider = $this->container->get(DataBuilder::class);
         $this->dataProvider = $dataProvider;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Provider;
+namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use FHPlatform\Component\Config\DTO\Index;
@@ -8,7 +8,7 @@ use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsPro
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
-class DataProvider
+class DataBuilder
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,

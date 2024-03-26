@@ -4,8 +4,8 @@ namespace FHPlatform\Component\DoctrineToEs\Basic;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
-use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
+use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
+use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
@@ -13,11 +13,11 @@ class BasicTest extends TestCase
 {
     public function testSomething(): void
     {
-        /** @var MappingProvider $mappingProvider */
-        $mappingProvider = $this->container->get(MappingProvider::class);
+        /** @var MappingBuilder $mappingProvider */
+        $mappingProvider = $this->container->get(MappingBuilder::class);
 
-        /** @var DataProvider $dataProvider */
-        $dataProvider = $this->container->get(DataProvider::class);
+        /** @var DataBuilder $dataProvider */
+        $dataProvider = $this->container->get(DataBuilder::class);
 
         $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
         $mapping = $mappingProvider->provide($index, []);
