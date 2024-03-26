@@ -21,8 +21,6 @@ class ManyToManySelfReferencingTest extends TestCaseOneRelation
 
         $this->save([$user]);
 
-        $this->entityManager->refresh($user);
-
         $mapping = $this->mappingProvider->provide($index, ['friends' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'friends' => [

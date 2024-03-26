@@ -4,7 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class OneToOneSelfReferencingTest extends TestCaseOneRelation
@@ -13,22 +12,26 @@ class OneToOneSelfReferencingTest extends TestCaseOneRelation
     {
         $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
 
-        $setting = $this->populateEntity(new Setting());
+        $userBestFriend = $this->populateEntity(new User());
+
         $user = $this->populateEntity(new User());
-        $user->setSetting($setting);
+        $user->setBestFriend($userBestFriend);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['setting' => []]);
+        $mapping = $this->mappingProvider->provide($index, ['bestFriend' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
-            'setting' => [
+            'bestFriend' => [
                 'type' => 'object',
                 'properties' => $this->mappingTest,
             ],
         ]), $mapping);
 
-        $data = $this->dataProvider->provide($index, $user, ['setting' => []]);
-        $this->assertEquals(array_merge($this->dataTest, [
-            'setting' => $this->dataTest,
+        $dataTest = $this->dataTest;
+        $dataTest['id'] = 2;
+
+        $data = $this->dataProvider->provide($index, $user, ['bestFriend' => []]);
+        $this->assertEquals(array_merge($dataTest, [
+            'bestFriend' => $this->dataTest,
         ]), $data);
     }
 }
