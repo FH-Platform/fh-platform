@@ -4,4 +4,8 @@ services:
         autowire: true
         autoconfigure: true
 
-
+    #TODO
+    FHPlatform\Component\DoctrineToEs\:
+        resource: '../../../Component/DoctrineToEs/src/'
+        autowire: true
+        autoconfigure: true

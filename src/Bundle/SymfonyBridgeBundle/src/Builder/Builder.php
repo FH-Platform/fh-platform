@@ -19,6 +19,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
 use FHPlatform\Component\Filter\Converter\ApplicatorInterface;
 use FHPlatform\Component\Filter\Converter\FilterInterface;
 use FHPlatform\Component\Filter\FilterQuery;
@@ -54,6 +55,7 @@ class Builder implements BuilderInterface
         $this->buildEventDispatcher();
         $this->buildConfig();
         $this->buildFilter();
+        $this->buildDoctrineToEs();
     }
 
     public function buildSearchEngine(): void
@@ -204,5 +206,12 @@ class Builder implements BuilderInterface
                 '$applicatorConverters' => new TaggedIteratorArgument('fh_platform.filter.applicator'),
                 '$filterConverters' => new TaggedIteratorArgument('fh_platform.filter.filter'),
             ]);
+    }
+
+    public function buildDoctrineToEs(): void
+    {
+        $container = $this->container;
+
+        $container->register(MappingProvider::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }
