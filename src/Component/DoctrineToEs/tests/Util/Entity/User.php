@@ -2,148 +2,206 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill\ES_Bill;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\ES_Location;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\ES_Role;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\ES_Setting;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
 class User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    public ?int $id = null;
+    use IdTrait;
+    use AllTypesTrait;
+
+    // ALL_TYPES relations testing
+
+    // One-To-One, Unidirectional
+    #[ORM\OneToOne(targetEntity: UserApiToken::class)]
+    private ?UserApiToken $userApiToken = null;
+
+    // One-To-One, Bidirectional
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: ES_Setting::class)]
+    private ?ES_Setting $setting = null;
+
+    // One-To-One, Self-referencing
+    #[ORM\OneToOne(targetEntity: User::class)]
+    private ?User $bestFriend = null;
+
+    // Many-To-One, Unidirectional
+    #[ORM\ManyToOne(targetEntity: Address::class)]
+    private ?Address $address = null;
+
+    // Many-To-One, Bidirectional
+    #[ORM\ManyToOne(targetEntity: ES_Location::class, inversedBy: 'users')]
+    private ?ES_Location $location = null;
+
+    // Many-To-One, Self-referencing
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $mentor = null;
+
+    // One-To-Many, Unidirectional
+
+    // One-To-Many, Bidirectional
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ES_Bill::class)]
+    private Collection $bills;
+
+    // One-To-Many, Self-referencing
+
+    // Many-To-Many, Unidirectional
+    #[ORM\ManyToMany(targetEntity: Invite::class)]
+    private Collection $invites;
+
+    // Many-To-Many, Bidirectional
+    #[ORM\ManyToMany(targetEntity: ES_Role::class, inversedBy: 'users')]
+    private Collection $roles;
+
+    // Many-To-Many, Self-referencing
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'myFriends')]
+    private Collection $friendsWithMe;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'friendsWithMe')]
+    private Collection $myFriends;
+
+    // ALL_TYPES relations testing
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?bool $testBoolean;
+    private ?string $nameTestGetterNotSet;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $testInteger;
+    #[ORM\OneToOne]
+    private ?ES_Setting $settingTestTargetEmpty = null;
 
-    #[ORM\Column(type: 'bigint', nullable: true)]
-    private ?int $testBigint;
+    #[ORM\OneToOne(inversedBy: 'user2', targetEntity: ES_Setting::class)]
+    private ?ES_Setting $settingTestGetterEmpty = null;
 
-    #[ORM\Column(type: 'smallint', nullable: true)]
-    private ?int $testSmallint;
-
-    #[ORM\Column(type: 'float', nullable: true)]
-    private ?float $testFloat;
-
-    #[ORM\Column(type: 'decimal', nullable: true)]
-    private ?float $testDecimal;
-
-    #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $testString;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $testText;
-
-    #[ORM\Column(type: 'date', nullable: true)]
-    private ?\DateTimeInterface $testDate;
-
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $testDatetime;
-
-    public function getId(): ?int
+    public function __construct()
     {
-        return $this->id;
+        $this->bills = new ArrayCollection();
+
+        $this->invites = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
     }
 
-    public function getTestBoolean(): ?bool
+    public function addRole(ES_Role $role): self
     {
-        return $this->testBoolean;
+        $this->roles->add($role);
+
+        return $this;
     }
 
-    public function setTestBoolean(?bool $testBoolean): void
+    public function getUserApiToken(): ?UserApiToken
     {
-        $this->testBoolean = $testBoolean;
+        return $this->userApiToken;
     }
 
-    public function getTestInteger(): ?int
+    public function setUserApiToken(?UserApiToken $userApiToken): void
     {
-        return $this->testInteger;
+        $this->userApiToken = $userApiToken;
     }
 
-    public function setTestInteger(?int $testInteger): void
+    public function getBestFriend(): ?User
     {
-        $this->testInteger = $testInteger;
+        return $this->bestFriend;
     }
 
-    public function getTestBigint(): ?int
+    public function setBestFriend(?User $bestFriend): void
     {
-        return $this->testBigint;
+        $this->bestFriend = $bestFriend;
     }
 
-    public function setTestBigint(?int $testBigint): void
+    public function getBills(): Collection
     {
-        $this->testBigint = $testBigint;
+        return $this->bills;
     }
 
-    public function getTestSmallint(): ?int
+    public function setBills(Collection $bills): void
     {
-        return $this->testSmallint;
+        $this->bills = $bills;
     }
 
-    public function setTestSmallint(?int $testSmallint): void
+    public function getAddress(): ?Address
     {
-        $this->testSmallint = $testSmallint;
+        return $this->address;
     }
 
-    public function getTestFloat(): ?float
+    public function setAddress(?Address $address): void
     {
-        return $this->testFloat;
+        $this->address = $address;
     }
 
-    public function setTestFloat(?float $testFloat): void
+    public function getLocation(): ?ES_Location
     {
-        $this->testFloat = $testFloat;
+        return $this->location;
     }
 
-    public function getTestDecimal(): ?float
+    public function setLocation(?ES_Location $location): void
     {
-        return $this->testDecimal;
+        $this->location = $location;
     }
 
-    public function setTestDecimal(?float $testDecimal): void
+    public function getMentor(): ?User
     {
-        $this->testDecimal = $testDecimal;
+        return $this->mentor;
     }
 
-    public function getTestString(): ?string
+    public function setMentor(?User $mentor): void
     {
-        return $this->testString;
+        $this->mentor = $mentor;
     }
 
-    public function setTestString(?string $testString): void
+    public function getInvites(): Collection
     {
-        $this->testString = $testString;
+        return $this->invites;
     }
 
-    public function getTestText(): ?string
+    public function setInvites(Collection $invites): void
     {
-        return $this->testText;
+        $this->invites = $invites;
     }
 
-    public function setTestText(?string $testText): void
+    public function getRoles(): Collection
     {
-        $this->testText = $testText;
+        return $this->roles;
     }
 
-    public function getTestDate(): ?\DateTimeInterface
+    public function setRoles(Collection $roles): void
     {
-        return $this->testDate;
+        $this->roles = $roles;
     }
 
-    public function setTestDate(?\DateTimeInterface $testDate): void
+    public function getFriendsWithMe(): Collection
     {
-        $this->testDate = $testDate;
+        return $this->friendsWithMe;
     }
 
-    public function getTestDatetime(): ?\DateTimeInterface
+    public function setFriendsWithMe(Collection $friendsWithMe): void
     {
-        return $this->testDatetime;
+        $this->friendsWithMe = $friendsWithMe;
     }
 
-    public function setTestDatetime(?\DateTimeInterface $testDatetime): void
+    public function getMyFriends(): Collection
     {
-        $this->testDatetime = $testDatetime;
+        return $this->myFriends;
+    }
+
+    public function setMyFriends(Collection $myFriends): void
+    {
+        $this->myFriends = $myFriends;
+    }
+
+    public function setSetting(?ES_Setting $setting): void
+    {
+        $this->setting = $setting;
+    }
+
+    public function getSetting(): ?ES_Setting
+    {
+        return $this->setting;
     }
 }
