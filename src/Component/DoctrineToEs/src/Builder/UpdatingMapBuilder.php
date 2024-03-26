@@ -14,29 +14,24 @@ class UpdatingMapBuilder
     ) {
     }
 
-    /** @param Connection[] $connections */
     public function build(array $connections): array
     {
         $updatingMap = [];
-        $updatingMapReversed = [];
 
         // for each nestable(and searchable) provider calculate config for update
-        foreach ($connections as $connection) {
-            foreach ($connection->getIndexes() as $index) {
-                $className = $index->getClassName();
-                $configClassName = [];
-
+        foreach ($connections as $connectionName => $classNames) {
+            foreach ($classNames as $className => $config) {
                 // add for root class
                 // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
 
-                $this->calculateForAssociations($className, $className, $configClassName, '', $updatingMap, $updatingMapReversed);
+                $this->calculateForAssociations($className, $className, $config, '', $updatingMap);
             }
         }
 
-        return [$updatingMap, $updatingMapReversed];
+        return $updatingMap;
     }
 
-    private function calculateForAssociations(string $className, string $classNameCurrent, array $configCurrent, string $associationsNamesAccumulated, &$updatingMap, &$updatingMapReversed): void
+    private function calculateForAssociations(string $className, string $classNameCurrent, array $configCurrent, string $associationsNamesAccumulated, &$updatingMap): void
     {
         $classNameMetadata = $this->entityManager->getClassMetadata($classNameCurrent);
 
@@ -58,10 +53,9 @@ class UpdatingMapBuilder
                         // add to updating map
                         $changedFields = array_keys($this->fieldsProvider->provide($targetEntity, $associationsRelated));
                         $updatingMap[$targetEntity][$className] = ['relations' => $associationNameCurrent, 'changed_fields' => $changedFields];
-                        $updatingMapReversed[$className][$targetEntity] = ['relations' => $associationNameCurrent, 'changed_fields' => $changedFields];
 
                         // recursive call for next relation
-                        $this->calculateForAssociations($className, $targetEntity, $associationsRelated, $associationNameCurrent, $updatingMap, $updatingMapReversed);
+                        $this->calculateForAssociations($className, $targetEntity, $associationsRelated, $associationNameCurrent, $updatingMap);
                     }
                 }
             }
