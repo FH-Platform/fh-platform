@@ -34,6 +34,11 @@ class AssociationsProvider
                 continue;
             }
 
+            if (8 === $type and $targetEntity === $className) {
+                // MANY-TO-MANY self-referencing
+                $inversedBy = $fieldName;
+            }
+
             if (!$inversedBy) {
                 throw new \Exception('inversedBy for association "'.$fieldName.'" in class "'.$className.'" can not be found');
             }

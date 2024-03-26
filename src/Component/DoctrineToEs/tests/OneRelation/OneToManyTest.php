@@ -39,7 +39,7 @@ class OneToManyTest extends TestCaseOneRelation
             'bills' => [
                 $dataTestBill,
                 $dataTestBill2,
-            ]
+            ],
         ]), $data);
     }
 }

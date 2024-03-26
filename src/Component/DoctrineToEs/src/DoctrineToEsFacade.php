@@ -36,9 +36,9 @@ class DoctrineToEsFacade
         return $this->mappingProvider->provide($index, $config);
     }
 
-    public function fetchData(Index $index, $entity, $config, $sameLevel = true): array
+    public function fetchData(Index $index, $entity, $config): array
     {
-        return $this->dataProvider->provide($index, $entity, $config, $sameLevel);
+        return $this->dataProvider->provide($index, $entity, $config);
     }
 
     public function fetchUpdatingMap($classNamesConfig): array

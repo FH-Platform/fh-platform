@@ -66,12 +66,8 @@ class User
     private Collection $roles;
 
     // Many-To-Many, Self-referencing
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'friendsWithMe')]
+    #[ORM\ManyToMany(targetEntity: User::class)]
     private Collection $friends;
-
-    // Many-To-Many, Self-referencing
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'friends')]
-    private Collection $friendsWithMe;
 
     // ALL_TYPES relations testing
 
@@ -87,7 +83,6 @@ class User
     public function __construct()
     {
         $this->bills = new ArrayCollection();
-
         $this->invites = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->friends = new ArrayCollection();
@@ -215,15 +210,5 @@ class User
     public function setFriends(Collection $friends): void
     {
         $this->friends = $friends;
-    }
-
-    public function getFriendsWithMe(): Collection
-    {
-        return $this->friendsWithMe;
-    }
-
-    public function setFriendsWithMe(Collection $friendsWithMe): void
-    {
-        $this->friendsWithMe = $friendsWithMe;
     }
 }

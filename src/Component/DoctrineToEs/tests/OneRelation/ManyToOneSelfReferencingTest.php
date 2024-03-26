@@ -4,7 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class ManyToOneSelfReferencingTest extends TestCaseOneRelation

@@ -4,7 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill\Bill;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class OneToManySelfReferencingTest extends TestCaseOneRelation
@@ -40,7 +39,7 @@ class OneToManySelfReferencingTest extends TestCaseOneRelation
             'students' => [
                 $dataTestStudent,
                 $dataTestStudent2,
-            ]
+            ],
         ]), $data);
     }
 }

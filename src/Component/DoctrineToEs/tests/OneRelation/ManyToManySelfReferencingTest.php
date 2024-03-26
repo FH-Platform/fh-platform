@@ -4,9 +4,8 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-  
+
 class ManyToManySelfReferencingTest extends TestCaseOneRelation
 {
     public function testSomething(): void
@@ -21,6 +20,8 @@ class ManyToManySelfReferencingTest extends TestCaseOneRelation
         $user->addFriend($friend2);
 
         $this->save([$user]);
+
+        $this->entityManager->refresh($user);
 
         $mapping = $this->mappingProvider->provide($index, ['friends' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
