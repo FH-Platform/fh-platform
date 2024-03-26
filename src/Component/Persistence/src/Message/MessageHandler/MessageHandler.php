@@ -15,10 +15,10 @@ class MessageHandler
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
-        private readonly DataManager $dataClient,
+        private readonly DataManager $dataManager,
         private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly DocumentBuilder $documentBuilder,
-        private readonly EntitiesRelatedBuilder $entityRelatedFetcher,
+        private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
         private readonly IndexBuilder $indexBuilder,
     ) {
     }
@@ -26,7 +26,6 @@ class MessageHandler
     public function handle(EntitiesChangedMessage $message): void
     {
         $classNamesIndex = $this->indexBuilder->fetchClassNamesIndex();
-        $classNamesRelated = $this->entityRelatedFetcher->fetchClassNamesRelated();
 
         $documents = [];
 
@@ -57,13 +56,12 @@ class MessageHandler
                 }
             }
 
-            if (in_array($className, $classNamesRelated) and $entity) {
-                $entitiesRelated = $this->entityRelatedFetcher->build($entity);
-                // TODO
+            if ($entity) {
+                $entitiesRelated = $this->entitiesRelatedBuilder->build($entity);
             }
         }
 
         // TODO chunk in batch from config in client bundle
-        $this->dataClient->syncDocuments($documents);
+        $this->dataManager->syncDocuments($documents);
     }
 }

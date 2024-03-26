@@ -29,16 +29,6 @@ class EntitiesRelatedBuilder
         return $entitiesRelated;
     }
 
-    public function fetchClassNamesRelated(): array
-    {
-        $classNames = [];
-        foreach ($this->configProvider->getProvidersEntityRelated() as $provider) {
-            $classNames[$provider->getClassName()] = $provider->getClassName();
-        }
-
-        return $classNames;
-    }
-
     /** @param  DecoratorEntityRelatedInterface[] $decorators */
     private function decorateEntitiesRelated(mixed $entity, array $decorators): array
     {
