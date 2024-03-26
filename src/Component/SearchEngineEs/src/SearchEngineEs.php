@@ -13,11 +13,9 @@ use GuzzleHttp\Client;
 
 class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface
 {
-    private ConnectionFetcher $connectionFetcher;
-
-    public function __construct()
-    {
-        $this->connectionFetcher = new ConnectionFetcher();
+    public function __construct(
+        private readonly ConnectionFetcher $connectionFetcher,
+    ) {
     }
 
     public function documentPrepare(Document $document): mixed

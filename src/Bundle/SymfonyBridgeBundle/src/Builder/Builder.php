@@ -19,6 +19,9 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Filter\Converter\ApplicatorInterface;
+use FHPlatform\Component\Filter\Converter\FilterInterface;
+use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
@@ -33,6 +36,7 @@ use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
+use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -49,6 +53,7 @@ class Builder implements BuilderInterface
         $this->buildMessageDispatcher();
         $this->buildEventDispatcher();
         $this->buildConfig();
+        $this->buildFilter();
     }
 
     public function buildSearchEngine(): void
@@ -66,6 +71,7 @@ class Builder implements BuilderInterface
         $container->addAliases([SearchEngineInterface::class => $searchEngine]);
 
         // register services
+        $container->register(ConnectionFetcher::class)->setAutowired(true)->setPublic(true);
         $container->register(IndexManager::class)->setAutowired(true)->setPublic(true);
         $container->register(QueryManager::class)->setAutowired(true)->setPublic(true);
         $container->register(DataManager::class)->setAutowired(true)->setPublic(true);
@@ -184,5 +190,19 @@ class Builder implements BuilderInterface
         $container->register(IndexBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
+    }
+
+    public function buildFilter(): void
+    {
+        $container = $this->container;
+
+        $container->registerForAutoconfiguration(ApplicatorInterface::class)->addTag('fh_platform.filter.applicator');
+        $container->registerForAutoconfiguration(FilterInterface::class)->addTag('fh_platform.filter.filter');
+
+        $container->register(FilterQuery::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true)
+            ->setArguments([
+                '$applicatorConverters' => new TaggedIteratorArgument('fh_platform.filter.applicator'),
+                '$filterConverters' => new TaggedIteratorArgument('fh_platform.filter.filter'),
+            ]);
     }
 }

@@ -99,14 +99,39 @@ class PersistenceDoctrine implements PersistenceInterface
             ->select('o')
             ->from($className, 'o');
 
-        $queryBuilder->andWhere('o.'.$identifierName.' IN(:identifiers)')
+        $queryBuilder
+            ->andWhere('o.'.$identifierName.' IN(:identifiers)')
             ->setParameter('identifiers', $identifiers);
 
         if (!empty($identifierValues)) {
-            // TODO sort
+            $dbDriver = $this->entityManager->getConnection()->getParams()['driver'];
+
+            if ('pdo_sqlite' !== $dbDriver) {
+                $this->addSortQueryForMysql($queryBuilder, $identifierValues);
+            } else {
+                $this->addSortQueryForSqlite($queryBuilder, $identifierValues);
+            }
         }
 
         return $queryBuilder->getQuery()->execute();
+    }
+
+    private function addSortQueryForMysql($queryBuilder, $identifiers): void
+    {
+        $queryBuilder->orderBy('FIELD(o.id,'.implode(',', $identifiers).')');
+    }
+
+    private function addSortQueryForSqlite($queryBuilder, $identifiers): void
+    {
+        $sort = ' CASE ';
+
+        $counter = 1;
+        foreach ($identifiers as $identifier) {
+            $sort .= ' WHEN o.id = '.$identifier.'  THEN '.$counter++.' ';
+        }
+        $sort .= ' ELSE 1 END ';
+
+        $queryBuilder->addOrderBy($sort);
     }
 
     public function getRealClass(string $className): string

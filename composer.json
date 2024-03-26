@@ -31,7 +31,8 @@
         "symfony/runtime": "7.*",
         "symfony/flex": "2.*",
         "symfony/dotenv": "7.*",
-        "illuminate/database": "11.*"
+        "illuminate/database": "11.*",
+        "symfony/monolog-bundle": "^3.10"
     },
     "autoload": {
         "psr-4": {
@@ -43,8 +44,9 @@
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
             "FHPlatform\\Component\\PersistenceEloquent\\": "src/Component/PersistenceEloquent/src/",
             "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
-            "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
+            "FHPlatform\\Component\\Filter\\": "src/Component/Filter/src/",
 
+            "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
             "App\\": "src/App/"
         }
     },
@@ -57,6 +59,7 @@
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
             "FHPlatform\\Component\\PersistenceEloquent\\Tests\\": "src/Component/PersistenceEloquent/tests/",
+            "FHPlatform\\Component\\Filter\\Tests\\": "src/Component/Filter/tests/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"

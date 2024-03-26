@@ -1,6 +1,6 @@
 <?php
 
-namespace Fico7489\PersistenceDoctrine\DoctrineListener;
+namespace FHPlatform\PersistenceDoctrine\DoctrineListener;
 
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;

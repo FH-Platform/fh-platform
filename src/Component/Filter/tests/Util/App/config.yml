@@ -1,0 +1,39 @@
+framework:
+    secret: "test"
+    test: ~
+
+monolog:
+    handlers:
+        elastica:
+            type: stream
+            path: "%kernel.logs_dir%/elastica_%kernel.environment%.log"
+doctrine:
+    dbal:
+        url:   "sqlite:///:memory:"
+        types:
+            uuid: Ramsey\Uuid\Doctrine\UuidType
+    orm:
+        mappings:
+            Test:
+                dir: '%kernel.project_dir%/'
+                prefix: 'FHPlatform\Component\Filter\Tests\Util\Entity'
+
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\Component\Filter\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
+
+    FHPlatform\Component\Filter\Tests\:
+        resource: '../../*/Util'
+
+    #TODO move to framework builder
+    FHPlatform\Component\Filter\Converter\Filter\:
+        resource: '../../../src/Converter/Filter/'
+
+    FHPlatform\Component\Filter\Converter\Applicator\:
+        resource: '../../../src/Converter/Applicator/'
