@@ -14,7 +14,8 @@ class ConnectionsBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
-    ) {
+    )
+    {
     }
 
     /** @return Connection[] */
@@ -63,7 +64,8 @@ class ConnectionsBuilder
             $providerConnection->getName(),
             $providerConnection->getIndexPrefix(),
             $providerConnection->getClientConfig(),
-            $providerConnection->getAdditionalConfig()
+            $providerConnection->getAdditionalConfig(),
+            $providerConnection->getUpdatingMap(),
         );
     }
 
@@ -71,7 +73,7 @@ class ConnectionsBuilder
     {
         $className = $providerIndex->getClassName();
         $name = $providerIndex->getIndexName($className);
-        $nameWithPrefix = $connection->getPrefix().$name;
+        $nameWithPrefix = $connection->getPrefix() . $name;
         $additionalConfig = $providerIndex->getAdditionalConfig();
 
         $index = new Index($connection, $className, $name, $nameWithPrefix, $additionalConfig);

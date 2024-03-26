@@ -10,6 +10,7 @@ class Connection
         private readonly string $prefix,
         private readonly array $configClient,
         private readonly array $configAdditional = [],
+        private readonly array $updatingMap = [],
         private array $indexes = [],
     ) {
     }
@@ -22,6 +23,11 @@ class Connection
     public function getPrefix(): string
     {
         return $this->prefix;
+    }
+
+    public function getUpdatingMap(): array
+    {
+        return $this->updatingMap;
     }
 
     public function getConfigClient(): array
