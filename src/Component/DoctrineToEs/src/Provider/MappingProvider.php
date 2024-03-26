@@ -15,11 +15,17 @@ class MappingProvider
     ) {
     }
 
-    public function provide(Index $index, array $config, array &$mapping = [], $levels = []): array
+    public function provide(Index $index, array $config): array
     {
         $className = $index->getClassName();
 
-        $associations = $this->associationsProvider->provide($index, $config);
+        $mapping = [];
+        return $this->provide2($className, $config, $mapping, []);
+    }
+
+    private function provide2(string $className, array $config, array &$mapping, $levels)
+    {
+        $associations = $this->associationsProvider->provide($className, $config);
 
         foreach ($associations as $association) {
             $columnName = $association['columnName'];
@@ -29,7 +35,7 @@ class MappingProvider
 
             $mappingAssociation = $this->generateMapping($targetEntity, $configAssociations);
 
-            $this->provide($targetEntity, $configAssociations, $mapping, array_merge($levels, [$columnName]));
+            $this->provide2($targetEntity, $configAssociations, $mapping, array_merge($levels, [$columnName]));
 
             $mapping = $this->relatedInSameLevel($mapping, $columnName, $type, $mappingAssociation, $levels);
         }

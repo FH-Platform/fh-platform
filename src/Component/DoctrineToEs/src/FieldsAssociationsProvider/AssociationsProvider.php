@@ -14,10 +14,8 @@ class AssociationsProvider
     ) {
     }
 
-    public function provide(Index $index, array $config): array
+    public function provide(string $className, array $config): array
     {
-        $className = $index->getClassName();
-
         $doctrineAssociations = $this->doctrineAssociationsProvider->provide($className);
         $configAssociations = $this->configAssociationsProvider->provide($className, $config);
 

@@ -32,7 +32,7 @@ class User
     private ?Setting $setting = null;
 
     // One-To-One, Self-referencing
-    #[ORM\OneToOne(targetEntity: User::class)]
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'bestFriend')]
     private ?User $bestFriend = null;
 
     // Many-To-One, Unidirectional

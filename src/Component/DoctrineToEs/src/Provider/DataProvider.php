@@ -17,11 +17,17 @@ class DataProvider
     ) {
     }
 
-    public function provide(Index $index, $entity, array $configClassName, array &$data = [], $levels = []): array
+    public function provide(Index $index, $entity, array $configClassName): array
     {
         $className = $index->getClassName();
 
-        $associations = $this->associationsProvider->provide($index, $configClassName);
+        $data = [];
+
+        return $this->provide2($className, $entity, $configClassName, $data);
+    }
+    private function provide2(string $className, $entity, array $configClassName, array &$data = [], $levels = [])
+    {
+        $associations = $this->associationsProvider->provide($className, $configClassName);
 
         foreach ($associations as $association) {
             $type = $association['type'];
@@ -46,7 +52,7 @@ class DataProvider
                         $levelsNew = array_merge($levels, [$columnName, $k]);
                     }
 
-                    $this->provide($entityRelated::class, $entityRelated, $configAssociation, $data, $levelsNew);
+                    $this->provide2($entityRelated::class, $entityRelated, $configAssociation, $data, $levelsNew);
                 }
 
                 // store related entities into data
