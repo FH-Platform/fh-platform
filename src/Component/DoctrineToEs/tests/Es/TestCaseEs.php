@@ -3,10 +3,13 @@
 namespace FHPlatform\Component\DoctrineToEs\Tests\Es;
 
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
+use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+
 
 class TestCaseEs extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
     protected DocumentBuilder $documentBuilder;
+    protected EntitiesRelatedBuilder $entitiesRelatedBuilder;
 
     protected function setUp(): void
     {
@@ -15,5 +18,9 @@ class TestCaseEs extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
         /** @var DocumentBuilder $documentBuilder */
         $documentBuilder = $this->container->get(DocumentBuilder::class);
         $this->documentBuilder = $documentBuilder;
+
+        /** @var EntitiesRelatedBuilder $entitiesRelatedBuilder */
+        $entitiesRelatedBuilder = $this->container->get(EntitiesRelatedBuilder::class);
+        $this->entitiesRelatedBuilder = $entitiesRelatedBuilder;
     }
 }
