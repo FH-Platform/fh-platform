@@ -6,31 +6,32 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\OneRelation\TestCaseOneRelation;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingGroup;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToOneTest extends TestCaseOneRelation
+class ManyToOneTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
         $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
 
-        $settingMain = $this->populateEntity(new SettingMain());
+        $settingGroup = $this->populateEntity(new SettingGroup());
         $setting = $this->populateEntity(new Setting());
-        $settingMain->setSetting($setting);
-        $this->save([$settingMain]);
+        $setting->setSettingGroup($settingGroup);
+        $this->save([$setting]);
         $user = $this->populateEntity(new User());
         $user->setSetting($setting);
         $this->save([$user]);
 
         $conf = [
             'setting' => [
-                'settingMain' => []
+                'settingGroup' => []
             ]
         ];
 
         $mappingTestSetting = $this->mappingTest;
-        $mappingTestSetting['settingMain'] = [
+        $mappingTestSetting['settingGroup'] = [
             'type' => 'object',
             'properties' => $this->mappingTest,
         ];
@@ -46,7 +47,7 @@ class OneToOneTest extends TestCaseOneRelation
         $data = $this->dataProvider->provide($index, $user, $conf);
 
         $dataTestSetting = $this->dataTest;
-        $dataTestSetting['settingMain'] = $this->dataTest;
+        $dataTestSetting['settingGroup'] = $this->dataTest;
 
         $this->assertEquals(array_merge($this->dataTest, [
             'setting' => $dataTestSetting,

@@ -38,7 +38,7 @@ class MappingProvider
 
             $this->provide2($targetEntity, $configAssociations, $mapping, array_merge($levels, [$columnName]));
 
-            $mapping = $this->relatedInSameLevel($mapping, $columnName, $type, $mappingAssociation, $levels);
+            $mapping = $this->relatedInNestedLevel($mapping, $columnName, $type, $mappingAssociation, $levels);
         }
 
         if (0 === count($levels)) {
@@ -49,14 +49,22 @@ class MappingProvider
         return $mapping;
     }
 
-    private function relatedInSameLevel($esMappingRoot, $columnName, $type, $esMappingFields, $levels): array
+    private function relatedInNestedLevel($esMappingRoot, $columnName, $type, $esMappingFields, $levels): array
     {
-        $esMappingAssociation[$columnName] = [
-            'type' => (in_array($type, [1, 2]) ? 'object' : 'nested'),
-            'properties' => $esMappingFields,
-        ];
+        $levelTmp = array_merge($levels, [$columnName]);
+        $output = [];
+        $temp = &$output;
 
-        return array_merge($esMappingRoot, $esMappingAssociation);
+        foreach ($levelTmp as $level) {
+            $temp[$level]['properties'] = [];
+            $temp2 = &$temp[$level];
+            $temp = &$temp[$level]['properties'];
+        }
+
+        $temp2['type'] = (in_array($type, [1, 2]) ? 'object' : 'nested');
+        $temp = $esMappingFields;
+
+        return array_merge_recursive($output, $esMappingRoot);
     }
 
     private function generateMapping(string $className, $configAssociations): array
