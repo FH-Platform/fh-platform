@@ -9,12 +9,12 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_SettingGroup
+class SettingMeta
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\OneToMany(mappedBy: 'settingGroup', targetEntity: ES_Setting::class)]
+    #[ORM\ManyToMany(targetEntity: Setting::class, inversedBy: 'settingMetas')]
     private Collection $settings;
 
     public function __construct()
@@ -30,5 +30,12 @@ class ES_SettingGroup
     public function setSettings(Collection $settings): void
     {
         $this->settings = $settings;
+    }
+
+    public function addSetting(Setting $setting): self
+    {
+        $this->settings->add($setting);
+
+        return $this;
     }
 }

@@ -5,12 +5,12 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 #[ORM\Entity]
-class ES_Location
+class Location
 {
     use IdTrait;
     use AllTypesTrait;
@@ -20,19 +20,19 @@ class ES_Location
     private Collection $users;
 
     // One-To-One
-    #[ORM\OneToOne(mappedBy: 'location', targetEntity: ES_LocationMain::class)]
-    private ?ES_LocationMain $locationMain = null;
+    #[ORM\OneToOne(mappedBy: 'location', targetEntity: LocationMain::class)]
+    private ?LocationMain $locationMain = null;
 
     // Many-To-One
-    #[ORM\ManyToOne(targetEntity: ES_LocationGroup::class, inversedBy: 'locations')]
-    private ?ES_LocationGroup $locationGroup = null;
+    #[ORM\ManyToOne(targetEntity: LocationGroup::class, inversedBy: 'locations')]
+    private ?LocationGroup $locationGroup = null;
 
     // One-To-Many
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: ES_LocationItem::class)]
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: LocationItem::class)]
     private Collection $locationItems;
 
     // Many-To-Many
-    #[ORM\ManyToMany(targetEntity: ES_LocationMeta::class, mappedBy: 'locations')]
+    #[ORM\ManyToMany(targetEntity: LocationMeta::class, mappedBy: 'locations')]
     private Collection $locationMetas;
 
     public function __construct()
@@ -47,12 +47,12 @@ class ES_Location
         $this->users = $users;
     }
 
-    public function getLocationMain(): ?ES_LocationMain
+    public function getLocationMain(): ?LocationMain
     {
         return $this->locationMain;
     }
 
-    public function setLocationMain(?ES_LocationMain $locationMain): void
+    public function setLocationMain(?LocationMain $locationMain): void
     {
         $this->locationMain = $locationMain;
     }
@@ -67,12 +67,12 @@ class ES_Location
         $this->locationItems = $locationItems;
     }
 
-    public function getLocationGroup(): ?ES_LocationGroup
+    public function getLocationGroup(): ?LocationGroup
     {
         return $this->locationGroup;
     }
 
-    public function setLocationGroup(?ES_LocationGroup $locationGroup): void
+    public function setLocationGroup(?LocationGroup $locationGroup): void
     {
         $this->locationGroup = $locationGroup;
     }

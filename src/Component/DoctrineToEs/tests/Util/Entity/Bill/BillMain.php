@@ -7,20 +7,20 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_BillMain
+class BillMain
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\OneToOne(inversedBy: 'billMain', targetEntity: ES_Bill::class)]
-    private ?ES_Bill $bill = null;
+    #[ORM\OneToOne(inversedBy: 'billMain', targetEntity: Bill::class)]
+    private ?Bill $bill = null;
 
-    public function getBill(): ?ES_Bill
+    public function getBill(): ?Bill
     {
         return $this->bill;
     }
 
-    public function setBill(?ES_Bill $bill): void
+    public function setBill(?Bill $bill): void
     {
         $this->bill = $bill;
     }

@@ -5,12 +5,12 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 #[ORM\Entity]
-class ES_Role
+class Role
 {
     use IdTrait;
     use AllTypesTrait;
@@ -20,19 +20,19 @@ class ES_Role
     private Collection $users;
 
     // One-To-One
-    #[ORM\OneToOne(mappedBy: 'role', targetEntity: ES_RoleMain::class)]
-    private ?ES_RoleMain $roleMain = null;
+    #[ORM\OneToOne(mappedBy: 'role', targetEntity: RoleMain::class)]
+    private ?RoleMain $roleMain = null;
 
     // Many-To-One
-    #[ORM\ManyToOne(targetEntity: ES_RoleGroup::class, inversedBy: 'roles')]
-    private ?ES_RoleGroup $roleGroup = null;
+    #[ORM\ManyToOne(targetEntity: RoleGroup::class, inversedBy: 'roles')]
+    private ?RoleGroup $roleGroup = null;
 
     // One-To-Many
-    #[ORM\OneToMany(mappedBy: 'role', targetEntity: ES_RoleItem::class)]
+    #[ORM\OneToMany(mappedBy: 'role', targetEntity: RoleItem::class)]
     private Collection $roleItems;
 
     // Many-To-Many
-    #[ORM\ManyToMany(targetEntity: ES_RoleMeta::class, mappedBy: 'roles')]
+    #[ORM\ManyToMany(targetEntity: RoleMeta::class, mappedBy: 'roles')]
     private Collection $roleMetas;
 
     public function __construct()
@@ -52,12 +52,12 @@ class ES_Role
         $this->users = $users;
     }
 
-    public function getRoleMain(): ?ES_RoleMain
+    public function getRoleMain(): ?RoleMain
     {
         return $this->roleMain;
     }
 
-    public function setRoleMain(?ES_RoleMain $roleMain): void
+    public function setRoleMain(?RoleMain $roleMain): void
     {
         $this->roleMain = $roleMain;
     }
@@ -72,12 +72,12 @@ class ES_Role
         $this->roleItems = $roleItems;
     }
 
-    public function getRoleGroup(): ?ES_RoleGroup
+    public function getRoleGroup(): ?RoleGroup
     {
         return $this->roleGroup;
     }
 
-    public function setRoleGroup(?ES_RoleGroup $roleGroup): void
+    public function setRoleGroup(?RoleGroup $roleGroup): void
     {
         $this->roleGroup = $roleGroup;
     }

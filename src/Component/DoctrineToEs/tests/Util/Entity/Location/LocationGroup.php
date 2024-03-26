@@ -9,12 +9,12 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_LocationMeta
+class LocationGroup
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\ManyToMany(targetEntity: ES_Location::class, inversedBy: 'locationMetas')]
+    #[ORM\OneToMany(mappedBy: 'locationGroup', targetEntity: Location::class)]
     private Collection $locations;
 
     public function __construct()
@@ -30,12 +30,5 @@ class ES_LocationMeta
     public function setLocations(Collection $locations): void
     {
         $this->locations = $locations;
-    }
-
-    public function addLocation(ES_Location $location): self
-    {
-        $this->locations->add($location);
-
-        return $this;
     }
 }

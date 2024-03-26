@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity;
+namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;

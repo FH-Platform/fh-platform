@@ -9,12 +9,12 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_BillMeta
+class BillMeta
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\ManyToMany(targetEntity: ES_Bill::class, inversedBy: 'billMetas')]
+    #[ORM\ManyToMany(targetEntity: Bill::class, inversedBy: 'billMetas')]
     private Collection $bills;
 
     public function __construct()
@@ -32,7 +32,7 @@ class ES_BillMeta
         $this->bills = $bills;
     }
 
-    public function addBill(ES_Bill $bill): self
+    public function addBill(Bill $bill): self
     {
         $this->bills->add($bill);
 

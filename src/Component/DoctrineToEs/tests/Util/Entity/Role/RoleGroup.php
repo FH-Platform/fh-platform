@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill;
+namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,26 +9,26 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_BillGroup
+class RoleGroup
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\OneToMany(mappedBy: 'billGroup', targetEntity: ES_Bill::class)]
-    private Collection $bills;
+    #[ORM\OneToMany(mappedBy: 'roleGroup', targetEntity: Role::class)]
+    private Collection $roles;
 
     public function __construct()
     {
-        $this->bills = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
-    public function getBills(): Collection
+    public function getRoles(): Collection
     {
-        return $this->bills;
+        return $this->roles;
     }
 
-    public function setBills(Collection $bills): void
+    public function setRoles(Collection $roles): void
     {
-        $this->bills = $bills;
+        $this->roles = $roles;
     }
 }

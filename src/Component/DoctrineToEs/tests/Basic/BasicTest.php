@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Builder;
+namespace FHPlatform\Component\DoctrineToEs\Basic;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
@@ -9,7 +9,7 @@ use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
 use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class MappingBuilderBasicTest extends TestCase
+class BasicTest extends TestCase
 {
     public function testSomething(): void
     {

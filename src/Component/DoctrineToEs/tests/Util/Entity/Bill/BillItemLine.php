@@ -9,15 +9,15 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_BillItemLine
+class BillItemLine
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\ManyToOne(targetEntity: ES_BillItem::class, inversedBy: 'billItemLines')]
-    private ?ES_BillItem $billItem;
+    #[ORM\ManyToOne(targetEntity: BillItem::class, inversedBy: 'billItemLines')]
+    private ?BillItem $billItem;
 
-    #[ORM\ManyToMany(targetEntity: ES_BillItemLineMeta::class, mappedBy: 'billItemLines')]
+    #[ORM\ManyToMany(targetEntity: BillItemLineMeta::class, mappedBy: 'billItemLines')]
     private Collection $billItemLineMetas;
 
     public function __construct()
@@ -25,12 +25,12 @@ class ES_BillItemLine
         $this->billItemLineMetas = new ArrayCollection();
     }
 
-    public function getBillItem(): ?ES_BillItem
+    public function getBillItem(): ?BillItem
     {
         return $this->billItem;
     }
 
-    public function setBillItem(?ES_BillItem $billItem): void
+    public function setBillItem(?BillItem $billItem): void
     {
         $this->billItem = $billItem;
     }

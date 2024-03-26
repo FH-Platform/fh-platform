@@ -9,12 +9,12 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_RoleMeta
+class RoleMeta
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\ManyToMany(targetEntity: ES_Role::class, inversedBy: 'roleMetas')]
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'roleMetas')]
     private Collection $roles;
 
     public function __construct()
@@ -32,7 +32,7 @@ class ES_RoleMeta
         $this->roles = $roles;
     }
 
-    public function addRole(ES_Role $role): self
+    public function addRole(Role $role): self
     {
         $this->roles->add($role);
 

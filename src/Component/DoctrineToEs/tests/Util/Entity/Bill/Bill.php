@@ -5,12 +5,12 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 #[ORM\Entity]
-class ES_Bill
+class Bill
 {
     use IdTrait;
     use AllTypesTrait;
@@ -20,19 +20,19 @@ class ES_Bill
     private ?User $user = null;
 
     // One-To-One
-    #[ORM\OneToOne(mappedBy: 'bill', targetEntity: ES_BillMain::class)]
-    private ?ES_BillMain $billMain = null;
+    #[ORM\OneToOne(mappedBy: 'bill', targetEntity: BillMain::class)]
+    private ?BillMain $billMain = null;
 
     // Many-To-One
-    #[ORM\ManyToOne(targetEntity: ES_BillGroup::class, inversedBy: 'bills')]
-    private ?ES_BillGroup $billGroup = null;
+    #[ORM\ManyToOne(targetEntity: BillGroup::class, inversedBy: 'bills')]
+    private ?BillGroup $billGroup = null;
 
     // One-To-Many
-    #[ORM\OneToMany(mappedBy: 'bill', targetEntity: ES_BillItem::class)]
+    #[ORM\OneToMany(mappedBy: 'bill', targetEntity: BillItem::class)]
     private Collection $billItems;
 
     // Many-To-Many
-    #[ORM\ManyToMany(targetEntity: ES_BillMeta::class, mappedBy: 'bills')]
+    #[ORM\ManyToMany(targetEntity: BillMeta::class, mappedBy: 'bills')]
     private Collection $billMetas;
 
     public function __construct()
@@ -51,12 +51,12 @@ class ES_Bill
         $this->user = $user;
     }
 
-    public function getBillMain(): ?ES_BillMain
+    public function getBillMain(): ?BillMain
     {
         return $this->billMain;
     }
 
-    public function setBillMain(?ES_BillMain $billMain): void
+    public function setBillMain(?BillMain $billMain): void
     {
         $this->billMain = $billMain;
     }
@@ -71,12 +71,12 @@ class ES_Bill
         $this->billItems = $billItems;
     }
 
-    public function getBillGroup(): ?ES_BillGroup
+    public function getBillGroup(): ?BillGroup
     {
         return $this->billGroup;
     }
 
-    public function setBillGroup(?ES_BillGroup $billGroup): void
+    public function setBillGroup(?BillGroup $billGroup): void
     {
         $this->billGroup = $billGroup;
     }

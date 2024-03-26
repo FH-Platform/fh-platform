@@ -5,12 +5,12 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 #[ORM\Entity]
-class ES_Setting
+class Setting
 {
     use IdTrait;
     use AllTypesTrait;
@@ -20,19 +20,19 @@ class ES_Setting
     private ?User $user = null;
 
     // One-To-One
-    #[ORM\OneToOne(mappedBy: 'setting', targetEntity: ES_SettingMain::class)]
-    private ?ES_SettingMain $settingMain = null;
+    #[ORM\OneToOne(mappedBy: 'setting', targetEntity: SettingMain::class)]
+    private ?SettingMain $settingMain = null;
 
     // Many-To-One
-    #[ORM\ManyToOne(targetEntity: ES_SettingGroup::class, inversedBy: 'settings')]
-    private ?ES_SettingGroup $settingGroup = null;
+    #[ORM\ManyToOne(targetEntity: SettingGroup::class, inversedBy: 'settings')]
+    private ?SettingGroup $settingGroup = null;
 
     // One-To-Many
-    #[ORM\OneToMany(mappedBy: 'setting', targetEntity: ES_SettingItem::class)]
+    #[ORM\OneToMany(mappedBy: 'setting', targetEntity: SettingItem::class)]
     private Collection $settingItems;
 
     // Many-To-Many
-    #[ORM\ManyToMany(targetEntity: ES_SettingMeta::class, mappedBy: 'settings')]
+    #[ORM\ManyToMany(targetEntity: SettingMeta::class, mappedBy: 'settings')]
     private Collection $settingMetas;
 
     #[ORM\OneToOne(mappedBy: 'settingTestGetterEmpty', targetEntity: User::class)]
@@ -54,12 +54,12 @@ class ES_Setting
         $this->user = $user;
     }
 
-    public function getSettingMain(): ?ES_SettingMain
+    public function getSettingMain(): ?SettingMain
     {
         return $this->settingMain;
     }
 
-    public function setSettingMain(?ES_SettingMain $settingMain): void
+    public function setSettingMain(?SettingMain $settingMain): void
     {
         $this->settingMain = $settingMain;
     }
@@ -74,12 +74,12 @@ class ES_Setting
         $this->settingItems = $settingItems;
     }
 
-    public function getSettingGroup(): ?ES_SettingGroup
+    public function getSettingGroup(): ?SettingGroup
     {
         return $this->settingGroup;
     }
 
-    public function setSettingGroup(?ES_SettingGroup $settingGroup): void
+    public function setSettingGroup(?SettingGroup $settingGroup): void
     {
         $this->settingGroup = $settingGroup;
     }

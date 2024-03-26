@@ -7,20 +7,20 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\AllTypesTrait;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Trait\IdTrait;
 
 #[ORM\Entity]
-class ES_RoleItem
+class RoleMain
 {
     use IdTrait;
     use AllTypesTrait;
 
-    #[ORM\ManyToOne(targetEntity: ES_Role::class, inversedBy: 'roleItems')]
-    private ?ES_Role $role;
+    #[ORM\OneToOne(inversedBy: 'roleMain', targetEntity: Role::class)]
+    private ?Role $role = null;
 
-    public function getRole(): ?ES_Role
+    public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    public function setRole(?ES_Role $role): void
+    public function setRole(?Role $role): void
     {
         $this->role = $role;
     }
