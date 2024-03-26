@@ -66,12 +66,12 @@ class User
     private Collection $roles;
 
     // Many-To-Many, Self-referencing
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'myFriends')]
-    private Collection $friendsWithMe;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'friendsWithMe')]
+    private Collection $friends;
 
-    // Many-To-Many, Bidirectional-Self-referencing
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'friendsWithMe')]
-    private Collection $myFriends;
+    // Many-To-Many, Self-referencing
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'friends')]
+    private Collection $friendsWithMe;
 
     // ALL_TYPES relations testing
 
@@ -90,13 +90,19 @@ class User
 
         $this->invites = new ArrayCollection();
         $this->roles = new ArrayCollection();
-        $this->myFriends = new ArrayCollection();
-        $this->friendsWithMe = new ArrayCollection();
+        $this->friends = new ArrayCollection();
     }
 
     public function addRole(Role $role): self
     {
         $this->roles->add($role);
+
+        return $this;
+    }
+
+    public function addFriend(User $user): self
+    {
+        $this->friends->add($user);
 
         return $this;
     }
@@ -181,26 +187,6 @@ class User
         $this->roles = $roles;
     }
 
-    public function getFriendsWithMe(): Collection
-    {
-        return $this->friendsWithMe;
-    }
-
-    public function setFriendsWithMe(Collection $friendsWithMe): void
-    {
-        $this->friendsWithMe = $friendsWithMe;
-    }
-
-    public function getMyFriends(): Collection
-    {
-        return $this->myFriends;
-    }
-
-    public function setMyFriends(Collection $myFriends): void
-    {
-        $this->myFriends = $myFriends;
-    }
-
     public function setSetting(?Setting $setting): void
     {
         $this->setting = $setting;
@@ -219,5 +205,25 @@ class User
     public function setStudents(Collection $students): void
     {
         $this->students = $students;
+    }
+
+    public function getFriends(): Collection
+    {
+        return $this->friends;
+    }
+
+    public function setFriends(Collection $friends): void
+    {
+        $this->friends = $friends;
+    }
+
+    public function getFriendsWithMe(): Collection
+    {
+        return $this->friendsWithMe;
+    }
+
+    public function setFriendsWithMe(Collection $friendsWithMe): void
+    {
+        $this->friendsWithMe = $friendsWithMe;
     }
 }
