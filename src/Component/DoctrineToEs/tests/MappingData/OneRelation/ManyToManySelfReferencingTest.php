@@ -4,9 +4,10 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\DoctrineToEs\Tests\MappingData\TestCaseMappingData;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToManySelfReferencingTest extends TestCaseOneRelation
+class ManyToManySelfReferencingTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {

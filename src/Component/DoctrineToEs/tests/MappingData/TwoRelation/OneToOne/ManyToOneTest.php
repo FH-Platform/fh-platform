@@ -4,12 +4,12 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\TwoRelation\OneToO
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation\TestCaseOneRelation;
+use FHPlatform\Component\DoctrineToEs\Tests\MappingData\TestCaseMappingData;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingGroup;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToOneTest extends TestCaseOneRelation
+class ManyToOneTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {

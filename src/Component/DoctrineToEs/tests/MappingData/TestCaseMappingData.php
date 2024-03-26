@@ -1,11 +1,11 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation;
+namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData;
 
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 
-class TestCaseOneRelation extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
+class TestCaseMappingData extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
     protected MappingBuilder $mappingProvider;
     protected DataBuilder $dataProvider;

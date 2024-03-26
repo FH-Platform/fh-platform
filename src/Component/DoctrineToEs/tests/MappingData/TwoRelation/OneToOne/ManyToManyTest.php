@@ -5,12 +5,12 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\TwoRelation\OneToO
 use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation\TestCaseOneRelation;
+use FHPlatform\Component\DoctrineToEs\Tests\MappingData\TestCaseMappingData;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMeta;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToManyTest extends TestCaseOneRelation
+class ManyToManyTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {

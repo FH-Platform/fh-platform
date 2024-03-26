@@ -4,13 +4,14 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\DoctrineToEs\Tests\MappingData\TestCaseMappingData;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill\Bill;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class AllTest extends TestCaseOneRelation
+class AllTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {
