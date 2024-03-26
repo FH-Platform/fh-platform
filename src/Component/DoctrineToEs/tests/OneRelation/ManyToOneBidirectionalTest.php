@@ -7,6 +7,7 @@ use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
 use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
 use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
@@ -71,20 +72,20 @@ class ManyToOneBidirectionalTest extends TestCase
         $dataProvider = $this->container->get(DataProvider::class);
 
         $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
-        $mapping = $mappingProvider->provide($index, ['bestFriend' => []]);
+        $mapping = $mappingProvider->provide($index, ['location' => []]);
 
-        $userBestFriend = new User();
-        $userBestFriend->setTestBoolean(true);
-        $userBestFriend->setTestInteger(2);
-        $userBestFriend->setTestBigint(3);
-        $userBestFriend->setTestSmallint(4);
-        $userBestFriend->setTestFloat(5.1);
-        $userBestFriend->setTestDecimal(6.1);
-        $userBestFriend->setTestString('test_string');
-        $userBestFriend->setTestText('test_text');
-        $userBestFriend->setTestDate(new \DateTime('2024-01-01 00:00'));
-        $userBestFriend->setTestDatetime(new \DateTime('2024-01-01 10:10'));
-        $this->save([$userBestFriend]);
+        $location = new Location();
+        $location->setTestBoolean(true);
+        $location->setTestInteger(2);
+        $location->setTestBigint(3);
+        $location->setTestSmallint(4);
+        $location->setTestFloat(5.1);
+        $location->setTestDecimal(6.1);
+        $location->setTestString('test_string');
+        $location->setTestText('test_text');
+        $location->setTestDate(new \DateTime('2024-01-01 00:00'));
+        $location->setTestDatetime(new \DateTime('2024-01-01 10:10'));
+        $this->save([$location]);
 
         $user = new User();
         $user->setTestBoolean(true);
@@ -97,22 +98,19 @@ class ManyToOneBidirectionalTest extends TestCase
         $user->setTestText('test_text');
         $user->setTestDate(new \DateTime('2024-01-01 00:00'));
         $user->setTestDatetime(new \DateTime('2024-01-01 10:10'));
-        $user->setBestFriend($userBestFriend);
+        $user->setLocation($location);
         $this->save([$user]);
 
         $this->assertEquals(array_merge($this->mappingTest, [
-            'bestFriend' => [
+            'location' => [
                 'type' => 'object',
                 'properties' => $this->mappingTest,
             ],
         ]), $mapping);
 
-        $dataTest = $this->dataTest;
-        $dataTest['id'] = 2;
-
-        $data = $dataProvider->provide($index, $user, ['bestFriend' => []]);
-        $this->assertEquals(array_merge($dataTest, [
-                'bestFriend' => $this->dataTest,
+        $data = $dataProvider->provide($index, $user, ['location' => []]);
+        $this->assertEquals(array_merge($this->dataTest, [
+                'location' => $this->dataTest,
         ]), $data);
     }
 }
