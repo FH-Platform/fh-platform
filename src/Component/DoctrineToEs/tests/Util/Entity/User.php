@@ -31,7 +31,7 @@ class User
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Setting::class)]
     private ?Setting $setting = null;
 
-    // One-To-One, Self-referencing
+    // One-To-One, Bidirectional-Self-referencing
     #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'bestFriend')]
     private ?User $bestFriend = null;
 
@@ -43,7 +43,7 @@ class User
     #[ORM\ManyToOne(targetEntity: Location::class, inversedBy: 'users')]
     private ?Location $location = null;
 
-    // Many-To-One, Self-referencing
+    // Many-To-One, Bidirectional-Self-referencing
     #[ORM\ManyToOne(targetEntity: User::class)]
     private ?User $mentor = null;
 

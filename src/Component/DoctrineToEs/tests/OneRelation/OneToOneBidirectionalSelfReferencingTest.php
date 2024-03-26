@@ -10,7 +10,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToOneSelfReferencingTest extends TestCase
+class OneToOneBidirectionalSelfReferencingTest extends TestCase
 {
     private array $mappingTest = [
         'id' => [
