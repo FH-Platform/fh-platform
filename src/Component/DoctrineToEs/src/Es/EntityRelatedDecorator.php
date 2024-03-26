@@ -21,25 +21,33 @@ class EntityRelatedDecorator extends DecoratorEntityRelated
         return -100;
     }
 
-    public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
+    public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         $connections = $this->connectionsBuilder->build();
 
         $connectionsArray = [];
-        foreach ($connections as $connection){
-            foreach ($connection->getIndexes() as $index){
+        foreach ($connections as $connection) {
+            foreach ($connection->getIndexes() as $index) {
                 $config = $index->getConfigAdditional()['doctrine_to_es'];
 
-                if($config !== null){
+                if (null !== $config) {
                     $connectionsArray[$connection->getName()][$index->getClassName()] = $config;
                 }
             }
         }
 
+        // TODO cache updating map
         $updatingMap = $this->updatingMapBuilder->build($connectionsArray);
 
-        $entitiesRelated = $this->entitiesRelatedBuilder->build($entity, $updatingMap, []);
+        // TODO clean and hash
+        $entitiesRelatedDoctrineToEs = [];
+        $entities = $this->entitiesRelatedBuilder->build($entity, $updatingMap, $changedFields);
+        foreach ($entities as $relations => $entity) {
+            foreach ($entity as $id => $entity2) {
+                $entitiesRelated[] = $entity2;
+            }
+        }
 
-        return array_merge($entitiesRelated, $this->updatingMapBuilder->build($connections));
+        return $entitiesRelated;
     }
 }

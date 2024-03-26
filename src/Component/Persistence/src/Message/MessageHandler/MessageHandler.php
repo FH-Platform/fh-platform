@@ -57,7 +57,7 @@ class MessageHandler
             }
 
             if ($entity) {
-                $entitiesRelated = $this->entitiesRelatedBuilder->build($entity);
+                $entitiesRelated = $this->entitiesRelatedBuilder->build($entity, $changedFields);
             }
         }
 

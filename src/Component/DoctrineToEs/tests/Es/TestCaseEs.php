@@ -5,7 +5,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Es;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 
-
 class TestCaseEs extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
     protected DocumentBuilder $documentBuilder;

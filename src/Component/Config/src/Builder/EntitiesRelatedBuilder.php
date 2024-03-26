@@ -13,7 +13,7 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function build($entity): array
+    public function build(mixed $entity, $changedFields): array
     {
         $className = $entity::class;
 
@@ -23,18 +23,18 @@ class EntitiesRelatedBuilder
         $decorators = $this->configProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
 
         // decorate entity_related
-        $entitiesRelated = $this->decorateEntitiesRelated($entity, $decorators);
+        $entitiesRelated = $this->decorateEntitiesRelated($entity, $changedFields, $decorators);
 
         // return
         return $entitiesRelated;
     }
 
     /** @param  DecoratorEntityRelatedInterface[] $decorators */
-    private function decorateEntitiesRelated(mixed $entity, array $decorators): array
+    private function decorateEntitiesRelated(mixed $entity, array $changedFields, array $decorators): array
     {
         $entitiesRelated = [];
         foreach ($decorators as $decorator) {
-            $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $entitiesRelated);
+            $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $changedFields, $entitiesRelated);
         }
 
         return $entitiesRelated;

@@ -14,7 +14,7 @@ class ProviderEntityRelated_Role extends ProviderEntityRelated
     }
 
     /** @param Role $entity */
-    public function getEntityRelatedEntities(mixed $entity, array $entitiesRelated): array
+    public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         return $entity->getUsers()->toArray();
     }
