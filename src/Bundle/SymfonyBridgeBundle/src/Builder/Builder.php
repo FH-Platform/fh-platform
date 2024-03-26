@@ -19,6 +19,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
 use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
 use FHPlatform\Component\Filter\Converter\ApplicatorInterface;
 use FHPlatform\Component\Filter\Converter\FilterInterface;
@@ -213,5 +214,6 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         $container->register(MappingProvider::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(DataProvider::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }

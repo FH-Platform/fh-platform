@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs;
 
+use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
 use FHPlatform\Component\DoctrineToEs\Provider\EntitiesRelatedProvider;
 use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
@@ -30,14 +31,14 @@ class DoctrineToEsFacade
     ) {
     }
 
-    public function fetchData(string $className, $entity, $config, $sameLevel = true): array
+    public function fetchMapping(Index $index, $config): array
     {
-        return $this->dataProvider->provide($className, $entity, $config, $sameLevel);
+        return $this->mappingProvider->provide($index, $config);
     }
 
-    public function fetchMapping(string $className, $config): array
+    public function fetchData(Index $index, $entity, $config, $sameLevel = true): array
     {
-        return $this->mappingProvider->provide($className, $config);
+        return $this->dataProvider->provide($index, $entity, $config, $sameLevel);
     }
 
     public function fetchUpdatingMap($classNamesConfig): array

@@ -15,77 +15,137 @@ class User
     public ?int $id = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $name;
+    private ?bool $testBoolean;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $testInteger;
+
+    #[ORM\Column(type: 'bigint', nullable: true)]
+    private ?int $testBigint;
+
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    private ?int $testSmallint;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private ?float $testFloat;
+
+    #[ORM\Column(type: 'decimal', nullable: true)]
+    private ?float $testDecimal;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $name2;
+    private ?string $testString;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $number;
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $testText;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $number2;
+    #[ORM\Column(type: 'date', nullable: true)]
+    private ?\DateTimeInterface $testDate;
 
-    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users')]
-    private Collection $roles;
-
-    public function __construct()
-    {
-        $this->roles = new ArrayCollection();
-    }
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $testDatetime;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTestBoolean(): ?bool
     {
-        return $this->name;
+        return $this->testBoolean;
     }
 
-    public function setName(?string $name): void
+    public function setTestBoolean(?bool $testBoolean): void
     {
-        $this->name = $name;
+        $this->testBoolean = $testBoolean;
     }
 
-    public function getName2(): ?string
+    public function getTestInteger(): ?int
     {
-        return $this->name2;
+        return $this->testInteger;
     }
 
-    public function setName2(?string $name2): void
+    public function setTestInteger(?int $testInteger): void
     {
-        $this->name2 = $name2;
+        $this->testInteger = $testInteger;
     }
 
-    public function getNumber(): ?int
+    public function getTestBigint(): ?int
     {
-        return $this->number;
+        return $this->testBigint;
     }
 
-    public function setNumber(?int $number): void
+    public function setTestBigint(?int $testBigint): void
     {
-        $this->number = $number;
+        $this->testBigint = $testBigint;
     }
 
-    public function getNumber2(): ?int
+    public function getTestSmallint(): ?int
     {
-        return $this->number2;
+        return $this->testSmallint;
     }
 
-    public function setNumber2(?int $number2): void
+    public function setTestSmallint(?int $testSmallint): void
     {
-        $this->number2 = $number2;
+        $this->testSmallint = $testSmallint;
     }
 
-    public function getRoles(): Collection
+    public function getTestFloat(): ?float
     {
-        return $this->roles;
+        return $this->testFloat;
     }
 
-    public function setRoles(Collection $roles): void
+    public function setTestFloat(?float $testFloat): void
     {
-        $this->roles = $roles;
+        $this->testFloat = $testFloat;
+    }
+
+    public function getTestDecimal(): ?float
+    {
+        return $this->testDecimal;
+    }
+
+    public function setTestDecimal(?float $testDecimal): void
+    {
+        $this->testDecimal = $testDecimal;
+    }
+
+    public function getTestString(): ?string
+    {
+        return $this->testString;
+    }
+
+    public function setTestString(?string $testString): void
+    {
+        $this->testString = $testString;
+    }
+
+    public function getTestText(): ?string
+    {
+        return $this->testText;
+    }
+
+    public function setTestText(?string $testText): void
+    {
+        $this->testText = $testText;
+    }
+
+    public function getTestDate(): ?\DateTimeInterface
+    {
+        return $this->testDate;
+    }
+
+    public function setTestDate(?\DateTimeInterface $testDate): void
+    {
+        $this->testDate = $testDate;
+    }
+
+    public function getTestDatetime(): ?\DateTimeInterface
+    {
+        return $this->testDatetime;
+    }
+
+    public function setTestDatetime(?\DateTimeInterface $testDatetime): void
+    {
+        $this->testDatetime = $testDatetime;
     }
 }

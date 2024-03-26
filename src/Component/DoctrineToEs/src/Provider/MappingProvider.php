@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Provider;
 
+use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\DoctrineToEsFacade;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsProvider;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
@@ -14,9 +15,11 @@ class MappingProvider
     ) {
     }
 
-    public function provide(string $className, array $configClassName, array &$mapping = [], $levels = []): array
+    public function provide(Index $index, array $config, array &$mapping = [], $levels = []): array
     {
-        $associations = $this->associationsProvider->provide($className, $configClassName);
+        $className = $index->getClassName();
+
+        $associations = $this->associationsProvider->provide($index, $config);
 
         foreach ($associations as $association) {
             $columnName = $association['columnName'];
@@ -26,13 +29,13 @@ class MappingProvider
 
             $mappingAssociation = $this->generateMapping($targetEntity, $configAssociations);
 
-            $this->provide($targetEntity, $configAssociations, $sameLevel, $mapping, array_merge($levels, [$columnName]));
+            $this->provide($targetEntity, $configAssociations, $mapping, array_merge($levels, [$columnName]));
 
             $mapping = $this->relatedInSameLevel($mapping, $columnName, $type, $mappingAssociation, $levels);
         }
 
         if (0 === count($levels)) {
-            $mappingAssociation = $this->generateMapping($className, $configClassName);
+            $mappingAssociation = $this->generateMapping($className, $config);
             $mapping = array_merge($mappingAssociation, $mapping);
         }
 

@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider;
 
+use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider\ConfigAssociationsProvider;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider\DoctrineAssociationsProvider;
 
@@ -13,8 +14,10 @@ class AssociationsProvider
     ) {
     }
 
-    public function provide(string $className, array $config): array
+    public function provide(Index $index, array $config): array
     {
+        $className = $index->getClassName();
+
         $doctrineAssociations = $this->doctrineAssociationsProvider->provide($className);
         $configAssociations = $this->configAssociationsProvider->provide($className, $config);
 

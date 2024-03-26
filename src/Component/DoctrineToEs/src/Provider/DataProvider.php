@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\DoctrineToEs\Provider;
 
 use Doctrine\Common\Collections\Collection;
+use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsProvider;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
@@ -16,9 +17,11 @@ class DataProvider
     ) {
     }
 
-    public function provide(string $className, $entity, array $configClassName, bool $sameLevel, array &$data = [], $levels = []): array
+    public function provide(Index $index, $entity, array $configClassName, array &$data = [], $levels = []): array
     {
-        $associations = $this->associationsProvider->provide($className, $configClassName);
+        $className = $index->getClassName();
+
+        $associations = $this->associationsProvider->provide($index, $configClassName);
 
         foreach ($associations as $association) {
             $type = $association['type'];
@@ -43,7 +46,7 @@ class DataProvider
                         $levelsNew = array_merge($levels, [$columnName, $k]);
                     }
 
-                    $this->provide($entityRelated::class, $entityRelated, $configAssociation, $sameLevel, $data, $levelsNew);
+                    $this->provide($entityRelated::class, $entityRelated, $configAssociation, $data, $levelsNew);
                 }
 
                 // store related entities into data
@@ -63,11 +66,7 @@ class DataProvider
                     }
                 }
 
-                if ($sameLevel) {
-                    $data = $this->relatedInSameLevel($data, $columnName, $value);
-                } else {
-                    $data = $this->relatedInNestedLevel($data, $columnName, $value, $levels);
-                }
+                $data = $this->relatedInNestedLevel($data, $columnName, $value, $levels);
             }
         }
 
@@ -96,13 +95,6 @@ class DataProvider
         }
 
         return $entitiesRelatedAll;
-    }
-
-    private function relatedInSameLevel($esDataRoot, $columnName, $value): array
-    {
-        $esDataRoot[$columnName] = $value;
-
-        return $esDataRoot;
     }
 
     private function relatedInNestedLevel($esDataRoot, $columnName, $value, $levels): array
@@ -137,6 +129,10 @@ class DataProvider
             $getter = $field['getter'];
 
             $value = $entity->{$getter}();
+
+            if($value instanceof  \DateTimeInterface){
+                $value = $value->format(\DateTimeInterface::ATOM); //ISO8601
+            }
 
             $esDataFields[$columnName] = $value;
         }
