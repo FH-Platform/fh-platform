@@ -25,6 +25,7 @@ class DataProvider
 
         return $this->provide2($className, $entity, $configClassName, $data);
     }
+
     private function provide2(string $className, $entity, array $configClassName, array &$data = [], $levels = [])
     {
         $associations = $this->associationsProvider->provide($className, $configClassName);

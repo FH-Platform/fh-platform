@@ -20,6 +20,7 @@ class MappingProvider
         $className = $index->getClassName();
 
         $mapping = [];
+
         return $this->provide2($className, $config, $mapping, []);
     }
 

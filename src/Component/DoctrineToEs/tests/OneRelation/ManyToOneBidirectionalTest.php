@@ -1,17 +1,15 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\OneRelation;
+namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Provider\DataProvider;
 use FHPlatform\Component\DoctrineToEs\Provider\MappingProvider;
-use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToOneBidirectionalTest extends TestCase
+class ManyToOneBidirectionalTest extends TestCaseOneRelation
 {
     private array $mappingTest = [
         'id' => [
@@ -110,7 +108,7 @@ class ManyToOneBidirectionalTest extends TestCase
 
         $data = $dataProvider->provide($index, $user, ['location' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
-                'location' => $this->dataTest,
+            'location' => $this->dataTest,
         ]), $data);
     }
 }
