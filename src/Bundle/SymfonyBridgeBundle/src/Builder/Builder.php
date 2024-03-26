@@ -217,5 +217,6 @@ class Builder implements BuilderInterface
         $container->register(MappingBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(DataBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(UpdatingMapBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(\FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }

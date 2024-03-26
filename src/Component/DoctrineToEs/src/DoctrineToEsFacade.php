@@ -54,6 +54,6 @@ class DoctrineToEsFacade
 
     public function fetchEntitiesRelated($entity, $updatingMap, $changedFields): array
     {
-        return $this->entitiesRelatedProvider->provide($entity, $updatingMap, $changedFields);
+        return $this->entitiesRelatedProvider->build($entity, $updatingMap, $changedFields);
     }
 }

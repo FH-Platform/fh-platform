@@ -13,33 +13,35 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function provide($entity, array $updatingMap, array $changedFields): array
+    public function build($entity, array $updatingMap, array $changedFields): array
     {
         $className = ClassUtils::getClass($entity);
 
-        $updatingMapForEntity = $updatingMap[$className] ?? [];
-
         $entitiesRelated = [];
-        foreach ($updatingMapForEntity as $updatingMapForEntityRow) {
-            $associationString = $updatingMapForEntityRow['relations'];
-            $changedFieldsForEs = $updatingMapForEntityRow['changed_fields'];
+        foreach ($updatingMap as $connectionName => $updatingMapConnection){
+            $updatingMapForEntity = $updatingMapConnection[$className] ?? [];
 
-            // detect if field from doctrine-to-es config is changed
-            $identifierName = $this->persistence->getIdentifierName($className);
-            $isChangedAnyEsField = !empty(array_intersect($changedFieldsForEs, $changedFields)) || !empty($changedFields[$identifierName]);
-            if (!$isChangedAnyEsField) {
-                continue;
-            }
+            foreach ($updatingMapForEntity as $updatingMapForEntityRow) {
+                $associationString = $updatingMapForEntityRow['relations'];
+                $changedFieldsForEs = $updatingMapForEntityRow['changed_fields'];
 
-            $associations = explode('.', $associationString);
+                // detect if field from doctrine-to-es config is changed
+                $identifierName = $this->persistence->getIdentifierName($className);
+                $isChangedAnyEsField = !empty(array_intersect($changedFieldsForEs, $changedFields)) || !empty($changedFields[$identifierName]);
+                if (!$isChangedAnyEsField) {
+                    continue;
+                }
 
-            $entitiesRelatedForEntityRow = [$entity];
-            foreach ($associations as $key => $association) {
-                $entitiesRelatedForEntityRow = $this->getEntitiesRelatedForAssociation($entitiesRelatedForEntityRow, $association);
+                $associations = explode('.', $associationString);
 
-                if ($key === array_key_last($associations)) {
-                    $entitiesRelatedForEntityRowFiltered = $this->filterEntitiesRelated($className, $entitiesRelatedForEntityRow, $associationString);
-                    $entitiesRelated = array_merge($entitiesRelated, $entitiesRelatedForEntityRowFiltered);
+                $entitiesRelatedForEntityRow = [$entity];
+                foreach ($associations as $key => $association) {
+                    $entitiesRelatedForEntityRow = $this->getEntitiesRelatedForAssociation($entitiesRelatedForEntityRow, $association);
+
+                    if ($key === array_key_last($associations)) {
+                        $entitiesRelatedForEntityRowFiltered = $this->filterEntitiesRelated($className, $entitiesRelatedForEntityRow, $associationString);
+                        $entitiesRelated = array_merge($entitiesRelated, $entitiesRelatedForEntityRowFiltered);
+                    }
                 }
             }
         }
@@ -81,10 +83,9 @@ class EntitiesRelatedBuilder
 
             // use hash className + associationString to prevent adding the same entity
             $identifierValue = $this->persistence->getIdentifierValue($entity);
-            $hash = $className.'_'.$associationString.'_'.$identifierValue;
-            if (!isset($entitiesFiltered[$hash])) {
-                $entitiesFiltered[$hash] = $entity;
-            }
+
+
+            $entitiesFiltered[$associationString][$identifierValue] = $entity;
         }
 
         return $entitiesFiltered;
