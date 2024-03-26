@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Persistence\Tests\Util\Es\Config\Connections;
 
-use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
+use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 
 class ProviderDefaultConnection extends ProviderConnection
 {

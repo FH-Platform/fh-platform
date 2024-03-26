@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Config\Config\Connection;
+namespace FHPlatform\Component\Config\Config\Provider;
 
 abstract class ProviderConnection
 {

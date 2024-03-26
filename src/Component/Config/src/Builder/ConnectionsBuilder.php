@@ -3,10 +3,10 @@
 namespace FHPlatform\Component\Config\Builder;
 
 use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 

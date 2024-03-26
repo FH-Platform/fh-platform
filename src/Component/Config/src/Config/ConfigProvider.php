@@ -2,13 +2,13 @@
 
 namespace FHPlatform\Component\Config\Config;
 
-use FHPlatform\Component\Config\Config\Connection\ProviderConnection;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
+use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 use FHPlatform\Component\Config\Util\Sorter\PrioritySorter;
 
 class ConfigProvider
