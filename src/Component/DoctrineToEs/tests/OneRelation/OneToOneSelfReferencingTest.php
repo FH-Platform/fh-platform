@@ -7,7 +7,7 @@ use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToOneBidirectionalSelfReferencingTest extends TestCaseOneRelation
+class OneToOneSelfReferencingTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {

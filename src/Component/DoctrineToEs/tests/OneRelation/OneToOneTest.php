@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToOneBidirectionalTest extends TestCaseOneRelation
+class OneToOneTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {

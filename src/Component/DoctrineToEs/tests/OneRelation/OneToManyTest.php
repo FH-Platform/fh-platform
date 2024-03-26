@@ -7,7 +7,7 @@ use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill\Bill;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToManyBidirectionalSelfReferencingTest extends TestCaseOneRelation
+class OneToManyTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
@@ -15,31 +15,30 @@ class OneToManyBidirectionalSelfReferencingTest extends TestCaseOneRelation
 
         $user = $this->populateEntity(new User());
 
-        $student = $this->populateEntity(new User());
-        $student->setMentor($user);
-        $student2 = $this->populateEntity(new User());
-        $student2->setMentor($user);
+        $bill = $this->populateEntity(new Bill());
+        $bill->setUser($user);
+        $bill2 = $this->populateEntity(new Bill());
+        $bill2->setUser($user);
 
-        $this->save([$student, $student2]);
+        $this->save([$bill, $bill2]);
 
-        $mapping = $this->mappingProvider->provide($index, ['students' => []]);
+        $mapping = $this->mappingProvider->provide($index, ['bills' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
-            'students' => [
+            'bills' => [
                 'type' => 'nested',
                 'properties' => $this->mappingTest,
             ],
         ]), $mapping);
 
-        $dataTestStudent = $this->dataTest;
-        $dataTestStudent['id'] = 2;
-        $dataTestStudent2 = $this->dataTest;
-        $dataTestStudent2['id'] = 3;
+        $dataTestBill = $this->dataTest;
+        $dataTestBill2 = $this->dataTest;
+        $dataTestBill2['id'] = 2;
 
-        $data = $this->dataProvider->provide($index, $user, ['students' => []]);
+        $data = $this->dataProvider->provide($index, $user, ['bills' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
-            'students' => [
-                $dataTestStudent,
-                $dataTestStudent2,
+            'bills' => [
+                $dataTestBill,
+                $dataTestBill2,
             ]
         ]), $data);
     }

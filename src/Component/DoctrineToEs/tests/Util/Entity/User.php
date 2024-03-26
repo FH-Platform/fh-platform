@@ -69,6 +69,7 @@ class User
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'myFriends')]
     private Collection $friendsWithMe;
 
+    // Many-To-Many, Bidirectional-Self-referencing
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'friendsWithMe')]
     private Collection $myFriends;
 

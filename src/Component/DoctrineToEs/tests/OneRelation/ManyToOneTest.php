@@ -7,7 +7,7 @@ use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToOneBidirectionalTest extends TestCaseOneRelation
+class ManyToOneTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
