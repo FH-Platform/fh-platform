@@ -68,7 +68,7 @@ class DocumentBuilder
             }
 
             if ('object' == $mappingItemType) {
-                $data[$mappingItemKey] = $this->decorateDataItems($index, $entity, $dataItem, $mapping[$mappingItemKey]['properties'], $decorators);
+                $data[$mappingItemKey] = $this->decorateDataItems($index, $entity, $dataItem ?? [], $mapping[$mappingItemKey]['properties'], $decorators);
             } elseif ('nested' == $mappingItemType) {
                 foreach ($dataItem as $k2 => $item) {
                     $data[$mappingItemKey][$k2] = $this->decorateDataItems($index, $entity, $item, $mapping[$mappingItemKey]['properties'], $decorators);

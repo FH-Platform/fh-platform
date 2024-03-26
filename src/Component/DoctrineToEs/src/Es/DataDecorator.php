@@ -20,11 +20,10 @@ class DataDecorator extends DecoratorEntity
 
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
-        $config = [];
+        if (null === ($config = ($index->getConfigAdditional()['doctrine_to_es'] ?? null))) {
+            return $data;
+        }
 
-        $config = $index->getConfigAdditional()['doctrine_to_es'] ?? null;
-        $data = array_merge($data, $this->dataBuilder->build($index, $entity, $config));
-
-        return $data;
+        return array_merge($data, $this->dataBuilder->build($index, $entity, $config));
     }
 }
