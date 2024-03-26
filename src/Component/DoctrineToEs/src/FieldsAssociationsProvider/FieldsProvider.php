@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider;
 
-use FHPlatform\Component\DoctrineToEs\DoctrineToEsFacade;
+use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider\ConfigFieldsProvider;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider\DoctrineFieldsProvider;
 
@@ -32,7 +32,7 @@ class FieldsProvider
             }
 
             // if field type is not supported throw exception
-            if (!isset(DoctrineToEsFacade::DOCTRINE_TYPES_TO_ES_TYPES[$type])) {
+            if (!isset(MappingBuilder::DOCTRINE_TYPES_TO_ES_TYPES[$type])) {
                 throw new \Exception('Field "'.$fieldName.'" in class "'.$className.'" with type="'.$type.'" is not supported');
             }
 

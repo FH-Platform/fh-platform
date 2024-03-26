@@ -3,12 +3,24 @@
 namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\DoctrineToEsFacade;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsProvider;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
 
 class MappingBuilder
 {
+    final public const DOCTRINE_TYPES_TO_ES_TYPES = [
+        'boolean' => 'boolean',
+        'integer' => 'integer',
+        'bigint' => 'integer',
+        'smallint' => 'integer',
+        'float' => 'float',
+        'decimal' => 'float',
+        'string' => 'text',
+        'text' => 'text',
+        'date' => 'date',
+        'datetime' => 'date',
+    ];
+
     public function __construct(
         private readonly AssociationsProvider $associationsProvider,
         private readonly FieldsProvider $fieldsProvider,
@@ -76,7 +88,7 @@ class MappingBuilder
             $type = $field['type'];
             $columnName = $field['columnName'];
 
-            $mappingFields[$columnName] = ['type' => DoctrineToEsFacade::DOCTRINE_TYPES_TO_ES_TYPES[$type]];
+            $mappingFields[$columnName] = ['type' => MappingBuilder::DOCTRINE_TYPES_TO_ES_TYPES[$type]];
         }
 
         return $mappingFields;

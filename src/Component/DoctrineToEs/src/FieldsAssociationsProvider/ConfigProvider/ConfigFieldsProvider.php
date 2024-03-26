@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider;
 
-use FHPlatform\Component\DoctrineToEs\DoctrineToEsFacade;
+use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider\DoctrineFieldsProvider;
 
 // return fields from doctrine-to-es config
@@ -44,7 +44,7 @@ class ConfigFieldsProvider
                     $getter = $methodGetterBoolean;
                 }
 
-                if ($getter && isset(DoctrineToEsFacade::DOCTRINE_TYPES_TO_ES_TYPES[$type])) {
+                if ($getter && isset(MappingBuilder::DOCTRINE_TYPES_TO_ES_TYPES[$type])) {
                     $configFields[$fieldName] = $fieldName;
                 }
             }
