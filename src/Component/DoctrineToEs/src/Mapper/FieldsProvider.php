@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider;
+namespace FHPlatform\Component\DoctrineToEs\Mapper;
 
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider\ConfigFieldsProvider;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider\DoctrineFieldsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\Config\ConfigFieldsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\Doctrine\DoctrineFieldsProvider;
 
 class FieldsProvider
 {

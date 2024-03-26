@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider;
+namespace FHPlatform\Component\DoctrineToEs\Mapper\Config;
 
 // return associations from doctrine-to-es config
 class ConfigAssociationsProvider

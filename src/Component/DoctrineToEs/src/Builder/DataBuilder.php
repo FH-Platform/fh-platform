@@ -4,8 +4,8 @@ namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsProvider;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\AssociationsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\FieldsProvider;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class DataBuilder

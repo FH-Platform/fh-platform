@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider;
+namespace FHPlatform\Component\DoctrineToEs\Mapper\Config;
 
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider\DoctrineFieldsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\Doctrine\DoctrineFieldsProvider;
 
 // return fields from doctrine-to-es config
 class ConfigFieldsProvider

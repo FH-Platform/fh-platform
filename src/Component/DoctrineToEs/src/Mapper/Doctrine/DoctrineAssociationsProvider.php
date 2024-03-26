@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider;
+namespace FHPlatform\Component\DoctrineToEs\Mapper\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 

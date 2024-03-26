@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider;
+namespace FHPlatform\Component\DoctrineToEs\Mapper;
 
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\ConfigProvider\ConfigAssociationsProvider;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\DoctrineProvider\DoctrineAssociationsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\Config\ConfigAssociationsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\Doctrine\DoctrineAssociationsProvider;
 
 class AssociationsProvider
 {

@@ -3,8 +3,8 @@
 namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\AssociationsProvider;
-use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\AssociationsProvider;
+use FHPlatform\Component\DoctrineToEs\Mapper\FieldsProvider;
 
 class MappingBuilder
 {
