@@ -17,11 +17,15 @@ class DataBuilder
     ) {
     }
 
-    public function build(Index $index, $entity, array $config): array
+    public function build(Index $index, $entity, array $config = null): array
     {
-        $className = $index->getClassName();
-
         $data = [];
+
+        if($config === null){
+            return $data;
+        }
+
+        $className = $index->getClassName();
 
         return $this->buildRecursive($className, $entity, $config, $data);
     }
