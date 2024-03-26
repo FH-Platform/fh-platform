@@ -19,7 +19,7 @@ class OneToOneTest extends TestCaseMappingData
         $user->setSetting($setting);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['setting' => []]);
+        $mapping = $this->mappingProvider->build($index, ['setting' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'setting' => [
                 'type' => 'object',
@@ -27,7 +27,7 @@ class OneToOneTest extends TestCaseMappingData
             ],
         ]), $mapping);
 
-        $data = $this->dataProvider->provide($index, $user, ['setting' => []]);
+        $data = $this->dataProvider->build($index, $user, ['setting' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
             'setting' => $this->dataTest,
         ]), $data);

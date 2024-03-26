@@ -3,9 +3,10 @@
 namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\ORM\EntityManagerInterface;
+use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\DoctrineToEs\FieldsAssociationsProvider\FieldsProvider;
 
-class UpdatingMapProvider
+class UpdatingMapBuilder
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -13,21 +14,23 @@ class UpdatingMapProvider
     ) {
     }
 
-    public function provide($configClassNames): array
+    /** @param Connection[] $connections */
+    public function build(array $connections): array
     {
         $updatingMap = [];
         $updatingMapReversed = [];
 
         // for each nestable(and searchable) provider calculate config for update
-        foreach ($configClassNames as $className => $configClassName) {
-            if (null === $configClassName) {
-                continue;
+        foreach ($connections as $connection) {
+            foreach ($connection->getIndexes() as $index) {
+                $className = $index->getClassName();
+                $configClassName = [];
+
+                // add for root class
+                // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
+
+                $this->calculateForAssociations($className, $className, $configClassName, '', $updatingMap, $updatingMapReversed);
             }
-
-            // add for root class
-            // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
-
-            $this->calculateForAssociations($className, $className, $configClassName, '', $updatingMap, $updatingMapReversed);
         }
 
         return [$updatingMap, $updatingMapReversed];

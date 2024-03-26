@@ -23,7 +23,7 @@ class ManyToManyTest extends TestCaseMappingData
 
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['roles' => []]);
+        $mapping = $this->mappingProvider->build($index, ['roles' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'roles' => [
                 'type' => 'nested',
@@ -35,7 +35,7 @@ class ManyToManyTest extends TestCaseMappingData
         $dataTestRole2 = $this->dataTest;
         $dataTestRole2['id'] = 2;
 
-        $data = $this->dataProvider->provide($index, $user, ['roles' => []]);
+        $data = $this->dataProvider->build($index, $user, ['roles' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
             'roles' => [
                 $dataTestRole,

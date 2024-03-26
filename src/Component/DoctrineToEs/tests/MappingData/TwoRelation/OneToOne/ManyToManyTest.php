@@ -42,7 +42,7 @@ class ManyToManyTest extends TestCaseMappingData
             'properties' => $this->mappingTest,
         ];
 
-        $mapping = $this->mappingProvider->provide($index, $conf);
+        $mapping = $this->mappingProvider->build($index, $conf);
         $this->assertEquals(array_merge($this->mappingTest, [
             'setting' => [
                 'type' => 'object',
@@ -50,7 +50,7 @@ class ManyToManyTest extends TestCaseMappingData
             ],
         ]), $mapping);
 
-        $data = $this->dataProvider->provide($index, $user, $conf);
+        $data = $this->dataProvider->build($index, $user, $conf);
 
         $dataTestItem2 = $this->dataTest;
         $dataTestItem2['id'] = 2;

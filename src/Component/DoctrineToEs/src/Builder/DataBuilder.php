@@ -17,18 +17,18 @@ class DataBuilder
     ) {
     }
 
-    public function provide(Index $index, $entity, array $configClassName): array
+    public function build(Index $index, $entity, array $config): array
     {
         $className = $index->getClassName();
 
         $data = [];
 
-        return $this->provide2($className, $entity, $configClassName, $data);
+        return $this->buildRecursive($className, $entity, $config, $data);
     }
 
-    private function provide2(string $className, $entity, array $configClassName, array &$data = [], $levels = [])
+    private function buildRecursive(string $className, $entity, array $config, array &$data = [], $levels = [])
     {
-        $associations = $this->associationsProvider->provide($className, $configClassName);
+        $associations = $this->associationsProvider->provide($className, $config);
 
         foreach ($associations as $association) {
             $type = $association['type'];
@@ -53,7 +53,7 @@ class DataBuilder
                         $levelsNew = array_merge($levels, [$columnName, $k]);
                     }
 
-                    $this->provide2($entityRelated::class, $entityRelated, $configAssociation, $data, $levelsNew);
+                    $this->buildRecursive($entityRelated::class, $entityRelated, $configAssociation, $data, $levelsNew);
                 }
 
                 // store related entities into data
@@ -78,7 +78,7 @@ class DataBuilder
         }
 
         if (0 === count($levels)) {
-            $dataFields = $this->generateData($className, $entity, $configClassName);
+            $dataFields = $this->generateData($className, $entity, $config);
             $data = array_merge($dataFields, $data);
         }
 

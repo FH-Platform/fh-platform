@@ -23,7 +23,7 @@ class OneToManyTest extends TestCaseMappingData
 
         $this->save([$bill, $bill2]);
 
-        $mapping = $this->mappingProvider->provide($index, ['bills' => []]);
+        $mapping = $this->mappingProvider->build($index, ['bills' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'bills' => [
                 'type' => 'nested',
@@ -35,7 +35,7 @@ class OneToManyTest extends TestCaseMappingData
         $dataTestBill2 = $this->dataTest;
         $dataTestBill2['id'] = 2;
 
-        $data = $this->dataProvider->provide($index, $user, ['bills' => []]);
+        $data = $this->dataProvider->build($index, $user, ['bills' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
             'bills' => [
                 $dataTestBill,

@@ -21,6 +21,7 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedI
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
+use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
 use FHPlatform\Component\Filter\Converter\ApplicatorInterface;
 use FHPlatform\Component\Filter\Converter\FilterInterface;
 use FHPlatform\Component\Filter\FilterQuery;
@@ -215,5 +216,6 @@ class Builder implements BuilderInterface
 
         $container->register(MappingBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(DataBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(UpdatingMapBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }

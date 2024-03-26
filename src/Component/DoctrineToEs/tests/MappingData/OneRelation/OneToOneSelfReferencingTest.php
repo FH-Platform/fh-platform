@@ -19,7 +19,7 @@ class OneToOneSelfReferencingTest extends TestCaseMappingData
         $user->setBestFriend($userBestFriend);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['bestFriend' => []]);
+        $mapping = $this->mappingProvider->build($index, ['bestFriend' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'bestFriend' => [
                 'type' => 'object',
@@ -30,7 +30,7 @@ class OneToOneSelfReferencingTest extends TestCaseMappingData
         $dataTest = $this->dataTest;
         $dataTest['id'] = 2;
 
-        $data = $this->dataProvider->provide($index, $user, ['bestFriend' => []]);
+        $data = $this->dataProvider->build($index, $user, ['bestFriend' => []]);
         $this->assertEquals(array_merge($dataTest, [
             'bestFriend' => $this->dataTest,
         ]), $data);

@@ -22,7 +22,7 @@ class OneToManySelfReferencingTest extends TestCaseMappingData
 
         $this->save([$student, $student2]);
 
-        $mapping = $this->mappingProvider->provide($index, ['students' => []]);
+        $mapping = $this->mappingProvider->build($index, ['students' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'students' => [
                 'type' => 'nested',
@@ -35,7 +35,7 @@ class OneToManySelfReferencingTest extends TestCaseMappingData
         $dataTestStudent2 = $this->dataTest;
         $dataTestStudent2['id'] = 3;
 
-        $data = $this->dataProvider->provide($index, $user, ['students' => []]);
+        $data = $this->dataProvider->build($index, $user, ['students' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
             'students' => [
                 $dataTestStudent,

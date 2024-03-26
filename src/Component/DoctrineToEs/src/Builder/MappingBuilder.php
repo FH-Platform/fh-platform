@@ -15,16 +15,16 @@ class MappingBuilder
     ) {
     }
 
-    public function provide(Index $index, array $config): array
+    public function build(Index $index, array $config): array
     {
         $className = $index->getClassName();
 
         $mapping = [];
 
-        return $this->provide2($className, $config, $mapping, []);
+        return $this->buildRecursive($className, $config, $mapping);
     }
 
-    private function provide2(string $className, array $config, array &$mapping, $levels)
+    private function buildRecursive(string $className, array $config, array &$mapping, $levels = []): array
     {
         $associations = $this->associationsProvider->provide($className, $config);
 
@@ -36,7 +36,7 @@ class MappingBuilder
 
             $mappingAssociation = $this->generateMapping($targetEntity, $configAssociations);
 
-            $this->provide2($targetEntity, $configAssociations, $mapping, array_merge($levels, [$columnName]));
+            $this->buildRecursive($targetEntity, $configAssociations, $mapping, array_merge($levels, [$columnName]));
 
             $mapping = $this->relatedInNestedLevel($mapping, $columnName, $type, $mappingAssociation, $levels);
         }

@@ -67,7 +67,7 @@ class AllTest extends TestCaseMappingData
         $user->addFriend($friend2);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, [
+        $mapping = $this->mappingProvider->build($index, [
             'setting' => [],
             'bestFriend' => [],
             'location' => [],
@@ -112,7 +112,7 @@ class AllTest extends TestCaseMappingData
             ],
         ]), $mapping);
 
-        $data = $this->dataProvider->provide($index, $user, [
+        $data = $this->dataProvider->build($index, $user, [
             'setting' => [],
             'bestFriend' => [],
             'location' => [],

@@ -18,7 +18,7 @@ class ManyToOneSelfReferencingTest extends TestCaseMappingData
         $user->setMentor($mentor);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['mentor' => []]);
+        $mapping = $this->mappingProvider->build($index, ['mentor' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'mentor' => [
                 'type' => 'object',
@@ -29,7 +29,7 @@ class ManyToOneSelfReferencingTest extends TestCaseMappingData
         $dataTestUser = $this->dataTest;
         $dataTestUser['id'] = 2;
 
-        $data = $this->dataProvider->provide($index, $user, ['mentor' => []]);
+        $data = $this->dataProvider->build($index, $user, ['mentor' => []]);
         $this->assertEquals(array_merge($dataTestUser, [
             'mentor' => $this->dataTest,
         ]), $data);

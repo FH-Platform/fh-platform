@@ -19,7 +19,7 @@ class ManyToOneTest extends TestCaseMappingData
         $user->setLocation($location);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['location' => []]);
+        $mapping = $this->mappingProvider->build($index, ['location' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
             'location' => [
                 'type' => 'object',
@@ -27,7 +27,7 @@ class ManyToOneTest extends TestCaseMappingData
             ],
         ]), $mapping);
 
-        $data = $this->dataProvider->provide($index, $user, ['location' => []]);
+        $data = $this->dataProvider->build($index, $user, ['location' => []]);
         $this->assertEquals(array_merge($this->dataTest, [
             'location' => $this->dataTest,
         ]), $data);
