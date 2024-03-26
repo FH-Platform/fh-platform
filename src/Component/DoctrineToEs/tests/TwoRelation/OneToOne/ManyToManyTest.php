@@ -2,36 +2,43 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\TwoRelation\OneToOne;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\OneRelation\TestCaseOneRelation;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMeta;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class OneToOneTest extends TestCaseOneRelation
+class ManyToManyTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
         $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
 
-        $settingMain = $this->populateEntity(new SettingMain());
         $setting = $this->populateEntity(new Setting());
-        $settingMain->setSetting($setting);
-        $this->save([$settingMain]);
+
+        $settingMeta = $this->populateEntity(new SettingMeta());
+        $settingMeta2 = $this->populateEntity(new SettingMeta());
+
+        $settingMeta->setSettings(new ArrayCollection([$setting]));
+        $settingMeta2->setSettings(new ArrayCollection([$setting]));
+
+        $this->save([$settingMeta, $settingMeta2]);
+
         $user = $this->populateEntity(new User());
         $user->setSetting($setting);
         $this->save([$user]);
 
         $conf = [
             'setting' => [
-                'settingMain' => [],
+                'settingMetas' => [],
             ],
         ];
 
         $mappingTestSetting = $this->mappingTest;
-        $mappingTestSetting['settingMain'] = [
-            'type' => 'object',
+        $mappingTestSetting['settingMetas'] = [
+            'type' => 'nested',
             'properties' => $this->mappingTest,
         ];
 
@@ -45,8 +52,10 @@ class OneToOneTest extends TestCaseOneRelation
 
         $data = $this->dataProvider->provide($index, $user, $conf);
 
+        $dataTestItem2 = $this->dataTest;
+        $dataTestItem2['id'] = 2;
         $dataTestSetting = $this->dataTest;
-        $dataTestSetting['settingMain'] = $this->dataTest;
+        $dataTestSetting['settingMetas'] = [$this->dataTest, $dataTestItem2];
 
         $this->assertEquals(array_merge($this->dataTest, [
             'setting' => $dataTestSetting,

@@ -18,48 +18,48 @@ class AllTest extends TestCaseOneRelation
 
         $user = $this->populateEntity(new User());
 
-        //one-to-one
+        // one-to-one
         $setting = $this->populateEntity(new Setting());
         $user->setSetting($setting);
         $this->save([$user]);
 
-        //one-to-one self-referencing
+        // one-to-one self-referencing
         $userBestFriend = $this->populateEntity(new User());
         $user->setBestFriend($userBestFriend);
         $this->save([$user]);
 
-        //many-to-one
+        // many-to-one
         $location = $this->populateEntity(new Location());
         $user->setLocation($location);
         $this->save([$user]);
 
-        //many-to-one self-referencing
+        // many-to-one self-referencing
         $mentor = $this->populateEntity(new User());
         $user->setMentor($mentor);
         $this->save([$user]);
 
-        //one-to-many
+        // one-to-many
         $bill = $this->populateEntity(new Bill());
         $bill->setUser($user);
         $bill2 = $this->populateEntity(new Bill());
         $bill2->setUser($user);
         $this->save([$bill, $bill2]);
 
-        //one-to-many self-referencing
+        // one-to-many self-referencing
         $student = $this->populateEntity(new User());
         $student->setMentor($user);
         $student2 = $this->populateEntity(new User());
         $student2->setMentor($user);
         $this->save([$student, $student2]);
 
-        //many-to-many
+        // many-to-many
         $role = $this->populateEntity(new Role());
         $role2 = $this->populateEntity(new Role());
         $user->addRole($role);
         $user->addRole($role2);
         $this->save([$user]);
 
-        //many-to-many self-referencing
+        // many-to-many self-referencing
         $friend = $this->populateEntity(new User());
         $friend2 = $this->populateEntity(new User());
         $user->addFriend($friend);

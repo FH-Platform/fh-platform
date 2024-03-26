@@ -2,14 +2,11 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\TwoRelation\OneToOne;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\OneRelation\TestCaseOneRelation;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingGroup;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingItem;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class OneToManyTest extends TestCaseOneRelation
@@ -33,8 +30,8 @@ class OneToManyTest extends TestCaseOneRelation
 
         $conf = [
             'setting' => [
-                'settingItems' => []
-            ]
+                'settingItems' => [],
+            ],
         ];
 
         $mappingTestSetting = $this->mappingTest;
