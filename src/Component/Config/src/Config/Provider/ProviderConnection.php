@@ -17,9 +17,4 @@ abstract class ProviderConnection
     {
         return [];
     }
-
-    public function getUpdatingMap(): array
-    {
-        return [];
-    }
 }
