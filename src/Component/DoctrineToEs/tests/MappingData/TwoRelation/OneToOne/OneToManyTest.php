@@ -1,16 +1,15 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\TwoRelation\OneToOne;
+namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\TwoRelation\OneToOne;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\OneRelation\TestCaseOneRelation;
+use FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation\TestCaseOneRelation;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMeta;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingItem;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToManyTest extends TestCaseOneRelation
+class OneToManyTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
@@ -18,13 +17,12 @@ class ManyToManyTest extends TestCaseOneRelation
 
         $setting = $this->populateEntity(new Setting());
 
-        $settingMeta = $this->populateEntity(new SettingMeta());
-        $settingMeta2 = $this->populateEntity(new SettingMeta());
+        $settingItem = $this->populateEntity(new SettingItem());
+        $settingItem2 = $this->populateEntity(new SettingItem());
 
-        $settingMeta->setSettings(new ArrayCollection([$setting]));
-        $settingMeta2->setSettings(new ArrayCollection([$setting]));
-
-        $this->save([$settingMeta, $settingMeta2]);
+        $settingItem->setSetting($setting);
+        $settingItem2->setSetting($setting);
+        $this->save([$settingItem, $settingItem2]);
 
         $user = $this->populateEntity(new User());
         $user->setSetting($setting);
@@ -32,12 +30,12 @@ class ManyToManyTest extends TestCaseOneRelation
 
         $conf = [
             'setting' => [
-                'settingMetas' => [],
+                'settingItems' => [],
             ],
         ];
 
         $mappingTestSetting = $this->mappingTest;
-        $mappingTestSetting['settingMetas'] = [
+        $mappingTestSetting['settingItems'] = [
             'type' => 'nested',
             'properties' => $this->mappingTest,
         ];
@@ -55,7 +53,7 @@ class ManyToManyTest extends TestCaseOneRelation
         $dataTestItem2 = $this->dataTest;
         $dataTestItem2['id'] = 2;
         $dataTestSetting = $this->dataTest;
-        $dataTestSetting['settingMetas'] = [$this->dataTest, $dataTestItem2];
+        $dataTestSetting['settingItems'] = [$this->dataTest, $dataTestItem2];
 
         $this->assertEquals(array_merge($this->dataTest, [
             'setting' => $dataTestSetting,

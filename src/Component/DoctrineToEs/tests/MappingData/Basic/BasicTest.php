@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Basic;
+namespace FHPlatform\Component\DoctrineToEs\MappingData\Basic;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;

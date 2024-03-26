@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
+namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation;
 
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;

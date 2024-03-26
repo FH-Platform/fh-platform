@@ -1,36 +1,34 @@
 <?php
 
-namespace FHPlatform\Component\DoctrineToEs\Tests\OneRelation;
+namespace FHPlatform\Component\DoctrineToEs\Tests\MappingData\OneRelation;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Location\Location;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
-class ManyToOneSelfReferencingTest extends TestCaseOneRelation
+class ManyToOneTest extends TestCaseOneRelation
 {
     public function testSomething(): void
     {
         $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
 
-        $mentor = $this->populateEntity(new User());
+        $location = $this->populateEntity(new Location());
         $user = $this->populateEntity(new User());
-        $user->setMentor($mentor);
+        $user->setLocation($location);
         $this->save([$user]);
 
-        $mapping = $this->mappingProvider->provide($index, ['mentor' => []]);
+        $mapping = $this->mappingProvider->provide($index, ['location' => []]);
         $this->assertEquals(array_merge($this->mappingTest, [
-            'mentor' => [
+            'location' => [
                 'type' => 'object',
                 'properties' => $this->mappingTest,
             ],
         ]), $mapping);
 
-        $dataTestUser = $this->dataTest;
-        $dataTestUser['id'] = 2;
-
-        $data = $this->dataProvider->provide($index, $user, ['mentor' => []]);
-        $this->assertEquals(array_merge($dataTestUser, [
-            'mentor' => $this->dataTest,
+        $data = $this->dataProvider->provide($index, $user, ['location' => []]);
+        $this->assertEquals(array_merge($this->dataTest, [
+            'location' => $this->dataTest,
         ]), $data);
     }
 }
