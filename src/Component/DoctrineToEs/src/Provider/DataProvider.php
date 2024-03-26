@@ -130,8 +130,8 @@ class DataProvider
 
             $value = $entity->{$getter}();
 
-            if($value instanceof  \DateTimeInterface){
-                $value = $value->format(\DateTimeInterface::ATOM); //ISO8601
+            if ($value instanceof \DateTimeInterface) {
+                $value = $value->format(\DateTimeInterface::ATOM); // ISO8601
             }
 
             $esDataFields[$columnName] = $value;
