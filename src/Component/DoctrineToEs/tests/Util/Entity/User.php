@@ -44,7 +44,7 @@ class User
     private ?Location $location = null;
 
     // Many-To-One, Bidirectional-Self-referencing
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'students')]
     private ?User $mentor = null;
 
     // One-To-Many, Unidirectional
@@ -52,6 +52,11 @@ class User
     // One-To-Many, Bidirectional
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Bill::class)]
     private Collection $bills;
+
+
+    // One-To-Many, Bidirectional-Self-referencing
+    #[ORM\OneToMany(mappedBy: 'mentor', targetEntity: User::class)]
+    private Collection $students;
 
     // One-To-Many, Self-referencing
 
