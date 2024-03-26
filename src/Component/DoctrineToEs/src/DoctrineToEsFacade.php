@@ -24,10 +24,10 @@ class DoctrineToEsFacade
     ];
 
     public function __construct(
-        private readonly DataBuilder             $dataProvider,
-        private readonly MappingBuilder          $mappingProvider,
+        private readonly DataBuilder $dataProvider,
+        private readonly MappingBuilder $mappingProvider,
         private readonly EntitiesRelatedProvider $entitiesRelatedProvider,
-        private readonly UpdatingMapProvider     $updatingMapProvider,
+        private readonly UpdatingMapProvider $updatingMapProvider,
     ) {
     }
 
