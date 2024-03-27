@@ -58,6 +58,15 @@ class MessageHandler
 
             if ($entity) {
                 $entitiesRelated = $this->entitiesRelatedBuilder->build($entity, $changedFields);
+
+                foreach ($entitiesRelated as $entityRelated){
+                    //TODO separate
+
+                    $className = $this->persistence->getRealClass($entityRelated::class);
+                    $identifier = $this->persistence->getIdentifierValue($entityRelated);
+
+                    $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntityDTO::TYPE_UPDATE);
+                }
             }
         }
 

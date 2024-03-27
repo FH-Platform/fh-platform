@@ -15,6 +15,7 @@ class EntitiesRelatedBuilder
 
     public function build(mixed $entity, $changedFields): array
     {
+        //TODO remove all -> $entity::class
         $className = $entity::class;
 
         // TODO throw error if class not available for ES

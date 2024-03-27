@@ -31,6 +31,7 @@ class QueryManager
             foreach ($results as $result) {
                 $identifiers[] = $result['id'];
             }
+            $identifiers = array_unique($identifiers);
 
             return $identifiers;
         } elseif (self::TYPE_ENTITIES === $type) {
@@ -40,6 +41,7 @@ class QueryManager
             foreach ($results as $result) {
                 $identifiers[] = $result['id'];
             }
+            $identifiers = array_unique($identifiers);
 
             // TODO sort by ids (mysql vs sqlite)
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
@@ -53,6 +55,7 @@ class QueryManager
                 $resultsResponse[$id] = ['raw' => $result];
                 $identifiers[] = $id;
             }
+            $identifiers = array_unique($identifiers);
 
             $entities = $this->persistence->getEntities($index->getClassName(), $identifiers);
 

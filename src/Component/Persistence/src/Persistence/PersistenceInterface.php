@@ -15,4 +15,6 @@ interface PersistenceInterface
     public function getAllIds(string $className): array;
 
     public function getEntities(string $className, array $identifiers): array;
+
+    public function getRealClass(string $className): string;
 }
