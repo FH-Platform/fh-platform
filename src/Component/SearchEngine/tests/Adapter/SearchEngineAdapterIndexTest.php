@@ -22,7 +22,8 @@ class SearchEngineAdapterIndexTest extends TestCase
         $config = [
             'servers' => [
                 [
-                    'host' => 'elasticsearch', 'port' => '9200',
+                    'host' => 'elasticsearch',
+                    'port' => '9200',
                     'headers' => [
                         'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
                     ],

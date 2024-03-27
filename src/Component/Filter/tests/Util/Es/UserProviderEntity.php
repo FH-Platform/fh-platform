@@ -18,6 +18,7 @@ class UserProviderEntity extends ProviderEntity
             'doctrine_to_es' => [
                 'setting' => [
                     'settingGroup' => [],
+                    'settingItems' => [],
                 ],
                 'bills' => [],
             ],

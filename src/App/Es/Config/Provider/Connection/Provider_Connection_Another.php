@@ -20,7 +20,13 @@ class Provider_Connection_Another extends ProviderConnection
     {
         return [
             'servers' => [
-                ['host' => 'elasticsearch2', 'port' => '9200'],
+                [
+                    'host' => 'elasticsearch2',
+                    'port' => '9200',
+                    'headers' => [
+                        'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
+                    ],
+                ],
             ],
         ];
     }

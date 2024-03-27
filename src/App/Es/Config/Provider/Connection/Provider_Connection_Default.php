@@ -21,7 +21,8 @@ class Provider_Connection_Default extends ProviderConnection
         return [
             'servers' => [
                 [
-                    'host' => 'elasticsearch', 'port' => '9200',
+                    'host' => 'elasticsearch',
+                    'port' => '9200',
                     'headers' => [
                         'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
                     ],
