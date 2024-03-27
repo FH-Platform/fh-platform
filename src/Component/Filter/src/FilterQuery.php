@@ -27,24 +27,26 @@ class FilterQuery
         return $this->queryManager->getResults($index, $queryBase, $limit, $offset, $type);
     }
 
-    private function applyFilters(array $filters): BoolQuery
+    private function applyFilters(array $filtersArray): BoolQuery
     {
         $queryFilters = new BoolQuery();
 
-        foreach ($filters as $field => $filter) {
-            foreach ($filter as $operator => $value) {
-                $matched = false;
-                foreach ($this->filterConverters as $filterConverter) {
-                    /* @var FilterInterface $filter */
+        foreach ($filtersArray as $number => $filters) {
+            foreach ($filters as $field => $filter) {
+                foreach ($filter as $operator => $value) {
+                    $matched = false;
+                    foreach ($this->filterConverters as $filterConverter) {
+                        /* @var FilterInterface $filter */
 
-                    if ($filterConverter->name() === $operator) {
-                        $matched = true;
-                        $query = $filterConverter->convert($queryFilters, $field, $value);
+                        if ($filterConverter->name() === $operator) {
+                            $matched = true;
+                            $query = $filterConverter->convert($queryFilters, $field, $value);
+                        }
                     }
-                }
 
-                if (false === $matched) {
-                    throw new \Exception('Filter "'.$operator.'"  does not exists');
+                    if (false === $matched) {
+                        throw new \Exception('Filter "'.$operator.'"  does not exists');
+                    }
                 }
             }
         }
@@ -52,24 +54,26 @@ class FilterQuery
         return $queryFilters;
     }
 
-    private function applyApplicators(array $applicators): Query
+    private function applyApplicators(array $applicatorsArray): Query
     {
         $queryBase = new Query();
 
-        foreach ($applicators as $field => $applicator) {
-            foreach ($applicator as $operator => $value) {
-                $matched = false;
-                foreach ($this->applicatorConverters as $applicatorConverter) {
-                    /* @var FilterInterface $filter */
+        foreach ($applicatorsArray as $number => $applicators) {
+            foreach ($applicators as $field => $applicator) {
+                foreach ($applicator as $operator => $value) {
+                    $matched = false;
+                    foreach ($this->applicatorConverters as $applicatorConverter) {
+                        /* @var FilterInterface $filter */
 
-                    if ($applicatorConverter->name() === $operator) {
-                        $matched = true;
-                        $query = $applicatorConverter->convert($queryBase, $field, $value);
+                        if ($applicatorConverter->name() === $operator) {
+                            $matched = true;
+                            $query = $applicatorConverter->convert($queryBase, $field, $value);
+                        }
                     }
-                }
 
-                if (false === $matched) {
-                    throw new \Exception('Applicator "'.$operator.'" does not exists');
+                    if (false === $matched) {
+                        throw new \Exception('Applicator "'.$operator.'" does not exists');
+                    }
                 }
             }
         }

@@ -7,8 +7,6 @@ use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Es\DataDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingGroup;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
 use FHPlatform\Component\Filter\FilterQuery;
@@ -45,13 +43,17 @@ class TwoFiltersTest extends TestCase
         $user2->setTestInteger(2);
         $this->save([$user2]);
 
+        $user3 = new User();
+        $user3->setTestInteger(3);
+        $this->save([$user3]);
+
         /** @var FilterQuery $filterQuery */
         $filterQuery = $this->container->get(FilterQuery::class);
-
-        $this->assertEquals([1, 2], $filterQuery->search($index));
+        $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
         $filters = [];
-        $filters['testInteger']['in'] = [1];
+        $filters[]['testInteger']['in'] = [1];
+        $filters[]['testInteger']['not_in'] = [3];
         $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
     }
 }

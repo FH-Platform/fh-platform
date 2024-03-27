@@ -7,8 +7,6 @@ use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Es\DataDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingGroup;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
 use FHPlatform\Component\Filter\FilterQuery;
@@ -54,10 +52,10 @@ class WhereNullOrValueTest extends TestCase
 
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
-        //TODO
+        // TODO
         return;
         $filters = [];
-        $filters['testInteger']['in'] = [1, null];
+        $filters[]['testInteger']['in'] = [1, null];
         $this->assertEquals([1, 3], $filterQuery->search($index, ['filters' => $filters]));
     }
 }

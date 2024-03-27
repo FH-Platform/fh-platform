@@ -73,47 +73,47 @@ class ObjectTest extends TestCase
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
         $filters = [];
-        $filters['setting.testString']['equals'] = 'test';
+        $filters[]['setting.testString']['equals'] = 'test';
         $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testString']['not_equals'] = 'test';
+        $filters[]['setting.testString']['not_equals'] = 'test';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testString']['in'] = ['test', 'test2'];
+        $filters[]['setting.testString']['in'] = ['test', 'test2'];
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testString']['not_in'] = ['test', 'test2'];
+        $filters[]['setting.testString']['not_in'] = ['test', 'test2'];
         $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testSmallint']['lte'] = 2;
+        $filters[]['setting.testSmallint']['lte'] = 2;
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testSmallint']['gte'] = 2;
+        $filters[]['setting.testSmallint']['gte'] = 2;
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testInteger']['exists'] = true;
+        $filters[]['setting.testInteger']['exists'] = true;
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testInteger']['not_exists'] = true;
+        $filters[]['setting.testInteger']['not_exists'] = true;
         $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.testString']['starts_with'] = 'test2';
+        $filters[]['setting.testString']['starts_with'] = 'test2';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];
-        $applicators['setting.id']['sort'] = 'asc';
+        $applicators[]['setting.id']['sort'] = 'asc';
         $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
-        $applicators['setting.id']['sort'] = 'desc';
+        $applicators[]['setting.id']['sort'] = 'desc';
         $this->assertEquals([3, 2, 1], $filterQuery->search($index, ['applicators' => $applicators]));
     }
 }

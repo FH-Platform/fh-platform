@@ -2,16 +2,13 @@
 
 namespace FHPlatform\Component\Filter\Tests\ThreeLevel\Object;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Es\DataDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingGroup;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingItem;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMeta;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
 use FHPlatform\Component\Filter\FilterQuery;
@@ -86,47 +83,47 @@ class NestedTest extends TestCase
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
         $filters = [];
-        $filters['setting.settingItems.testString']['equals'] = 'test';
+        $filters[]['setting.settingItems.testString']['equals'] = 'test';
         $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testString']['not_equals'] = 'test';
+        $filters[]['setting.settingItems.testString']['not_equals'] = 'test';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testString']['in'] = ['test', 'test2'];
+        $filters[]['setting.settingItems.testString']['in'] = ['test', 'test2'];
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testString']['not_in'] = ['test', 'test2'];
+        $filters[]['setting.settingItems.testString']['not_in'] = ['test', 'test2'];
         $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testSmallint']['lte'] = 2;
+        $filters[]['setting.settingItems.testSmallint']['lte'] = 2;
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testSmallint']['gte'] = 2;
+        $filters[]['setting.settingItems.testSmallint']['gte'] = 2;
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testInteger']['exists'] = true;
+        $filters[]['setting.settingItems.testInteger']['exists'] = true;
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testInteger']['not_exists'] = true;
+        $filters[]['setting.settingItems.testInteger']['not_exists'] = true;
         $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['setting.settingItems.testString']['starts_with'] = 'test2';
+        $filters[]['setting.settingItems.testString']['starts_with'] = 'test2';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];
-        $applicators['setting.settingItems.id']['sort'] = 'asc';
+        $applicators[]['setting.settingItems.id']['sort'] = 'asc';
         $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
-        $applicators['setting.settingItems.id']['sort'] = 'desc';
+        $applicators[]['setting.settingItems.id']['sort'] = 'desc';
         $this->assertEquals([3, 2, 1], $filterQuery->search($index, ['applicators' => $applicators]));
     }
 }
