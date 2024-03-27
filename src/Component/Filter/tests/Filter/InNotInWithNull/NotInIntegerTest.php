@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Filter\Tests\Filter\In;
+namespace FHPlatform\Component\Filter\Tests\Filter\InNotInWithNull;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
@@ -13,7 +13,7 @@ use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\Filter\Tests\TestCase;
 use FHPlatform\Component\Filter\Tests\Util\Es\UserProviderEntity;
 
-class InIntegerTest extends TestCase
+class NotInIntegerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -53,23 +53,23 @@ class InIntegerTest extends TestCase
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
         $filters = [];
-        $filters[]['testInteger']['in'] = [];
+        $filters[]['testInteger']['not_in'] = [];
+        $this->assertEquals([1,2,3], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['not_in'] = [1];
+        $this->assertEquals([2,3], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['not_in'] = [null];
+        $this->assertEquals([1,2], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['not_in'] = [1, null];
+        $this->assertEquals([2], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['not_in'] = [1, 2, null];
         $this->assertEquals([], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testInteger']['in'] = [1];
-        $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testInteger']['in'] = [null];
-        $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testInteger']['in'] = [1, null];
-        $this->assertEquals([1, 3], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testInteger']['in'] = [1, 2, null];
-        $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['filters' => $filters]));
     }
 }
