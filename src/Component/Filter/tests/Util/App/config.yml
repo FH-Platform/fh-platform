@@ -15,8 +15,8 @@ doctrine:
     orm:
         mappings:
             Test:
-                dir: '%kernel.project_dir%/'
-                prefix: 'FHPlatform\Component\Filter\Tests\Util\Entity'
+                dir: 'src/Component/DoctrineToEs/tests/Util/Entity'
+                prefix: 'FHPlatform\Component\DoctrineToEs\Tests\Util\Entity'
 
 services:
     _defaults:
@@ -24,12 +24,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Component\Filter\Tests\Util\:
-        resource: '../'
-        exclude: '../{App}'
-
-    FHPlatform\Component\Filter\Tests\:
-        resource: '../../*/Util'
+    FHPlatform\Component\DoctrineToEs\Tests\Util\:
+        resource: '../../../../DoctrineToEs/tests/Util/'
+        exclude: '../../../../DoctrineToEs/tests/Util/{App}'
 
     #TODO move to framework builder
     FHPlatform\Component\Filter\Converter\Filter\:
@@ -37,3 +34,4 @@ services:
 
     FHPlatform\Component\Filter\Converter\Applicator\:
         resource: '../../../src/Converter/Applicator/'
+

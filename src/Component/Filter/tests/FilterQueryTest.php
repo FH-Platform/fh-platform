@@ -4,10 +4,14 @@ namespace FHPlatform\Component\Filter;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\Es\DataDecorator;
+use FHPlatform\Component\DoctrineToEs\Es\EntityRelatedDecorator;
+use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\UserProviderEntity;
 use FHPlatform\Component\Filter\Tests\TestCase;
-use FHPlatform\Component\Filter\Tests\Util\Entity\User;
-use FHPlatform\Component\Filter\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\Component\Filter\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class FilterQueryTest extends TestCase
 {
@@ -16,6 +20,9 @@ class FilterQueryTest extends TestCase
         ConfigProvider::$includedClasses = [
             ProviderDefaultConnection::class,
             UserProviderEntity::class,
+            DataDecorator::class,
+            MappingDecorator::class,
+            EntityRelatedDecorator::class,
         ];
 
         parent::setUp();
@@ -29,21 +36,21 @@ class FilterQueryTest extends TestCase
         $this->indexClient->recreateIndex($index);
 
         $user = new User();
-        $user->setName('test');
-        $user->setName2('testsomething');
-        $user->setNumber(1);
-        $user->setNumber2(1);
+        $user->setTestString('test');
+        $user->setTestText('testsomething');
+        $user->setTestSmallint(1);
+        $user->setTestInteger(1);
 
         $user2 = new User();
-        $user2->setName('test2');
-        $user2->setName2('test2something');
-        $user2->setNumber(2);
-        $user2->setNumber2(2);
+        $user2->setTestString('test2');
+        $user2->setTestText('test2something');
+        $user2->setTestSmallint(2);
+        $user2->setTestInteger(2);
 
         $user3 = new User();
-        $user3->setName2('test22something');
-        $user3->setName('test3');
-        $user3->setNumber(3);
+        $user3->setTestString('test22something');
+        $user3->setTestText('test3');
+        $user3->setTestSmallint(3);
 
         $this->save([$user, $user2, $user3]);
 
@@ -51,41 +58,42 @@ class FilterQueryTest extends TestCase
         $filterQuery = $this->container->get(FilterQuery::class);
 
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
+        //dd($filterQuery->search($index, [], 10, 0, QueryManager::TYPE_RAW));
 
         $filters = [];
-        $filters['name']['equals'] = 'test';
+        $filters['test_string']['equals'] = 'test';
         $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['name']['not_equals'] = 'test';
+        $filters['test_string']['not_equals'] = 'test';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['name']['in'] = ['test', 'test2'];
+        $filters['test_string']['in'] = ['test', 'test2'];
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['name']['not_in'] = ['test', 'test3'];
+        $filters['test_string']['not_in'] = ['test', 'test3'];
         $this->assertEquals([2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['number']['lte'] = 2;
+        $filters['test_small_int']['lte'] = 2;
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['number']['gte'] = 2;
+        $filters['test_small_int']['gte'] = 2;
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['number2']['exists'] = true;
+        $filters['test_small_integer']['exists'] = true;
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['number2']['not_exists'] = true;
+        $filters['test_small_integer']['not_exists'] = true;
         $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['name2']['starts_with'] = 'test2';
+        $filters['test_text']['starts_with'] = 'test2';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];

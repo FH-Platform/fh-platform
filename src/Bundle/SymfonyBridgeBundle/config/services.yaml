@@ -9,3 +9,4 @@ services:
         resource: '../../../Component/DoctrineToEs/src/'
         autowire: true
         autoconfigure: true
+
