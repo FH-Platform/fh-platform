@@ -15,7 +15,9 @@ class UserProviderEntity extends ProviderEntity
     public function getAdditionalConfig(): array
     {
         return [
-            'doctrine_to_es' => [],
+            'doctrine_to_es' => [
+                'setting' => [],
+            ],
         ];
     }
 }

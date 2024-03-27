@@ -15,7 +15,7 @@ use FHPlatform\Component\Filter\Tests\TestCase;
 use FHPlatform\Component\Filter\Tests\Util\Es\UserProviderEntity;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
-class FilterQueryTest extends TestCase
+class BasicTest extends TestCase
 {
     protected function setUp(): void
     {
