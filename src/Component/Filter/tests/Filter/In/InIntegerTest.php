@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Filter\Tests\Other;
+namespace FHPlatform\Component\Filter\Tests\Filter\In;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
@@ -13,7 +13,7 @@ use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\Filter\Tests\TestCase;
 use FHPlatform\Component\Filter\Tests\Util\Es\UserProviderEntity;
 
-class WhereNullOrValueTest extends TestCase
+class InIntegerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -52,10 +52,24 @@ class WhereNullOrValueTest extends TestCase
 
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
 
-        // TODO
-        return;
+        $filters = [];
+        $filters[]['testInteger']['in'] = [];
+        $this->assertEquals([], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['in'] = [1];
+        $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['in'] = [null];
+        $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
+
         $filters = [];
         $filters[]['testInteger']['in'] = [1, null];
         $this->assertEquals([1, 3], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters[]['testInteger']['in'] = [1, 2, null];
+        $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['filters' => $filters]));
     }
 }

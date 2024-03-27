@@ -17,25 +17,31 @@ class InFilter implements FilterInterface
 
     public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
     {
-        /*
-         $boolQuery = new BoolQuery();
-
-        if ($value !== null){
-            $termsQuery = new Terms($field, $value);
-            $query->addShould($termsQuery);
-        }else{
-            $existsQuery = new Exists($field);
-            $query->addShould($existsQuery);
+        $nullExists = false;
+        foreach ($value as $k => $value2){
+            if($value2 === null){
+                unset($value[$k]);
+                $nullExists = true;
+            }
         }
 
-        $boolQuery->addMust($query);
-
-        return $boolQuery;
-
-         */
-
         $termsQuery = new Terms($field, $value);
-        $query->addMust($termsQuery);
+
+        if ($nullExists) {
+            $boolQueryExists = new BoolQuery();
+            $existsQuery = new Exists($field);
+            $boolQueryExists->addMustNot($existsQuery);
+
+            $boolQueryWrapper = new BoolQuery();
+            $boolQueryWrapper->addShould($termsQuery);
+            $boolQueryWrapper->addShould($boolQueryExists);
+
+            $query->addShould($boolQueryWrapper);
+
+            return $query;
+        }
+
+        $query->addShould($termsQuery);
 
         return $query;
     }
