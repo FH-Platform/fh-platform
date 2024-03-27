@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Persistence\Event;
 
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 
@@ -34,15 +34,15 @@ class EventHelper
     {
         // make changes unique
         $hash = $className.'_'.$identifierValue;
-        $changedEntityDTO = new ChangedEntityDTO($className, $identifierValue, $type, $changedFields);
+        $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
 
         if ($dispatch) {
-            $this->dispatch([$hash => $changedEntityDTO]);
+            $this->dispatch([$hash => $changedEntity]);
 
             return;
         }
 
-        $this->changedEntitiesDTO[$hash] = $changedEntityDTO;
+        $this->changedEntitiesDTO[$hash] = $changedEntity;
 
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }

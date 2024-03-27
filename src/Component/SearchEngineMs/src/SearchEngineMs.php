@@ -5,7 +5,7 @@ namespace FHPlatform\Component\SearchEngineMs;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\SearchEngineMs\Connection\ConnectionFetcher;
 use GuzzleHttp\Exception\ClientException;
 
@@ -27,7 +27,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
         foreach ($documents as $document) {
             /** @var Document $document */
-            if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
+            if (ChangedEntity::TYPE_DELETE === $document->getType()) {
                 $documentsDelete[] = $document->getIdentifier();
             } else {
                 $documentsUpsert[] = array_merge(['id' => $document->getIdentifier()], $document->getData());

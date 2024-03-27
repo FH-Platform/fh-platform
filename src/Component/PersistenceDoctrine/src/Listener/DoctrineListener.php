@@ -7,7 +7,7 @@ use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
@@ -26,22 +26,22 @@ class DoctrineListener
 
     public function postPersist(PostPersistEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityDTO::TYPE_CREATE);
+        $this->addEntity($args, ChangedEntity::TYPE_CREATE);
     }
 
     public function postUpdate(PostUpdateEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityDTO::TYPE_UPDATE);
+        $this->addEntity($args, ChangedEntity::TYPE_UPDATE);
     }
 
     public function preRemove(PreRemoveEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityDTO::TYPE_DELETE);
+        $this->addEntity($args, ChangedEntity::TYPE_DELETE);
     }
 
     public function postRemove(PostRemoveEventArgs $args): void
     {
-        $this->addEntity($args, ChangedEntityDTO::TYPE_DELETE);
+        $this->addEntity($args, ChangedEntity::TYPE_DELETE);
     }
 
     public function postFlush(PostFlushEventArgs $args): void
@@ -63,7 +63,7 @@ class DoctrineListener
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
             // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
-            $this->eventHelper->addEntity($className, $identifierValue, ChangedEntityDTO::TYPE_DELETE_PRE, $changedFields, true);
+            $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE, $changedFields, true);
 
             return;
         }

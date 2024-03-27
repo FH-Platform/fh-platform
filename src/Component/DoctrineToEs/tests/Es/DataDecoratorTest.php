@@ -8,7 +8,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\UserProviderEntity;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class DataDecoratorTest extends TestCaseEs
 {
@@ -39,6 +39,6 @@ class DataDecoratorTest extends TestCaseEs
             'setting' => [
                 'testFloat' => 18.16,
             ],
-        ], $this->documentBuilder->build($user, User::class, 1, ChangedEntityDTO::TYPE_UPDATE)->getData());
+        ], $this->documentBuilder->build($user, User::class, 1, ChangedEntity::TYPE_UPDATE)->getData());
     }
 }

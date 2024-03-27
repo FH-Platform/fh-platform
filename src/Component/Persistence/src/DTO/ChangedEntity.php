@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Persistence\DTO;
 
-class ChangedEntityDTO
+class ChangedEntity
 {
     final public const TYPE_CREATE = 'create';
     final public const TYPE_UPDATE = 'update';

@@ -6,7 +6,7 @@ use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use GuzzleHttp\Client;
 
@@ -21,7 +21,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
     {
         $index = $document->getIndex();
 
-        if (ChangedEntityDTO::TYPE_DELETE === $document->getType()) {
+        if (ChangedEntity::TYPE_DELETE === $document->getType()) {
             return [
                 [
                     'delete' => [

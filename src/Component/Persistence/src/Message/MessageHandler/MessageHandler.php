@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\Config\Builder\IndexBuilder;
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
@@ -48,7 +48,7 @@ class MessageHandler
 
                     // TODO return if hash exists
 
-                    if (ChangedEntityDTO::TYPE_DELETE_PRE !== $type) {
+                    if (ChangedEntity::TYPE_DELETE_PRE !== $type) {
                         $documents[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
                     } else {
                         // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
@@ -65,7 +65,7 @@ class MessageHandler
                     $className = $this->persistence->getRealClass($entityRelated::class);
                     $identifier = $this->persistence->getIdentifierValue($entityRelated);
 
-                    $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntityDTO::TYPE_UPDATE);
+                    $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
                 }
             }
         }

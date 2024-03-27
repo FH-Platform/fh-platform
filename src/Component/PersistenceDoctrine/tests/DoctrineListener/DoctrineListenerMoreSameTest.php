@@ -2,7 +2,7 @@
 
 namespace FHPlatform\PersistenceDoctrine\DoctrineListener;
 
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
@@ -33,7 +33,7 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         list($key, $key2) = array_keys($entities);
 
-        /** @var ChangedEntityDTO $value */
+        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $this->assertEquals(User::class.'_1', $key);
@@ -41,8 +41,8 @@ class DoctrineListenerMoreSameTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(2, $value2->getIdentifier());
 
-        $this->assertEquals(ChangedEntityDTO::TYPE_CREATE, $value->getType());
-        $this->assertEquals(ChangedEntityDTO::TYPE_CREATE, $value2->getType());
+        $this->assertEquals(ChangedEntity::TYPE_CREATE, $value->getType());
+        $this->assertEquals(ChangedEntity::TYPE_CREATE, $value2->getType());
 
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
@@ -67,7 +67,7 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         list($key, $key2) = array_keys($entities);
 
-        /** @var ChangedEntityDTO $value */
+        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $this->assertEquals(User::class.'_1', $key);
@@ -75,8 +75,8 @@ class DoctrineListenerMoreSameTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(2, $value2->getIdentifier());
 
-        $this->assertEquals(ChangedEntityDTO::TYPE_UPDATE, $value->getType());
-        $this->assertEquals(ChangedEntityDTO::TYPE_UPDATE, $value2->getType());
+        $this->assertEquals(ChangedEntity::TYPE_UPDATE, $value->getType());
+        $this->assertEquals(ChangedEntity::TYPE_UPDATE, $value2->getType());
 
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
@@ -98,7 +98,7 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         list($key, $key2) = array_keys($entities);
 
-        /** @var ChangedEntityDTO $value */
+        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $this->assertEquals(User::class.'_1', $key);
@@ -106,8 +106,8 @@ class DoctrineListenerMoreSameTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(2, $value2->getIdentifier());
 
-        $this->assertEquals(ChangedEntityDTO::TYPE_DELETE, $value->getType());
-        $this->assertEquals(ChangedEntityDTO::TYPE_DELETE, $value2->getType());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE, $value->getType());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE, $value2->getType());
 
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());

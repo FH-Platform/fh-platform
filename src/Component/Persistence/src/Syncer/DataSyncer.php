@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Persistence\Syncer;
 
-use FHPlatform\Component\Persistence\DTO\ChangedEntityDTO;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
@@ -24,7 +24,7 @@ class DataSyncer
 
         // TODO temp index
         foreach ($identifiers as $identifier) {
-            $this->eventHelper->addEntity($className, $identifier, ChangedEntityDTO::TYPE_UPDATE, ['id'], false);
+            $this->eventHelper->addEntity($className, $identifier, ChangedEntity::TYPE_UPDATE, ['id'], false);
         }
 
         $this->eventHelper->dispatch($this->eventHelper->getChangedEntitiesDTO());
