@@ -4,8 +4,8 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Command\Data;
 
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity\User;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\UserProviderEntity;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;

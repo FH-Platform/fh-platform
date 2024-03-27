@@ -17,7 +17,7 @@ class DocumentBuilder
     ) {
     }
 
-    public function build($entity, $className, $identifier, $type): Document  // TODO rename to DTO
+    public function build($entity, $className, $identifier, $type): Document
     {
         // TODO throw error if class not available for ES
 

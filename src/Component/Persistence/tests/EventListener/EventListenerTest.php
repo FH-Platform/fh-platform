@@ -6,8 +6,8 @@ use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Tests\Util\Es\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\Component\Persistence\Tests\Util\Es\Config\Provider\UserProviderEntity;
+use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefaultConnection;
+use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProviderEntity;
 
 class EventListenerTest extends TestCase
 {
