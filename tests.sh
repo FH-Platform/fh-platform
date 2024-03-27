@@ -14,5 +14,5 @@ packages=(
 for package in "${packages[@]}";
 do
   echo $package
-  vendor/bin/phpunit --configuration=src/$package --bootstrap=tests/bootstrap.php
+  vendor/bin/phpunit --configuration=src/$package
 done

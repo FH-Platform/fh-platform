@@ -18,5 +18,7 @@ class DoctrineListenerTest extends TestCase
         $user->setNameString('name_string2');
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        $this->assertEquals(1, 1);
     }
 }

@@ -109,31 +109,33 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexesDeleteAllInConnection(Connection $connection): void
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
+        $indexes = $this->indexesGetAllInConnection($connection);
 
-        $client->request(sprintf('%s*', $connection->getPrefix()), Request::DELETE)->getStatus();
+        foreach ($indexes as $index){
+            $this->indexDelete(new Index($connection, '', '', $index, []));
+        }
     }
 
     public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
     {
         $client = $this->connectionFetcher->fetchByConnection($connection);
 
-        $indices = $client->getCluster()->getIndexNames();
-        $indicesFiltered = [];
+        $indexes = $client->getCluster()->getIndexNames();
+        $indexesFiltered = [];
 
-        foreach ($indices as $index) {
+        foreach ($indexes as $index) {
             if ($byPrefix) {
                 if (str_starts_with($index, $connection->getPrefix())) {
-                    $indicesFiltered[] = $index;
+                    $indexesFiltered[] = $index;
                 }
             } else {
-                $indicesFiltered[] = $index;
+                $indexesFiltered[] = $index;
             }
         }
 
-        sort($indicesFiltered);
+        sort($indexesFiltered);
 
-        return $indicesFiltered;
+        return $indexesFiltered;
     }
 
     public function queryResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
