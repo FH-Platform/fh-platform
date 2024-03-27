@@ -32,7 +32,18 @@ class SearchEngineAdapterDataTest extends TestCase
         $this->save([$user, $user2, $user3]);
 
         // prepare connection and indexes
-        $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200']]]);
+        // TODO
+        $config = [
+            'servers' => [
+                [
+                    'host' => 'elasticsearch', 'port' => '9200',
+                    'headers' => [
+                        'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
+                    ],
+                ],
+            ],
+        ];
+        $connection = new Connection('default', 'prefix_', $config);
         $indexUser = new Index($connection, User::class, 'user', 'prefix_user', [], [], []);
         $indexRole = new Index($connection, Role::class, 'role', 'prefix_role', [], [], []);
         $connection->setIndexes([$indexUser, $indexRole]);

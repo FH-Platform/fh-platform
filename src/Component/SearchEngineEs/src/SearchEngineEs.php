@@ -50,7 +50,9 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
     {
         $client = new Client([
             'base_uri' => 'http://elasticsearch:9200',  // TODO
-            'timeout' => 2.0,
+            'headers' => [
+                'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
+            ],
         ]);
 
         $documentJson = '';

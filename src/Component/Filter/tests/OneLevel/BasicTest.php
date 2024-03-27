@@ -9,11 +9,9 @@ use FHPlatform\Component\DoctrineToEs\Es\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
-
 use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\Filter\Tests\TestCase;
 use FHPlatform\Component\Filter\Tests\Util\Es\UserProviderEntity;
-use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class BasicTest extends TestCase
 {

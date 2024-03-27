@@ -18,7 +18,18 @@ class SearchEngineAdapterIndexTest extends TestCase
         $adapter = $this->container->get(SearchEngineInterface::class);
 
         // prepare connection and indexes
-        $connection = new Connection('default', 'prefix_', ['servers' => [['host' => 'elasticsearch', 'port' => '9200']]]);
+        // TODO
+        $config = [
+            'servers' => [
+                [
+                    'host' => 'elasticsearch', 'port' => '9200',
+                    'headers' => [
+                        'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
+                    ],
+                ],
+            ],
+        ];
+        $connection = new Connection('default', 'prefix_', $config);
         $indexUser = new Index($connection, '', 'user', 'prefix_user', [], [], []);
         $indexRole = new Index($connection, '', 'role', 'prefix_role', [], [], []);
         $connection->setIndexes([$indexUser, $indexRole]);
