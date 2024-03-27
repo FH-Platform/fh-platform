@@ -16,7 +16,9 @@ class UserProviderEntity extends ProviderEntity
     {
         return [
             'doctrine_to_es' => [
-                'setting' => [],
+                'setting' => [
+                    'settingGroup' => [],
+                ],
                 'bills' => [],
             ],
         ];
