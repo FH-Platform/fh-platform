@@ -54,15 +54,15 @@ class NotInIntegerTest extends TestCase
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [];
-        $this->assertEquals([1,2,3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [1];
-        $this->assertEquals([2,3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [null];
-        $this->assertEquals([1,2], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [1, null];

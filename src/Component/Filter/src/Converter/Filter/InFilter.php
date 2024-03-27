@@ -18,8 +18,8 @@ class InFilter implements FilterInterface
     public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
     {
         $nullExists = false;
-        foreach ($value as $k => $value2){
-            if($value2 === null){
+        foreach ($value as $k => $value2) {
+            if (null === $value2) {
                 unset($value[$k]);
                 $nullExists = true;
             }
