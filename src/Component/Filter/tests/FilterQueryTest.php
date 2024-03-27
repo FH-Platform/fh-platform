@@ -58,7 +58,7 @@ class FilterQueryTest extends TestCase
         $filterQuery = $this->container->get(FilterQuery::class);
 
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
-        //dd($filterQuery->search($index, [], 10, 0, QueryManager::TYPE_RAW));
+        dd($filterQuery->search($index, [], 10, 0, QueryManager::TYPE_RAW));
 
         $filters = [];
         $filters['test_string']['equals'] = 'test';
