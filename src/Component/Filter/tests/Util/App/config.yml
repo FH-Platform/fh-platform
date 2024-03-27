@@ -28,6 +28,10 @@ services:
         resource: '../../../../DoctrineToEs/tests/Util/'
         exclude: '../../../../DoctrineToEs/tests/Util/{App}'
 
+    FHPlatform\Component\Filter\Tests\Util\:
+        resource: '../'
+        exclude: '../{App}'
+
     #TODO move to framework builder
     FHPlatform\Component\Filter\Converter\Filter\:
         resource: '../../../src/Converter/Filter/'

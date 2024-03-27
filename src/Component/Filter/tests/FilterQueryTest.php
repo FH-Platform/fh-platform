@@ -9,8 +9,9 @@ use FHPlatform\Component\DoctrineToEs\Es\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\UserProviderEntity;
+
 use FHPlatform\Component\Filter\Tests\TestCase;
+use FHPlatform\Component\Filter\Tests\Util\Es\UserProviderEntity;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class FilterQueryTest extends TestCase
@@ -58,42 +59,41 @@ class FilterQueryTest extends TestCase
         $filterQuery = $this->container->get(FilterQuery::class);
 
         $this->assertEquals([1, 2, 3], $filterQuery->search($index));
-        dd($filterQuery->search($index, [], 10, 0, QueryManager::TYPE_RAW));
 
         $filters = [];
-        $filters['test_string']['equals'] = 'test';
+        $filters['testString']['equals'] = 'test';
         $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['test_string']['not_equals'] = 'test';
+        $filters['testString']['not_equals'] = 'test';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['test_string']['in'] = ['test', 'test2'];
+        $filters['testString']['in'] = ['test', 'test2'];
         $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['test_string']['not_in'] = ['test', 'test3'];
-        $this->assertEquals([2], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters['test_small_int']['lte'] = 2;
-        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters['test_small_int']['gte'] = 2;
-        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters['test_small_integer']['exists'] = true;
-        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
-
-        $filters = [];
-        $filters['test_small_integer']['not_exists'] = true;
+        $filters['testString']['not_in'] = ['test', 'test2'];
         $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
 
         $filters = [];
-        $filters['test_text']['starts_with'] = 'test2';
+        $filters['testSmallint']['lte'] = 2;
+        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters['testSmallint']['gte'] = 2;
+        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters['testInteger']['exists'] = true;
+        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters['testInteger']['not_exists'] = true;
+        $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
+
+        $filters = [];
+        $filters['testString']['starts_with'] = 'test2';
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];
