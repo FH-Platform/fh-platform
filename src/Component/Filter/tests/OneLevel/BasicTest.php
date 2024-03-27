@@ -11,7 +11,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
 use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\Filter\Tests\TestCase;
-use FHPlatform\Component\Filter\Tests\Util\FHPlatform\UserProviderEntity;
+use FHPlatform\Component\Filter\Tests\Util\FHPlatform\UserProvider;
 
 class BasicTest extends TestCase
 {
@@ -19,7 +19,7 @@ class BasicTest extends TestCase
     {
         ConfigProvider::$includedClasses = [
             ProviderDefaultConnection::class,
-            UserProviderEntity::class,
+            UserProvider::class,
             DataDecorator::class,
             MappingDecorator::class,
             EntityRelatedDecorator::class,

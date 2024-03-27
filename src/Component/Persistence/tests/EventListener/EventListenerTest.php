@@ -6,16 +6,16 @@ use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProviderEntity;
+use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
+use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProvider;
 
 class EventListenerTest extends TestCase
 {
     protected function setUp(): void
     {
         ConfigProvider::$includedClasses = [
-            ProviderDefaultConnection::class,
-            UserProviderEntity::class,
+            ProviderDefault::class,
+            UserProvider::class,
         ];
 
         parent::setUp();

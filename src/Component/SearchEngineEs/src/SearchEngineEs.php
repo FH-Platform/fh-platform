@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\SearchEngineEs;
 
+use Elastica\Mapping;
 use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
@@ -94,15 +95,17 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexCreate(Index $index): void
     {
-        $index = $this->getIndex($index);
+        $indexElastica = $this->getIndex($index);
 
-        if (!$index->exists()) {
-            $index->create();
+        if (!$indexElastica->exists()) {
+            $indexElastica->create($index->getSettings());
 
-            // TODO
-            /*$mappingObject = new Mapping();
-            $mappingObject->setProperties($mapping);
-            $mappingObject->send($index);*/
+            if(count($index->getMapping()) > 0){
+                //TODO
+                /*$mappingObject = new Mapping();
+                $mappingObject->setProperties($index->getMapping());
+                $mappingObject->send($indexElastica);*/
+            }
         }
     }
 

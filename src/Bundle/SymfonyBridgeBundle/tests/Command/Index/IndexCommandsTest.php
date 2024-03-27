@@ -3,9 +3,9 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Command\Index;
 
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Connections\ProviderDefaultConnection;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\Test2ProviderEntity;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\TestProviderEntity;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\Test2Provider;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\TestProvider;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\DTO\Index;
@@ -16,9 +16,9 @@ class IndexCommandsTest extends TestCase
     protected function setUp(): void
     {
         ConfigProvider::$includedClasses = [
-            ProviderDefaultConnection::class,
-            TestProviderEntity::class,
-            Test2ProviderEntity::class,
+            ProviderDefault::class,
+            TestProvider::class,
+            Test2Provider::class,
         ];
 
         parent::setUp();
