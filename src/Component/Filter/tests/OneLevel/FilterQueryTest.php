@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Filter;
+namespace FHPlatform\Component\Filter\Tests\OneLevel;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
@@ -10,6 +10,7 @@ use FHPlatform\Component\DoctrineToEs\Es\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Es\ProviderDefaultConnection;
 
+use FHPlatform\Component\Filter\FilterQuery;
 use FHPlatform\Component\Filter\Tests\TestCase;
 use FHPlatform\Component\Filter\Tests\Util\Es\UserProviderEntity;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
