@@ -13,18 +13,6 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\UserProviderEntity;
 
 class EntityRelatedDecoratorTest extends TestCaseEs
 {
-    protected function setUp(): void
-    {
-        ConfigProvider::$includedClasses = [
-            ProviderDefaultConnection::class,
-            UserProviderEntity::class,
-            EntityRelatedDecorator::class,
-            ConnectionDecorator::class,
-        ];
-
-        parent::setUp();
-    }
-
     public function testSomething(): void
     {
         /** @var ConnectionsBuilder $connectionsBuilder */

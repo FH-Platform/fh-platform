@@ -12,17 +12,6 @@ use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class DataDecoratorTest extends TestCaseEs
 {
-    protected function setUp(): void
-    {
-        ConfigProvider::$includedClasses = [
-            ProviderDefaultConnection::class,
-            UserProviderEntity::class,
-            DataDecorator::class,
-        ];
-
-        parent::setUp();
-    }
-
     public function testSomething(): void
     {
         $setting = new Setting();

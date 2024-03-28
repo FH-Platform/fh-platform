@@ -11,18 +11,6 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\UserProviderEntity;
 
 class MappingDecoratorTest extends TestCaseEs
 {
-    protected function setUp(): void
-    {
-        ConfigProvider::$includedClasses = [
-            ProviderDefaultConnection::class,
-            UserProviderEntity::class,
-            MappingDecorator::class,
-            ConnectionDecorator::class,
-        ];
-
-        parent::setUp();
-    }
-
     public function testSomething(): void
     {
         $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
