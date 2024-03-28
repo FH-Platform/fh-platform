@@ -33,9 +33,25 @@ class NestedTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsBuilder $connectionsBuilder */
-        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
+        $this->prepareData();
+
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
+        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testString][equals]=test')));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testString][not_equals]=test')));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testString][in][]=test&filters[][setting.settingItems.testString][in][]=test2')));
+        $this->assertEquals([3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testString][not_in][]=test&filters[][setting.settingItems.testString][not_in][]=test2')));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testSmallint][lte]=2')));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testSmallint][gte]=2')));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testInteger][exists]=1')));
+        $this->assertEquals([3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testInteger][not_exists]=1')));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][setting.settingItems.testString][starts_with]=test2')));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][setting.settingItems.id]=asc')));
+        $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][setting.settingItems.id]=desc')));
+    }
+
+    private function prepareData()
+    {
+        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
         $this->indexClient->recreateIndex($index);
 
         $setting = new Setting();
@@ -77,51 +93,5 @@ class NestedTest extends TestCase
         $this->save([$user3]);
 
         $this->save([$setting, $setting2, $setting3]);
-
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testString']['equals'] = 'test';
-        $this->assertEquals([1], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testString']['not_equals'] = 'test';
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testString']['in'] = ['test', 'test2'];
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testString']['not_in'] = ['test', 'test2'];
-        $this->assertEquals([3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testSmallint']['lte'] = 2;
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testSmallint']['gte'] = 2;
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testInteger']['exists'] = true;
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testInteger']['not_exists'] = true;
-        $this->assertEquals([3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['setting.settingItems.testString']['starts_with'] = 'test2';
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $applicators = [];
-        $applicators[]['sort']['setting.settingItems.id'] = 'asc';
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class, ['applicators' => $applicators]));
-
-        $applicators = [];
-        $applicators[]['sort']['setting.settingItems.id'] = 'desc';
-        $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, ['applicators' => $applicators]));
     }
 }
