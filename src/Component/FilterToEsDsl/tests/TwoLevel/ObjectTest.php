@@ -111,11 +111,11 @@ class ObjectTest extends TestCase
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];
-        $applicators[]['setting.id']['sort'] = 'asc';
+        $applicators[]['sort']['setting.id'] = 'asc';
         $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
-        $applicators[]['setting.id']['sort'] = 'desc';
+        $applicators[]['sort']['setting.id'] = 'desc';
         $this->assertEquals([3, 2, 1], $filterQuery->search($index, ['applicators' => $applicators]));
     }
 }

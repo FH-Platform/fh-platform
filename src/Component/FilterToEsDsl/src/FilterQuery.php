@@ -11,10 +11,11 @@ use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 class FilterQuery
 {
     public function __construct(
-        private readonly iterable $applicatorConverters,
-        private readonly iterable $filterConverters,
+        private readonly iterable     $applicatorConverters,
+        private readonly iterable     $filterConverters,
         private readonly QueryManager $queryManager,
-    ) {
+    )
+    {
     }
 
     public function search(Index $index, array $filters = [], $limit = 100, $offset = 0, string $type = QueryManager::TYPE_IDENTIFIERS): array
@@ -32,23 +33,20 @@ class FilterQuery
         $queryBase = new Query();
 
         foreach ($applicatorsArray as $number => $applicators) {
-            foreach ($applicators as $field => $applicator) {
-                foreach ($applicator as $operator => $value) {
-                    $matched = false;
-                    foreach ($this->applicatorConverters as $applicatorConverter) {
-                        /* @var FilterInterface $filter */
+            foreach ($applicators as $operator => $value) {
+                $matched = false;
+                foreach ($this->applicatorConverters as $applicatorConverter) {
+                    /* @var FilterInterface $filter */
 
-                        if ($applicatorConverter->name() === $operator) {
-                            $matched = true;
+                    if ($applicatorConverter->name() === $operator) {
+                        $matched = true;
 
-                            $this->fetchMapping($index, $field);
-                            $query = $applicatorConverter->convert($queryBase, $field, $value);
-                        }
+                       $applicatorConverter->convert($queryBase, $value);
                     }
+                }
 
-                    if (false === $matched) {
-                        throw new \Exception('Applicator "'.$operator.'" does not exists');
-                    }
+                if (false === $matched) {
+                    throw new \Exception('Applicator "' . $operator . '" does not exists');
                 }
             }
         }
@@ -71,12 +69,12 @@ class FilterQuery
                             $matched = true;
 
                             $mappingItem = $this->fetchMapping($index, $field);
-                            $query = $filterConverter->convert($queryFilters, $field, $value, $mappingItem);
+                            $filterConverter->convert($queryFilters, $field, $value, $mappingItem);
                         }
                     }
 
                     if (false === $matched) {
-                        throw new \Exception('Filter "'.$operator.'"  does not exists');
+                        throw new \Exception('Filter "' . $operator . '"  does not exists');
                     }
                 }
             }

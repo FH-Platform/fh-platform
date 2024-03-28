@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\SearchEngineEs;
 
 use Elastica\Mapping;
+use Elastica\Query;
 use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;

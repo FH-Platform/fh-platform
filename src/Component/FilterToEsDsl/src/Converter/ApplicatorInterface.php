@@ -8,5 +8,5 @@ interface ApplicatorInterface
 {
     public function name(): string;
 
-    public function convert(Query $query, string $field, mixed $value): Query;
+    public function convert(Query $query, mixed $value): Query;
 }

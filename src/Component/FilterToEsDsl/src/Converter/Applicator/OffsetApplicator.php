@@ -5,19 +5,17 @@ namespace FHPlatform\Component\FilterToEsDsl\Converter\Applicator;
 use Elastica\Query;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 
-class SortApplicator implements ApplicatorInterface
+class OffsetApplicator implements ApplicatorInterface
 {
     public function name(): string
     {
-        return 'sort';
+        return 'offset';
     }
 
     public function convert(Query $query, mixed $value): Query
     {
-        foreach ($value as $field => $valueItem){
-            $query->addSort([$field => $valueItem]);
-        }
+        $query->setFrom((int)$value);
 
-        return $query;
+        return $query; 
     }
 }

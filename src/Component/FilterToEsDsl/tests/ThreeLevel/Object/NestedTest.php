@@ -121,11 +121,11 @@ class NestedTest extends TestCase
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];
-        $applicators[]['setting.settingItems.id']['sort'] = 'asc';
+        $applicators[]['sort']['setting.settingItems.id'] = 'asc';
         $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
-        $applicators[]['setting.settingItems.id']['sort'] = 'desc';
+        $applicators[]['sort']['setting.settingItems.id'] = 'desc';
         $this->assertEquals([3, 2, 1], $filterQuery->search($index, ['applicators' => $applicators]));
     }
 }

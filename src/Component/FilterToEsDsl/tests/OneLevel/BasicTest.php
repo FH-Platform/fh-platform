@@ -98,11 +98,11 @@ class BasicTest extends TestCase
         $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
 
         $applicators = [];
-        $applicators[]['id']['sort'] = 'asc';
+        $applicators[]['sort']['id'] = 'asc';
         $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
-        $applicators[]['id']['sort'] = 'desc';
+        $applicators[]['sort']['id'] = 'desc';
         $this->assertEquals([3, 2, 1], $filterQuery->search($index, ['applicators' => $applicators]));
     }
 }
