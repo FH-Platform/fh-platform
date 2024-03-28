@@ -47,7 +47,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         }
 
         if ($asyc) {
-            usleep(100000);
+            usleep(200000);
         }
     }
 
@@ -61,7 +61,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
             // TODO
         }
 
-        usleep(100000);
+        usleep(200000);
     }
 
     public function indexCreate(Index $index): void
@@ -76,7 +76,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
             ],
         ]);
 
-        usleep(100000);
+        usleep(200000);
     }
 
     public function indexesDeleteAllInConnection(Connection $connection): void
@@ -89,7 +89,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
             $client->request('DELETE', '/indexes/'.$indexName, []);
         }
 
-        usleep(100000);
+        usleep(200000);
     }
 
     public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
