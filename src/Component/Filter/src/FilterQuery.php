@@ -19,15 +19,44 @@ class FilterQuery
 
     public function search(Index $index, array $filters = [], $limit = 100, $offset = 0, string $type = QueryManager::TYPE_IDENTIFIERS): array
     {
-        $queryBase = $this->applyApplicators($filters['applicators'] ?? []);
-        $queryFilters = $this->applyFilters($filters['filters'] ?? []);
+        $queryBase = $this->applyApplicators($index, $filters['applicators'] ?? []);
+        $queryFilters = $this->applyFilters($index, $filters['filters'] ?? []);
 
         $queryBase->setQuery($queryFilters);
 
         return $this->queryManager->getResults($index, $queryBase, $limit, $offset, $type);
     }
 
-    private function applyFilters(array $filtersArray): BoolQuery
+    private function applyApplicators(Index $index, array $applicatorsArray): Query
+    {
+        $queryBase = new Query();
+
+        foreach ($applicatorsArray as $number => $applicators) {
+            foreach ($applicators as $field => $applicator) {
+                foreach ($applicator as $operator => $value) {
+                    $matched = false;
+                    foreach ($this->applicatorConverters as $applicatorConverter) {
+                        /* @var FilterInterface $filter */
+
+                        if ($applicatorConverter->name() === $operator) {
+                            $matched = true;
+
+                            $this->fetchMapping($index, $field);
+                            $query = $applicatorConverter->convert($queryBase, $field, $value);
+                        }
+                    }
+
+                    if (false === $matched) {
+                        throw new \Exception('Applicator "'.$operator.'" does not exists');
+                    }
+                }
+            }
+        }
+
+        return $queryBase;
+    }
+
+    private function applyFilters(Index $index, array $filtersArray): BoolQuery
     {
         $queryFilters = new BoolQuery();
 
@@ -40,7 +69,9 @@ class FilterQuery
 
                         if ($filterConverter->name() === $operator) {
                             $matched = true;
-                            $query = $filterConverter->convert($queryFilters, $field, $value);
+
+                            $mappingItem = $this->fetchMapping($index, $field);
+                            $query = $filterConverter->convert($queryFilters, $field, $value, $mappingItem);
                         }
                     }
 
@@ -54,30 +85,25 @@ class FilterQuery
         return $queryFilters;
     }
 
-    private function applyApplicators(array $applicatorsArray): Query
+    private function fetchMapping(Index $index, string $fields): ?array
     {
-        $queryBase = new Query();
+        $mapping = $index->getMapping();
 
-        foreach ($applicatorsArray as $number => $applicators) {
-            foreach ($applicators as $field => $applicator) {
-                foreach ($applicator as $operator => $value) {
-                    $matched = false;
-                    foreach ($this->applicatorConverters as $applicatorConverter) {
-                        /* @var FilterInterface $filter */
+        $fields = explode('.', $fields);
 
-                        if ($applicatorConverter->name() === $operator) {
-                            $matched = true;
-                            $query = $applicatorConverter->convert($queryBase, $field, $value);
-                        }
-                    }
+        $fieldsArray = [];
+        foreach ($fields as $key => $field) {
+            $fieldsArray[] = $field;
+            $fieldsArray[] = 'properties';
+        }
+        unset($fieldsArray[array_key_last($fieldsArray)]);
 
-                    if (false === $matched) {
-                        throw new \Exception('Applicator "'.$operator.'" does not exists');
-                    }
-                }
-            }
+        $output = [];
+        $temp = &$mapping;
+        foreach ($fieldsArray as $fieldArray) {
+            $output = $temp[$fieldArray] ?? null;
         }
 
-        return $queryBase;
+        return $output;
     }
 }

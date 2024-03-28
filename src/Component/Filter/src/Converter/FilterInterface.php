@@ -9,5 +9,5 @@ interface FilterInterface
 {
     public function name(): string;
 
-    public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery;
+    public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery;
 }

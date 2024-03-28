@@ -15,7 +15,7 @@ class InFilter implements FilterInterface
         return 'in';
     }
 
-    public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
+    public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
         $nullExists = false;
         foreach ($value as $k => $value2) {

@@ -14,6 +14,18 @@ class UserProvider extends ProviderEntity
 
     public function getAdditionalConfig(): array
     {
+        /*return [
+            'doctrine_to_es' => [
+                'id',
+                'setting' => [
+                    'id',
+                    'settingGroup' => [
+                        'id',
+                    ],
+                ],
+            ],
+        ];*/
+
         return [
             'doctrine_to_es' => [
                 'setting' => [

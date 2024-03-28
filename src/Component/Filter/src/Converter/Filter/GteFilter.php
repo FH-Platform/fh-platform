@@ -14,7 +14,7 @@ class GteFilter implements FilterInterface
         return 'gte';
     }
 
-    public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
+    public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
         $rangeQuery = new Range();
         $rangeQuery->addField($field, ['gte' => $value]);

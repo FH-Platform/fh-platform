@@ -100,8 +100,8 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         if (!$indexElastica->exists()) {
             $indexElastica->create($index->getSettings());
 
-            if(count($index->getMapping()) > 0){
-                //TODO
+            if (count($index->getMapping()) > 0) {
+                // TODO
                 /*$mappingObject = new Mapping();
                 $mappingObject->setProperties($index->getMapping());
                 $mappingObject->send($indexElastica);*/

@@ -14,7 +14,7 @@ class EqualsFilter implements FilterInterface
         return 'equals';
     }
 
-    public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
+    public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
         $matchQuery = new MatchQuery();
         $matchQuery->setField($field, $value);

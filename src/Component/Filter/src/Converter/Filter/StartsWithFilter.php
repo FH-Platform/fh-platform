@@ -14,7 +14,7 @@ class StartsWithFilter implements FilterInterface
         return 'starts_with';
     }
 
-    public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
+    public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
         $matchPhrasePrefixQuery = new MatchPhrasePrefix();
         $matchPhrasePrefixQuery->setField($field, $value);

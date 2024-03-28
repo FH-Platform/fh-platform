@@ -14,7 +14,7 @@ class NotExistsFilter implements FilterInterface
         return 'not_exists';
     }
 
-    public function convert(BoolQuery $query, string $field, mixed $value): AbstractQuery
+    public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
         $existsQuery = new Exists($field);
         $query->addMustNot($existsQuery);
