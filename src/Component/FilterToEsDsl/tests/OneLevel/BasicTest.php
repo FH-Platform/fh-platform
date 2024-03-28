@@ -4,6 +4,7 @@ namespace FHPlatform\Component\FilterToEsDsl\Tests\OneLevel;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\DataDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\MappingDecorator;
@@ -23,6 +24,7 @@ class BasicTest extends TestCase
             DataDecorator::class,
             MappingDecorator::class,
             EntityRelatedDecorator::class,
+            ConnectionDecorator::class,
         ];
 
         parent::setUp();
