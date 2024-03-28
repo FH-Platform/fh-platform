@@ -7,6 +7,4 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorBaseInterfac
 interface ProviderBaseInterface extends DecoratorBaseInterface
 {
     public function getClassName(): string;
-
-    public function getConfigAdditional(): array;
 }

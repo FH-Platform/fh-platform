@@ -12,15 +12,16 @@ class UserProviderEntity extends ProviderEntity
         return User::class;
     }
 
-    public function getConfigAdditional(): array
+    public function getConfigAdditional(array $config): array
     {
-        return [
-            'doctrine_to_es' => [
+        $config['doctrine_to_es'] =
+            [
                 'testInteger',
                 'setting' => [
                     'testFloat',
                 ],
-            ],
-        ];
+            ];
+
+        return $config;
     }
 }

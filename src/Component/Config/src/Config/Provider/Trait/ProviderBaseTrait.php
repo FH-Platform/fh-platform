@@ -9,14 +9,4 @@ trait ProviderBaseTrait
         // TODO
         throw new \Exception('not implemented.');
     }
-
-    public function priority(): int
-    {
-        return 0;
-    }
-
-    public function getConfigAdditional(): array
-    {
-        return [];
-    }
 }
