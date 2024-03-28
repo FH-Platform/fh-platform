@@ -3,10 +3,13 @@ framework:
     test: ~
 
 monolog:
+    channels: [elastica]
     handlers:
         elastica:
             type: stream
-            path: "%kernel.logs_dir%/elastica_%kernel.environment%.log"
+            path: "%kernel.logs_dir%/elastica_%kernel.environment%.log.json"
+            formatter: FHPlatform\Component\FilterToEsDsl\Tests\Util\JsonFormatter
+            channels: [elastica]
 doctrine:
     dbal:
         url:   "sqlite:///:memory:"

@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 class ConnectionFetcher
 {
     public function __construct(
-        private readonly LoggerInterface $elastica
+        private readonly LoggerInterface $elasticaLogger
     ) {
     }
 
@@ -17,7 +17,7 @@ class ConnectionFetcher
     {
         $client = new ElasticaClient($connection);
 
-        $client->setLogger($this->elastica);
+        $client->setLogger($this->elasticaLogger);
 
         return $client;
     }
