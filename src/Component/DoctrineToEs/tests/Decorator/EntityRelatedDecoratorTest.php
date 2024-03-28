@@ -4,6 +4,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
@@ -18,6 +19,7 @@ class EntityRelatedDecoratorTest extends TestCaseEs
             ProviderDefaultConnection::class,
             UserProviderEntity::class,
             EntityRelatedDecorator::class,
+            ConnectionDecorator::class,
         ];
 
         parent::setUp();
