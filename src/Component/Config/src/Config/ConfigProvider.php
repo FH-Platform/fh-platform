@@ -14,8 +14,8 @@ use FHPlatform\Component\Config\Util\Sorter\PrioritySorter;
 
 class ConfigProvider
 {
-    public static string $includedPattern = '';
-    public static string $excludedPattern = '';
+    public static array $includedPatterns = [];
+    public static array $excludedPatterns = [];
     public static array $includedClasses = [];
     public static array $excludedClasses = [];
 
@@ -30,8 +30,7 @@ class ConfigProvider
         private readonly iterable $decoratorsIndex,
         private readonly iterable $decoratorsEntity,
         private readonly iterable $decoratorsEntityRelated,
-    )
-    {
+    ) {
         $this->prioritySorter = new PrioritySorter();
     }
 
@@ -110,9 +109,11 @@ class ConfigProvider
                 if (in_array($className, self::$includedClasses)) {
                     $taggedConfigClasses[] = $item;
                 }
-            } else if (self::$includedPattern !== '') {
-                if (str_starts_with($className, self::$includedPattern)) {
-                    $taggedConfigClasses[] = $item;
+            } elseif (count(self::$includedPatterns) > 0) {
+                foreach (self::$includedPatterns as $includedPattern) {
+                    if (str_starts_with($className, $includedPattern)) {
+                        $taggedConfigClasses[] = $item;
+                    }
                 }
             } else {
                 $taggedConfigClasses[] = $item;
@@ -128,9 +129,11 @@ class ConfigProvider
                 }
             }
 
-            if (self::$excludedPattern !== '') {
-                if (str_starts_with($className, self::$includedPattern)) {
-                    unset($taggedConfigClasses[$key]);
+            if (count(self::$excludedPatterns) > 0) {
+                foreach (self::$excludedPatterns as $excludedPattern) {
+                    if (str_starts_with($className, $excludedPattern)) {
+                        unset($taggedConfigClasses[$key]);
+                    }
                 }
             }
         }

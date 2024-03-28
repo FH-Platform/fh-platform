@@ -2,32 +2,11 @@
 
 namespace FHPlatform\Component\FilterToEsDsl\Tests\FilterToEsDsl\InNotInWithNull;
 
-use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\DataDecorator;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\EntityRelatedDecorator;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
 use FHPlatform\Component\FilterToEsDsl\Tests\TestCase;
-use FHPlatform\Component\FilterToEsDsl\Tests\Util\FHPlatform\UserProvider;
 
 class NotInIntegerTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        ConfigProvider::$includedClasses = [
-            ProviderDefaultConnection::class,
-            UserProvider::class,
-            DataDecorator::class,
-            MappingDecorator::class,
-            EntityRelatedDecorator::class,
-            ConnectionDecorator::class,
-        ];
-
-        parent::setUp();
-    }
-
     public function testSomething(): void
     {
         $this->prepareData();
