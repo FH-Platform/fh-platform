@@ -115,14 +115,14 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         return $indexNames;
     }
 
-    public function queryResults(Index $index, mixed $query = null, $limit = 100, $offset = 0): array
+    public function queryResults(Index $index, mixed $query = null): array
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         $results = $client->request('POST', '/indexes/'.$index->getNameWithPrefix().'/documents/fetch', [
             'json' => [
-                'limit' => $limit,
-                'offset' => $offset,
+                'limit' => 10,
+                'offset' => 0,
             ],
         ]);
 

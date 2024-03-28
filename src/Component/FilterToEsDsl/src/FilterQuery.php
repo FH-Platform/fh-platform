@@ -11,21 +11,20 @@ use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 class FilterQuery
 {
     public function __construct(
-        private readonly iterable     $applicatorConverters,
-        private readonly iterable     $filterConverters,
+        private readonly iterable $applicatorConverters,
+        private readonly iterable $filterConverters,
         private readonly QueryManager $queryManager,
-    )
-    {
+    ) {
     }
 
-    public function search(Index $index, array $filters = [], $limit = 100, $offset = 0, string $type = QueryManager::TYPE_IDENTIFIERS): array
+    public function search(Index $index, array $filters = [], string $type = QueryManager::TYPE_IDENTIFIERS): array
     {
         $queryBase = $this->applyApplicators($index, $filters['applicators'] ?? []);
         $queryFilters = $this->applyFilters($index, $filters['filters'] ?? []);
 
         $queryBase->setQuery($queryFilters);
 
-        return $this->queryManager->getResults($index, $queryBase, $limit, $offset, $type);
+        return $this->queryManager->getResults($index, $queryBase, $type);
     }
 
     private function applyApplicators(Index $index, array $applicatorsArray): Query
@@ -41,12 +40,12 @@ class FilterQuery
                     if ($applicatorConverter->name() === $operator) {
                         $matched = true;
 
-                       $applicatorConverter->convert($queryBase, $value);
+                        $applicatorConverter->convert($queryBase, $value);
                     }
                 }
 
                 if (false === $matched) {
-                    throw new \Exception('Applicator "' . $operator . '" does not exists');
+                    throw new \Exception('Applicator "'.$operator.'" does not exists');
                 }
             }
         }
@@ -74,7 +73,7 @@ class FilterQuery
                     }
 
                     if (false === $matched) {
-                        throw new \Exception('Filter "' . $operator . '"  does not exists');
+                        throw new \Exception('Filter "'.$operator.'"  does not exists');
                     }
                 }
             }

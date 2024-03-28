@@ -11,7 +11,6 @@ use FHPlatform\Component\DoctrineToEs\FHPlatform\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
-use FHPlatform\Component\FilterToEsDsl\Tests\TestCase;
 use FHPlatform\Component\FilterToEsDsl\Tests\Util\FHPlatform\UserProvider;
 
 class LimitOffsetTest extends TestCase
@@ -53,21 +52,21 @@ class LimitOffsetTest extends TestCase
         $applicators = [];
         $applicators[]['limit'] = 2;
         $applicators[]['offset'] = 0;
-        $this->assertEquals([1,2], $filterQuery->search($index, ['applicators' => $applicators], 2, 0));
+        $this->assertEquals([1, 2], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
         $applicators[]['limit'] = 2;
         $applicators[]['offset'] = 1;
-        $this->assertEquals([2,3], $filterQuery->search($index, ['applicators' => $applicators], 2, 1));
+        $this->assertEquals([2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
         $applicators[]['limit'] = 1;
         $applicators[]['offset'] = 3;
-        $this->assertEquals([], $filterQuery->search($index, ['applicators' => $applicators], 1, 3));
+        $this->assertEquals([], $filterQuery->search($index, ['applicators' => $applicators]));
 
         $applicators = [];
         $applicators[]['limit'] = 1;
         $applicators[]['offset'] = 1;
-        $this->assertEquals([2], $filterQuery->search($index,['applicators' => $applicators], 1, 1));
+        $this->assertEquals([2], $filterQuery->search($index, ['applicators' => $applicators]));
     }
 }

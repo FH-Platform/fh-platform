@@ -14,7 +14,7 @@ class LimitApplicator implements ApplicatorInterface
 
     public function convert(Query $query, mixed $value): Query
     {
-        $query->setSize((int)$value);
+        $query->setSize((int) $value);
 
         return $query;
     }

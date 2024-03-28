@@ -14,8 +14,8 @@ class OffsetApplicator implements ApplicatorInterface
 
     public function convert(Query $query, mixed $value): Query
     {
-        $query->setFrom((int)$value);
+        $query->setFrom((int) $value);
 
-        return $query; 
+        return $query;
     }
 }

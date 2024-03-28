@@ -20,9 +20,9 @@ class QueryManager
     ) {
     }
 
-    public function getResults(Index $index, mixed $query = null, $limit = 100, $offset = 0, $type = self::TYPE_RAW): array
+    public function getResults(Index $index, mixed $query = null, $type = self::TYPE_RAW): array
     {
-        $results = $this->adapter->queryResults($index, $query, $limit, $offset);
+        $results = $this->adapter->queryResults($index, $query);
 
         if (self::TYPE_IDENTIFIERS === $type) {
             $results = $this->adapter->convertResultsSource($results);

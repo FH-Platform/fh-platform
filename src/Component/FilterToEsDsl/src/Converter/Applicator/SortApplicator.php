@@ -14,7 +14,7 @@ class SortApplicator implements ApplicatorInterface
 
     public function convert(Query $query, mixed $value): Query
     {
-        foreach ($value as $field => $valueItem){
+        foreach ($value as $field => $valueItem) {
             $query->addSort([$field => $valueItem]);
         }
 
