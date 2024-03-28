@@ -6,6 +6,8 @@ use FHPlatform\Component\Config\Util\Namer\IndexNamer;
 
 trait ProviderIndexTrait
 {
+    use ProviderBaseTrait;
+
     public function getConnection(): string
     {
         return 'default';
