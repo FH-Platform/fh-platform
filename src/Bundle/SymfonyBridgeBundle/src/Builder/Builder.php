@@ -10,7 +10,6 @@ use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageHandlerSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
@@ -192,10 +191,6 @@ class Builder implements BuilderInterface
         ]);
 
         $container->register(EntitiesRelatedBuilder::class)->setPublic(true)->setArguments([
-            '$configProvider' => $container->findDefinition(ConfigProvider::class),
-        ]);
-
-        $container->register(IndexBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
         ]);
     }

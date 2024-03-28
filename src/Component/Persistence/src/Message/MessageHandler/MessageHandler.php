@@ -5,7 +5,6 @@ namespace FHPlatform\Component\Persistence\Message\MessageHandler;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
@@ -19,14 +18,11 @@ class MessageHandler
         private readonly ConnectionsBuilder $connectionsBuilder,
         private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-        private readonly IndexBuilder $indexBuilder,
     ) {
     }
 
     public function handle(EntitiesChangedMessage $message): void
     {
-        $classNamesIndex = $this->indexBuilder->fetchClassNamesIndex();
-
         $documents = [];
 
         $event = $message->getChangedEntitiesEvent();
@@ -40,19 +36,16 @@ class MessageHandler
 
             $entity = $this->persistence->refreshByClassNameId($className, $identifier);
 
-            if (in_array($className, $classNamesIndex)) {
-                $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
+            $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
+            foreach ($indexes as $index) {
+                $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
 
-                foreach ($indexes as $index) {
-                    $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
+                // TODO return if hash exists
 
-                    // TODO return if hash exists
-
-                    if (ChangedEntity::TYPE_DELETE_PRE !== $type) {
-                        $documents[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
-                    } else {
-                        // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
-                    }
+                if (ChangedEntity::TYPE_DELETE_PRE !== $type) {
+                    $documents[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
+                } else {
+                    // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
                 }
             }
 
