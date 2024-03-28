@@ -3,9 +3,8 @@
 namespace FHPlatform\Component\Config\Config\Decorator\Interface;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Config\Util\Sorter\Interface\PriorityInterface;
 
-interface DecoratorEntityInterface extends PriorityInterface
+interface DecoratorEntityInterface extends DecoratorBaseInterface
 {
     public function getEntityData(Index $index, mixed $entity, array $data): array;
 

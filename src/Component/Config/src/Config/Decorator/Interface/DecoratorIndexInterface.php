@@ -3,9 +3,8 @@
 namespace FHPlatform\Component\Config\Config\Decorator\Interface;
 
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Config\Util\Sorter\Interface\PriorityInterface;
 
-interface DecoratorIndexInterface extends PriorityInterface
+interface DecoratorIndexInterface extends DecoratorBaseInterface
 {
     public function getIndexSettings(Index $index, array $settings): array;
 

@@ -63,7 +63,7 @@ class ConnectionsBuilder
             $providerConnection->getName(),
             $providerConnection->getIndexPrefix(),
             $providerConnection->getClientConfig(),
-            $providerConnection->getAdditionalConfig(),
+            $providerConnection->getConfigAdditional(),
         );
     }
 
@@ -72,7 +72,7 @@ class ConnectionsBuilder
         $className = $providerIndex->getClassName();
         $name = $providerIndex->getIndexName($className);
         $nameWithPrefix = $connection->getPrefix().$name;
-        $additionalConfig = $providerIndex->getAdditionalConfig();
+        $additionalConfig = $providerIndex->getConfigAdditional();
 
         $index = new Index($connection, $className, $name, $nameWithPrefix, $additionalConfig);
 

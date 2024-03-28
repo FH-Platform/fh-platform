@@ -10,7 +10,12 @@ trait ProviderBaseTrait
         throw new \Exception('not implemented.');
     }
 
-    public function getAdditionalConfig(): array
+    public function priority(): int
+    {
+        return 0;
+    }
+
+    public function getConfigAdditional(): array
     {
         return [];
     }

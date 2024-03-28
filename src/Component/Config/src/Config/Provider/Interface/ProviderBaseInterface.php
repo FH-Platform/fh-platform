@@ -2,11 +2,9 @@
 
 namespace FHPlatform\Component\Config\Config\Provider\Interface;
 
-use FHPlatform\Component\Config\Util\Sorter\Interface\PriorityInterface;
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorBaseInterface;
 
-interface ProviderBaseInterface extends PriorityInterface
+interface ProviderBaseInterface extends DecoratorBaseInterface
 {
     public function getClassName(): string;
-
-    public function getAdditionalConfig(): array;
 }

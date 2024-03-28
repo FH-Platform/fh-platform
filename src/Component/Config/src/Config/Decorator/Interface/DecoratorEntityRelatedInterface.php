@@ -2,9 +2,7 @@
 
 namespace FHPlatform\Component\Config\Config\Decorator\Interface;
 
-use FHPlatform\Component\Config\Util\Sorter\Interface\PriorityInterface;
-
-interface DecoratorEntityRelatedInterface extends PriorityInterface
+interface DecoratorEntityRelatedInterface extends DecoratorBaseInterface
 {
     public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array;
 }

@@ -12,7 +12,7 @@ class UserProvider extends ProviderEntity
         return User::class;
     }
 
-    public function getAdditionalConfig(): array
+    public function getConfigAdditional(): array
     {
         /*return [
             'doctrine_to_es' => [

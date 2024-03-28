@@ -13,7 +13,7 @@ abstract class ProviderConnection
 
     abstract public function getClientConfig(): array;
 
-    public function getAdditionalConfig(): array
+    public function getConfigAdditional(): array
     {
         return [];
     }
