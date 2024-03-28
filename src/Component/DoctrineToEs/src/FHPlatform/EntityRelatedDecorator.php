@@ -21,10 +21,10 @@ class EntityRelatedDecorator extends DecoratorEntityRelated
     public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         // TODO cache updating map
-        $updatingMap = $connection->getConfigAdditionalPostIndex()['doctrine_updating_map'] ?? [];
+        $doctrineUpdatingMap = $connection->getConfigAdditionalPostIndex()['doctrine_updating_map'] ?? [];
 
         // TODO clean and hash
-        $entities = $this->entitiesRelatedBuilder->build($entity, $updatingMap, $changedFields);
+        $entities = $this->entitiesRelatedBuilder->build($entity, $doctrineUpdatingMap, $changedFields);
         foreach ($entities as $relations => $entity) {
             foreach ($entity as $id => $entity2) {
                 $entitiesRelated[] = $entity2;

@@ -9,7 +9,7 @@ class BasicTest extends TestCaseEntitiesRelated
 {
     public function testSomething(): void
     {
-        $updatingMap = [
+        $doctrineUpdatingMap = [
             Setting::class => [
                 User::class => [
                     'relations' => 'user',
@@ -26,11 +26,11 @@ class BasicTest extends TestCaseEntitiesRelated
         $user->setSetting($setting);
 
         $this->save([$setting, $user]);
-        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $updatingMap, ['testString']));
+        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ['testString']));
         $this->assertEquals([
             'user' => [
                 1 => $user,
             ],
-        ], $this->entitiesRelatedBuilder->build($setting, $updatingMap, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ['testBoolean']));
     }
 }

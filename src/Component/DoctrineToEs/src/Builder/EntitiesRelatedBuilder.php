@@ -13,15 +13,15 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function build($entity, array $updatingMap, array $changedFields): array
+    public function build($entity, array $doctrineUpdatingMap, array $changedFields): array
     {
         $className = ClassUtils::getClass($entity);
 
         $entitiesRelated = [];
 
-        $updatingMapForEntity = $updatingMap[$className] ?? [];
+        $doctrineUpdatingMapForEntity = $doctrineUpdatingMap[$className] ?? [];
 
-        foreach ($updatingMapForEntity as $updatingMapForEntityRow) {
+        foreach ($doctrineUpdatingMapForEntity as $updatingMapForEntityRow) {
             $associationString = $updatingMapForEntityRow['relations'];
             $changedFieldsForEs = $updatingMapForEntityRow['changed_fields'];
 

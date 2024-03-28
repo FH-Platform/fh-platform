@@ -30,9 +30,9 @@ class ConnectionDecorator extends DecoratorConnection
         }
 
         // TODO cache updating map
-        $updatingMap = $this->updatingMapBuilder->build($classNames);
+        $doctrineUpdatingMap = $this->updatingMapBuilder->build($classNames);
 
-        $config['doctrine_updating_map'] = $updatingMap;
+        $config['doctrine_updating_map'] = $doctrineUpdatingMap;
 
         return $config;
     }
