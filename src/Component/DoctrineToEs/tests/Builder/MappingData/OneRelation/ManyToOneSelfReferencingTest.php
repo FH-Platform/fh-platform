@@ -11,7 +11,7 @@ class ManyToOneSelfReferencingTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {
-        $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
+        $index = new Index(new Connection('test', 'test', []), User::class, true, '', '', []);
 
         $mentor = $this->populateEntity(new User());
         $user = $this->populateEntity(new User());

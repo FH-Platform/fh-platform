@@ -13,7 +13,7 @@ class OneToOneTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {
-        $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
+        $index = new Index(new Connection('test', 'test', []), User::class, true, '', '', []);
 
         $settingMain = $this->populateEntity(new SettingMain());
         $setting = $this->populateEntity(new Setting());

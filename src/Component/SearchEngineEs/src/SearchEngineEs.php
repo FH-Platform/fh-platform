@@ -114,7 +114,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         $indexes = $this->indexesGetAllInConnection($connection);
 
         foreach ($indexes as $index) {
-            $this->indexDelete(new Index($connection, '', '', $index, []));
+            $this->indexDelete(new Index($connection, '', false, '', $index, []));
         }
     }
 

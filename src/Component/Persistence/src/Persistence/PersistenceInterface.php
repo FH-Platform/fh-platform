@@ -4,6 +4,8 @@ namespace FHPlatform\Component\Persistence\Persistence;
 
 interface PersistenceInterface
 {
+    public function isEntity(string $className): bool;
+
     public function getIdentifierName(mixed $entity): ?string;
 
     public function getIdentifierValue(mixed $entity): mixed;

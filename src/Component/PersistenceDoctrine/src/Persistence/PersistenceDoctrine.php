@@ -187,4 +187,13 @@ class PersistenceDoctrine implements PersistenceInterface
 
         return $identifiers;
     }
+
+    public function isEntity(string $className): bool
+    {
+        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
+            return true;
+        }
+
+        return false;
+    }
 }

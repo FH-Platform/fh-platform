@@ -10,7 +10,7 @@ class BasicTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {
-        $index = new Index(new Connection('test', 'test', []), User::class, '', '', []);
+        $index = new Index(new Connection('test', 'test', []), User::class, true, '', '', []);
         $mapping = $this->mappingProvider->build($index, []);
 
         $user = $this->populateEntity(new User());

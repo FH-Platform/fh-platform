@@ -63,4 +63,11 @@ class PersistenceEloquent implements PersistenceInterface
 
         return $identifiers;
     }
+
+    public function isEntity(string $className): bool
+    {
+        // TODO
+
+        return true;
+    }
 }

@@ -48,7 +48,7 @@ class IndexCommandsTest extends TestCase
 
         $this->commandHelper->runCommand(['command' => 'fhplatform:index:create-all']);
         $this->assertEquals(2, count($indexClient->getAllIndexesInConnection($connection)));
-        $indexClient->createIndex(new Index($connection, '', 'test3', $connection->getPrefix().'test3', []));
+        $indexClient->createIndex(new Index($connection, '', false, 'test3', $connection->getPrefix().'test3', []));
         $this->assertEquals(3, count($indexClient->getAllIndexesInConnection($connection)));
         $this->commandHelper->runCommand(['command' => 'fhplatform:index:delete-stale']);
         $this->assertEquals(2, count($indexClient->getAllIndexesInConnection($connection)));

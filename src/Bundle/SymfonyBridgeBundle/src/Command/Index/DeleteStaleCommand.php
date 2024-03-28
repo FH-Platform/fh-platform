@@ -33,7 +33,7 @@ class DeleteStaleCommand extends Command
             $indexNames = $this->indexClient->getAllIndexesInConnection($connection);
             foreach ($indexNames as $indexNameWithPrefix) {
                 if (!in_array($indexNameWithPrefix, $indexNamesAvailable, true)) {
-                    $this->indexClient->deleteIndex(new Index($connection, '', '', $indexNameWithPrefix, []));
+                    $this->indexClient->deleteIndex(new Index($connection, '', false, '', $indexNameWithPrefix, []));
                 }
             }
         }

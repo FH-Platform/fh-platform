@@ -31,8 +31,8 @@ class SearchEngineAdapterIndexTest extends TestCase
             ],
         ];
         $connection = new Connection('default', 'prefix_', $config);
-        $indexUser = new Index($connection, '', 'user', 'prefix_user', [], [], []);
-        $indexRole = new Index($connection, '', 'role', 'prefix_role', [], [], []);
+        $indexUser = new Index($connection, '', false, 'user', 'prefix_user', [], [], []);
+        $indexRole = new Index($connection, '', false, 'role', 'prefix_role', [], [], []);
         $connection->setIndexes([$indexUser, $indexRole]);
 
         // remove all indexes
@@ -78,7 +78,7 @@ class SearchEngineAdapterIndexTest extends TestCase
         $this->assertEquals(1, count($this->getResults($indexUser)));
 
         // test get and delete by prefix
-        $indexUser2 = new Index($connection, '', 'user2', 'prefix2_user2', [], [], []);
+        $indexUser2 = new Index($connection, '', false, 'user2', 'prefix2_user2', [], [], []);
         $adapter->indexDelete($indexUser2);
         $this->assertEquals(false, $adapter->indexesGetAllInConnection($connection, false)['prefix2_user2'] ?? false);
         $adapter->indexCreate($indexUser2);

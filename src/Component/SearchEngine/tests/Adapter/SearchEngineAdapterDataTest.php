@@ -45,8 +45,8 @@ class SearchEngineAdapterDataTest extends TestCase
             ],
         ];
         $connection = new Connection('default', 'prefix_', $config);
-        $indexUser = new Index($connection, User::class, 'user', 'prefix_user', [], [], []);
-        $indexRole = new Index($connection, Role::class, 'role', 'prefix_role', [], [], []);
+        $indexUser = new Index($connection, User::class, true, 'user', 'prefix_user', [], [], []);
+        $indexRole = new Index($connection, Role::class, true, 'role', 'prefix_role', [], [], []);
         $connection->setIndexes([$indexUser, $indexRole]);
 
         // clear index

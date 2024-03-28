@@ -7,6 +7,7 @@ class Index
     public function __construct(
         private readonly Connection $connection,
         private readonly string $className,
+        private readonly bool $isEntity,
         private readonly string $name,
         private readonly string $nameWithPrefix,
         private array $configAdditional = [],
@@ -23,6 +24,11 @@ class Index
     public function getClassName(): string
     {
         return $this->className;
+    }
+
+    public function isEntity(): bool
+    {
+        return $this->isEntity;
     }
 
     public function getName(): string
