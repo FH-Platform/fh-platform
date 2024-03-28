@@ -3,8 +3,9 @@
 namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\EntitiesRelated;
 
 use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 
-class TestCaseEntitiesRelated extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
+class TestCaseEntitiesRelated extends TestCase
 {
     protected EntitiesRelatedBuilder $entitiesRelatedBuilder;
 

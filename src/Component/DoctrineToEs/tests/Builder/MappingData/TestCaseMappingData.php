@@ -4,8 +4,9 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\MappingData;
 
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
+use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 
-class TestCaseMappingData extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
+class TestCaseMappingData extends TestCase
 {
     protected MappingBuilder $mappingProvider;
     protected DataBuilder $dataProvider;

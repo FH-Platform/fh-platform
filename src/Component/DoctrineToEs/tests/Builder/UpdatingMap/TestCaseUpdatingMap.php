@@ -3,8 +3,9 @@
 namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\UpdatingMap;
 
 use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
+use FHPlatform\Component\DoctrineToEs\Tests\TestCase;
 
-class TestCaseUpdatingMap extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
+class TestCaseUpdatingMap extends TestCase
 {
     protected UpdatingMapBuilder $updatingMapBuilder;
 

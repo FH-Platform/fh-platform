@@ -2,8 +2,6 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\MappingData\TwoRelation\OneToOne;
 
-use FHPlatform\Component\Config\DTO\Connection;
-use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Builder\MappingData\TestCaseMappingData;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingItem;
@@ -13,7 +11,7 @@ class OneToManyTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {
-        $index = new Index(new Connection('test', 'test', []), User::class, true, '', '', []);
+        $index = $this->prepareIndex();
 
         $setting = $this->populateEntity(new Setting());
 

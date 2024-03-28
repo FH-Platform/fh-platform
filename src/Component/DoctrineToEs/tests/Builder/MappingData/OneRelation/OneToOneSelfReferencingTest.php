@@ -2,8 +2,6 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\MappingData\OneRelation;
 
-use FHPlatform\Component\Config\DTO\Connection;
-use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Builder\MappingData\TestCaseMappingData;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
@@ -11,7 +9,7 @@ class OneToOneSelfReferencingTest extends TestCaseMappingData
 {
     public function testSomething(): void
     {
-        $index = new Index(new Connection('test', 'test', []), User::class, true, '', '', []);
+        $index = $this->prepareIndex();
 
         $userBestFriend = $this->populateEntity(new User());
 
