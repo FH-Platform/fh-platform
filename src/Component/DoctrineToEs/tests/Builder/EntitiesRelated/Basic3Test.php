@@ -10,14 +10,12 @@ class Basic3Test extends TestCaseEntitiesRelated
 {
     public function testSomething(): void
     {
-        $data = [
-            'default' => [
-                Role::class => [
-                    User::class => [
-                        'relations' => 'users',
-                        'changed_fields' => [
-                            'testBoolean',
-                        ],
+        $updatingMap = [
+            Role::class => [
+                User::class => [
+                    'relations' => 'users',
+                    'changed_fields' => [
+                        'testBoolean',
                     ],
                 ],
             ],
@@ -35,18 +33,18 @@ class Basic3Test extends TestCaseEntitiesRelated
 
         $this->save([$user, $user2]);
 
-        $this->assertEquals([], $this->entitiesRelatedBuilder->build($role, $data, ['testString']));
+        $this->assertEquals([], $this->entitiesRelatedBuilder->build($role, $updatingMap, ['testString']));
         $this->assertEquals([
             'users' => [
                 1 => $user,
                 2 => $user2,
             ],
-        ], $this->entitiesRelatedBuilder->build($role, $data, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($role, $updatingMap, ['testBoolean']));
 
         $this->assertEquals([
             'users' => [
                 1 => $user,
             ],
-        ], $this->entitiesRelatedBuilder->build($role2, $data, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($role2, $updatingMap, ['testBoolean']));
     }
 }

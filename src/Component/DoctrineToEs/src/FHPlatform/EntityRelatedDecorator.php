@@ -4,6 +4,7 @@ namespace FHPlatform\Component\DoctrineToEs\FHPlatform;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\Decorator\DecoratorEntityRelated;
+use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
 
@@ -21,26 +22,23 @@ class EntityRelatedDecorator extends DecoratorEntityRelated
         return -100;
     }
 
-    public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array
+    public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         $connections = $this->connectionsBuilder->build();
 
-        $connectionsArray = [];
-        foreach ($connections as $connection) {
-            foreach ($connection->getIndexes() as $index) {
-                $config = $index->getConfigAdditional()['doctrine_to_es'];
+        $classNames = [];
+        foreach ($connection->getIndexes() as $index) {
+            $configDoctrineToEs = $index->getConfigAdditional()['doctrine_to_es'];
 
-                if (null !== $config) {
-                    $connectionsArray[$connection->getName()][$index->getClassName()] = $config;
-                }
+            if (null !== $configDoctrineToEs) {
+                $classNames[$index->getClassName()] = $configDoctrineToEs;
             }
         }
 
         // TODO cache updating map
-        $updatingMap = $this->updatingMapBuilder->build($connectionsArray);
+        $updatingMap = $this->updatingMapBuilder->build($classNames);
 
         // TODO clean and hash
-        $entitiesRelatedDoctrineToEs = [];
         $entities = $this->entitiesRelatedBuilder->build($entity, $updatingMap, $changedFields);
         foreach ($entities as $relations => $entity) {
             foreach ($entity as $id => $entity2) {

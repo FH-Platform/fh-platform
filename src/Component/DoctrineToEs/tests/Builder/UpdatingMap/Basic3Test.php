@@ -12,73 +12,69 @@ class Basic3Test extends TestCaseUpdatingMap
 {
     public function testSomething(): void
     {
-        $connections = [
-            'default' => [
-                User::class => [
-                    'roles' => [
-                        'testBigint',
-                    ],
-                    'setting' => [
-                        'id',
-                        'testBoolean',
-                    ],
-                    'location' => [
-                        'testString',
-                        'locationItems' => [
-                            'testFloat',
-                        ],
+        $classNames = [
+            User::class => [
+                'roles' => [
+                    'testBigint',
+                ],
+                'setting' => [
+                    'id',
+                    'testBoolean',
+                ],
+                'location' => [
+                    'testString',
+                    'locationItems' => [
+                        'testFloat',
                     ],
                 ],
-                Location::class => [
-                    'locationItems' => [
-                        'testString',
-                    ],
+            ],
+            Location::class => [
+                'locationItems' => [
+                    'testString',
                 ],
             ],
         ];
 
         $this->assertEquals([
-            'default' => [
-                Role::class => [
-                    User::class => [
-                        'relations' => 'users',
-                        'changed_fields' => [
-                            'testBigint',
-                        ],
-                    ],
-                ],
-                Setting::class => [
-                    User::class => [
-                        'relations' => 'user',
-                        'changed_fields' => [
-                            'id',
-                            'testBoolean',
-                        ],
-                    ],
-                ],
-                Location::class => [
-                    User::class => [
-                        'relations' => 'users',
-                        'changed_fields' => [
-                            'testString',
-                        ],
-                    ],
-                ],
-                LocationItem::class => [
-                    User::class => [
-                        'relations' => 'location.users',
-                        'changed_fields' => [
-                            'testFloat',
-                        ],
-                    ],
-                    Location::class => [
-                        'relations' => 'location',
-                        'changed_fields' => [
-                            'testString',
-                        ],
+            Role::class => [
+                User::class => [
+                    'relations' => 'users',
+                    'changed_fields' => [
+                        'testBigint',
                     ],
                 ],
             ],
-        ], $this->updatingMapBuilder->build($connections));
+            Setting::class => [
+                User::class => [
+                    'relations' => 'user',
+                    'changed_fields' => [
+                        'id',
+                        'testBoolean',
+                    ],
+                ],
+            ],
+            Location::class => [
+                User::class => [
+                    'relations' => 'users',
+                    'changed_fields' => [
+                        'testString',
+                    ],
+                ],
+            ],
+            LocationItem::class => [
+                User::class => [
+                    'relations' => 'location.users',
+                    'changed_fields' => [
+                        'testFloat',
+                    ],
+                ],
+                Location::class => [
+                    'relations' => 'location',
+                    'changed_fields' => [
+                        'testString',
+                    ],
+                ],
+            ],
+        ], $this->updatingMapBuilder->build($classNames));
     }
 }

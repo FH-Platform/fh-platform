@@ -26,7 +26,7 @@ class ConnectionsBuilder
         $connections = [];
         foreach ($providersConnection as $providerConnection) {
             $connection = $this->convertProviderConnectionToDto($providerConnection);
-
+            $connection = $this->decorateConnectionPreIndex($providerConnection, $connection);
             $indexes = [];
             foreach ($providersIndex as $providerIndex) {
                 if ($providerIndex->getConnection() === $providerConnection->getName()) {
@@ -35,6 +35,7 @@ class ConnectionsBuilder
             }
 
             $connection->setIndexes($indexes);
+            $connection = $this->decorateConnectionPostIndex($providerConnection, $connection);
 
             $connections[] = $connection;
         }
@@ -59,23 +60,49 @@ class ConnectionsBuilder
 
     private function convertProviderConnectionToDto(ProviderConnection $providerConnection): Connection
     {
+        $connection = new Connection(
+            $providerConnection->getName(),
+            $providerConnection->getIndexPrefix(),
+            $providerConnection->getClientConfig(),
+        );
+
+        return $connection;
+    }
+
+    private function decorateConnectionPreIndex(ProviderConnection $providerConnection, Connection $connection): Connection
+    {
         $decorators = $this->configProvider->getDecoratorsConnection();
 
-        $configAdditional = [];
+        $configAdditionalPreIndex = [];
         foreach ($decorators as $decorator) {
             if ($decorator instanceof ProviderConnection and $decorator->getName() !== $providerConnection->getName()) {
                 continue;
             }
 
-            $configAdditional = $decorator->getConfigAdditional($configAdditional);
+            $configAdditionalPreIndex = $decorator->getConfigAdditionalPreIndex($connection, $configAdditionalPreIndex);
         }
 
-        return new Connection(
-            $providerConnection->getName(),
-            $providerConnection->getIndexPrefix(),
-            $providerConnection->getClientConfig(),
-            $providerConnection->getConfigAdditional($configAdditional),
-        );
+        $connection->setConfigAdditionalPreIndex($configAdditionalPreIndex);
+
+        return $connection;
+    }
+
+    private function decorateConnectionPostIndex(ProviderConnection $providerConnection, Connection $connection): Connection
+    {
+        $decorators = $this->configProvider->getDecoratorsConnection();
+
+        $configAdditionalPreIndex = [];
+        foreach ($decorators as $decorator) {
+            if ($decorator instanceof ProviderConnection and $decorator->getName() !== $providerConnection->getName()) {
+                continue;
+            }
+
+            $configAdditionalPreIndex = $decorator->getConfigAdditionalPostIndex($connection, $configAdditionalPreIndex);
+        }
+
+        $connection->setConfigAdditionalPostIndex($configAdditionalPreIndex);
+
+        return $connection;
     }
 
     private function convertProviderIndexToDto(ProviderIndexInterface $providerIndex, Connection $connection): Index

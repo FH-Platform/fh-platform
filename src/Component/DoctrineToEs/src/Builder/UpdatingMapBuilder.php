@@ -13,20 +13,16 @@ class UpdatingMapBuilder
     ) {
     }
 
-    public function build(array $connections): array
+    public function build(array $classNames): array
     {
         $updatingMap = [];
 
         // for each nestable(and searchable) provider calculate config for update
-        foreach ($connections as $connectionName => $classNames) {
-            $updatingMap[$connectionName] = [];
+        foreach ($classNames as $className => $config) {
+            // add for root class
+            // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
 
-            foreach ($classNames as $className => $config) {
-                // add for root class
-                // $this->addToUpdatingMap($className, $className, $config, '', $updatingMap);
-
-                $this->calculateForAssociations($className, $className, $config, '', $updatingMap[$connectionName]);
-            }
+            $this->calculateForAssociations($className, $className, $config, '', $updatingMap);
         }
 
         return $updatingMap;

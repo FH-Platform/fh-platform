@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\EntityRelatedDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
@@ -24,6 +25,10 @@ class EntityRelatedDecoratorTest extends TestCaseEs
 
     public function testSomething(): void
     {
+        /** @var ConnectionsBuilder $connectionsBuilder */
+        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
+        $connection = $connectionsBuilder->build()[0];
+
         $setting = new Setting();
         $setting->setTestFloat(18.16);
         $this->save([$setting]);
@@ -33,10 +38,10 @@ class EntityRelatedDecoratorTest extends TestCaseEs
         $user->setSetting($setting);
         $this->save([$user]);
 
-        $data = $this->entitiesRelatedBuilder->build($setting, ['testInteger']);
+        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ['testInteger']);
         $this->assertEquals([], $data);
 
-        $data = $this->entitiesRelatedBuilder->build($setting, ['testFloat']);
+        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ['testFloat']);
         $this->assertEquals([$user], $data);
     }
 }

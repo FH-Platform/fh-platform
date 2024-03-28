@@ -10,20 +10,18 @@ class Basic2Test extends TestCaseEntitiesRelated
 {
     public function testSomething(): void
     {
-        $data = [
-            'default' => [
-                Setting::class => [
-                    User::class => [
-                        'relations' => 'user',
-                        'changed_fields' => [
-                            'testBoolean',
-                        ],
+        $updatingMap = [
+            Setting::class => [
+                User::class => [
+                    'relations' => 'user',
+                    'changed_fields' => [
+                        'testBoolean',
                     ],
-                    SettingMain::class => [
-                        'relations' => 'settingMain',
-                        'changed_fields' => [
-                            'testString',
-                        ],
+                ],
+                SettingMain::class => [
+                    'relations' => 'settingMain',
+                    'changed_fields' => [
+                        'testString',
                     ],
                 ],
             ],
@@ -40,12 +38,12 @@ class Basic2Test extends TestCaseEntitiesRelated
         $user->setSetting($setting);
         $this->save([$user]);
 
-        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $data, ['testFloat']));
+        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $updatingMap, ['testFloat']));
         $this->assertEquals([
             'user' => [
                 1 => $user,
             ],
-        ], $this->entitiesRelatedBuilder->build($setting, $data, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($setting, $updatingMap, ['testBoolean']));
 
         $this->assertEquals([
             'user' => [
@@ -54,6 +52,6 @@ class Basic2Test extends TestCaseEntitiesRelated
             'settingMain' => [
                 1 => $settingMain,
             ],
-        ], $this->entitiesRelatedBuilder->build($setting, $data, ['testBoolean', 'testString']));
+        ], $this->entitiesRelatedBuilder->build($setting, $updatingMap, ['testBoolean', 'testString']));
     }
 }

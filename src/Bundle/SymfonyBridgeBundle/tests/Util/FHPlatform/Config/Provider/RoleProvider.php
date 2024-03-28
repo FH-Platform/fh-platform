@@ -4,6 +4,7 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Pro
 
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity\Role;
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
+use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 
 class RoleProvider extends ProviderEntity
@@ -33,7 +34,7 @@ class RoleProvider extends ProviderEntity
     }
 
     /** @param Role $entity */
-    public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array
+    public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         return $entity->getUsers()->toArray();
     }

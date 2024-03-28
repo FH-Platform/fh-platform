@@ -9,4 +9,9 @@ trait ProviderBaseTrait
         // TODO
         throw new \Exception('not implemented.');
     }
+
+    public function getConnection(): string
+    {
+        return 'default';
+    }
 }

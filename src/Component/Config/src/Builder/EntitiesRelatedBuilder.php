@@ -5,6 +5,7 @@ namespace FHPlatform\Component\Config\Builder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
+use FHPlatform\Component\Config\DTO\Connection;
 
 class EntitiesRelatedBuilder
 {
@@ -13,7 +14,7 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function build(mixed $entity, $changedFields): array
+    public function build(Connection $connection, mixed $entity, $changedFields): array
     {
         // TODO remove all -> $entity::class
         $className = $entity::class;
@@ -24,18 +25,18 @@ class EntitiesRelatedBuilder
         $decorators = $this->configProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
 
         // decorate entity_related
-        $entitiesRelated = $this->decorateEntitiesRelated($entity, $changedFields, $decorators);
+        $entitiesRelated = $this->decorateEntitiesRelated($connection, $entity, $changedFields, $decorators);
 
         // return
         return $entitiesRelated;
     }
 
     /** @param  DecoratorEntityRelatedInterface[] $decorators */
-    private function decorateEntitiesRelated(mixed $entity, array $changedFields, array $decorators): array
+    private function decorateEntitiesRelated(Connection $connection, mixed $entity, array $changedFields, array $decorators): array
     {
         $entitiesRelated = [];
         foreach ($decorators as $decorator) {
-            $entitiesRelated = $decorator->getEntityRelatedEntities($entity, $changedFields, $entitiesRelated);
+            $entitiesRelated = $decorator->getEntityRelatedEntities($connection, $entity, $changedFields, $entitiesRelated);
         }
 
         return $entitiesRelated;

@@ -12,19 +12,17 @@ class Basic4Test extends TestCaseUpdatingMap
 {
     public function testSomething(): void
     {
-        $connections = [
-            'default' => [
-                User::class => [
-                    'bills' => [
-                        'testBigint',
-                        'billItems' => [
-                            'testDate',
-                            'billItemLines' => [
-                                'testDatetime',
-                                'billItemLineMetas' => [
-                                    'testInteger',
-                                    'testBoolean',
-                                ],
+        $classNames = [
+            User::class => [
+                'bills' => [
+                    'testBigint',
+                    'billItems' => [
+                        'testDate',
+                        'billItemLines' => [
+                            'testDatetime',
+                            'billItemLineMetas' => [
+                                'testInteger',
+                                'testBoolean',
                             ],
                         ],
                     ],
@@ -33,41 +31,39 @@ class Basic4Test extends TestCaseUpdatingMap
         ];
 
         $this->assertEquals([
-            'default' => [
-                Bill::class => [
-                    User::class => [
-                        'relations' => 'user',
-                        'changed_fields' => [
-                            'testBigint',
-                        ],
-                    ],
-                ],
-                BillItem::class => [
-                    User::class => [
-                        'relations' => 'bill.user',
-                        'changed_fields' => [
-                            'testDate',
-                        ],
-                    ],
-                ],
-                BillItemLine::class => [
-                    User::class => [
-                        'relations' => 'billItem.bill.user',
-                        'changed_fields' => [
-                            'testDatetime',
-                        ],
-                    ],
-                ],
-                BillItemLineMeta::class => [
-                    User::class => [
-                        'relations' => 'billItemLines.billItem.bill.user',
-                        'changed_fields' => [
-                            'testBoolean',
-                            'testInteger',
-                        ],
+            Bill::class => [
+                User::class => [
+                    'relations' => 'user',
+                    'changed_fields' => [
+                        'testBigint',
                     ],
                 ],
             ],
-        ], $this->updatingMapBuilder->build($connections));
+            BillItem::class => [
+                User::class => [
+                    'relations' => 'bill.user',
+                    'changed_fields' => [
+                        'testDate',
+                    ],
+                ],
+            ],
+            BillItemLine::class => [
+                User::class => [
+                    'relations' => 'billItem.bill.user',
+                    'changed_fields' => [
+                        'testDatetime',
+                    ],
+                ],
+            ],
+            BillItemLineMeta::class => [
+                User::class => [
+                    'relations' => 'billItemLines.billItem.bill.user',
+                    'changed_fields' => [
+                        'testBoolean',
+                        'testInteger',
+                    ],
+                ],
+            ],
+        ], $this->updatingMapBuilder->build($classNames));
     }
 }

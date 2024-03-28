@@ -57,15 +57,19 @@ class MessageHandler
             }
 
             if ($entity) {
-                $entitiesRelated = $this->entitiesRelatedBuilder->build($entity, $changedFields);
+                $connections = $this->connectionsBuilder->build();
 
-                foreach ($entitiesRelated as $entityRelated) {
-                    // TODO separate
+                foreach ($connections as $connection) {
+                    $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $changedFields);
 
-                    $className = $this->persistence->getRealClass($entityRelated::class);
-                    $identifier = $this->persistence->getIdentifierValue($entityRelated);
+                    foreach ($entitiesRelated as $entityRelated) {
+                        // TODO separate
 
-                    $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+                        $className = $this->persistence->getRealClass($entityRelated::class);
+                        $identifier = $this->persistence->getIdentifierValue($entityRelated);
+
+                        $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+                    }
                 }
             }
         }

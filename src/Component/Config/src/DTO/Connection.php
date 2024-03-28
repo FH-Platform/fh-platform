@@ -9,7 +9,8 @@ class Connection
         private readonly string $name,
         private readonly string $prefix,
         private readonly array $configClient,
-        private readonly array $configAdditional = [],
+        private array $configAdditionalPreIndex = [],
+        private array $configAdditionalPostIndex = [],
         private array $indexes = [],
     ) {
     }
@@ -39,8 +40,23 @@ class Connection
         $this->indexes = $indexes;
     }
 
-    public function getConfigAdditional(): array
+    public function setConfigAdditionalPreIndex(array $configAdditionalPreIndex): void
     {
-        return $this->configAdditional;
+        $this->configAdditionalPreIndex = $configAdditionalPreIndex;
+    }
+
+    public function getConfigAdditionalPostIndex(): array
+    {
+        return $this->configAdditionalPostIndex;
+    }
+
+    public function setConfigAdditionalPostIndex(array $configAdditionalPostIndex): void
+    {
+        $this->configAdditionalPostIndex = $configAdditionalPostIndex;
+    }
+
+    public function getConfigAdditionalPreIndex(): array
+    {
+        return $this->configAdditionalPreIndex;
     }
 }

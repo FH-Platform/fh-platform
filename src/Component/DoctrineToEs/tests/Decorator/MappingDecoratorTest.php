@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
@@ -16,6 +17,7 @@ class MappingDecoratorTest extends TestCaseEs
             ProviderDefaultConnection::class,
             UserProviderEntity::class,
             MappingDecorator::class,
+            ConnectionDecorator::class,
         ];
 
         parent::setUp();

@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider;
 
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
+use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\Tests\Util\Entity\Role;
 
@@ -33,7 +34,7 @@ class RoleProvider extends ProviderEntity
     }
 
     /** @param Role $entity */
-    public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array
+    public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         return $entity->getUsers()->toArray();
     }

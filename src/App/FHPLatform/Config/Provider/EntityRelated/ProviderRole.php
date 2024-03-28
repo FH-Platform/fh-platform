@@ -5,6 +5,7 @@ namespace App\FHPlatform\Config\Provider\EntityRelated;
 use App\Entity\Role;
 use App\Entity\User;
 use FHPlatform\Component\Config\Config\Provider\ProviderEntityRelated;
+use FHPlatform\Component\Config\DTO\Connection;
 
 class ProviderRole extends ProviderEntityRelated
 {
@@ -14,7 +15,7 @@ class ProviderRole extends ProviderEntityRelated
     }
 
     /** @param Role $entity */
-    public function getEntityRelatedEntities(mixed $entity, array $changedFields, array $entitiesRelated): array
+    public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
     {
         return $entity->getUsers()->toArray();
     }

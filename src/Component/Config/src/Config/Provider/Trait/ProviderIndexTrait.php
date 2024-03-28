@@ -8,11 +8,6 @@ trait ProviderIndexTrait
 {
     use ProviderBaseTrait;
 
-    public function getConnection(): string
-    {
-        return 'default';
-    }
-
     public function getIndexName(string $className): string
     {
         // TODO add default decorator
