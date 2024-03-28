@@ -7,7 +7,7 @@ packages=(
   "Component/PersistenceDoctrine"
   "Component/PersistenceEloquent"
   "Component/DoctrineToEs"
-  "Component/Filter"
+  "Component/FilterToDsl"
   "Bundle/SymfonyBridgeBundle"
 )
 
