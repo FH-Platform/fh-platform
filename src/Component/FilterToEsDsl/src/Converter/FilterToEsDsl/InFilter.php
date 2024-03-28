@@ -19,7 +19,8 @@ class InFilter implements FilterInterface
     {
         $nullExists = false;
         foreach ($value as $k => $value2) {
-            if (null === $value2) {
+            // TODO escape
+            if ('null' === $value2) {
                 unset($value[$k]);
                 $nullExists = true;
             }

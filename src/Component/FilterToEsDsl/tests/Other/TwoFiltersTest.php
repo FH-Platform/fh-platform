@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\FilterToEsDsl\Tests\Other;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\DataDecorator;
@@ -37,7 +36,7 @@ class TwoFiltersTest extends TestCase
         $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][in][]=1&filters[][testInteger][not_in][]=3')));
     }
 
-    private function prepareData()
+    private function prepareData(): void
     {
         $this->recreateIndex(User::class);
 

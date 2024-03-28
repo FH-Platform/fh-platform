@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\FilterToEsDsl\Tests\TwoLevel;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\DataDecorator;
@@ -48,7 +47,7 @@ class ObjectTest extends TestCase
         $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][setting.id]=desc')));
     }
 
-    private function prepareData()
+    private function prepareData(): void
     {
         $this->recreateIndex(User::class);
 

@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\FilterToEsDsl\Tests\ThreeLevel\Object;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
 use FHPlatform\Component\DoctrineToEs\FHPlatform\DataDecorator;
@@ -49,10 +48,9 @@ class NestedTest extends TestCase
         $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][setting.settingItems.id]=desc')));
     }
 
-    private function prepareData()
+    private function prepareData(): void
     {
         $this->recreateIndex(User::class);
-
 
         $setting = new Setting();
         $this->save([$setting]);

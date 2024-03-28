@@ -38,10 +38,9 @@ class LimitOffsetTest extends TestCase
         $this->assertEquals([2], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][limit]=1&applicators[][offset]=1')));
     }
 
-    private function prepareData()
+    private function prepareData(): void
     {
         $this->recreateIndex(User::class);
-
 
         $user = new User();
         $user2 = new User();

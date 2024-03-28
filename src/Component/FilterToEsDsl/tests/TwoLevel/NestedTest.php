@@ -47,10 +47,9 @@ class NestedTest extends TestCase
         $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][bills.id]=desc')));
     }
 
-    private function prepareData()
+    private function prepareData(): void
     {
         $this->recreateIndex(User::class);
-
 
         $user = new User();
         $this->save([$user]);
