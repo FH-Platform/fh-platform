@@ -14,6 +14,8 @@ use FHPlatform\Component\Config\Util\Sorter\PrioritySorter;
 
 class ConfigProvider
 {
+    public static string $includedPattern = '';
+    public static string $excludedPattern = '';
     public static array $includedClasses = [];
     public static array $excludedClasses = [];
 
@@ -28,7 +30,8 @@ class ConfigProvider
         private readonly iterable $decoratorsIndex,
         private readonly iterable $decoratorsEntity,
         private readonly iterable $decoratorsEntityRelated,
-    ) {
+    )
+    {
         $this->prioritySorter = new PrioritySorter();
     }
 
@@ -99,26 +102,39 @@ class ConfigProvider
     {
         // TODO cache, move to service
 
-        $includedClasses = self::$includedClasses;
-        $excludedClasses = self::$excludedClasses;
-
-        $tagged = [];
+        $taggedConfigClasses = [];
         foreach ($iterable as $item) {
             $className = get_class($item);
 
-            if (in_array($className, $excludedClasses)) {
-                continue;
+            if (count(self::$includedClasses) > 0) {
+                if (in_array($className, self::$includedClasses)) {
+                    $taggedConfigClasses[] = $item;
+                }
+            } else if (self::$includedPattern !== '') {
+                if (str_starts_with($className, self::$includedPattern)) {
+                    $taggedConfigClasses[] = $item;
+                }
+            } else {
+                $taggedConfigClasses[] = $item;
+            }
+        }
+
+        foreach ($taggedConfigClasses as $key => $item) {
+            $className = get_class($item);
+
+            if (count(self::$excludedClasses) > 0) {
+                if (in_array($className, self::$excludedClasses)) {
+                    unset($taggedConfigClasses[$key]);
+                }
             }
 
-            if (0 === count($includedClasses)) {
-                $tagged[] = $item;
-            } else {
-                if (in_array($className, $includedClasses)) {
-                    $tagged[] = $item;
+            if (self::$excludedPattern !== '') {
+                if (str_starts_with($className, self::$includedPattern)) {
+                    unset($taggedConfigClasses[$key]);
                 }
             }
         }
 
-        return $tagged;
+        return $taggedConfigClasses;
     }
 }
