@@ -44,7 +44,7 @@
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
             "FHPlatform\\Component\\PersistenceEloquent\\": "src/Component/PersistenceEloquent/src/",
             "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
-            "FHPlatform\\Component\\FilterToDsl\\": "src/Component/FilterToDsl/src/",
+            "FHPlatform\\Component\\FilterToEsDsl\\": "src/Component/FilterToEsDsl/src/",
             "FHPlatform\\Component\\DoctrineToEs\\": "src/Component/DoctrineToEs/src/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
@@ -60,7 +60,7 @@
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
             "FHPlatform\\Component\\PersistenceEloquent\\Tests\\": "src/Component/PersistenceEloquent/tests/",
-            "FHPlatform\\Component\\FilterToDsl\\Tests\\": "src/Component/FilterToDsl/tests/",
+            "FHPlatform\\Component\\FilterToEsDsl\\Tests\\": "src/Component/FilterToEsDsl/tests/",
             "FHPlatform\\Component\\DoctrineToEs\\Tests\\": "src/Component/DoctrineToEs/tests/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
