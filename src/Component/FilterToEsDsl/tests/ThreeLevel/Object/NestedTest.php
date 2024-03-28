@@ -12,7 +12,6 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingItem;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
-use FHPlatform\Component\FilterToEsDsl\FilterQuery;
 use FHPlatform\Component\FilterToEsDsl\Tests\TestCase;
 use FHPlatform\Component\FilterToEsDsl\Tests\Util\FHPlatform\UserProvider;
 

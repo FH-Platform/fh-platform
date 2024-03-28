@@ -22,7 +22,7 @@ class FilterQuery
 
     public function search(string $className, array $filters = [], string $type = QueryManager::TYPE_IDENTIFIERS): array
     {
-        //TODO
+        // TODO
         $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $queryBase = $this->applyApplicators($index, $filters['applicators'] ?? []);

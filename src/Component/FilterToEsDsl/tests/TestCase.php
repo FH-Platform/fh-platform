@@ -9,6 +9,7 @@ class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
     protected FilterQuery $filterQuery;
     protected ConnectionsBuilder $connectionsBuilder;
+
     protected function setUp(): void
     {
         parent::setUp();
