@@ -31,10 +31,15 @@ class TwoFiltersTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsBuilder $connectionsBuilder */
-        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
-        $this->indexClient->recreateIndex($index);
+        $this->prepareData();
+
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
+        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][in][]=1&filters[][testInteger][not_in][]=3')));
+    }
+
+    private function prepareData()
+    {
+        $this->recreateIndex(User::class);
 
         $user = new User();
         $user->setTestInteger(1);
@@ -47,12 +52,5 @@ class TwoFiltersTest extends TestCase
         $user3 = new User();
         $user3->setTestInteger(3);
         $this->save([$user3]);
-
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
-
-        $filters = [];
-        $filters[]['testInteger']['in'] = [1];
-        $filters[]['testInteger']['not_in'] = [3];
-        $this->assertEquals([1], $this->filterQuery->search(User::class, ['filters' => $filters]));
     }
 }

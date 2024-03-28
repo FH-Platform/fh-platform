@@ -31,10 +31,26 @@ class BasicTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsBuilder $connectionsBuilder */
-        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
-        $this->indexClient->recreateIndex($index);
+        $this->prepareData();
+
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
+        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][equals]=test')));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][not_equals]=test')));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][in][]=test&filters[][testString][in][]=test2')));
+        $this->assertEquals([3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][not_in][]=test&filters[][testString][not_in][]=test2')));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testSmallint][lte]=2')));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testSmallint][gte]=2')));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][exists]=1')));
+        $this->assertEquals([3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][not_exists]=1')));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][starts_with]=test2')));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][id]=asc')));
+        $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][id]=desc')));
+    }
+
+    private function prepareData()
+    {
+        $this->recreateIndex(User::class);
+
 
         $user = new User();
         $user->setTestString('test');
@@ -54,51 +70,5 @@ class BasicTest extends TestCase
         $user3->setTestSmallint(3);
 
         $this->save([$user, $user2, $user3]);
-
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
-
-        $filters = [];
-        $filters[]['testString']['equals'] = 'test';
-        $this->assertEquals([1], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testString']['not_equals'] = 'test';
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testString']['in'] = ['test', 'test2'];
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testString']['not_in'] = ['test', 'test2'];
-        $this->assertEquals([3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testSmallint']['lte'] = 2;
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testSmallint']['gte'] = 2;
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testInteger']['exists'] = true;
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testInteger']['not_exists'] = true;
-        $this->assertEquals([3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $filters = [];
-        $filters[]['testString']['starts_with'] = 'test2';
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
-
-        $applicators = [];
-        $applicators[]['sort']['id'] = 'asc';
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class, ['applicators' => $applicators]));
-
-        $applicators = [];
-        $applicators[]['sort']['id'] = 'desc';
-        $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, ['applicators' => $applicators]));
     }
 }

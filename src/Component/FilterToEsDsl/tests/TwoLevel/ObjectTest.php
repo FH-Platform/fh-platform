@@ -50,8 +50,7 @@ class ObjectTest extends TestCase
 
     private function prepareData()
     {
-        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
-        $this->indexClient->recreateIndex($index);
+        $this->recreateIndex(User::class);
 
         $setting = new Setting();
         $setting->setTestString('test');

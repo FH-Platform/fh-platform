@@ -49,8 +49,8 @@ class NestedTest extends TestCase
 
     private function prepareData()
     {
-        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
-        $this->indexClient->recreateIndex($index);
+        $this->recreateIndex(User::class);
+
 
         $user = new User();
         $this->save([$user]);

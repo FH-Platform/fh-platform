@@ -40,9 +40,8 @@ class LimitOffsetTest extends TestCase
 
     private function prepareData()
     {
-        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
+        $this->recreateIndex(User::class);
 
-        $this->indexClient->recreateIndex($index);
 
         $user = new User();
         $user2 = new User();

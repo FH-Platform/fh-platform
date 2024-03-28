@@ -31,10 +31,8 @@ class InIntegerTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var ConnectionsBuilder $connectionsBuilder */
-        $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
-        $this->indexClient->recreateIndex($index);
+        $this->recreateIndex(User::class);
+
 
         $user = new User();
         $user->setTestInteger(1);
