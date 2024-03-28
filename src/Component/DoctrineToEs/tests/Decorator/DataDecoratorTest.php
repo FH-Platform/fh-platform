@@ -2,12 +2,8 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 
-use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\DataDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\UserProviderEntity;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class DataDecoratorTest extends TestCaseEs

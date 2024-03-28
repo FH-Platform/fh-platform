@@ -2,12 +2,7 @@
 
 namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 
-use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\ConnectionDecorator;
-use FHPlatform\Component\DoctrineToEs\FHPlatform\MappingDecorator;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\ProviderDefaultConnection;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\FHPlatform\UserProviderEntity;
 
 class MappingDecoratorTest extends TestCaseEs
 {
