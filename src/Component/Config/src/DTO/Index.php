@@ -9,7 +9,7 @@ class Index
         private readonly string $className,
         private readonly string $name,
         private readonly string $nameWithPrefix,
-        private readonly array $configAdditional,
+        private array $configAdditional = [],
         private array $mapping = [],
         private array $settings = [],
     ) {
@@ -48,6 +48,11 @@ class Index
     public function getSettings(): array
     {
         return $this->settings;
+    }
+
+    public function setConfigAdditional(array $configAdditional): void
+    {
+        $this->configAdditional = $configAdditional;
     }
 
     public function setMapping(array $mapping): void

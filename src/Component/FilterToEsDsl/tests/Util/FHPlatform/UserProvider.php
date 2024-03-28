@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\FilterToEsDsl\Tests\Util\FHPlatform;
 
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
+use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class UserProvider extends ProviderEntity
@@ -12,7 +13,7 @@ class UserProvider extends ProviderEntity
         return User::class;
     }
 
-    public function getConfigAdditional(array $config): array
+    public function getConfigAdditional(Index $index, array $config): array
     {
         $config['doctrine_to_es'] =
             [

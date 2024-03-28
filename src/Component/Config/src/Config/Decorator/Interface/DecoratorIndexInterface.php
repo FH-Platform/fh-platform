@@ -8,6 +8,8 @@ interface DecoratorIndexInterface extends DecoratorBaseInterface
 {
     public function getIndexSettings(Index $index, array $settings): array;
 
+    public function getConfigAdditional(Index $index, array $config): array;
+
     public function getIndexMapping(Index $index, array $mapping): array;
 
     public function getIndexMappingItem(Index $index, array $mappingItem, string $mappingItemKey, ?string $mappingItemType): array;

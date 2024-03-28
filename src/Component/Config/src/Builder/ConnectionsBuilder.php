@@ -72,15 +72,18 @@ class ConnectionsBuilder
         $className = $providerIndex->getClassName();
         $name = $providerIndex->getIndexName($className);
         $nameWithPrefix = $connection->getPrefix().$name;
-        $additionalConfig = $providerIndex->getConfigAdditional([]); // TODO decorate
 
-        $index = new Index($connection, $className, $name, $nameWithPrefix, $additionalConfig);
+        $index = new Index($connection, $className, $name, $nameWithPrefix);
 
         // prepare decorators
         $decorators = $this->configProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
 
+        // decorate config additional
+        $configAdditional = $this->decorateIndexConfigAdditional($index, $decorators);
+        $index->setConfigAdditional($configAdditional);
+
         // decorate mapping and settings
-        list($mapping, $settings) = $this->decorateMappingSettings($index, $decorators);
+        list($mapping, $settings) = $this->decorateIndex($index, $decorators);
 
         // decorate mapping items
         $mapping = $this->decorateMappingItems($index, $mapping, $decorators);
@@ -91,15 +94,27 @@ class ConnectionsBuilder
         return $index;
     }
 
-    private function decorateMappingSettings(Index $index, array $decorators): array
+    /** @param  DecoratorIndexInterface[] $decorators */
+    private function decorateIndex(Index $index, array $decorators): array
     {
-        $mapping = $settings = [];
+        $mapping = $settings = $configAdditional = [];
         foreach ($decorators as $decorator) {
             $mapping = $decorator->getIndexMapping($index, $mapping);
             $settings = $decorator->getIndexSettings($index, $settings);
         }
 
         return [$mapping, $settings];
+    }
+
+    /** @param  DecoratorIndexInterface[] $decorators */
+    private function decorateIndexConfigAdditional(Index $index, array $decorators): array
+    {
+        $configAdditional = [];
+        foreach ($decorators as $decorator) {
+            $configAdditional = $decorator->getConfigAdditional($index, $configAdditional);
+        }
+
+        return $configAdditional;
     }
 
     /** @param DecoratorIndexInterface[] $decorators */

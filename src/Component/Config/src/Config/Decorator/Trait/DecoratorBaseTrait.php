@@ -8,9 +8,4 @@ trait DecoratorBaseTrait
     {
         return 0;
     }
-
-    public function getConfigAdditional(array $config): array
-    {
-        return $config;
-    }
 }

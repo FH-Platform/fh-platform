@@ -11,6 +11,11 @@ trait DecoratorIndexTrait
         return $settings;
     }
 
+    public function getConfigAdditional(Index $index, array $config): array
+    {
+        return $config;
+    }
+
     public function getIndexMapping(Index $index, array $mapping): array
     {
         return $mapping;
