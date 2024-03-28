@@ -20,7 +20,7 @@ class ConnectionsBuilder
     /** @return Connection[] */
     public function build(): array
     {
-        $providersConnection = $this->configProvider->getConnections();
+        $providersConnection = $this->configProvider->getProvidersConnection();
         $providersIndex = $this->configProvider->getProvidersIndex();
 
         $connections = [];
@@ -59,11 +59,22 @@ class ConnectionsBuilder
 
     private function convertProviderConnectionToDto(ProviderConnection $providerConnection): Connection
     {
+        $decorators = $this->configProvider->getDecoratorsConnection();
+
+        $configAdditional = [];
+        foreach ($decorators as $decorator) {
+            if ($decorator instanceof ProviderConnection and $decorator->getName() !== $providerConnection->getName()) {
+                continue;
+            }
+
+            $configAdditional = $decorator->getConfigAdditional($configAdditional);
+        }
+
         return new Connection(
             $providerConnection->getName(),
             $providerConnection->getIndexPrefix(),
             $providerConnection->getClientConfig(),
-            $providerConnection->getConfigAdditional([]),// TODO decorate
+            $providerConnection->getConfigAdditional($configAdditional),
         );
     }
 

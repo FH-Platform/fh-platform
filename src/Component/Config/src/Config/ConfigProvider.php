@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\Config\Config;
 
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
@@ -19,10 +20,11 @@ class ConfigProvider
     private PrioritySorter $prioritySorter;
 
     public function __construct(
-        private readonly iterable $connections,
+        private readonly iterable $providersConnection,
         private readonly iterable $providersIndex,
         private readonly iterable $providersEntity,
         private readonly iterable $providersEntityRelated,
+        private readonly iterable $decoratorsConnection,
         private readonly iterable $decoratorsIndex,
         private readonly iterable $decoratorsEntity,
         private readonly iterable $decoratorsEntityRelated,
@@ -31,9 +33,9 @@ class ConfigProvider
     }
 
     /** @return  ProviderConnection[] */
-    public function getConnections(): array
+    public function getProvidersConnection(): array
     {
-        return $this->toArray($this->connections);
+        return $this->toArray($this->providersConnection);
     }
 
     /** @return  ProviderIndexInterface[] */
@@ -52,6 +54,12 @@ class ConfigProvider
     public function getProvidersEntityRelated(): array
     {
         return $this->toArray($this->providersEntityRelated);
+    }
+
+    /** @return DecoratorConnectionInterface[] */
+    public function getDecoratorsConnection(): array
+    {
+        return $this->prioritySorter->sort($this->toArray($this->decoratorsConnection));
     }
 
     /** @return DecoratorIndexInterface[] */

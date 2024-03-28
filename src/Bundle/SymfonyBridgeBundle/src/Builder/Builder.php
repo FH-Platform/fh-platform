@@ -12,6 +12,7 @@ use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\Config\Builder\IndexBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
@@ -155,29 +156,29 @@ class Builder implements BuilderInterface
     {
         $container = $this->container;
 
-        // add_tag -> connection
-        $container->registerForAutoconfiguration(ProviderConnection::class)->addTag('fh_platform.config.connection');
-
-        // add_tag -> provider
+        // add_tag -> providers
+        $container->registerForAutoconfiguration(ProviderConnection::class)->addTag('fh_platform.config.provider_connection');
         $container->registerForAutoconfiguration(ProviderIndexInterface::class)->addTag('fh_platform.config.provider.index');
         $container->registerForAutoconfiguration(ProviderEntityInterface::class)->addTag('fh_platform.config.provider.entity');
         $container->registerForAutoconfiguration(ProviderEntityRelatedInterface::class)->addTag('fh_platform.config.provider.entity_related');
 
-        // add_tag -> decorator
+        // add_tag -> decorators
+        $container->registerForAutoconfiguration(DecoratorConnectionInterface::class)->addTag('fh_platform.config.decorator.connection');
         $container->registerForAutoconfiguration(DecoratorIndexInterface::class)->addTag('fh_platform.config.decorator.index');
         $container->registerForAutoconfiguration(DecoratorEntityInterface::class)->addTag('fh_platform.config.decorator.entity');
         $container->registerForAutoconfiguration(DecoratorEntityRelatedInterface::class)->addTag('fh_platform.config.decorator.entity_related');
 
         // set up ConfigProvider
         $container->register(ConfigProvider::class)->setAutowired(true)->setArguments([
-            new TaggedIteratorArgument('fh_platform.config.connection'),
+            new TaggedIteratorArgument('fh_platform.config.provider_connection'),
             new TaggedIteratorArgument('fh_platform.config.provider.index'),
             new TaggedIteratorArgument('fh_platform.config.provider.entity'),
             new TaggedIteratorArgument('fh_platform.config.provider.entity_related'),
+            new TaggedIteratorArgument('fh_platform.config.decorator.connection'),
             new TaggedIteratorArgument('fh_platform.config.decorator.index'),
             new TaggedIteratorArgument('fh_platform.config.decorator.entity'),
             new TaggedIteratorArgument('fh_platform.config.decorator.entity_related'),
-            new TaggedIteratorArgument('fh_platform.config.connection'),
+            new TaggedIteratorArgument('fh_platform.config.provider_connection'),
         ]);
 
         // register services
