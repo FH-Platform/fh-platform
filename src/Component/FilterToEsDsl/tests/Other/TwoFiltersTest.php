@@ -49,13 +49,11 @@ class TwoFiltersTest extends TestCase
         $user3->setTestInteger(3);
         $this->save([$user3]);
 
-        /** @var FilterQuery $filterQuery */
-        $filterQuery = $this->container->get(FilterQuery::class);
-        $this->assertEquals([1, 2, 3], $filterQuery->search($index));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
 
         $filters = [];
         $filters[]['testInteger']['in'] = [1];
         $filters[]['testInteger']['not_in'] = [3];
-        $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1], $this->filterQuery->search(User::class, ['filters' => $filters]));
     }
 }

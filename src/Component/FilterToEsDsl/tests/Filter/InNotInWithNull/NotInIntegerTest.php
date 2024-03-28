@@ -49,29 +49,26 @@ class NotInIntegerTest extends TestCase
         $user3->setTestInteger(null);
         $this->save([$user3]);
 
-        /** @var FilterQuery $filterQuery */
-        $filterQuery = $this->container->get(FilterQuery::class);
-
-        $this->assertEquals([1, 2, 3], $filterQuery->search($index));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [];
-        $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [1];
-        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [null];
-        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [1, null];
-        $this->assertEquals([2], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([2], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['testInteger']['not_in'] = [1, 2, null];
-        $this->assertEquals([], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([], $this->filterQuery->search(User::class, ['filters' => $filters]));
     }
 }

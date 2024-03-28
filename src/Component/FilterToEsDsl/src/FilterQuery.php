@@ -4,7 +4,9 @@ namespace FHPlatform\Component\FilterToEsDsl;
 
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
@@ -14,11 +16,15 @@ class FilterQuery
         private readonly iterable $applicatorConverters,
         private readonly iterable $filterConverters,
         private readonly QueryManager $queryManager,
+        private readonly ConnectionsBuilder $connectionsBuilder,
     ) {
     }
 
-    public function search(Index $index, array $filters = [], string $type = QueryManager::TYPE_IDENTIFIERS): array
+    public function search(string $className, array $filters = [], string $type = QueryManager::TYPE_IDENTIFIERS): array
     {
+        //TODO
+        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
+
         $queryBase = $this->applyApplicators($index, $filters['applicators'] ?? []);
         $queryFilters = $this->applyFilters($index, $filters['filters'] ?? []);
 

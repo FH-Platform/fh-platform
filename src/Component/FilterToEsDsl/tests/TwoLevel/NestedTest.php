@@ -67,53 +67,50 @@ class NestedTest extends TestCase
         $bill3->setTestSmallint(3);
         $this->save([$bill3]);
 
-        /** @var FilterQuery $filterQuery */
-        $filterQuery = $this->container->get(FilterQuery::class);
-
-        $this->assertEquals([1, 2, 3], $filterQuery->search($index));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
 
         $filters = [];
         $filters[]['bills.testString']['equals'] = 'test';
-        $this->assertEquals([1], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testString']['not_equals'] = 'test';
-        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testString']['in'] = ['test', 'test2'];
-        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testString']['not_in'] = ['test', 'test2'];
-        $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testSmallint']['lte'] = 2;
-        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testSmallint']['gte'] = 2;
-        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testInteger']['exists'] = true;
-        $this->assertEquals([1, 2], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testInteger']['not_exists'] = true;
-        $this->assertEquals([3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $filters = [];
         $filters[]['bills.testString']['starts_with'] = 'test2';
-        $this->assertEquals([2, 3], $filterQuery->search($index, ['filters' => $filters]));
+        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, ['filters' => $filters]));
 
         $applicators = [];
         $applicators[]['sort']['bills.id'] = 'asc';
-        $this->assertEquals([1, 2, 3], $filterQuery->search($index, ['applicators' => $applicators]));
+        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class, ['applicators' => $applicators]));
 
         $applicators = [];
         $applicators[]['sort']['bills.id'] = 'desc';
-        $this->assertEquals([3, 2, 1], $filterQuery->search($index, ['applicators' => $applicators]));
+        $this->assertEquals([3, 2, 1], $this->filterQuery->search(User::class, ['applicators' => $applicators]));
     }
 }
