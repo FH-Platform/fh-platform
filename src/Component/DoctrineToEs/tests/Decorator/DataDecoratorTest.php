@@ -24,6 +24,6 @@ class DataDecoratorTest extends TestCaseEs
             'setting' => [
                 'testFloat' => 18.16,
             ],
-        ], $this->documentBuilder->build($user, User::class, 1, ChangedEntity::TYPE_UPDATE)->getData());
+        ], $this->documentBuilder->buildForEntity($user, User::class, 1, ChangedEntity::TYPE_UPDATE)->getData());
     }
 }

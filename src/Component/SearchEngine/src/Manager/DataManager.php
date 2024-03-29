@@ -17,6 +17,12 @@ class DataManager
     ) {
     }
 
+    public function insertRaw(string $className, array $data, mixed $identifierValue): void
+    {
+        $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, ChangedEntity::TYPE_CREATE);
+        $this->syncDocuments($documents);
+    }
+
     public function syncByClassName(string $className, array $identifierValues): void
     {
         $entities = $this->persistence->getEntities($className, $identifierValues);
@@ -31,7 +37,7 @@ class DataManager
                 $type = ChangedEntity::TYPE_DELETE;
             }
 
-            $documents[] = $this->documentBuilder->build($entity, $className, $identifierValue, $type);
+            $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
         }
 
         $this->syncDocuments($documents);

@@ -17,7 +17,14 @@ class DocumentBuilder
     ) {
     }
 
-    public function build($entity, $className, $identifier, $type): Document
+    public function buildRaw($className, $data, $identifier, $type): Document
+    {
+        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
+
+        return new Document($index, $identifier, $data, $type);
+    }
+
+    public function buildForEntity($entity, $className, $identifier, $type): Document
     {
         // TODO throw error if class not available for ES
 

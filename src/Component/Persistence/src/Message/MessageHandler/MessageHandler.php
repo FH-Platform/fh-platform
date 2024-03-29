@@ -43,7 +43,7 @@ class MessageHandler
                 // TODO return if hash exists
 
                 if (ChangedEntity::TYPE_DELETE_PRE !== $type) {
-                    $documents[$hash] = $this->documentBuilder->build($entity, $className, $identifier, $type);
+                    $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifier, $type);
                 } else {
                     // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
                 }
@@ -61,7 +61,7 @@ class MessageHandler
                         $className = $this->persistence->getRealClassName($entityRelated::class);
                         $identifier = $this->persistence->getIdentifierValue($entityRelated);
 
-                        $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+                        $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
                     }
                 }
             }
