@@ -33,10 +33,7 @@
         "symfony/dotenv": "7.*",
         "illuminate/database": "11.*",
         "symfony/monolog-bundle": "^3.10",
-        "doctrine/doctrine-migrations-bundle": "3.*",
-        "symfony/twig-bundle": "7.*",
-        "api-platform/core": "^3.2",
-        "symfony/property-access": "^7.0"
+        "doctrine/doctrine-migrations-bundle": "3.*"
     },
     "autoload": {
         "psr-4": {
