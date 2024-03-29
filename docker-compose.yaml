@@ -28,6 +28,7 @@ services:
             - ./:/app
         ports:
             - "33308:3306"
+
     meilisearch:
         container_name: fh_platform_meilisearch
         build: ./.docker/meilisearch
@@ -37,6 +38,7 @@ services:
             - 'fh_platform_meilisearch-data:/usr/share/meilisearch/data'
         environment:
             - MEILI_MASTER_KEY=root
+
     elasticsearch:
         container_name: fh_platform_elasticsearch
         build: ./.docker/elasticsearch
@@ -82,6 +84,7 @@ services:
             - NODE_OPTIONS=--openssl-legacy-provider
             - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
             - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2ZvcmtpYmFuYTpoeVFjbVNXalRtZW5oTUhuamtFTFVB
+
     kibana2:
         container_name: fh_platform_kibana2
         build: ./.docker/kibana
@@ -92,11 +95,9 @@ services:
             - "ELASTICSEARCH_HOSTS=http://elasticsearch2:9200"
             - ELASTICSEARCH_USERNAME=elastic
             - ELASTICSEARCH_PASSWORD="elastic"
+
 volumes:
+    db-data-fh_platform:
     fh_platform_es-data:
     fh_platform_es-data2:
     fh_platform_meilisearch-data:
-    db-data-fh_platform:
-
-
-
