@@ -15,6 +15,10 @@ class PersistenceDoctrine implements PersistenceInterface
 
     public function getIdentifierName(mixed $entity): ?string
     {
+        if (!$entity) {
+            return null;
+        }
+
         if (is_string($entity)) {
             $className = $this->getRealClassName($entity);
         } else {

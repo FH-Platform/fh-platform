@@ -2,6 +2,8 @@
 
 namespace FHPlatform\Component\PersistenceDoctrine\Listener;
 
+use Doctrine\DBAL\Event\TransactionBeginEventArgs;
+use Doctrine\DBAL\Event\TransactionRollBackEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
@@ -22,6 +24,16 @@ class DoctrineListener
         private readonly PersistenceDoctrine $persistenceDoctrine,
     ) {
         $this->eventHelper = new EventHelper($eventDispatcher);
+    }
+
+    public function onTransactionBegin(TransactionBeginEventArgs $args): void
+    {
+        // dump('onTransactionBegin');
+    }
+
+    public function onTransactionRollBack(TransactionRollBackEventArgs $args): void
+    {
+        // dump('onTransactionRollBack');
     }
 
     public function postPersist(PostPersistEventArgs $args): void

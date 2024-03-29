@@ -108,7 +108,9 @@ class Builder implements BuilderInterface
                 ->addTag('doctrine.event_listener', ['event' => Events::postUpdate])
                 ->addTag('doctrine.event_listener', ['event' => Events::postRemove])
                 ->addTag('doctrine.event_listener', ['event' => Events::preRemove])
-                ->addTag('doctrine.event_listener', ['event' => Events::postFlush]);
+                ->addTag('doctrine.event_listener', ['event' => Events::postFlush])
+                ->addTag('doctrine.event_listener', ['event' => \Doctrine\DBAL\Events::onTransactionBegin])
+                ->addTag('doctrine.event_listener', ['event' => \Doctrine\DBAL\Events::onTransactionRollBack]);
 
             $this->buildDoctrineToEs();
         }
