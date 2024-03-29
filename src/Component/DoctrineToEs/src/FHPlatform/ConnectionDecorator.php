@@ -22,7 +22,7 @@ class ConnectionDecorator extends DecoratorConnection
     {
         $classNames = [];
         foreach ($connection->getIndexes() as $index) {
-            $configDoctrineToEs = $index->getConfigAdditional()['doctrine_to_es'];
+            $configDoctrineToEs = $index->getConfigAdditional()['doctrine_to_es'] ?? null;
 
             if (null !== $configDoctrineToEs) {
                 $classNames[$index->getClassName()] = $configDoctrineToEs;
