@@ -11,12 +11,12 @@ class Kernel extends BaseKernel
 
     public function getCacheDir(): string
     {
-        return '../../../var/cache';
+        return '../../var/cache';
     }
 
     public function getLogDir(): string
     {
-        return '../../../var/logs';
+        return '../../var/logs';
     }
 
     /*public function getProjectDir(): string

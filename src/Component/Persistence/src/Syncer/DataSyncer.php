@@ -20,7 +20,7 @@ class DataSyncer
 
     public function sync(string $className): void
     {
-        $identifiers = $this->persistence->getAllIds($className);
+        $identifiers = $this->persistence->getAllIdentifierValues($className);
 
         // TODO temp index
         foreach ($identifiers as $identifier) {

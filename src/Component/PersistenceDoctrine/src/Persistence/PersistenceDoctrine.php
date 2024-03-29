@@ -16,9 +16,9 @@ class PersistenceDoctrine implements PersistenceInterface
     public function getIdentifierName(mixed $entity): ?string
     {
         if (is_string($entity)) {
-            $className = $this->getRealClass($entity);
+            $className = $this->getRealClassName($entity);
         } else {
-            $className = $this->getRealClass(get_class($entity));
+            $className = $this->getRealClassName(get_class($entity));
         }
 
         if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
@@ -49,7 +49,7 @@ class PersistenceDoctrine implements PersistenceInterface
             return null;
         }
 
-        $className = $this->getRealClass($entity::class);
+        $className = $this->getRealClassName($entity::class);
 
         $identifierName = $this->getIdentifierName($entity);
         $identifierValue = $this->getIdentifierValue($entity);
@@ -70,7 +70,7 @@ class PersistenceDoctrine implements PersistenceInterface
 
     public function refreshByClassNameId(string $className, mixed $identifierValue): mixed
     {
-        $className = $this->getRealClass($className);
+        $className = $this->getRealClassName($className);
 
         $repository = $this->entityManager->getRepository($className);
 
@@ -89,7 +89,7 @@ class PersistenceDoctrine implements PersistenceInterface
         return null;
     }
 
-    public function getEntities(string $className, array $identifiers): array
+    public function getEntities(string $className, array $identifierValues): array
     {
         $identifierName = $this->getIdentifierName($className);
 
@@ -101,7 +101,7 @@ class PersistenceDoctrine implements PersistenceInterface
 
         $queryBuilder
             ->andWhere('o.'.$identifierName.' IN(:identifiers)')
-            ->setParameter('identifiers', $identifiers);
+            ->setParameter('identifiers', $identifierValues);
 
         if (!empty($identifierValues)) {
             $dbDriver = $this->entityManager->getConnection()->getParams()['driver'];
@@ -134,7 +134,7 @@ class PersistenceDoctrine implements PersistenceInterface
         $queryBuilder->addOrderBy($sort);
     }
 
-    public function getRealClass(string $className): string
+    public function getRealClassName(string $className): string
     {
         $className = ClassUtils::getRealClass($className);
 
@@ -147,7 +147,7 @@ class PersistenceDoctrine implements PersistenceInterface
         return $className;
     }
 
-    public function getAllIds(string $className): array
+    public function getAllIdentifierValues(string $className): array
     {
         // TODO add to config
         $maxResults = 10;

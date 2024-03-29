@@ -34,7 +34,7 @@ class EntityHelperTest extends TestCase
         $this->assertEquals($user, $persistenceDoctrine->refreshByClassNameId(User::class, $user->getId()));
         $this->assertEquals($userUuid, $persistenceDoctrine->refreshByClassNameId(UserUuid::class, $userUuid->getUuid()));
 
-        $this->assertEquals(User::class, $persistenceDoctrine->getRealClass("Proxies\__CG__\\".User::class));
-        $this->assertEquals(UserUuid::class, $persistenceDoctrine->getRealClass("Proxies\__CG__\\".UserUuid::class));
+        $this->assertEquals(User::class, $persistenceDoctrine->getRealClassName("Proxies\__CG__\\".User::class));
+        $this->assertEquals(UserUuid::class, $persistenceDoctrine->getRealClassName("Proxies\__CG__\\".UserUuid::class));
     }
 }

@@ -58,7 +58,7 @@ class MessageHandler
                     foreach ($entitiesRelated as $entityRelated) {
                         // TODO separate
 
-                        $className = $this->persistence->getRealClass($entityRelated::class);
+                        $className = $this->persistence->getRealClassName($entityRelated::class);
                         $identifier = $this->persistence->getIdentifierValue($entityRelated);
 
                         $documents[] = $this->documentBuilder->build($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);

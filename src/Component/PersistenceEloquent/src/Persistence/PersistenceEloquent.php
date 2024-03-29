@@ -33,10 +33,10 @@ class PersistenceEloquent implements PersistenceInterface
         return (new $className())->find($identifierValue);
     }
 
-    public function getEntities(string $className, array $identifiers): array
+    public function getEntities(string $className, array $identifierValues): array
     {
         // TODO sort
-        $results = (new $className())->whereIn($this->getIdentifierName($className), $identifiers)->get();
+        $results = (new $className())->whereIn($this->getIdentifierName($className), $identifierValues)->get();
 
         $resultsArray = [];
         foreach ($results as $result) {
@@ -46,12 +46,12 @@ class PersistenceEloquent implements PersistenceInterface
         return $resultsArray;
     }
 
-    public function getRealClass(string $className): string
+    public function getRealClassName(string $className): string
     {
         return $className;
     }
 
-    public function getAllIds(string $className): array
+    public function getAllIdentifierValues(string $className): array
     {
         // TODO batch
         $entities = (new $className())->all();

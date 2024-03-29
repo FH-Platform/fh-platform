@@ -53,7 +53,7 @@ class DoctrineListener
     {
         $entity = $args->getObject();
 
-        $className = $this->persistenceDoctrine->getRealClass($entity::class);
+        $className = $this->persistenceDoctrine->getRealClassName($entity::class);
         $identifierValue = $this->persistenceDoctrine->getIdentifierValue($entity);
 
         $changedFields = [$this->persistenceDoctrine->getIdentifierName($className)];
