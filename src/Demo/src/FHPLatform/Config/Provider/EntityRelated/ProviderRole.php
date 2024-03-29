@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FHPlatform\Config\Provider\EntityRelated;
+namespace App\FHPLatform\Config\Provider\EntityRelated;
 
 use App\Entity\Role;
 use App\Entity\User;

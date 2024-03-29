@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FHPlatform\Config\Provider\Entity;
+namespace App\FHPLatform\Config\Provider\Entity;
 
 use App\Entity\User;
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;

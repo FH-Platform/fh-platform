@@ -1,19 +1,19 @@
 <?php
 
-namespace App\FHPlatform\Config\Provider\Connection;
+namespace App\FHPLatform\Config\Provider\Connection;
 
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 
-class ConnectionDefault extends ProviderConnection
+class ConnectionLog extends ProviderConnection
 {
     public function getName(): string
     {
-        return 'default';
+        return 'log';
     }
 
     public function getIndexPrefix(): string
     {
-        return 'fh_platform_dev_';
+        return 'fh_platform_another_dev_';
     }
 
     public function getClientConfig(): array
@@ -21,7 +21,7 @@ class ConnectionDefault extends ProviderConnection
         return [
             'servers' => [
                 [
-                    'host' => 'elasticsearch',
+                    'host' => 'elasticsearch2',
                     'port' => '9200',
                     'headers' => [
                         'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',

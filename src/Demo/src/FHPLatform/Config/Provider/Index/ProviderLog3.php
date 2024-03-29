@@ -1,8 +1,8 @@
 <?php
 
-namespace App\FHPlatform\Config\Provider\Index;
+namespace App\FHPLatform\Config\Provider\Index;
 
-use App\FHPlatform\Config\Entity\Log3;
+use App\FHPLatform\Config\Entity\Log3;
 use FHPlatform\Component\Config\Config\Provider\ProviderIndex;
 
 class ProviderLog3 extends ProviderIndex

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\FHPlatform\Config\Provider\Index;
+namespace App\FHPLatform\Config\Provider\Index;
 
-use App\FHPlatform\Config\Entity\Log;
+use App\FHPLatform\Config\Entity\Log2;
 use FHPlatform\Component\Config\Config\Provider\ProviderIndex;
 
-class ProviderLog extends ProviderIndex
+class ProviderLog2 extends ProviderIndex
 {
     public function getClassName(): string
     {
-        return Log::class;
+        return Log2::class;
     }
 
     public function getConnection(): string
