@@ -18,13 +18,14 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         $this->connectionFetcher = new ConnectionFetcher();
     }
 
-    public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): void
+    public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): bool
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
         $documentsUpsert = [];
         $documentsDelete = [];
 
+        // TODO all in one batch request
         foreach ($documents as $document) {
             /** @var Document $document */
             if (ChangedEntity::TYPE_DELETE === $document->getType()) {
@@ -49,6 +50,8 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         if ($asyc) {
             usleep(200000);
         }
+
+        return true;
     }
 
     public function indexDelete(Index $index): void

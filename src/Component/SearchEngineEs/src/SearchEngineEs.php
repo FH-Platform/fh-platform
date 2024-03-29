@@ -46,8 +46,10 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         ];
     }
 
-    public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): void
+    public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): bool
     {
+        $client = $this->connectionFetcher->fetchByIndex($index);
+
         $client = new Client([
             'base_uri' => 'http://elasticsearch:9200',  // TODO
             'headers' => [
@@ -67,7 +69,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         }
 
         if ('' === $documentJson) {
-            return;
+            return true;
         }
 
         $documentJson .= "\n";
@@ -82,6 +84,8 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         if ($asyc) {
             $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
         }
+
+        return true;
     }
 
     public function indexDelete(Index $index): void
