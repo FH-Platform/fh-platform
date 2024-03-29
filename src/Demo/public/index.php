@@ -1,5 +1,7 @@
 <?php
 
+$_SERVER['APP_RUNTIME_OPTIONS']['dotenv_path'] = 'src/Demo/.env';
+
 use App\Kernel;
 
 require_once dirname(__DIR__).'/../../vendor/autoload_runtime.php';

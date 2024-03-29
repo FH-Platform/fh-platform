@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+$_SERVER['APP_RUNTIME_OPTIONS']['dotenv_path'] = 'src/Demo/.env';
+
 use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 

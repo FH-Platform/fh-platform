@@ -79,10 +79,5 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         }
-    },
-    "extra": {
-        "runtime": {
-            "dotenv_path": "src/Demo/.env"
-        }
     }
 }
