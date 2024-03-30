@@ -3,5 +3,5 @@ parameters:
     paths:
         - ./src
     excludePaths:
-        - 'src/Component/PersistenceDoctrine/src/Persistence/PersistenceDoctrine.php'
+        - 'src/Component/PersistenceDoctrine/src/DoctrinePersistence.php'
         - 'src/Component/PersistenceEloquent/tests/Persistence/PersistenceEloquentTest.php'

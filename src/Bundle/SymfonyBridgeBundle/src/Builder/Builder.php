@@ -34,8 +34,8 @@ use FHPlatform\Component\Persistence\Event\EventManager;
 use FHPlatform\Component\Persistence\Message\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
-use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
-use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
+use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
@@ -88,7 +88,7 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         // fetch implementation
-        $persistence = PersistenceDoctrine::class;
+        $persistence = DoctrinePersistence::class;
         if (isset($_ENV['FHPLATFORM_PERSISTENCE'])) {
             $persistence = $_ENV['FHPLATFORM_PERSISTENCE'];
         }
@@ -103,9 +103,9 @@ class Builder implements BuilderInterface
         $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         // register each implementation
-        if (PersistenceDoctrine::class === $persistence) {
+        if (DoctrinePersistence::class === $persistence) {
             // TODO move to bridge
-            $container->register(DoctrineListener::class)
+            $container->register(DoctrinePersistenceListener::class)
                 ->setAutowired(true)
                 ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
                 ->addTag('doctrine.event_listener', ['event' => Events::postUpdate])

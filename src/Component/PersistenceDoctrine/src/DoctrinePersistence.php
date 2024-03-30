@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceDoctrine\Persistence;
+namespace FHPlatform\Component\PersistenceDoctrine;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
-class PersistenceDoctrine implements PersistenceInterface
+class DoctrinePersistence implements PersistenceInterface
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,

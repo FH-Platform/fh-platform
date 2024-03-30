@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\PersistenceDoctrine\Tests\Helper;
 
-use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
+use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\UserUuid;
@@ -11,8 +11,8 @@ class EntityHelperTest extends TestCase
 {
     public function testHelper(): void
     {
-        /** @var PersistenceDoctrine $persistenceDoctrine */
-        $persistenceDoctrine = $this->container->get(PersistenceDoctrine::class);
+        /** @var DoctrinePersistence $persistenceDoctrine */
+        $persistenceDoctrine = $this->container->get(DoctrinePersistence::class);
 
         $user = new User();
         $this->entityManager->persist($user);

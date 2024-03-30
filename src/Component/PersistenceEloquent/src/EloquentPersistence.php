@@ -1,11 +1,11 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceEloquent\Persistence;
+namespace FHPlatform\Component\PersistenceEloquent;
 
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class PersistenceEloquent implements PersistenceInterface
+class EloquentPersistence implements PersistenceInterface
 {
     public function getIdentifierName(mixed $entity): ?string
     {

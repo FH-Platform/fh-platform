@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceDoctrine\Listener;
+namespace FHPlatform\Component\PersistenceDoctrine;
 
 use Doctrine\DBAL\Event\TransactionBeginEventArgs;
 use Doctrine\DBAL\Event\TransactionRollBackEventArgs;
@@ -11,14 +11,13 @@ use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\EventManager;
-use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 
-class DoctrineListener
+class DoctrinePersistenceListener
 {
     protected array $eventsRemove = [];
 
     public function __construct(
-        private readonly PersistenceDoctrine $persistenceDoctrine,
+        private readonly DoctrinePersistence $persistenceDoctrine,
         private readonly EventManager $eventManager,
     ) {
     }
