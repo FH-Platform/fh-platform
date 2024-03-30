@@ -60,6 +60,7 @@ class EventManager
 
     public function eventRequestFinished(): void
     {
+        // TODO
         if (self::TYPE_REQUEST_FINISHED === $this->type) {
             $this->dispatch();
         }
