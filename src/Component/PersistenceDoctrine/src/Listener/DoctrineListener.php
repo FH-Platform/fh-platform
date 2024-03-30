@@ -9,7 +9,6 @@ use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
-use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
@@ -17,13 +16,11 @@ use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 class DoctrineListener
 {
     protected array $eventsRemove = [];
-    private EventHelper $eventHelper;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceDoctrine $persistenceDoctrine,
+        private readonly EventHelper $eventHelper,
     ) {
-        $this->eventHelper = new EventHelper($eventDispatcher);
     }
 
     public function onTransactionBegin(TransactionBeginEventArgs $args): void

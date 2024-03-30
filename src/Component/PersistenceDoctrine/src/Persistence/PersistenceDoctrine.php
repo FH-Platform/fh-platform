@@ -120,24 +120,6 @@ class PersistenceDoctrine implements PersistenceInterface
         return $queryBuilder->getQuery()->execute();
     }
 
-    private function addSortQueryForMysql($queryBuilder, $identifiers): void
-    {
-        $queryBuilder->orderBy('FIELD(o.id,'.implode(',', $identifiers).')');
-    }
-
-    private function addSortQueryForSqlite($queryBuilder, $identifiers): void
-    {
-        $sort = ' CASE ';
-
-        $counter = 1;
-        foreach ($identifiers as $identifier) {
-            $sort .= ' WHEN o.id = '.$identifier.'  THEN '.$counter++.' ';
-        }
-        $sort .= ' ELSE 1 END ';
-
-        $queryBuilder->addOrderBy($sort);
-    }
-
     public function getRealClassName(string $className): string
     {
         $className = ClassUtils::getRealClass($className);
@@ -199,5 +181,24 @@ class PersistenceDoctrine implements PersistenceInterface
         }
 
         return false;
+    }
+
+    // TODO move somewhere
+    private function addSortQueryForMysql($queryBuilder, $identifiers): void
+    {
+        $queryBuilder->orderBy('FIELD(o.id,'.implode(',', $identifiers).')');
+    }
+
+    private function addSortQueryForSqlite($queryBuilder, $identifiers): void
+    {
+        $sort = ' CASE ';
+
+        $counter = 1;
+        foreach ($identifiers as $identifier) {
+            $sort .= ' WHEN o.id = '.$identifier.'  THEN '.$counter++.' ';
+        }
+        $sort .= ' ELSE 1 END ';
+
+        $queryBuilder->addOrderBy($sort);
     }
 }

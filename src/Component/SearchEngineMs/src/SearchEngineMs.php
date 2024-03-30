@@ -31,7 +31,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
             if (ChangedEntity::TYPE_DELETE === $document->getType()) {
                 $documentsDelete[] = $document->getIdentifier();
             } else {
-                //TODO move somewhere else
+                // TODO move somewhere else
                 $documentsUpsert[] = array_merge(['id' => $document->getIdentifier()], $document->getData());
             }
         }

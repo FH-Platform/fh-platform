@@ -30,6 +30,7 @@ use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEventListener;
+use FHPlatform\Component\Persistence\Event\EventHelper;
 use FHPlatform\Component\Persistence\Message\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
@@ -98,6 +99,8 @@ class Builder implements BuilderInterface
 
         // register services
         $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+
+        $container->register(EventHelper::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         // register each implementation
         if (PersistenceDoctrine::class === $persistence) {
