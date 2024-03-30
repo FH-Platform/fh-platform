@@ -64,6 +64,7 @@ class EventManager
         if (count($this->changedEntities)) {
             $event = new ChangedEntitiesEvent($this->changedEntities);
 
+            //TODO detect instant sync
             $this->dispatcher->dispatch(new EntitiesChangedMessage($event));
             $this->eventDispatcher->dispatch($event);
 
