@@ -15,6 +15,7 @@ class DataManager
     ) {
     }
 
+    // TODO remove
     public function insertRaw(string $className, array $data, mixed $identifierValue): void
     {
         $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, ChangedEntity::TYPE_CREATE);
