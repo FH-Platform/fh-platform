@@ -25,7 +25,7 @@ class DataSyncer
         // TODO temp index
         foreach ($identifiers as $identifier) {
             // TODO remove 'id'
-            $this->eventHelper->addEntity($className, $identifier, ChangedEntity::TYPE_UPDATE, ['id'], false);
+            $this->eventHelper->addEntity($className, $identifier, ChangedEntity::TYPE_UPDATE, ['id']);
         }
 
         $this->eventHelper->dispatch($this->eventHelper->getChangedEntitiesDTO());

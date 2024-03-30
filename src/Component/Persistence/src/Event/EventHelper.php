@@ -29,17 +29,11 @@ class EventHelper
         // TODO
     }
 
-    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields, bool $dispatch): void
+    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields): void
     {
         // make changes unique
         $hash = $className.'_'.$identifierValue;
         $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
-
-        if ($dispatch) {
-            $this->dispatch([$hash => $changedEntity]);
-
-            return;
-        }
 
         $this->changedEntitiesDTO[$hash] = $changedEntity;
 
