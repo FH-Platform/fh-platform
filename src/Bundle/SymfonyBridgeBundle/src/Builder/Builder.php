@@ -4,7 +4,6 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventListenerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageHandlerSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
@@ -28,8 +27,6 @@ use FHPlatform\Component\FilterToEsDsl\FilterQuery;
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
-use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
-use FHPlatform\Component\Persistence\Event\ChangedEntitiesEventListener;
 use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Message\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
@@ -139,17 +136,6 @@ class Builder implements BuilderInterface
     public function buildEventDispatcher(): void
     {
         $container = $this->container;
-
-        // register event listener
-        $container->register(EventListenerSymfony::class)
-            ->setAutoconfigured(true)
-            ->addTag('kernel.event_listener', [
-                'event' => ChangedEntitiesEvent::class,
-                'method' => 'handle',
-            ])
-            ->setArguments([
-                '$eventListener' => $container->register(ChangedEntitiesEventListener::class)->setAutowired(true),
-            ]);
 
         // register event dispatcher
         $container->register(EventDispatcherSymfony::class)->setAutowired(true);
