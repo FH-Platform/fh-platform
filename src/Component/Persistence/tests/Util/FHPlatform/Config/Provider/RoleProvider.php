@@ -34,7 +34,7 @@ class RoleProvider extends ProviderEntity
     }
 
     /** @param Role $entity */
-    public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
+    public function getEntityRelatedEntities(Connection $connection, mixed $entity, string $type, array $changedFields, array $entitiesRelated): array
     {
         return $entity->getUsers()->toArray();
     }

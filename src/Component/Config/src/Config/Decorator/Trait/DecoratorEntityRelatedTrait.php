@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 
 trait DecoratorEntityRelatedTrait
 {
-    public function getEntityRelatedEntities(Connection $connection, mixed $entity, array $changedFields, array $entitiesRelated): array
+    public function getEntityRelatedEntities(Connection $connection, mixed $entity, string $type, array $changedFields, array $entitiesRelated): array
     {
         return $entitiesRelated;
     }

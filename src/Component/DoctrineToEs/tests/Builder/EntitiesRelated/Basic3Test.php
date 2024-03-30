@@ -5,6 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\EntitiesRelated;
 use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class Basic3Test extends TestCaseEntitiesRelated
 {
@@ -33,18 +34,18 @@ class Basic3Test extends TestCaseEntitiesRelated
 
         $this->save([$user, $user2]);
 
-        $this->assertEquals([], $this->entitiesRelatedBuilder->build($role, $doctrineUpdatingMap, ['testString']));
+        $this->assertEquals([], $this->entitiesRelatedBuilder->build($role, $doctrineUpdatingMap, ChangedEntity::TYPE_UPDATE, ['testString']));
         $this->assertEquals([
             'users' => [
                 1 => $user,
                 2 => $user2,
             ],
-        ], $this->entitiesRelatedBuilder->build($role, $doctrineUpdatingMap, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($role, $doctrineUpdatingMap, ChangedEntity::TYPE_UPDATE, ['testBoolean']));
 
         $this->assertEquals([
             'users' => [
                 1 => $user,
             ],
-        ], $this->entitiesRelatedBuilder->build($role2, $doctrineUpdatingMap, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($role2, $doctrineUpdatingMap, ChangedEntity::TYPE_UPDATE, ['testBoolean']));
     }
 }

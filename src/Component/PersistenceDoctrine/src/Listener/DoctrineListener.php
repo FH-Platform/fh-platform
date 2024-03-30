@@ -19,7 +19,7 @@ class DoctrineListener
 
     public function __construct(
         private readonly PersistenceDoctrine $persistenceDoctrine,
-        private readonly EventManager        $eventManager,
+        private readonly EventManager $eventManager,
     ) {
     }
 

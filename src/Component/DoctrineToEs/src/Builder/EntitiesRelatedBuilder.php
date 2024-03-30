@@ -4,6 +4,7 @@ namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
+use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EntitiesRelatedBuilder
@@ -13,7 +14,7 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function build($entity, array $doctrineUpdatingMap, array $changedFields): array
+    public function build($entity, array $doctrineUpdatingMap, string $type, array $changedFields): array
     {
         $className = ClassUtils::getClass($entity);
 
@@ -27,9 +28,12 @@ class EntitiesRelatedBuilder
 
             // detect if field from doctrine-to-es config is changed
             $identifierName = $this->persistence->getIdentifierName($className);
-            $isChangedAnyEsField = !empty(array_intersect($changedFieldsForEs, $changedFields)) || !empty($changedFields[$identifierName]);
-            if (!$isChangedAnyEsField) {
-                continue;
+
+            if (ChangedEntity::TYPE_UPDATE === $type) {
+                $isChangedAnyEsField = !empty(array_intersect($changedFieldsForEs, $changedFields)) || !empty($changedFields[$identifierName]);
+                if (!$isChangedAnyEsField) {
+                    continue;
+                }
             }
 
             $associations = explode('.', $associationString);

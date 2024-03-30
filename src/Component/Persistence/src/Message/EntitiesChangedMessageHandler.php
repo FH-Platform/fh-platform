@@ -52,7 +52,7 @@ class EntitiesChangedMessageHandler
                 $connections = $this->connectionsBuilder->build();
 
                 foreach ($connections as $connection) {
-                    $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $changedFields);
+                    $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $type, $changedFields);
 
                     foreach ($entitiesRelated as $entityRelated) {
                         // TODO separate
