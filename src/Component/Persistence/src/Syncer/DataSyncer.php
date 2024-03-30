@@ -28,6 +28,6 @@ class DataSyncer
             $this->eventHelper->addEntity($className, $identifier, ChangedEntity::TYPE_UPDATE, ['id']);
         }
 
-        $this->eventHelper->dispatch($this->eventHelper->getChangedEntitiesDTO());
+        $this->eventHelper->dispatch();
     }
 }

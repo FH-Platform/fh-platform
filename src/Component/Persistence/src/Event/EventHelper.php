@@ -7,27 +7,17 @@ use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class EventHelper
 {
+    public const TYPE_FLUSH = 'flush';
+    public const TYPE_REQUEST_FINISHED = 'request_finished';
+
+    private string $type = 'flush'; // TYPE_FLUSH, TYPE_REQUEST_FINISHED
+
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
-    protected array $changedEntitiesDTO = [];
-
-    public function flushEvent(): void
-    {
-        // TODO by config flush or onKernelFinishRequest
-
-        $this->dispatch($this->changedEntitiesDTO);
-
-        // reset var
-        $this->changedEntitiesDTO = [];
-    }
-
-    public function kernelFinishRequestEvent(): void
-    {
-        // TODO
-    }
+    protected array $changedEntities = [];
 
     public function addEntity(string $className, mixed $identifierValue, $type, $changedFields): void
     {
@@ -35,20 +25,32 @@ class EventHelper
         $hash = $className.'_'.$identifierValue;
         $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
 
-        $this->changedEntitiesDTO[$hash] = $changedEntity;
+        $this->changedEntities[$hash] = $changedEntity;
 
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
 
-    public function dispatch($entities): void
+    public function eventFlush(): void
     {
-        if (count($entities)) {
-            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($entities));
+        if (self::TYPE_FLUSH === $this->type) {
+            $this->dispatch();
         }
     }
 
-    public function getChangedEntitiesDTO(): array
+    public function eventRequestFinished(): void
     {
-        return $this->changedEntitiesDTO;
+        if (self::TYPE_REQUEST_FINISHED === $this->type) {
+            $this->dispatch();
+        }
+    }
+
+    public function dispatch(): void
+    {
+        if (count($this->changedEntities)) {
+            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($this->changedEntities));
+
+            // reset var
+            $this->changedEntities = [];
+        }
     }
 }

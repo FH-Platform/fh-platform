@@ -55,7 +55,7 @@ class DoctrineListener
 
     public function postFlush(PostFlushEventArgs $args): void
     {
-        $this->eventHelper->flushEvent();
+        $this->eventHelper->eventFlush();
     }
 
     private function addEntity(PostPersistEventArgs|PostUpdateEventArgs|PostRemoveEventArgs|PreRemoveEventArgs $args, string $type): void
@@ -73,7 +73,7 @@ class DoctrineListener
 
             // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
             $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE, $changedFields);
-            $this->eventHelper->flushEvent();
+            $this->eventHelper->eventFlush();
 
             return;
         }
