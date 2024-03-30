@@ -68,14 +68,9 @@ class DoctrineListener implements PersistenceListenerInterface
 
         $changedFields = [$this->persistenceDoctrine->getIdentifierName($className)];
 
-        // on pre remove store identifier and return
+        // on pre remove store identifier
         if ($args instanceof PreRemoveEventArgs) {
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
-
-            // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
-            $this->eventPreDelete($className, $identifierValue, $changedFields);
-
-            return;
         }
 
         // on post remove fetch stored identifier
@@ -95,6 +90,8 @@ class DoctrineListener implements PersistenceListenerInterface
             $this->eventPostUpdate($className, $identifierValue, $changedFields);
         }elseif ($args instanceof  PostRemoveEventArgs){
             $this->eventPostDelete($className, $identifierValue, $changedFields);
+        }elseif ($args instanceof  PreRemoveEventArgs){
+            $this->eventPreDelete($className, $identifierValue, $changedFields);
         }
     }
 
