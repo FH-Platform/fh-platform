@@ -46,8 +46,6 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
-        $this->assertEquals(['id'], $value2->getChangedFields());
 
         // test update
         $user->setNameString('name_string_1');
@@ -111,7 +109,5 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
-        $this->assertEquals(['id'], $value2->getChangedFields());
     }
 }

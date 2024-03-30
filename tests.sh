@@ -1,6 +1,7 @@
 #!/bin/bash
 
 packages=(
+  "Component/SearchEngine"
   "Component/SearchEngineEs"
   "Component/SearchEngineMs"
   "Component/Persistence"

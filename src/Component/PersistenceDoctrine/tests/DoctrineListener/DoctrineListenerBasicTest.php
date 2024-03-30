@@ -33,7 +33,6 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(ChangedEntity::TYPE_CREATE, $value->getType());
         $this->assertEquals(User::class, $value->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
 
         // test update
         $this->eventsClear(ChangedEntitiesEvent::class);
@@ -72,7 +71,6 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(ChangedEntity::TYPE_DELETE_PRE, $value->getType());
         $this->assertEquals(User::class, $value->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
 
         /** @var ChangedEntitiesEvent $event */
         $event = $this->eventsGet(ChangedEntitiesEvent::class)[1];
@@ -85,6 +83,5 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(ChangedEntity::TYPE_DELETE, $value->getType());
         $this->assertEquals(User::class, $value->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
     }
 }

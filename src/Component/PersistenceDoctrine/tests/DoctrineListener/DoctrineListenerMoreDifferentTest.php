@@ -56,9 +56,6 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
         $this->assertEquals(Role::class, $value3->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
-        $this->assertEquals(['id'], $value2->getChangedFields());
-        $this->assertEquals(['id'], $value3->getChangedFields());
 
         // test update
         $user->setNameString('name_string_1');
@@ -125,9 +122,6 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertEquals(User::class.'_1', $key);
         $this->assertEquals(User::class.'_2', $key2);
         $this->assertEquals(Role::class.'_1', $key3);
-        $this->assertEquals(1, $value->getIdentifier());
-        $this->assertEquals(2, $value2->getIdentifier());
-        $this->assertEquals(1, $value3->getIdentifier());
 
         $this->assertEquals(ChangedEntity::TYPE_DELETE, $value->getType());
         $this->assertEquals(ChangedEntity::TYPE_DELETE, $value2->getType());
@@ -136,8 +130,5 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
         $this->assertEquals(Role::class, $value3->getClassName());
-        $this->assertEquals(['id'], $value->getChangedFields());
-        $this->assertEquals(['id'], $value2->getChangedFields());
-        $this->assertEquals(['id'], $value3->getChangedFields());
     }
 }

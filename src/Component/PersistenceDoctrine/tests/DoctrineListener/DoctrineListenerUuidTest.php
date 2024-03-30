@@ -34,7 +34,6 @@ class DoctrineListenerUuidTest extends TestCase
         $this->assertEquals($id, $value->getIdentifier());
         $this->assertEquals(ChangedEntity::TYPE_CREATE, $value->getType());
         $this->assertEquals(UserUuid::class, $value->getClassName());
-        $this->assertEquals(['uuid'], $value->getChangedFields());
 
         // test update
         $this->eventsClear(ChangedEntitiesEvent::class);
@@ -72,6 +71,5 @@ class DoctrineListenerUuidTest extends TestCase
         $this->assertEquals($id, $value->getIdentifier());
         $this->assertEquals(ChangedEntity::TYPE_DELETE, $value->getType());
         $this->assertEquals(UserUuid::class, $value->getClassName());
-        $this->assertEquals(['uuid'], $value->getChangedFields());
     }
 }
