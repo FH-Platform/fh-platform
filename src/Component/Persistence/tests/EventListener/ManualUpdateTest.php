@@ -4,11 +4,11 @@ namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\Persistence\Event\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProvider;
-use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
 class ManualUpdateTest extends TestCase
 {
@@ -24,8 +24,8 @@ class ManualUpdateTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var DataManager $dataManager */
-        $dataManager = $this->container->get(DataManager::class);
+        /** @var EventManager $eventManager */
+        $eventManager = $this->container->get(EventManager::class);
 
         /** @var ConnectionsBuilder $connectionsBuilder */
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
@@ -42,7 +42,7 @@ class ManualUpdateTest extends TestCase
         $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test'));
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test'));
-        $dataManager->syncByClassName(User::class, [1]);
+        $eventManager->syncByClassName(User::class, [1]);
         $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
 
         // update
@@ -54,7 +54,7 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->createQuery('UPDATE '.User::class." e SET e.nameString = 'test2' WHERE e.id = 2")->execute();
         $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test'));
         $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
-        $dataManager->syncByClassName(User::class, [2]);
+        $eventManager->syncByClassName(User::class, [2]);
         $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
         $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
 

@@ -30,7 +30,7 @@ class DocumentBuilder
 
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
-        if (ChangedEntity::TYPE_DELETE === $type) {
+        if (ChangedEntity::TYPE_DELETE === $type or !$entity) {
             return new Document($index, $identifier, [], ChangedEntity::TYPE_DELETE);
         }
 

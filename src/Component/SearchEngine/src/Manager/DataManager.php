@@ -5,7 +5,6 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 
 class DataManager
@@ -13,33 +12,12 @@ class DataManager
     public function __construct(
         private readonly SearchEngineInterface $adapter,
         private readonly DocumentBuilder $documentBuilder,
-        private readonly PersistenceInterface $persistence,
     ) {
     }
 
     public function insertRaw(string $className, array $data, mixed $identifierValue): void
     {
         $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, ChangedEntity::TYPE_CREATE);
-        $this->syncDocuments($documents);
-    }
-
-    public function syncByClassName(string $className, array $identifierValues): void
-    {
-        $entities = $this->persistence->getEntities($className, $identifierValues);
-
-        // TODO move somewhere
-        $documents = [];
-        foreach ($identifierValues as $identifierValue) {
-            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-
-            $type = ChangedEntity::TYPE_UPDATE;
-            if (!$entity) {
-                $type = ChangedEntity::TYPE_DELETE;
-            }
-
-            $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
-        }
-
         $this->syncDocuments($documents);
     }
 

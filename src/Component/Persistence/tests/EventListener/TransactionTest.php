@@ -4,11 +4,11 @@ namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\Persistence\Event\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProvider;
-use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
 class TransactionTest extends TestCase
 {
@@ -24,8 +24,8 @@ class TransactionTest extends TestCase
 
     public function testSomething(): void
     {
-        /** @var DataManager $dataManager */
-        $dataManager = $this->container->get(DataManager::class);
+        /** @var EventManager $eventManager */
+        $eventManager = $this->container->get(EventManager::class);
 
         /** @var ConnectionsBuilder $connectionsBuilder */
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
@@ -48,7 +48,7 @@ class TransactionTest extends TestCase
         $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
         $this->entityManager->getConnection()->rollBack();
         $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
-        $dataManager->syncByClassName(User::class, [1]);
+        $eventManager->syncByClassName(User::class, [1]);
         $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
 
         // TODO

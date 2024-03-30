@@ -75,4 +75,13 @@ class EventManager
             $this->changedEntities = [];
         }
     }
+
+    public function syncByClassName(string $className, array $identifierValues): void
+    {
+        foreach ($identifierValues as $identifierValue) {
+            $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE);
+        }
+
+        $this->dispatch();
+    }
 }
