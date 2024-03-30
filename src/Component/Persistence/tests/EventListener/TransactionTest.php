@@ -48,7 +48,7 @@ class TransactionTest extends TestCase
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
         $this->entityManager->getConnection()->rollBack();
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
-        $eventManager->syncByClassName(User::class, [1]);
+        $eventManager->syncEntitiesManually(User::class, [1]);
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // TODO

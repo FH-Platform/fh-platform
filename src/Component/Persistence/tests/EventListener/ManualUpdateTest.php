@@ -29,7 +29,7 @@ class ManualUpdateTest extends TestCase
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
-        $eventManager->syncByClassName(User::class, [1]);
+        $eventManager->syncEntitiesManually(User::class, [1]);
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
 
         // update
@@ -41,7 +41,7 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->createQuery('UPDATE '.User::class." e SET e.nameString = 'test2' WHERE e.id = 2")->execute();
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
-        $eventManager->syncByClassName(User::class, [2]);
+        $eventManager->syncEntitiesManually(User::class, [2]);
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
 

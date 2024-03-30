@@ -20,36 +20,25 @@ class EventManager
 
     protected array $changedEntities = [];
 
-    public function eventPostCreate(string $className, mixed $identifierValue): void
+    public function eventPostCreateEntity(string $className, mixed $identifierValue): void
     {
         $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_CREATE);
     }
 
-    public function eventPostUpdate(string $className, mixed $identifierValue, array $changedFields): void
+    public function eventPostUpdateEntity(string $className, mixed $identifierValue, array $changedFields): void
     {
         $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE, $changedFields);
     }
 
-    public function eventPostDelete(string $className, mixed $identifierValue): void
+    public function eventPostDeleteEntity(string $className, mixed $identifierValue): void
     {
         $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE);
     }
 
-    public function eventPreDelete(string $className, mixed $identifierValue): void
+    public function eventPreDeleteEntity(string $className, mixed $identifierValue): void
     {
         $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE);
         $this->eventFlush();
-    }
-
-    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields = []): void
-    {
-        // make changes unique
-        $hash = $className.'_'.$identifierValue;
-        $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
-
-        $this->changedEntities[$hash] = $changedEntity;
-
-        // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
 
     public function eventFlush(): void
@@ -77,12 +66,23 @@ class EventManager
         }
     }
 
-    public function syncByClassName(string $className, array $identifierValues): void
+    public function syncEntitiesManually(string $className, array $identifierValues): void
     {
         foreach ($identifierValues as $identifierValue) {
             $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE);
         }
 
         $this->dispatch();
+    }
+
+    private function addEntity(string $className, mixed $identifierValue, $type, $changedFields = []): void
+    {
+        // make changes unique
+        $hash = $className.'_'.$identifierValue;
+        $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
+
+        $this->changedEntities[$hash] = $changedEntity;
+
+        // TODO when there are more updates merge changedFields, or when is delete remove all updates
     }
 }

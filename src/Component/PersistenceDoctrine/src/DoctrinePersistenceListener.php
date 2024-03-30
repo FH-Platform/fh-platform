@@ -65,20 +65,20 @@ class DoctrinePersistenceListener
         $identifierValue = $this->persistenceDoctrine->getIdentifierValue($entity);
 
         if ($args instanceof PostPersistEventArgs) {
-            $this->eventManager->eventPostCreate($className, $identifierValue);
+            $this->eventManager->eventPostCreateEntity($className, $identifierValue);
         } elseif ($args instanceof PostUpdateEventArgs) {
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
 
-            $this->eventManager->eventPostUpdate($className, $identifierValue, $changedFields);
+            $this->eventManager->eventPostUpdateEntity($className, $identifierValue, $changedFields);
         } elseif ($args instanceof PostRemoveEventArgs) {
             $identifierValue = $this->eventsRemove[spl_object_id($entity)];
 
-            $this->eventManager->eventPostDelete($className, $identifierValue);
+            $this->eventManager->eventPostDeleteEntity($className, $identifierValue);
         } elseif ($args instanceof PreRemoveEventArgs) {
             // on pre remove store identifier, so that we can later trigger event with that identifier
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
-            $this->eventManager->eventPreDelete($className, $identifierValue);
+            $this->eventManager->eventPreDeleteEntity($className, $identifierValue);
         }
     }
 }
