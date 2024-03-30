@@ -5,7 +5,7 @@ namespace FHPlatform\Component\Persistence\Event;
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
-class EventHelper
+class EventManager
 {
     public const TYPE_FLUSH = 'flush';
     public const TYPE_REQUEST_FINISHED = 'request_finished';
@@ -19,7 +19,28 @@ class EventHelper
 
     protected array $changedEntities = [];
 
-    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields): void
+    public function eventPostCreate(string $className, mixed $identifierValue): void
+    {
+        $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_CREATE);
+    }
+
+    public function eventPostUpdate(string $className, mixed $identifierValue, array $changedFields): void
+    {
+        $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE, $changedFields);
+    }
+
+    public function eventPostDelete(string $className, mixed $identifierValue): void
+    {
+        $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE);
+    }
+
+    public function eventPreDelete(string $className, mixed $identifierValue): void
+    {
+        $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE);
+        $this->eventFlush();
+    }
+
+    public function addEntity(string $className, mixed $identifierValue, $type, $changedFields = []): void
     {
         // make changes unique
         $hash = $className.'_'.$identifierValue;
