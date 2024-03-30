@@ -4,7 +4,7 @@ namespace FHPlatform\Component\Persistence\Syncer;
 
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\EventManager;
+use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class DataSyncer

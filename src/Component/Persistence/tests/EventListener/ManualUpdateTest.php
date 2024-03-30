@@ -3,7 +3,7 @@
 namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\Persistence\Event\EventManager;
+use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
 

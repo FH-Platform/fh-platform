@@ -1,9 +1,10 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\Event;
+namespace FHPlatform\Component\Persistence\Manager;
 
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 
 class EventManager
 {
