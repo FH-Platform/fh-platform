@@ -8,12 +8,12 @@ use FHPlatform\Component\Persistence\Message\EntitiesChangedMessageHandler;
 class MessageHandlerSymfony
 {
     public function __construct(
-        private readonly EntitiesChangedMessageHandler $messageHandler,
+        private readonly EntitiesChangedMessageHandler $entitiesChangedMessageHandler,
     ) {
     }
 
     public function __invoke(EntitiesChangedMessage $message): void
     {
-        $this->messageHandler->handle($message);
+        $this->entitiesChangedMessageHandler->handle($message);
     }
 }

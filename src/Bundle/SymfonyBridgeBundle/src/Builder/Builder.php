@@ -125,7 +125,7 @@ class Builder implements BuilderInterface
             ->setAutoconfigured(true)
             ->addTag('messenger.message_handler')
             ->setArguments([
-                '$messageHandler' => $container->register(EntitiesChangedMessageHandler::class)->setAutowired(true),
+                '$entitiesChangedMessageHandler' => $container->register(EntitiesChangedMessageHandler::class)->setAutowired(true),
             ]);
 
         // register message dispatcher
