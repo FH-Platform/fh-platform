@@ -3,7 +3,7 @@
 namespace FHPlatform\PersistenceDoctrine\DoctrineListener;
 
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 

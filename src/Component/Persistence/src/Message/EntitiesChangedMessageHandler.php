@@ -1,16 +1,15 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\Message\MessageHandler;
+namespace FHPlatform\Component\Persistence\Message;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
-use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
-class MessageHandler
+class EntitiesChangedMessageHandler
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,

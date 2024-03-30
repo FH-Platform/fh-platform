@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\FrameworkBridge;
 
+// building FHPlatform components for each framework (symfony, laravel, etc.)
 interface BuilderInterface
 {
     // build search engine (elasticsearch, meilisearch, etc, ...)
@@ -16,6 +17,6 @@ interface BuilderInterface
     // define event dispatcher (Symfony events, laravel events, ...)
     public function buildEventDispatcher(): void;
 
-    // TODO
+    // build config, register tags
     public function buildConfig(): void;
 }

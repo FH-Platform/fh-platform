@@ -2,13 +2,13 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Event;
 
-use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
-use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEventListener;
 
 class EventListenerSymfony
 {
     public function __construct(
-        private readonly EventListener $eventListener,
+        private readonly ChangedEntitiesEventListener $eventListener,
     ) {
     }
 

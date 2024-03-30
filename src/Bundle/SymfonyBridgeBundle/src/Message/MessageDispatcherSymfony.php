@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Message;
 
-use FHPlatform\Component\Persistence\Message\Message\EntitiesChangedMessage;
-use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
+use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
+use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class MessageDispatcherSymfony implements MessageDispatcherInterface

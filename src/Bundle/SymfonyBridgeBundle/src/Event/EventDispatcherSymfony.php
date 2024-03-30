@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Event;
 
-use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
-use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
+use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 
 class EventDispatcherSymfony implements EventDispatcherInterface
 {

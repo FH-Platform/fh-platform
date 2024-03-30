@@ -26,11 +26,11 @@ use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
-use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
-use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
-use FHPlatform\Component\Persistence\Event\EventListener\EventListener;
-use FHPlatform\Component\Persistence\Message\MessageDispatcher\MessageDispatcherInterface;
-use FHPlatform\Component\Persistence\Message\MessageHandler\MessageHandler;
+use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
+use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\ChangedEntitiesEventListener;
+use FHPlatform\Component\Persistence\Message\EntitiesChangedMessageHandler;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\Listener\DoctrineListener;
@@ -125,7 +125,7 @@ class Builder implements BuilderInterface
             ->setAutoconfigured(true)
             ->addTag('messenger.message_handler')
             ->setArguments([
-                '$messageHandler' => $container->register(MessageHandler::class)->setAutowired(true),
+                '$messageHandler' => $container->register(EntitiesChangedMessageHandler::class)->setAutowired(true),
             ]);
 
         // register message dispatcher
@@ -145,7 +145,7 @@ class Builder implements BuilderInterface
                 'method' => 'handle',
             ])
             ->setArguments([
-                '$eventListener' => $container->register(EventListener::class)->setAutowired(true),
+                '$eventListener' => $container->register(ChangedEntitiesEventListener::class)->setAutowired(true),
             ]);
 
         // register event dispatcher

@@ -2,9 +2,8 @@
 
 namespace FHPlatform\Component\Persistence\Event;
 
+use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\Event\ChangedEntitiesEvent;
-use FHPlatform\Component\Persistence\Event\EventDispatcher\EventDispatcherInterface;
 
 class EventHelper
 {
