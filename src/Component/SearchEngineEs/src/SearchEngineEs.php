@@ -144,7 +144,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         return $indexesFiltered;
     }
 
-    public function queryResults(Index $index, mixed $query = null): array
+    public function search(Index $index, mixed $query = null): array
     {
         $client = $this->connectionFetcher->fetchByIndex($index);
 
@@ -167,7 +167,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         return $client->getIndex($index->getNameWithPrefix());
     }
 
-    public function convertResultsSource($results): array
+    public function convertSearchResults($results): array
     {
         $resultsResponse = [];
 

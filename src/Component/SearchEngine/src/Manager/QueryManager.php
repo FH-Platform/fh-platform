@@ -22,10 +22,10 @@ class QueryManager
 
     public function getResults(Index $index, mixed $query = null, $type = self::TYPE_RAW): array
     {
-        $results = $this->adapter->queryResults($index, $query);
+        $results = $this->adapter->search($index, $query);
 
         if (self::TYPE_IDENTIFIERS === $type) {
-            $results = $this->adapter->convertResultsSource($results);
+            $results = $this->adapter->convertSearchResults($results);
 
             $identifiers = [];
             foreach ($results as $result) {
@@ -35,7 +35,7 @@ class QueryManager
 
             return $identifiers;
         } elseif (self::TYPE_ENTITIES === $type) {
-            $results = $this->adapter->convertResultsSource($results);
+            $results = $this->adapter->convertSearchResults($results);
 
             $identifiers = [];
             foreach ($results as $result) {
@@ -46,7 +46,7 @@ class QueryManager
             // TODO sort by ids (mysql vs sqlite)
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
         } elseif (self::TYPE_ENTITIES_RAW === $type) {
-            $results = $this->adapter->convertResultsSource($results);
+            $results = $this->adapter->convertSearchResults($results);
 
             $identifiers = $resultsResponse = [];
             foreach ($results as $result) {
@@ -67,7 +67,7 @@ class QueryManager
 
             return $resultsResponse;
         } elseif (self::TYPE_RAW_SOURCE === $type) {
-            return $this->adapter->convertResultsSource($results);
+            return $this->adapter->convertSearchResults($results);
         }
 
         return $results;
