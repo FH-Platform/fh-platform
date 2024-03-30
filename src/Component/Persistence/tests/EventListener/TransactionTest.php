@@ -36,7 +36,21 @@ class TransactionTest extends TestCase
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
-        // create
+        //delete
+        $this->entityManager->getConnection()->beginTransaction();
+        $user = new User();
+        $user->setNameString('test');
+        $this->save([$user]);
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->entityManager->getConnection()->rollBack();
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $eventManager->syncEntitiesManually(User::class, [1]);
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
+
+        // update
         $user = new User();
         $user->setNameString('test');
         $this->save([$user]);
@@ -48,12 +62,18 @@ class TransactionTest extends TestCase
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
         $this->entityManager->getConnection()->rollBack();
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
-        $eventManager->syncEntitiesManually(User::class, [1]);
+        $eventManager->syncEntitiesManually(User::class, [2]);
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
-        // TODO
-
-        // $this->entityManager->refresh($user);
-        // dd($user);
+        //create
+        $this->entityManager->getConnection()->beginTransaction();
+        $user = new User();
+        $user->setNameString('test3');
+        $this->save([$user]);
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $this->entityManager->getConnection()->rollBack();
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $eventManager->syncEntitiesManually(User::class, [3]);
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test3'));
     }
 }
