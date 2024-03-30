@@ -45,6 +45,13 @@ class ManualUpdateTest extends TestCase
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
 
-        // update -> TODO
+        // create
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $this->entityManager->getConnection()->insert('user', [
+            'nameString' => 'test3',
+        ]);
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $eventManager->syncEntitiesManually(User::class, [3]);
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test3'));
     }
 }
