@@ -4,9 +4,10 @@ namespace FHPlatform\Bundle\TestsBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use Elastica\Query;
 use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\FilterToEsDsl\FilterQuery;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
@@ -109,8 +110,23 @@ class TestCase extends KernelTestCase
         $this->entityManager->flush();
     }
 
-    protected function findEsBy($index, $key, $value): array
+    protected function findEsBy(string $className, $key, $value): array
     {
-        return $this->queryClient->getResults($index, (new Query())->setQuery(new Query\MatchQuery($key, $value)))['hits']['hits'];
+        return $this->container->get(FilterQuery::class)->search($className, $this->urlToArray('filters[]['.$key.'][in][]='.$value));
+    }
+
+    protected function recreateIndex(string $className): void
+    {
+        $index = $this->container->get(ConnectionsBuilder::class)->fetchIndexesByClassName($className)[0];
+        $this->indexClient->recreateIndex($index);
+    }
+
+    protected function urlToArray($url): array
+    {
+        $array = [];
+
+        parse_str($url, $array);
+
+        return $array;
     }
 }

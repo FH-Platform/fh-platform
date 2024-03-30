@@ -33,8 +33,8 @@ class TransactionTest extends TestCase
         $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // create
         $user = new User();
@@ -45,11 +45,11 @@ class TransactionTest extends TestCase
         $user->setNameString('test2');
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
         $eventManager->syncByClassName(User::class, [1]);
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // TODO
 

@@ -6,7 +6,6 @@ use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
@@ -23,7 +22,7 @@ class FilterQuery
     public function search(string $className, array $filters = [], string $type = QueryManager::TYPE_IDENTIFIERS): array
     {
         // TODO
-        $index = $this->connectionsBuilder->fetchIndexesByClassName(User::class)[0];
+        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
         $queryBase = $this->applyApplicators($index, $filters['applicators'] ?? []);
         $queryFilters = $this->applyFilters($index, $filters['filters'] ?? []);
@@ -62,7 +61,7 @@ class FilterQuery
     private function applyFilters(Index $index, array $filtersArray): BoolQuery
     {
         $queryFilters = new BoolQuery();
-
+        // dd($this->filterConverters, $this->applicatorConverters);
         foreach ($filtersArray as $number => $filters) {
             foreach ($filters as $field => $filter) {
                 foreach ($filter as $operator => $value) {

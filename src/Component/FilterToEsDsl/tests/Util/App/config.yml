@@ -34,11 +34,3 @@ services:
     FHPlatform\Component\FilterToEsDsl\Tests\Util\:
         resource: '../'
         exclude: '../{App}'
-
-    #TODO move to framework builder
-    FHPlatform\Component\FilterToEsDsl\Converter\FilterToEsDsl\:
-        resource: '../../../src/Converter/FilterToEsDsl/'
-
-    FHPlatform\Component\FilterToEsDsl\Converter\Applicator\:
-        resource: '../../../src/Converter/Applicator/'
-

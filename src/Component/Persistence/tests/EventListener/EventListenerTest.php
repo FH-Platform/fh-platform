@@ -28,25 +28,25 @@ class EventListenerTest extends TestCase
         $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // create
         $user = new User();
         $user->setNameString('test');
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // update
         $user->setNameString('test2');
         $this->save([$user]);
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
-        $this->assertCount(1, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // delete
         $this->delete([$user]);
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy($index, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
     }
 }

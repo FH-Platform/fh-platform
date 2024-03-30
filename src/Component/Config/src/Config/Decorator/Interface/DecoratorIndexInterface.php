@@ -12,5 +12,5 @@ interface DecoratorIndexInterface extends DecoratorBaseInterface
 
     public function getIndexMapping(Index $index, array $mapping): array;
 
-    public function getIndexMappingItem(Index $index, array $mappingItem, string $mappingItemKey, ?string $mappingItemType): array;
+    public function getIndexMappingItem(Index $index, mixed $mappingItem, mixed $mappingItemKey, mixed $mappingItemType): mixed;
 }

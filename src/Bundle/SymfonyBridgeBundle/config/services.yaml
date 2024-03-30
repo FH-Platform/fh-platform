@@ -10,3 +10,14 @@ services:
         autowire: true
         autoconfigure: true
 
+    #TODO move to framework builder
+    FHPlatform\Component\FilterToEsDsl\Converter\FilterToEsDsl\:
+        resource: '../../../Component/FilterToEsDsl/src/Converter/FilterToEsDsl/'
+        autowire: true
+        autoconfigure: true
+
+    FHPlatform\Component\FilterToEsDsl\Converter\Applicator\:
+        resource: '../../../Component/FilterToEsDsl/src/Converter/Applicator/'
+        autowire: true
+        autoconfigure: true
+

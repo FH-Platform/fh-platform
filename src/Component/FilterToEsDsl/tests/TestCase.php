@@ -22,19 +22,4 @@ class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
         $this->connectionsBuilder = $connectionsBuilder;
     }
-
-    protected function recreateIndex(string $className): void
-    {
-        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
-        $this->indexClient->recreateIndex($index);
-    }
-
-    protected function urlToArray($url): array
-    {
-        $array = [];
-
-        parse_str($url, $array);
-
-        return $array;
-    }
 }

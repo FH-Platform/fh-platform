@@ -21,7 +21,7 @@ trait DecoratorIndexTrait
         return $mapping;
     }
 
-    public function getIndexMappingItem(Index $index, array $mappingItem, string $mappingItemKey, ?string $mappingItemType): array
+    public function getIndexMappingItem(Index $index, mixed $mappingItem, mixed $mappingItemKey, mixed $mappingItemType): mixed
     {
         return $mappingItem;
     }

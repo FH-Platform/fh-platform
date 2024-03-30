@@ -42,6 +42,7 @@ use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -59,7 +60,7 @@ class Builder implements BuilderInterface
         $this->buildMessageDispatcher();
         $this->buildEventDispatcher();
         $this->buildConfig();
-        $this->buildFilter();
+        $this->buildFilterToDsl();
     }
 
     public function buildSearchEngine(): void
@@ -201,7 +202,7 @@ class Builder implements BuilderInterface
         ]);
     }
 
-    public function buildFilter(): void
+    public function buildFilterToDsl(): void
     {
         $container = $this->container;
 
@@ -213,6 +214,12 @@ class Builder implements BuilderInterface
                 '$applicatorConverters' => new TaggedIteratorArgument('fh_platform.filter.applicator'),
                 '$filterConverters' => new TaggedIteratorArgument('fh_platform.filter.filter'),
             ]);
+
+        /*$container->setResources([
+            //new DirectoryResource('src/Component/FilterToEsDsl/src/Converter/FilterToEsDsl/'),
+            new DirectoryResource('src/Component/FilterToEsDsl/src/Converter/Applicator/'),
+            //
+        ])->autowire(true)->setAutoconfigured(true)->setPublic(true);*/
     }
 
     public function buildDoctrineToEs(): void
