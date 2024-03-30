@@ -4,8 +4,8 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
+use FHPlatform\Bundle\SymfonyBridgeBundle\Message\EntitiesChangedMessageHandlerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageHandlerSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
@@ -121,7 +121,7 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         // register message handler
-        $container->register(MessageHandlerSymfony::class)
+        $container->register(EntitiesChangedMessageHandlerSymfony::class)
             ->setAutoconfigured(true)
             ->addTag('messenger.message_handler')
             ->setArguments([
