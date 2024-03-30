@@ -3,8 +3,10 @@
 namespace FHPlatform\Component\Persistence\Manager;
 
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
+use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
 
 class EventManager
 {
@@ -15,6 +17,7 @@ class EventManager
 
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly MessageDispatcherInterface $dispatcher,
     ) {
     }
 
@@ -59,7 +62,10 @@ class EventManager
     public function dispatch(): void
     {
         if (count($this->changedEntities)) {
-            $this->eventDispatcher->dispatch(new ChangedEntitiesEvent($this->changedEntities));
+            $event = new ChangedEntitiesEvent($this->changedEntities);
+
+            $this->dispatcher->dispatch(new EntitiesChangedMessage($event));
+            $this->eventDispatcher->dispatch($event);
 
             // reset var
             $this->changedEntities = [];
