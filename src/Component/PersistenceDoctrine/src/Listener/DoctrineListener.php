@@ -11,9 +11,10 @@ use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\EventHelper;
+use FHPlatform\Component\Persistence\Persistence\PersistenceListenerInterface;
 use FHPlatform\Component\PersistenceDoctrine\Persistence\PersistenceDoctrine;
 
-class DoctrineListener
+class DoctrineListener implements PersistenceListenerInterface
 {
     protected array $eventsRemove = [];
 
@@ -72,8 +73,7 @@ class DoctrineListener
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
             // we must dispatch PreDeleteEntity immediately, because related entities for deleted entity can be fetched only at this point not later on postRemove
-            $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE, $changedFields);
-            $this->eventHelper->eventFlush();
+            $this->eventPreDelete($className, $identifierValue, $changedFields);
 
             return;
         }
@@ -89,6 +89,33 @@ class DoctrineListener
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
         }
 
-        $this->eventHelper->addEntity($className, $identifierValue, $type, $changedFields);
+        if($args instanceof PostPersistEventArgs){
+            $this->eventPostCreate($className, $identifierValue, $changedFields);
+        }elseif ($args instanceof  PostUpdateEventArgs){
+            $this->eventPostUpdate($className, $identifierValue, $changedFields);
+        }elseif ($args instanceof  PostRemoveEventArgs){
+            $this->eventPostDelete($className, $identifierValue, $changedFields);
+        }
+    }
+
+    public function eventPostCreate(string $className, mixed $identifierValue, array $changedFields): void
+    {
+        $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_CREATE, $changedFields);
+    }
+
+    public function eventPostUpdate(string $className, mixed $identifierValue, array $changedFields): void
+    {
+        $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE, $changedFields);
+    }
+
+    public function eventPostDelete(string $className, mixed $identifierValue, array $changedFields): void
+    {
+        $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE, $changedFields);
+    }
+
+    public function eventPreDelete(string $className, mixed $identifierValue, array $changedFields): void
+    {
+        $this->eventHelper->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE, $changedFields);
+        $this->eventHelper->eventFlush();
     }
 }
