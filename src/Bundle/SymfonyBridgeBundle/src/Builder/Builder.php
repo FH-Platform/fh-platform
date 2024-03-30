@@ -4,6 +4,7 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
+use FHPlatform\Bundle\SymfonyBridgeBundle\EventListener\KernelEventListener;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\EntitiesChangedMessageHandlerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
@@ -51,12 +52,23 @@ class Builder implements BuilderInterface
     {
         $this->container = $container;
 
+        $this->buildFramework();
         $this->buildSearchEngine();
         $this->buildPersistence();
         $this->buildMessageDispatcher();
         $this->buildEventDispatcher();
         $this->buildConfig();
         $this->buildFilterToDsl();
+    }
+
+    public function buildFramework(): void
+    {
+        $container = $this->container;
+
+        $container
+            ->register(KernelEventListener::class)
+            ->setAutowired(true)
+            ->setAutoconfigured(true);
     }
 
     public function buildSearchEngine(): void

@@ -18,7 +18,7 @@ class EqualsFilter implements FilterInterface
     {
         $matchQuery = new MatchQuery();
         $matchQuery->setField($field, $value);
-        $query->addMust($matchQuery);
+        $query->addShould($matchQuery);
 
         return $query;
     }
