@@ -22,6 +22,7 @@ class DataManager
         $this->syncDocuments($documents);
     }
 
+    // TODO send only ids + data + type (store that for later update if update fails)
     /** @param Document[] $documents */
     public function syncDocuments(array $documents): void
     {
