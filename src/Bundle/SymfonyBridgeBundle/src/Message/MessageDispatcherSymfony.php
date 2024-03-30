@@ -3,7 +3,6 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Message;
 
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
-use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
 
@@ -14,7 +13,7 @@ class MessageDispatcherSymfony implements MessageDispatcherInterface
     ) {
     }
 
-    public function dispatch(EntitiesChangedMessage $message, bool $sync = false): void
+    public function dispatch($message, bool $sync = false): void
     {
         $config = [];
         if ($sync) {
