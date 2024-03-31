@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider;
 
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity\User;
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class UserProvider extends ProviderEntity
 {
@@ -17,11 +17,11 @@ class UserProvider extends ProviderEntity
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['id'] = $entity->getId();
-        $data['nameString'] = $entity->getNameString();
+        $data['testString'] = $entity->getTestString();
 
         $role = $entity->getRoles()->first();
         if ($role) {
-            $data['role'] = $role->getNameString();
+            $data['role'] = $role->getTestString();
         }
 
         return $data;
@@ -30,7 +30,7 @@ class UserProvider extends ProviderEntity
     public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['id'] = ['type' => 'int'];
-        $mapping['nameString'] = ['type' => 'text'];
+        $mapping['testString'] = ['type' => 'text'];
         $mapping['role'] = ['type' => 'text'];
 
         return $mapping;

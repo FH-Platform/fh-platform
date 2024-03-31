@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -15,38 +13,20 @@ class Role
     public ?int $id = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
-    private ?string $nameString = '';
-
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles')]
-    private Collection $users;
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
+    private ?string $testString = '';
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNameString(): ?string
+    public function getTestString(): ?string
     {
-        return $this->nameString;
+        return $this->testString;
     }
 
-    public function setNameString(?string $nameString): void
+    public function setTestString(?string $testString): void
     {
-        $this->nameString = $nameString;
-    }
-
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function setUsers(Collection $users): void
-    {
-        $this->users = $users;
+        $this->testString = $testString;
     }
 }

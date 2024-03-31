@@ -10,8 +10,8 @@ doctrine:
     orm:
         mappings:
             Test:
-                dir: '%kernel.project_dir%/'
-                prefix: 'FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity'
+                dir: 'src/Component/DoctrineToEs/tests/Util/Entity'
+                prefix: 'FHPlatform\Component\DoctrineToEs\Tests\Util\Entity'
 
 services:
     _defaults:

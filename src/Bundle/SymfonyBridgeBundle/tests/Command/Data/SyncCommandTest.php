@@ -3,11 +3,11 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Command\Data;
 
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\Entity\User;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\UserProvider;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
@@ -47,7 +47,7 @@ class SyncCommandTest extends TestCase
     {
         for ($i = 0; $i < 2; ++$i) {
             $user = new User();
-            $user->setNameString('name_'.random_int(1, 10000));
+            $user->setTestString('test_'.random_int(1, 10000));
             $this->entityManager->persist($user);
         }
 

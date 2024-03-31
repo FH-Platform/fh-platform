@@ -4,7 +4,6 @@ namespace App\Console;
 
 use App\Entity\Role;
 use App\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,11 +23,11 @@ class SeedCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $role = new Role();
-        $role->setNameString('first');
+        $role->setTestString('first');
         $this->entityManager->persist($role);
 
         $role2 = new Role();
-        $role2->setNameString('second');
+        $role2->setTestString('second');
         $this->entityManager->persist($role2);
 
         $this->entityManager->flush();
@@ -37,10 +36,7 @@ class SeedCommand extends Command
 
         for ($i = 0; $i < 10; ++$i) {
             $user = new User();
-            $user->setNameString('name_string_'.Uuid::uuid1());
-            $user->setNameText('name_text_'.Uuid::uuid1());
-
-            $user->setRoles(new ArrayCollection($roles[random_int(0, 2)]));
+            $user->setTestString('name_string_'.Uuid::uuid1());
 
             $this->entityManager->persist($user);
         }
