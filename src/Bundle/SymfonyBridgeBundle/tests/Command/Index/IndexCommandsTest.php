@@ -15,6 +15,7 @@ class IndexCommandsTest extends TestCase
 {
     protected function setUp(): void
     {
+        // TODO
         ConfigProvider::$includedClasses = [
             ProviderDefault::class,
             TestProvider::class,

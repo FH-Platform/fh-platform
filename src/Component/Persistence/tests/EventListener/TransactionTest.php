@@ -3,12 +3,9 @@
 namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
-use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
-use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProvider;
 
 class TransactionTest extends TestCase
 {

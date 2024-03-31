@@ -3,26 +3,13 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Command\Data;
 
 use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\TestCase;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Tests\Util\FHPlatform\Config\Provider\UserProvider;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class SyncCommandTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        ConfigProvider::$includedClasses = [
-            ProviderDefault::class,
-            UserProvider::class,
-        ];
-
-        parent::setUp();
-    }
-
     public function testSomething(): void
     {
         /** @var ConnectionsBuilder $connectionsBuilder */
