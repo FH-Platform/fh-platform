@@ -2,7 +2,9 @@
 
 namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
@@ -17,20 +19,29 @@ class ManualUpdateTest extends TestCase
         /** @var ConnectionsBuilder $connectionsBuilder */
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
 
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
+        $this->indexClient->recreateIndex($connectionsBuilder->fetchIndexesByClassName(User::class)[0]);
+        $this->indexClient->recreateIndex($connectionsBuilder->fetchIndexesByClassName(Role::class)[0]);
 
-        $this->indexClient->recreateIndex($index);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(0, $this->findEsBy(Role::class, 'user.testString', 'test'));
 
         // delete
+        $role = new Role();
+        $this->save([$role]);
+
         $user = new User();
         $user->setTestString('test');
+        $user->addRole($role);
         $this->save([$user]);
+
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(1, $this->findEsBy(Role::class, 'users.testString', 'test'));
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(1, $this->findEsBy(Role::class, 'users.testString', 'test'));
         $eventManager->syncEntitiesManually(User::class, [1]);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(0, $this->findEsBy(Role::class, 'users.testString', 'test'));
 
         // update
         $user = new User();

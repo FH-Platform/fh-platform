@@ -14,28 +14,13 @@ class RoleProvider extends ProviderEntity
         return Role::class;
     }
 
-    /** @param Role $entity */
-    public function getEntityData(Index $index, mixed $entity, array $data): array
+    public function getConfigAdditional(Index $index, array $config): array
     {
-        $data['id'] = $entity->getId();
-        $data['testString'] = $entity->gettestString();
-        $data['testString2'] = '1111';
+        $config['doctrine_to_es'] =
+            [
+                'users' => [],
+            ];
 
-        return $data;
-    }
-
-    public function getIndexMapping(Index $index, array $mapping): array
-    {
-        $mapping['id'] = ['type' => 'int'];
-        $mapping['testString'] = ['type' => 'text'];
-        $mapping['testString2'] = ['type' => 'text'];
-
-        return $mapping;
-    }
-
-    /** @param Role $entity */
-    public function getEntityRelatedEntities(Connection $connection, mixed $entity, string $type, array $changedFields, array $entitiesRelated): array
-    {
-        return $entity->getUsers()->toArray();
+        return $config;
     }
 }
