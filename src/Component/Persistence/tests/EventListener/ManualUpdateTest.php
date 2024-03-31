@@ -28,7 +28,7 @@ class ManualUpdateTest extends TestCase
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertCount(0, $this->findEsBy(Role::class, 'user.testString', 'test'));
 
-        // delete
+        // manual delete
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
@@ -50,32 +50,32 @@ class ManualUpdateTest extends TestCase
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
-        // update
-        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
-        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
+        // manual update
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
 
         $role = new Role();
         $this->save([$role]);
 
         $user = new User();
-        $user->setTestString('test');
+        $user->setTestString('test2');
         $user->addRole($role);
         $this->save([$user]);
 
-        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test'));
-        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $this->entityManager->createQuery('UPDATE '.User::class." e SET e.testString = 'test2' WHERE e.id = 2")->execute();
-        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test'));
-        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
-        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
-        $eventManager->syncEntitiesManually([User::class => [2]]);
         $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2'));
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
-        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
-        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
+        $this->entityManager->createQuery('UPDATE '.User::class." e SET e.testString = 'test2_2' WHERE e.id = 2")->execute();
+        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2_2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
+        $eventManager->syncEntitiesManually([User::class => [2]]);
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
+        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2_2'));
+        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
 
-        // create
+        // manual create
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test3'));
         $this->entityManager->getConnection()->insert('user', [

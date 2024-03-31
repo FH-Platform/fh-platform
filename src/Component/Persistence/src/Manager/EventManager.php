@@ -23,6 +23,9 @@ class EventManager
 
     protected array $changedEntities = [];
 
+    protected bool $transactionStarted = false;
+    protected array $changedEntitiesTransaction = [];
+
     public function eventPostCreateEntity(string $className, mixed $identifierValue): void
     {
         $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_CREATE);
@@ -92,6 +95,20 @@ class EventManager
 
         $this->changedEntities[$hash] = $changedEntity;
 
+        if ($this->transactionStarted) {
+            $this->changedEntitiesTransaction[$className][] = $identifierValue;
+        }
+
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
+    }
+
+    public function beginTransaction(): void
+    {
+        $this->transactionStarted = true;
+    }
+
+    public function rollBack(): void
+    {
+        $this->syncEntitiesManually($this->changedEntitiesTransaction);
     }
 }

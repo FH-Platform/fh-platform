@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
@@ -23,36 +24,60 @@ class TransactionTest extends TestCase
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
 
-        // delete
+        // transaction rollback delete
+        $role = new Role();
+        $role->setTestString('test');
+        $this->save([$role]);
+
         $user = new User();
         $user->setTestString('test');
+        $user->addRole($role);
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
+
+        $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
+        $eventManager->beginTransaction();
         $this->entityManager->getConnection()->beginTransaction();
         $this->entityManager->remove($user);
+        dump(1111);
         $this->entityManager->flush();
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
-        $eventManager->syncEntitiesManually([User::class => [1]]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
+        $eventManager->rollBack();
+        $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
-        // update
+        // transaction rollback update
+        $role = new Role();
+        $role->setTestString('test2');
+        $this->save([$role]);
+
         $user = new User();
-        $user->setTestString('test');
+        $user->addRole($role);
+        $user->setTestString('test2');
         $this->save([$user]);
 
+        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $this->entityManager->getConnection()->beginTransaction();
-        $user->setTestString('test2');
+        $eventManager->beginTransaction();
+        $user->setTestString('test2_2');
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2_2'));
+        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2_2'));
+        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
         $eventManager->syncEntitiesManually([User::class => [2]]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
+        $eventManager->rollBack();
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2_2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
 
-        // create
+        // transaction rollback create
         $this->entityManager->getConnection()->beginTransaction();
         $user = new User();
         $user->setTestString('test3');
