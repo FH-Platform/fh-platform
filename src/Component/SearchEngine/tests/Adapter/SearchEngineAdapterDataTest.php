@@ -5,12 +5,12 @@ namespace FHPlatform\Component\SearchEngine\Tests\Adapter;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
-use FHPlatform\Component\SearchEngine\Tests\Util\Entity\Role;
-use FHPlatform\Component\SearchEngine\Tests\Util\Entity\User;
 
 class SearchEngineAdapterDataTest extends TestCase
 {
@@ -21,13 +21,13 @@ class SearchEngineAdapterDataTest extends TestCase
 
         // prepare entities
         $user = new User();
-        $user->setNameString('test');
+        $user->setTestString('test');
 
         $user2 = new User();
-        $user2->setNameString('test2');
+        $user2->setTestString('test2');
 
         $user3 = new User();
-        $user3->setNameString('test3');
+        $user3->setTestString('test3');
 
         $this->save([$user, $user2, $user3]);
 
