@@ -13,20 +13,6 @@ class UserProvider extends ProviderEntity
         return User::class;
     }
 
-    /** @param User $entity */
-    public function getEntityData(Index $index, mixed $entity, array $data): array
-    {
-        $data['id'] = $entity->getId();
-        $data['testString'] = $entity->gettestString();
-
-        $role = $entity->getRoles()->first();
-        if ($role) {
-            $data['role'] = $role->gettestString();
-        }
-
-        return $data;
-    }
-
     public function getConfigAdditional(Index $index, array $config): array
     {
         $config['doctrine_to_es'] =

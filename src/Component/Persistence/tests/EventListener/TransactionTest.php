@@ -12,16 +12,6 @@ use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserP
 
 class TransactionTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        ConfigProvider::$includedClasses = [
-            ProviderDefault::class,
-            UserProvider::class,
-        ];
-
-        parent::setUp();
-    }
-
     public function testSomething(): void
     {
         /** @var EventManager $eventManager */
