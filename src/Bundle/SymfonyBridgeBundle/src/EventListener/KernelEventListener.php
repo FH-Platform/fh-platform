@@ -24,6 +24,6 @@ class KernelEventListener implements EventSubscriberInterface
     {
         $this->eventManager->eventRequestFinished();
 
-        dump('onKernelFinishRequest');
+        //dump('onKernelFinishRequest');
     }
 }

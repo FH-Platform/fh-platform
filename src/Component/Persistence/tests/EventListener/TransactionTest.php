@@ -39,7 +39,6 @@ class TransactionTest extends TestCase
         $eventManager->beginTransaction();
         $this->entityManager->getConnection()->beginTransaction();
         $this->entityManager->remove($user);
-        dump(1111);
         $this->entityManager->flush();
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
@@ -72,20 +71,24 @@ class TransactionTest extends TestCase
         $this->entityManager->getConnection()->rollBack();
         $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2_2'));
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
-        $eventManager->syncEntitiesManually([User::class => [2]]);
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $eventManager->rollBack();
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2_2'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
+        $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
 
         // transaction rollback create
         $this->entityManager->getConnection()->beginTransaction();
+        $eventManager->beginTransaction();
         $user = new User();
         $user->setTestString('test3');
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
+        $this->assertEquals([3], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
-        $eventManager->syncEntitiesManually([User::class => [3]]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test3'));
+        $this->assertEquals([3], $this->findEsBy(User::class, 'testString', 'test3'));
+        $eventManager->rollBack();
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
     }
 }

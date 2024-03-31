@@ -2,11 +2,14 @@
 
 namespace FHPlatform\Component\Persistence\Manager;
 
+use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
+use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
+use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EventManager
 {
@@ -16,15 +19,21 @@ class EventManager
     private string $type = 'flush'; // TYPE_FLUSH, TYPE_REQUEST_FINISHED
 
     public function __construct(
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly EventDispatcherInterface   $eventDispatcher,
         private readonly MessageDispatcherInterface $dispatcher,
-    ) {
+        private readonly EntitiesRelatedBuilder     $entitiesRelatedBuilder,
+        private readonly PersistenceInterface       $persistence,
+        private readonly ConnectionsBuilder         $connectionsBuilder,
+    )
+    {
     }
 
     protected array $changedEntities = [];
 
     protected bool $transactionStarted = false;
-    protected array $changedEntitiesTransaction = [];
+    protected array $transactionEntities = [];
+
+    private array $preDeleteEntities = [];
 
     public function eventPostCreateEntity(string $className, mixed $identifierValue): void
     {
@@ -43,8 +52,9 @@ class EventManager
 
     public function eventPreDeleteEntity(string $className, mixed $identifierValue): void
     {
-        $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE);
-        $this->eventFlush();
+        //TODO
+        $connection = $this->connectionsBuilder->build()[0];
+        $this->preDeleteEntities = $this->entitiesRelatedBuilder->buildForEntity($connection, $this->persistence->refreshByClassNameId($className, $identifierValue));
     }
 
     public function eventFlush(): void
@@ -56,15 +66,20 @@ class EventManager
 
     public function eventRequestFinished(): void
     {
-        // TODO
         if (self::TYPE_REQUEST_FINISHED === $this->type) {
             $this->dispatch();
         }
     }
 
-    public function dispatch(): void
+    public function dispatch(bool $sync = false): void
     {
-        if (count($this->changedEntities)) {
+        if (count($this->preDeleteEntities)> 0) {
+            $preDeleteEntities = $this->preDeleteEntities;
+            $this->preDeleteEntities = [];
+            $this->syncEntitiesManually($preDeleteEntities);
+        }
+
+        if (count($this->changedEntities) > 0) {
             $event = new ChangedEntitiesEvent($this->changedEntities);
 
             // TODO detect instant sync
@@ -90,13 +105,13 @@ class EventManager
     private function addEntity(string $className, mixed $identifierValue, $type, $changedFields = []): void
     {
         // make changes unique
-        $hash = $className.'_'.$identifierValue;
+        $hash = $className . '_' . $identifierValue;
         $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
 
         $this->changedEntities[$hash] = $changedEntity;
 
         if ($this->transactionStarted) {
-            $this->changedEntitiesTransaction[$className][] = $identifierValue;
+            $this->transactionEntities[$className][] = $identifierValue;
         }
 
         // TODO when there are more updates merge changedFields, or when is delete remove all updates
@@ -109,6 +124,6 @@ class EventManager
 
     public function rollBack(): void
     {
-        $this->syncEntitiesManually($this->changedEntitiesTransaction);
+        $this->syncEntitiesManually($this->transactionEntities);
     }
 }
