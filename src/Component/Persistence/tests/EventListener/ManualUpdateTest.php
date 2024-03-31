@@ -25,9 +25,6 @@ class ManualUpdateTest extends TestCase
         $this->indexClient->recreateIndex($connectionsBuilder->fetchIndexesByClassName(User::class)[0]);
         $this->indexClient->recreateIndex($connectionsBuilder->fetchIndexesByClassName(Role::class)[0]);
 
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
-        $this->assertCount(0, $this->findEsBy(Role::class, 'user.testString', 'test'));
-
         // manual delete
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
@@ -78,6 +75,7 @@ class ManualUpdateTest extends TestCase
         // manual create
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test3'));
+
         $this->entityManager->getConnection()->insert('user', [
             'testString' => 'test3',
         ]);

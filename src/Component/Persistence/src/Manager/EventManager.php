@@ -19,13 +19,12 @@ class EventManager
     private string $type = 'flush'; // TYPE_FLUSH, TYPE_REQUEST_FINISHED
 
     public function __construct(
-        private readonly EventDispatcherInterface   $eventDispatcher,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly MessageDispatcherInterface $dispatcher,
-        private readonly EntitiesRelatedBuilder     $entitiesRelatedBuilder,
-        private readonly PersistenceInterface       $persistence,
-        private readonly ConnectionsBuilder         $connectionsBuilder,
-    )
-    {
+        private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
+        private readonly PersistenceInterface $persistence,
+        private readonly ConnectionsBuilder $connectionsBuilder,
+    ) {
     }
 
     protected array $changedEntities = [];
@@ -52,7 +51,7 @@ class EventManager
 
     public function eventPreDeleteEntity(string $className, mixed $identifierValue): void
     {
-        //TODO
+        // TODO
         $connection = $this->connectionsBuilder->build()[0];
         $this->preDeleteEntities = $this->entitiesRelatedBuilder->buildForEntity($connection, $this->persistence->refreshByClassNameId($className, $identifierValue));
     }
@@ -73,7 +72,7 @@ class EventManager
 
     public function dispatch(bool $sync = false): void
     {
-        if (count($this->preDeleteEntities)> 0) {
+        if (count($this->preDeleteEntities) > 0) {
             $preDeleteEntities = $this->preDeleteEntities;
             $this->preDeleteEntities = [];
             $this->syncEntitiesManually($preDeleteEntities);
@@ -105,7 +104,7 @@ class EventManager
     private function addEntity(string $className, mixed $identifierValue, $type, $changedFields = []): void
     {
         // make changes unique
-        $hash = $className . '_' . $identifierValue;
+        $hash = $className.'_'.$identifierValue;
         $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
 
         $this->changedEntities[$hash] = $changedEntity;

@@ -18,13 +18,13 @@ class TransactionTest extends TestCase
         /** @var ConnectionsBuilder $connectionsBuilder */
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);
 
-        $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
-
-        $this->indexClient->recreateIndex($index);
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->indexClient->recreateIndex($connectionsBuilder->fetchIndexesByClassName(User::class)[0]);
+        $this->indexClient->recreateIndex($connectionsBuilder->fetchIndexesByClassName(Role::class)[0]);
 
         // transaction rollback delete
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
+
         $role = new Role();
         $role->setTestString('test');
         $this->save([$role]);
@@ -50,6 +50,9 @@ class TransactionTest extends TestCase
         $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
         // transaction rollback update
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
+
         $role = new Role();
         $role->setTestString('test2');
         $this->save([$role]);
@@ -80,6 +83,7 @@ class TransactionTest extends TestCase
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
 
         // transaction rollback create
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->entityManager->getConnection()->beginTransaction();
         $eventManager->beginTransaction();
         $user = new User();
