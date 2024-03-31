@@ -77,12 +77,19 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->getConnection()->insert('user', [
             'testString' => 'test3',
         ]);
+        $this->entityManager->getConnection()->insert('role', [
+            'testString' => 'test3',
+        ]);
+        $this->entityManager->getConnection()->insert('user_role', [
+            'user_id' => 3,
+            'role_id' => 3,
+        ]);
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test3'));
         $eventManager->syncEntitiesManually([User::class => [3]]);
         $this->assertEquals([3], $this->findEsBy(User::class, 'testString', 'test3'));
 
         //TODO
-        $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test3'));
+        $this->assertEquals([3], $this->findEsBy(Role::class, 'users.testString', 'test3'));
     }
 }
