@@ -67,9 +67,13 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->createQuery('UPDATE '.User::class." e SET e.testString = 'test2' WHERE e.id = 2")->execute();
         $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $eventManager->syncEntitiesManually([User::class => [2]]);
         $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2'));
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
+        $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
         // create
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
@@ -88,8 +92,6 @@ class ManualUpdateTest extends TestCase
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test3'));
         $eventManager->syncEntitiesManually([User::class => [3]]);
         $this->assertEquals([3], $this->findEsBy(User::class, 'testString', 'test3'));
-
-        //TODO
         $this->assertEquals([3], $this->findEsBy(Role::class, 'users.testString', 'test3'));
     }
 }
