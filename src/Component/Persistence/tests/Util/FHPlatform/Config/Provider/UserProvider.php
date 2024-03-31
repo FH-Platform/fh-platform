@@ -27,12 +27,13 @@ class UserProvider extends ProviderEntity
         return $data;
     }
 
-    public function getIndexMapping(Index $index, array $mapping): array
+    public function getConfigAdditional(Index $index, array $config): array
     {
-        $mapping['id'] = ['type' => 'int'];
-        $mapping['testString'] = ['type' => 'text'];
-        $mapping['role'] = ['type' => 'text'];
+        $config['doctrine_to_es'] =
+            [
+                'roles' => [],
+            ];
 
-        return $mapping;
+        return $config;
     }
 }
