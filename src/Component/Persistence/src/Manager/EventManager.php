@@ -16,9 +16,10 @@ class EventManager
     private string $type = 'flush'; // TYPE_FLUSH, TYPE_REQUEST_FINISHED
 
     public function __construct(
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly EventDispatcherInterface   $eventDispatcher,
         private readonly MessageDispatcherInterface $dispatcher,
-    ) {
+    )
+    {
     }
 
     protected array $changedEntities = [];
@@ -87,7 +88,7 @@ class EventManager
     private function addEntity(string $className, mixed $identifierValue, $type, $changedFields = []): void
     {
         // make changes unique
-        $hash = $className.'_'.$identifierValue;
+        $hash = $className . '_' . $identifierValue;
         $changedEntity = new ChangedEntity($className, $identifierValue, $type, $changedFields);
 
         $this->changedEntities[$hash] = $changedEntity;
