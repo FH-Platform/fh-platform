@@ -38,7 +38,6 @@ class DoctrineListenerMoreDifferentTest extends TestCase
 
         list($key, $key2, $key3) = array_keys($entities);
 
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $value3 = $entities[$key3];
@@ -77,7 +76,6 @@ class DoctrineListenerMoreDifferentTest extends TestCase
 
         list($key, $key2, $key3) = array_keys($entities);
 
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $value3 = $entities[$key3];
@@ -115,7 +113,6 @@ class DoctrineListenerMoreDifferentTest extends TestCase
 
         list($key, $key2, $key3) = array_keys($entities);
 
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $value3 = $entities[$key3];

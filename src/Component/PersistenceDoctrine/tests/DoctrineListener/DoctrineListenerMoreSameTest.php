@@ -33,7 +33,6 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         list($key, $key2) = array_keys($entities);
 
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $this->assertEquals(User::class.'_1', $key);
@@ -65,7 +64,6 @@ class DoctrineListenerMoreSameTest extends TestCase
 
         list($key, $key2) = array_keys($entities);
 
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $this->assertEquals(User::class.'_1', $key);
@@ -95,8 +93,7 @@ class DoctrineListenerMoreSameTest extends TestCase
         $this->assertCount(2, $entities);
 
         list($key, $key2) = array_keys($entities);
-
-        /** @var ChangedEntity $value */
+        S
         $value = $entities[$key];
         $value2 = $entities[$key2];
         $this->assertEquals(User::class.'_1', $key);

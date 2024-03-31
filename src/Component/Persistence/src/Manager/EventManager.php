@@ -52,8 +52,11 @@ class EventManager
     public function eventPreDeleteEntity(string $className, mixed $identifierValue): void
     {
         // TODO
-        $connection = $this->connectionsBuilder->build()[0];
-        $this->preDeleteEntities = $this->entitiesRelatedBuilder->buildForEntity($connection, $this->persistence->refreshByClassNameId($className, $identifierValue));
+        $connection = $this->connectionsBuilder->build()[0] ?? null;
+
+        if ($connection) {
+            $this->preDeleteEntities = $this->entitiesRelatedBuilder->buildForEntity($connection, $this->persistence->refreshByClassNameId($className, $identifierValue));
+        }
     }
 
     public function eventFlush(): void

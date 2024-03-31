@@ -28,7 +28,6 @@ class DoctrineListenerUuidTest extends TestCase
         $entities = $event->getChangedEntities();
         $this->assertCount(1, $entities);
         $key = array_key_first($entities);
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $this->assertEquals(UserUuid::class.'_'.$id, $key);
         $this->assertEquals($id, $value->getIdentifier());
@@ -46,7 +45,6 @@ class DoctrineListenerUuidTest extends TestCase
         $entities = $event->getChangedEntities();
         $this->assertCount(1, $entities);
         $key = array_key_first($entities);
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $this->assertEquals(UserUuid::class.'_'.$id, $key);
         $this->assertEquals($id, $value->getIdentifier());
@@ -59,13 +57,12 @@ class DoctrineListenerUuidTest extends TestCase
         $this->assertCount(0, $this->eventsGet(ChangedEntitiesEvent::class));
         $this->entityManager->remove($user);
         $this->entityManager->flush();
-        $this->assertCount(2, $this->eventsGet(ChangedEntitiesEvent::class));
+        $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
-        $event = $this->eventsGet(ChangedEntitiesEvent::class)[1];
+        $event = $this->eventsGet(ChangedEntitiesEvent::class)[0];
         $entities = $event->getChangedEntities();
         $this->assertCount(1, $entities);
         $key = array_key_first($entities);
-        /** @var ChangedEntity $value */
         $value = $entities[$key];
         $this->assertEquals(UserUuid::class.'_'.$id, $key);
         $this->assertEquals($id, $value->getIdentifier());
