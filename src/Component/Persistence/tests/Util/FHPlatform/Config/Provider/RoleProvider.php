@@ -3,7 +3,6 @@
 namespace FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider;
 
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
-use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 

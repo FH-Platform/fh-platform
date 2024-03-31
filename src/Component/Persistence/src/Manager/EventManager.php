@@ -73,10 +73,12 @@ class EventManager
         }
     }
 
-    public function syncEntitiesManually(string $className, array $identifierValues): void
+    public function syncEntitiesManually(array $entities): void
     {
-        foreach ($identifierValues as $identifierValue) {
-            $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE);
+        foreach ($entities as $className => $identifierValues) {
+            foreach ($identifierValues as $identifierValue) {
+                $this->addEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE);
+            }
         }
 
         $this->dispatch();

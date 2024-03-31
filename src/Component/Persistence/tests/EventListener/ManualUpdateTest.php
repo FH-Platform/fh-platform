@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
@@ -39,7 +38,7 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertCount(1, $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $eventManager->syncEntitiesManually(User::class, [1]);
+        $eventManager->syncEntitiesManually([User::class => [1]]);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertCount(0, $this->findEsBy(Role::class, 'users.testString', 'test'));
 
@@ -52,7 +51,7 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->createQuery('UPDATE '.User::class." e SET e.testString = 'test2' WHERE e.id = 2")->execute();
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
-        $eventManager->syncEntitiesManually(User::class, [2]);
+        $eventManager->syncEntitiesManually([User::class => [2]]);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
 
@@ -62,7 +61,7 @@ class ManualUpdateTest extends TestCase
             'testString' => 'test3',
         ]);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test3'));
-        $eventManager->syncEntitiesManually(User::class, [3]);
+        $eventManager->syncEntitiesManually([User::class => [3]]);
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
     }
 }

@@ -34,7 +34,7 @@ class TransactionTest extends TestCase
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $this->entityManager->getConnection()->rollBack();
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
-        $eventManager->syncEntitiesManually(User::class, [1]);
+        $eventManager->syncEntitiesManually([User::class => [1]]);
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
 
         // update
@@ -49,7 +49,7 @@ class TransactionTest extends TestCase
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
         $this->entityManager->getConnection()->rollBack();
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
-        $eventManager->syncEntitiesManually(User::class, [2]);
+        $eventManager->syncEntitiesManually([User::class => [2]]);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
 
         // create
@@ -60,7 +60,7 @@ class TransactionTest extends TestCase
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
         $this->entityManager->getConnection()->rollBack();
         $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
-        $eventManager->syncEntitiesManually(User::class, [3]);
+        $eventManager->syncEntitiesManually([User::class => [3]]);
         $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test3'));
     }
 }

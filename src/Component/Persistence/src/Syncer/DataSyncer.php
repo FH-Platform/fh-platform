@@ -18,6 +18,6 @@ class DataSyncer
         $identifiers = $this->persistence->getAllIdentifierValues($className);
 
         // TODO temp index
-        $this->eventManager->syncEntitiesManually($className, $identifiers);
+        $this->eventManager->syncEntitiesManually([$className => $identifiers]);
     }
 }
