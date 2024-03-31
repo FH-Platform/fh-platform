@@ -37,11 +37,11 @@ class TransactionTest extends TestCase
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
 
         // delete
-        $this->entityManager->getConnection()->beginTransaction();
         $user = new User();
         $user->setNameString('test');
         $this->save([$user]);
         $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->entityManager->getConnection()->beginTransaction();
         $this->entityManager->remove($user);
         $this->entityManager->flush();
         $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
