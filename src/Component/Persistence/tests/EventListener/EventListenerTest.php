@@ -4,8 +4,8 @@ namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Tests\TestCase;
-use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProvider;
 
@@ -28,25 +28,25 @@ class EventListenerTest extends TestCase
         $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
 
         // create
         $user = new User();
-        $user->setNameString('test');
+        $user->setTestString('test');
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
 
         // update
-        $user->setNameString('test2');
+        $user->setTestString('test2');
         $this->save([$user]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
 
         // delete
         $this->delete([$user]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
     }
 }

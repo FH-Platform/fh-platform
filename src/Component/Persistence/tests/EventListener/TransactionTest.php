@@ -4,9 +4,9 @@ namespace FHPlatform\Component\Persistence\Tests\EventListener;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
-use FHPlatform\Component\Persistence\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Connections\ProviderDefault;
 use FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider\UserProvider;
 
@@ -33,47 +33,47 @@ class TransactionTest extends TestCase
         $index = $connectionsBuilder->fetchIndexesByClassName(User::class)[0];
 
         $this->indexClient->recreateIndex($index);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
 
         // delete
         $user = new User();
-        $user->setNameString('test');
+        $user->setTestString('test');
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
         $this->entityManager->getConnection()->beginTransaction();
         $this->entityManager->remove($user);
         $this->entityManager->flush();
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test'));
         $eventManager->syncEntitiesManually(User::class, [1]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test'));
 
         // update
         $user = new User();
-        $user->setNameString('test');
+        $user->setTestString('test');
         $this->save([$user]);
 
         $this->entityManager->getConnection()->beginTransaction();
-        $user->setNameString('test2');
+        $user->setTestString('test2');
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test2'));
         $eventManager->syncEntitiesManually(User::class, [2]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test2'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test2'));
 
         // create
         $this->entityManager->getConnection()->beginTransaction();
         $user = new User();
-        $user->setNameString('test3');
+        $user->setTestString('test3');
         $this->save([$user]);
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
         $this->entityManager->getConnection()->rollBack();
-        $this->assertCount(1, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $this->assertCount(1, $this->findEsBy(User::class, 'testString', 'test3'));
         $eventManager->syncEntitiesManually(User::class, [3]);
-        $this->assertCount(0, $this->findEsBy(User::class, 'nameString', 'test3'));
+        $this->assertCount(0, $this->findEsBy(User::class, 'testString', 'test3'));
     }
 }

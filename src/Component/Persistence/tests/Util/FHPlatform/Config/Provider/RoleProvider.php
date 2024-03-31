@@ -5,7 +5,7 @@ namespace FHPlatform\Component\Persistence\Tests\Util\FHPlatform\Config\Provider
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\Tests\Util\Entity\Role;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 
 class RoleProvider extends ProviderEntity
 {
@@ -18,8 +18,8 @@ class RoleProvider extends ProviderEntity
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         $data['id'] = $entity->getId();
-        $data['nameString'] = $entity->getNameString();
-        $data['nameString2'] = '1111';
+        $data['testString'] = $entity->gettestString();
+        $data['testString2'] = '1111';
 
         return $data;
     }
@@ -27,8 +27,8 @@ class RoleProvider extends ProviderEntity
     public function getIndexMapping(Index $index, array $mapping): array
     {
         $mapping['id'] = ['type' => 'int'];
-        $mapping['nameString'] = ['type' => 'text'];
-        $mapping['nameString2'] = ['type' => 'text'];
+        $mapping['testString'] = ['type' => 'text'];
+        $mapping['testString2'] = ['type' => 'text'];
 
         return $mapping;
     }
