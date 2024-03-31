@@ -2,10 +2,10 @@
 
 namespace FHPlatform\PersistenceDoctrine\DoctrineListener;
 
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
-use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 
 class DoctrineListenerBasicTest extends TestCase
 {
@@ -14,7 +14,7 @@ class DoctrineListenerBasicTest extends TestCase
         $this->eventsStartListen(ChangedEntitiesEvent::class);
 
         $user = new User();
-        $user->setNameString('name_string');
+        $user->setTestString('test_string');
         $this->entityManager->persist($user);
 
         // test persist
@@ -37,7 +37,7 @@ class DoctrineListenerBasicTest extends TestCase
         // test update
         $this->eventsClear(ChangedEntitiesEvent::class);
         $this->assertCount(0, $this->eventsGet(ChangedEntitiesEvent::class));
-        $user->setNameText('name_text');
+        $user->setTestString('test_string2');
         $this->entityManager->flush();
         $this->assertCount(1, $this->eventsGet(ChangedEntitiesEvent::class));
         /** @var ChangedEntitiesEvent $event */
@@ -51,7 +51,7 @@ class DoctrineListenerBasicTest extends TestCase
         $this->assertEquals(1, $value->getIdentifier());
         $this->assertEquals(ChangedEntity::TYPE_UPDATE, $value->getType());
         $this->assertEquals(User::class, $value->getClassName());
-        $this->assertEquals(['nameText'], $value->getChangedFields());
+        $this->assertEquals(['testString'], $value->getChangedFields());
 
         // test remove
         $this->eventsClear(ChangedEntitiesEvent::class);

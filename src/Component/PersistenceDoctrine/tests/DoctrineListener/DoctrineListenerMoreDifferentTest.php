@@ -2,11 +2,11 @@
 
 namespace FHPlatform\PersistenceDoctrine\DoctrineListener;
 
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
+use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
-use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\Role;
-use FHPlatform\Component\PersistenceDoctrine\Tests\Util\Entity\User;
 
 class DoctrineListenerMoreDifferentTest extends TestCase
 {
@@ -15,15 +15,15 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->eventsStartListen(ChangedEntitiesEvent::class);
 
         $user = new User();
-        $user->setNameString('name_string');
+        $user->setTestString('test_string');
         $this->entityManager->persist($user);
 
         $user2 = new User();
-        $user2->setNameString('name_string2');
+        $user2->setTestString('test_string2');
         $this->entityManager->persist($user2);
 
         $role = new Role();
-        $role->setNameString('name_string');
+        $role->setTestString('test_string');
         $this->entityManager->persist($role);
 
         // test persist
@@ -58,10 +58,10 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertEquals(Role::class, $value3->getClassName());
 
         // test update
-        $user->setNameString('name_string_1');
-        $user->setNameText('name_text_1');
-        $user2->setNameText('name_text2_1');
-        $role->setNameString('name_text2_3');
+        $user->setTestString('test_string_2');
+        $user->setTestText('test_text_2');
+        $user2->setTestText('test_text_2');
+        $role->setTestString('test_string_2');
         $this->entityManager->persist($user);
         $this->entityManager->persist($user2);
         $this->entityManager->persist($role);
@@ -95,9 +95,9 @@ class DoctrineListenerMoreDifferentTest extends TestCase
         $this->assertEquals(User::class, $value->getClassName());
         $this->assertEquals(User::class, $value2->getClassName());
         $this->assertEquals(Role::class, $value3->getClassName());
-        $this->assertEquals(['nameString', 'nameText'], $value->getChangedFields());
-        $this->assertEquals(['nameText'], $value2->getChangedFields());
-        $this->assertEquals(['nameString'], $value3->getChangedFields());
+        $this->assertEquals(['testString', 'testText'], $value->getChangedFields());
+        $this->assertEquals(['testText'], $value2->getChangedFields());
+        $this->assertEquals(['testString'], $value3->getChangedFields());
 
         // test delete
         $this->entityManager->remove($user);
