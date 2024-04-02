@@ -26,7 +26,7 @@ use FHPlatform\Component\FilterToEsDsl\FilterQuery;
 use FHPlatform\Component\FrameworkBridge\BuilderInterface;
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
-use FHPlatform\Component\Persistence\Manager\EventManager;
+use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
@@ -117,7 +117,7 @@ class Builder implements BuilderInterface
         // TODO
         // $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
-        $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(PersistenceEventDispatcher::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         // register each implementation
         if (DoctrinePersistence::class === $persistence) {

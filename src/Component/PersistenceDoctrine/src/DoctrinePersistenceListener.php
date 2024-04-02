@@ -9,15 +9,15 @@ use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
-use FHPlatform\Component\Persistence\Manager\EventManager;
+use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 
 class DoctrinePersistenceListener
 {
     protected array $eventsRemove = [];
 
     public function __construct(
-        private readonly DoctrinePersistence $persistenceDoctrine,
-        private readonly EventManager $eventManager,
+        private readonly DoctrinePersistence        $persistenceDoctrine,
+        private readonly PersistenceEventDispatcher $eventManager,
     ) {
     }
 
@@ -53,7 +53,7 @@ class DoctrinePersistenceListener
 
     public function postFlush(PostFlushEventArgs $args): void
     {
-        $this->eventManager->eventFlush();
+        $this->eventManager->dispatchFlush();
     }
 
     private function processEvent(PostPersistEventArgs|PostUpdateEventArgs|PostRemoveEventArgs|PreRemoveEventArgs $args): void
@@ -64,20 +64,20 @@ class DoctrinePersistenceListener
         $identifierValue = $this->persistenceDoctrine->getIdentifierValue($entity);
 
         if ($args instanceof PostPersistEventArgs) {
-            $this->eventManager->eventPostCreateEntity($className, $identifierValue);
+            $this->eventManager->dispatchPostCreateEntity($className, $identifierValue);
         } elseif ($args instanceof PostUpdateEventArgs) {
             $changedFields = array_keys($args->getObjectManager()->getUnitOfWork()->getEntityChangeSet($entity));
 
-            $this->eventManager->eventPostUpdateEntity($className, $identifierValue, $changedFields);
+            $this->eventManager->dispatchPostUpdateEntity($className, $identifierValue, $changedFields);
         } elseif ($args instanceof PostRemoveEventArgs) {
             $identifierValue = $this->eventsRemove[spl_object_id($entity)];
 
-            $this->eventManager->eventPostDeleteEntity($className, $identifierValue);
+            $this->eventManager->dispatchPostDeleteEntity($className, $identifierValue);
         } elseif ($args instanceof PreRemoveEventArgs) {
             // on pre remove store identifier, so that we can later trigger event with that identifier
             $this->eventsRemove[spl_object_id($entity)] = $identifierValue;
 
-            $this->eventManager->eventPreDeleteEntity($className, $identifierValue);
+            $this->eventManager->dispatchPreDeleteEntity($className, $identifierValue);
         }
     }
 }
