@@ -30,13 +30,13 @@ use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
-use FHPlatform\Component\PersistenceManager\EventListener\PersistenceEventListener;
+use FHPlatform\Component\EventManager\EventListener\PersistenceEventListener;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
-use FHPlatform\Component\Syncer\EventListener\PersistenceManagerEventListener;
+use FHPlatform\Component\Syncer\EventListener\EventManagerEventListener;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -70,12 +70,12 @@ class Builder implements BuilderInterface
             ->setAutoconfigured(true);
 
         $container
-            ->register(PersistenceManagerEventListener::class)
+            ->register(EventManagerEventListener::class)
             ->setPublic(true)
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->register(\FHPlatform\Component\PersistenceManager\Manager\EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(\FHPlatform\Component\EventManager\Manager\EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     public function buildSearchEngine(): void

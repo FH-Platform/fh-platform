@@ -1,10 +1,10 @@
 <?php
 
-namespace FHPlatform\PersistenceManager\DoctrineListener;
+namespace FHPlatform\EventManager\DoctrineListener;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
-use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
+use FHPlatform\Component\EventManager\Event\ChangedEntities;
 
 class BasicTest extends TestCase
 {

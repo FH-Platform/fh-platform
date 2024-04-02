@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\EventListener;
 
-use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 

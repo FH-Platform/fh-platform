@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Persistence\Message;
 
-use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
+use FHPlatform\Component\EventManager\Event\ChangedEntities;
 
 class SyncDocumentsMessage
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceManager\Tests\Util\App;
+namespace FHPlatform\Component\EventManager\Tests\Util\App;
 
 use FHPlatform\Bundle\TestsBundle\Tests\Util\BaseKernelTest;
 use Symfony\Component\Config\Loader\LoaderInterface;

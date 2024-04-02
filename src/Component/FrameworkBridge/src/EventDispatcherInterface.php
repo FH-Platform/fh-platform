@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\FrameworkBridge;
 
-use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
+use FHPlatform\Component\EventManager\Event\ChangedEntities;
 
 // event dispatcher interface for each framework
 interface EventDispatcherInterface

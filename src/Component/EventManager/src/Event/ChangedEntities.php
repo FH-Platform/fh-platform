@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceManager\Event;
+namespace FHPlatform\Component\EventManager\Event;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
 

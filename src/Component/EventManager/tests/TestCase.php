@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceManager\Tests;
+namespace FHPlatform\Component\EventManager\Tests;
 
 class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {

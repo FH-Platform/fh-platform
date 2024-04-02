@@ -1,11 +1,9 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceManager\Manager;
+namespace FHPlatform\Component\EventManager\Manager;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
-use FHPlatform\Component\Persistence\Event\Flush;
-use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
+use FHPlatform\Component\EventManager\Event\ChangedEntities;
 
 class EventManager
 {
@@ -24,7 +22,7 @@ class EventManager
     protected bool $transactionStarted = false;
     protected array $transactionEntities = [];
 
-    public function eventChangedEntity(ChangedEntity $event): void
+    public function changedEntity(ChangedEntity $event): void
     {
         // store changed entities for flush later, make changes unique, skip duplicated changes
         $hash = $event->getClassName().'_'.$event->getIdentifierValue();
@@ -36,7 +34,7 @@ class EventManager
         }
     }
 
-    public function eventFlush(Flush $event): void
+    public function flush(): void
     {
         // event is triggered by
         if (self::TYPE_FLUSH === $this->type) {
@@ -44,7 +42,7 @@ class EventManager
         }
     }
 
-    public function eventRequestFinished(): void
+    public function requestFinished(): void
     {
         if (self::TYPE_REQUEST_FINISHED === $this->type) {
             $this->dispatch();
@@ -65,7 +63,7 @@ class EventManager
     {
         foreach ($entities as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $this->eventChangedEntity(new ChangedEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE));
+                $this->changedEntity(new ChangedEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE));
             }
         }
 

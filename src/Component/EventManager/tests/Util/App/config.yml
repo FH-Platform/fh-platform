@@ -19,9 +19,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Component\PersistenceManager\Tests\Util\:
+    FHPlatform\Component\EventManager\Tests\Util\:
         resource: '../'
         exclude: '../{App}'
 
-    FHPlatform\Component\PersistenceManager\Tests\:
+    FHPlatform\Component\EventManager\Tests\:
         resource: '../../*/Util'

@@ -1,9 +1,9 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceManager\PersistenceManager;
+namespace FHPlatform\Component\EventManager\EventManager;
 
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\PersistenceManager\Manager\EventManager;
+use FHPlatform\Component\EventManager\Manager\EventManager;
 
 class DataSyncer
 {
