@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Bundle\SymfonyBridgeBundle\EventListener;
+namespace FHPlatform\Component\PersistenceManager\EventListener;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;

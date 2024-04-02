@@ -3,9 +3,8 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
+
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
-use FHPlatform\Bundle\SymfonyBridgeBundle\EventListener\PersistenceEventListener;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Message\EntitiesChangedMessageHandlerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
@@ -32,17 +31,17 @@ use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
+use FHPlatform\Component\PersistenceManager\EventListener\PersistenceEventListener;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
-use FHPlatform\Component\Syncer\Message\EntitiesChangedMessageHandler;
-use FHPlatform\Component\Syncer\Syncer\DataSyncer;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 
 class Builder implements BuilderInterface
 {
@@ -67,8 +66,11 @@ class Builder implements BuilderInterface
 
         $container
             ->register(PersistenceEventListener::class)
+            ->setPublic(true)
             ->setAutowired(true)
             ->setAutoconfigured(true);
+
+        $container->register(\FHPlatform\Component\PersistenceManager\Manager\EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     public function buildSearchEngine(): void
@@ -102,7 +104,7 @@ class Builder implements BuilderInterface
             $persistence = $_ENV['FHPLATFORM_PERSISTENCE'];
         }
 
-        // register persistance
+        // register persistence
         $container->register($persistence)->setAutowired(true);
         $container->addAliases([PersistenceInterface::class => $persistence]);
 
@@ -152,8 +154,8 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         // register event dispatcher
-        $container->register(EventDispatcherSymfony::class)->setAutowired(true);
-        $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
+        //$container->register(EventDispatcherSymfony::class)->setAutowired(true);
+        //$container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
     }
 
     public function buildConfig(): void
