@@ -1,12 +1,9 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\Event;
+namespace FHPlatform\Component\PersistenceHandler\Event;
 
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
-
-class ChangedEntitiesEvent
+class ChangedEntities
 {
-    /** @param ChangedEntity[] $changedEntities */
     public function __construct(
         private readonly array $changedEntities,
     ) {

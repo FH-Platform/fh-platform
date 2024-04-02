@@ -4,7 +4,7 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\DTO\Document;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity; // remove persistence coupling
+// remove persistence coupling
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 
 class DataManager

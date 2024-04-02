@@ -3,7 +3,7 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Event;
 
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
-use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\PersistenceHandler\Event\ChangedEntities;
 
 class EventDispatcherSymfony implements EventDispatcherInterface
 {
@@ -12,7 +12,7 @@ class EventDispatcherSymfony implements EventDispatcherInterface
     ) {
     }
 
-    public function dispatch(ChangedEntitiesEvent $event): void
+    public function dispatch(ChangedEntities $event): void
     {
         $this->eventDispatcher->dispatch($event);
     }

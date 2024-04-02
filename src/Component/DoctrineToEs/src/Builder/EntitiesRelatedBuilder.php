@@ -4,7 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EntitiesRelatedBuilder

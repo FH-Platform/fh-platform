@@ -1,11 +1,10 @@
 <?php
 
-namespace FHPlatform\Component\Syncer\Message;
+namespace FHPlatform\Component\PersistenceHandler\Message;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
@@ -39,13 +38,6 @@ class EntitiesChangedMessageHandler
             foreach ($indexes as $index) {
                 $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
 
-                // TODO return if hash exists
-
-                if (ChangedEntity::TYPE_DELETE_PRE !== $type) {
-                    $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifier, $type);
-                } else {
-                    // TODO -> ChangedEntityEvent::TYPE_DELETE_PRE
-                }
             }
 
             if ($entity) {

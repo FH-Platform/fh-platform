@@ -2,10 +2,11 @@
 
 namespace FHPlatform\Component\FrameworkBridge;
 
-use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\PersistenceHandler\Event\ChangedEntities;
 
 // event dispatcher interface for each framework
 interface EventDispatcherInterface
 {
-    public function dispatch(ChangedEntitiesEvent $event): void;
+    public function dispatch(ChangedEntities $event): void;
 }

@@ -4,7 +4,7 @@ namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
-use FHPlatform\Bundle\SymfonyBridgeBundle\EventListener\KernelEventListener;
+use FHPlatform\Bundle\SymfonyBridgeBundle\EventListener\PersistenceEventListener;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\EntitiesChangedMessageHandlerSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
@@ -30,7 +30,6 @@ use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Manager\EventManager;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\Persistence\Syncer\DataSyncer;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
@@ -39,6 +38,7 @@ use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use FHPlatform\Component\Syncer\Message\EntitiesChangedMessageHandler;
+use FHPlatform\Component\Syncer\Syncer\DataSyncer;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -66,7 +66,7 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         $container
-            ->register(KernelEventListener::class)
+            ->register(PersistenceEventListener::class)
             ->setAutowired(true)
             ->setAutoconfigured(true);
     }
@@ -107,7 +107,8 @@ class Builder implements BuilderInterface
         $container->addAliases([PersistenceInterface::class => $persistence]);
 
         // register services
-        $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        //TODO
+        //$container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
@@ -133,12 +134,13 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         // register message handler
-        $container->register(EntitiesChangedMessageHandlerSymfony::class)
+        //TODO
+        /*$container->register(EntitiesChangedMessageHandlerSymfony::class)
             ->setAutoconfigured(true)
             ->addTag('messenger.message_handler')
             ->setArguments([
                 '$entitiesChangedMessageHandler' => $container->register(EntitiesChangedMessageHandler::class)->setAutowired(true),
-            ]);
+            ]);*/
 
         // register message dispatcher
         $container->register(MessageDispatcherSymfony::class)->setAutowired(true);

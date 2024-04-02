@@ -5,7 +5,7 @@ namespace FHPlatform\Component\SearchEngineMs;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\SearchEngineMs\Connection\ConnectionFetcher;
 use GuzzleHttp\Exception\ClientException;
 

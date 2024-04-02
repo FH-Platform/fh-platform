@@ -5,7 +5,7 @@ namespace FHPlatform\Component\SearchEngine\Tests\Adapter;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;

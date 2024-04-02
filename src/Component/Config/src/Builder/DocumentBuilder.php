@@ -7,7 +7,6 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterf
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class DocumentBuilder
 {

@@ -1,19 +1,18 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\DTO;
+namespace FHPlatform\Component\Persistence\Event;
 
 class ChangedEntity
 {
     final public const TYPE_CREATE = 'create';
     final public const TYPE_UPDATE = 'update';
     final public const TYPE_DELETE = 'delete';
-    final public const TYPE_DELETE_PRE = 'delete_pre';
 
     public function __construct(
         private readonly string $className,
         private readonly mixed $identifier,
         private readonly string $type,
-        private readonly array $changedFields,
+        private readonly array $changedFields = [],
     ) {
     }
 
@@ -22,7 +21,7 @@ class ChangedEntity
         return $this->className;
     }
 
-    public function getIdentifier(): mixed
+    public function getIdentifierValue(): mixed
     {
         return $this->identifier;
     }

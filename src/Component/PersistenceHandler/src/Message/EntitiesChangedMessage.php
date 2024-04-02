@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Syncer\Message;
+namespace FHPlatform\Component\PersistenceHandler\Message;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
 

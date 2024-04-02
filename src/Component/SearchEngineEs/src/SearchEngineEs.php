@@ -7,7 +7,7 @@ use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use GuzzleHttp\Client;
 

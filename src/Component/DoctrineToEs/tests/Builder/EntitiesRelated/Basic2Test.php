@@ -5,7 +5,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\EntitiesRelated;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 
 class Basic2Test extends TestCaseEntitiesRelated
 {
