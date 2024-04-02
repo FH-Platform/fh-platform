@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceHandler\Event;
+namespace FHPlatform\Component\PersistenceManager\Event;
 
 class ChangedEntities
 {

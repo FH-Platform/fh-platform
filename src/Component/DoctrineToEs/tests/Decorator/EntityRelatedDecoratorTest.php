@@ -5,6 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
 
 class EntityRelatedDecoratorTest extends TestCaseEs
 {

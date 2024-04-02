@@ -3,8 +3,9 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\EventListener;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Event\Flush;
-use FHPlatform\Component\PersistenceHandler\Manager\EventManager;
+use FHPlatform\Component\PersistenceManager\Manager\EventManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PersistenceEventListener implements EventSubscriberInterface
@@ -18,6 +19,7 @@ class PersistenceEventListener implements EventSubscriberInterface
     {
         return [
             ChangedEntity::class => 'onChangedEntity',
+            ChangedEntityPreDelete::class => 'onChangedEntityPreDelete',
             Flush::class => 'onFlush',
         ];
     }
@@ -25,6 +27,11 @@ class PersistenceEventListener implements EventSubscriberInterface
     public function onChangedEntity(ChangedEntity $event): void
     {
         $this->eventManager->eventChangedEntity($event);
+    }
+
+    public function onChangedEntityPreDelete(ChangedEntityPreDelete $event): void
+    {
+        $this->eventManager->eventChangedEntityPreDelete($event);
     }
 
     public function onFlush(Flush $event): void

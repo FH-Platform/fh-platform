@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 class KernelEventListener implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly EventManager $eventManager,
+        // private readonly EventManager $eventManager,
     ) {
     }
 
@@ -22,7 +22,8 @@ class KernelEventListener implements EventSubscriberInterface
 
     public function onKernelFinishRequest(FinishRequestEvent $event): void
     {
-        $this->eventManager->eventRequestFinished();
+        // TODO
+        // $this->eventManager->eventRequestFinished();
 
         // dump('onKernelFinishRequest');
     }

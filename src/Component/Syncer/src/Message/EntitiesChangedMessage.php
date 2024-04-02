@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceHandler\Message;
+namespace FHPlatform\Component\Syncer\Message;
 
-use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
+
 
 class EntitiesChangedMessage
 {
-    public function __construct(
+    /*public function __construct(
         private readonly ChangedEntitiesEvent $changedEntitiesEvent,
     ) {
     }
@@ -14,5 +14,5 @@ class EntitiesChangedMessage
     public function getChangedEntitiesEvent(): ChangedEntitiesEvent
     {
         return $this->changedEntitiesEvent;
-    }
+    }*/
 }

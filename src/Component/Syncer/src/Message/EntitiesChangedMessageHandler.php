@@ -1,21 +1,17 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceHandler\Message;
+namespace FHPlatform\Component\Syncer\Message;
 
-use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\Config\Builder\DocumentBuilder;
-use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 
 class EntitiesChangedMessageHandler
 {
     public function __construct(
-        private readonly PersistenceInterface $persistence,
+        // private readonly PersistenceInterface $persistence,
         private readonly DataManager $dataManager,
-        private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly DocumentBuilder $documentBuilder,
-        private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
+        // private readonly ConnectionsBuilder $connectionsBuilder,
+        // private readonly DocumentBuilder $documentBuilder,
+        // private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
     ) {
     }
 
@@ -23,8 +19,9 @@ class EntitiesChangedMessageHandler
     {
         $documents = [];
 
-        $event = $message->getChangedEntitiesEvent();
-        foreach ($event->getChangedEntities() as $event) {
+        // $event = $message->getChangedEntitiesEvent();
+        // TODO
+        /*foreach ($event->getChangedEntities() as $event) {
             // TODO check if reletable or indexable, fetch entity classNames array and check
 
             $className = $event->getClassName();
@@ -55,7 +52,7 @@ class EntitiesChangedMessageHandler
                     }
                 }
             }
-        }
+        }*/
 
         // TODO chunk in batch from config in client bundle
         $this->dataManager->syncDocuments($documents);

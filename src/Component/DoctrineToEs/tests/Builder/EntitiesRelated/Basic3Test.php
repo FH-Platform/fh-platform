@@ -5,6 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\EntitiesRelated;
 use Doctrine\Common\Collections\ArrayCollection;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
 
 class Basic3Test extends TestCaseEntitiesRelated
 {

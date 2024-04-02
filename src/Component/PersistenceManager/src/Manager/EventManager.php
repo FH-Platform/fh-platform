@@ -1,10 +1,12 @@
 <?php
 
-namespace FHPlatform\Component\PersistenceHandler\Manager;
+namespace FHPlatform\Component\PersistenceManager\Manager;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Event\Flush;
-use FHPlatform\Component\PersistenceHandler\Event\ChangedEntities;
+use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
+use FHPlatform\Component\PersistenceManager\Event\ChangedEntitiesPreDelete;
 
 class EventManager
 {
@@ -33,6 +35,11 @@ class EventManager
         if ($this->transactionStarted) {
             $this->transactionEntities[$event->getClassName()][] = $event->getIdentifierValue();
         }
+    }
+
+    public function eventChangedEntityPreDelete(ChangedEntityPreDelete $event): void
+    {
+        $this->eventDispatcher->dispatch(new ChangedEntitiesPreDelete([$event]));
     }
 
     public function eventFlush(Flush $event): void
