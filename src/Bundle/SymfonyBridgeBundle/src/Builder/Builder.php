@@ -107,8 +107,8 @@ class Builder implements BuilderInterface
         $container->addAliases([PersistenceInterface::class => $persistence]);
 
         // register services
-        //TODO
-        //$container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        // TODO
+        // $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
         $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
@@ -134,7 +134,7 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         // register message handler
-        //TODO
+        // TODO
         /*$container->register(EntitiesChangedMessageHandlerSymfony::class)
             ->setAutoconfigured(true)
             ->addTag('messenger.message_handler')

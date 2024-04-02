@@ -13,17 +13,9 @@ class DoctrinePersistence implements PersistenceInterface
     ) {
     }
 
-    public function getIdentifierName(mixed $entity): ?string
+    public function getIdentifierName(string $className): ?string
     {
-        if (!$entity) {
-            return null;
-        }
-
-        if (is_string($entity)) {
-            $className = $this->getRealClassName($entity);
-        } else {
-            $className = $this->getRealClassName(get_class($entity));
-        }
+        $className = $this->getRealClassName($className);
 
         if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
             return null;
@@ -36,7 +28,11 @@ class DoctrinePersistence implements PersistenceInterface
 
     public function getIdentifierValue(mixed $entity): mixed
     {
-        $identifier = $this->getIdentifierName($entity);
+        if (!is_object($entity)) {
+            return null;
+        }
+
+        $identifier = $this->getIdentifierName($entity::class);
 
         if (!$identifier) {
             return null;
@@ -45,22 +41,6 @@ class DoctrinePersistence implements PersistenceInterface
         $getter = 'get'.ucfirst($identifier);
 
         return $entity->{$getter}();
-    }
-
-    public function refresh(mixed $entity): mixed
-    {
-        if (!$entity) {
-            return null;
-        }
-
-        if (!is_object($entity)) {
-            return null;
-        }
-
-        $className = $entity::class;
-        $identifierValue = $this->getIdentifierValue($entity);
-
-        return $this->refreshByClassNameId($className, $identifierValue);
     }
 
     public function refreshByClassNameId(string $className, mixed $identifierValue): mixed
@@ -82,6 +62,44 @@ class DoctrinePersistence implements PersistenceInterface
         }
 
         return null;
+    }
+
+    public function refresh(mixed $entity): mixed
+    {
+        if (!$entity) {
+            return null;
+        }
+
+        if (!is_object($entity)) {
+            return null;
+        }
+
+        $className = $entity::class;
+        $identifierValue = $this->getIdentifierValue($entity);
+
+        return $this->refreshByClassNameId($className, $identifierValue);
+    }
+
+    public function getRealClassName(string $className): string
+    {
+        $className = ClassUtils::getRealClass($className);
+
+        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
+            return $className;
+        }
+
+        $className = $this->entityManager->getClassMetadata($className)->rootEntityName;
+
+        return $className;
+    }
+
+    public function isClassNamePersistence(string $className): bool
+    {
+        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getEntities(string $className, array $identifierValues): array
@@ -109,19 +127,6 @@ class DoctrinePersistence implements PersistenceInterface
         }
 
         return $queryBuilder->getQuery()->execute();
-    }
-
-    public function getRealClassName(string $className): string
-    {
-        $className = ClassUtils::getRealClass($className);
-
-        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
-            return $className;
-        }
-
-        $className = $this->entityManager->getClassMetadata($className)->rootEntityName;
-
-        return $className;
     }
 
     public function getAllIdentifierValues(string $className): array
@@ -163,15 +168,6 @@ class DoctrinePersistence implements PersistenceInterface
         }
 
         return $identifiers;
-    }
-
-    public function isEntityClassName(string $className): bool
-    {
-        if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
-            return true;
-        }
-
-        return false;
     }
 
     // TODO move somewhere

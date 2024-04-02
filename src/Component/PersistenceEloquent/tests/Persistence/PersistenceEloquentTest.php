@@ -35,7 +35,7 @@ class PersistenceEloquentTest extends TestCase
         $user2 = new User();
         $user2->save();
 
-        $this->assertEquals('id', $persistence->getIdentifierName($user));
+        $this->assertEquals('id', $persistence->getIdentifierName(User::class));
         $this->assertEquals(1, $persistence->getIdentifierValue($user));
         $this->assertEquals($user->id, $persistence->refreshByClassNameId($user::class, 1)->id);
         $this->assertEquals([1, 2], $persistence->getAllIdentifierValues($user::class));

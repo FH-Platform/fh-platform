@@ -20,12 +20,12 @@ class EloquentPersistence implements PersistenceInterface
     public function getIdentifierValue(mixed $entity): mixed
     {
         /* @var  Model $entity */
-        return $entity->{$this->getIdentifierName($entity)};
+        return $entity->{$this->getIdentifierName($entity::class)};
     }
 
     public function refresh(mixed $entity): mixed
     {
-        return (new ($entity::class))->find($this->getIdentifierName($entity));
+        return (new ($entity::class))->find($this->getIdentifierName($entity::class));
     }
 
     public function refreshByClassNameId(string $className, mixed $identifierValue): mixed
@@ -58,13 +58,13 @@ class EloquentPersistence implements PersistenceInterface
 
         $identifiers = [];
         foreach ($entities as $entity) {
-            $identifiers[] = $entity->{$this->getIdentifierName($entity)};
+            $identifiers[] = $entity->{$this->getIdentifierName($entity::class)};
         }
 
         return $identifiers;
     }
 
-    public function isEntityClassName(string $className): bool
+    public function isClassNamePersistence(string $className): bool
     {
         // TODO
 

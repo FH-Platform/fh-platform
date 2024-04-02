@@ -37,7 +37,6 @@ class EntitiesChangedMessageHandler
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
                 $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
-
             }
 
             if ($entity) {
