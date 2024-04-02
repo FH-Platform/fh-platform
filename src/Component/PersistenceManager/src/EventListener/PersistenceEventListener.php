@@ -31,7 +31,7 @@ class PersistenceEventListener implements EventSubscriberInterface
 
     public function onChangedEntityPreDelete(ChangedEntityPreDelete $event): void
     {
-        $this->eventManager->eventChangedEntityPreDelete($event);
+        //nothing to do
     }
 
     public function onFlush(Flush $event): void
