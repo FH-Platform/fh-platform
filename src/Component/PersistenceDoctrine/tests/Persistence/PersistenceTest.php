@@ -52,6 +52,7 @@ class PersistenceTest extends TestCase
         $this->assertEquals(null, $persistenceDoctrine->refresh($user2));
         $this->assertEquals(null, $persistenceDoctrine->refresh(new User()));
 
+        //getRealClassName()
         $this->assertEquals(User::class, $persistenceDoctrine->getRealClassName("Proxies\__CG__\\" . User::class));
         $this->assertEquals(UserUuid::class, $persistenceDoctrine->getRealClassName("Proxies\__CG__\\" . UserUuid::class));
     }
