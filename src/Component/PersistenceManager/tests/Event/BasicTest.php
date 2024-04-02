@@ -19,5 +19,24 @@ class BasicTest extends TestCase
         $this->assertCount(0, $this->eventsGet(ChangedEntities::class));
         $this->entityManager->flush();
         $this->assertCount(1, $this->eventsGet(ChangedEntities::class));
+
+        $this->eventsClear(ChangedEntities::class);
+        $user2 = new User();
+        $user2->setTestString('test_string');
+        $this->entityManager->persist($user2);
+        $this->entityManager->flush();
+        $this->entityManager->flush();
+        $this->assertCount(1, $this->eventsGet(ChangedEntities::class));
+
+        $this->eventsClear(ChangedEntities::class);
+        $user3 = new User();
+        $user3->setTestString('test_string3');
+
+        $user4 = new User();
+        $user4->setTestString('test_string4');
+
+        $this->save([$user3, $user3]);
+        $this->assertCount(1, $this->eventsGet(ChangedEntities::class));
+
     }
 }
