@@ -37,6 +37,7 @@ use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
+use FHPlatform\Component\Syncer\EventListener\PersistenceManagerEventListener;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -70,7 +71,15 @@ class Builder implements BuilderInterface
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
+
+        $container
+            ->register(PersistenceManagerEventListener::class)
+            ->setPublic(true)
+            ->setAutowired(true)
+            ->setAutoconfigured(true);
+
         $container->register(\FHPlatform\Component\PersistenceManager\Manager\EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+
     }
 
     public function buildSearchEngine(): void

@@ -37,6 +37,5 @@ class BasicTest extends TestCase
 
         $this->save([$user3, $user3]);
         $this->assertCount(1, $this->eventsGet(ChangedEntities::class));
-
     }
 }
