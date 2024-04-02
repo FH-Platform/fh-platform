@@ -27,7 +27,7 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
     {
     }
 
-    private array $preDeleteEntities = [];
+    private array $entitiesRelatedPreDelete = [];
 
     public static function getSubscribedEvents(): array
     {
@@ -61,42 +61,56 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
                 $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifier, $type);
             }
 
-            if ($entity) {
-                $connections = $this->connectionsBuilder->build();
-
-                foreach ($connections as $connection) {
-                    $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $type, $changedFields);
-
-                    foreach ($entitiesRelated as $entityRelated) {
-                        // TODO separate
-
-                        $className = $this->persistence->getRealClassName($entityRelated::class);
-                        $identifier = $this->persistence->getIdentifierValue($entityRelated);
-
-                        $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
-                    }
-                }
-            }
+            $documents = array_merge($documents, $this->buildForRelatedEntities($entity, $type, $changedFields));
         }
 
+        foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete){
+            // TODO separate
+
+            $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
+            $identifier = $this->persistence->getIdentifierValue($entityRelatedPreDelete);
+
+            $documents[] = $this->documentBuilder->buildForEntity($entityRelatedPreDelete, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+        }
+
+        $this->entitiesRelatedPreDelete = [];
+
         // TODO chunk in batch from config in client bundle
+
         $this->dataManager->syncDocuments($documents);
+
     }
 
     public function onChangedEntitiesPreDelete(ChangedEntitiesPreDelete $event): void
     {
-
         $connection = $this->connectionsBuilder->build()[0] ?? null;
 
         foreach ($event->getChangedEntitiesPreDelete() as $event) {
-
             if ($connection) {
-                $this->preDeleteEntities = $this->entitiesRelatedBuilder->buildForEntity($connection, $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue()));
+                $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
 
-                dd($this->preDeleteEntities);
+                $this->entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntity::TYPE_DELETE, []);
+            }
+        }
+    }
+
+    private function buildForRelatedEntities(mixed $entity, string $type, array $changedFields): array
+    {
+        $documents = [];
+        if ($entity) {
+            $connections = $this->connectionsBuilder->build();
+
+            foreach ($connections as $connection) {
+                $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $type, $changedFields);
+                foreach ($entitiesRelated as $entityRelated) {
+                    $className = $this->persistence->getRealClassName($entityRelated::class);
+                    $identifier = $this->persistence->getIdentifierValue($entityRelated);
+
+                    $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+                }
             }
         }
 
-        $this->preDeleteEntities = [];
+        return $documents;
     }
 }
