@@ -3,7 +3,6 @@
 namespace FHPlatform\PersistenceManager\DoctrineListener;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Event\Flush;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
 

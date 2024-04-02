@@ -8,7 +8,7 @@ class EntitiesChangedMessageHandler
 {
     public function __construct(
         // private readonly PersistenceInterface $persistence,
-        //private readonly DataManager $dataManager,
+        // private readonly DataManager $dataManager,
         // private readonly ConnectionsBuilder $connectionsBuilder,
         // private readonly DocumentBuilder $documentBuilder,
         // private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
@@ -17,6 +17,5 @@ class EntitiesChangedMessageHandler
 
     public function handle(EntitiesChangedMessage $message): void
     {
-
     }
 }

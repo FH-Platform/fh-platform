@@ -3,7 +3,6 @@
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
 use Doctrine\ORM\Events;
-
 use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
@@ -42,7 +41,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 
 class Builder implements BuilderInterface
 {
@@ -78,7 +76,6 @@ class Builder implements BuilderInterface
             ->setAutoconfigured(true);
 
         $container->register(\FHPlatform\Component\PersistenceManager\Manager\EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-
     }
 
     public function buildSearchEngine(): void
@@ -162,8 +159,8 @@ class Builder implements BuilderInterface
         $container = $this->container;
 
         // register event dispatcher
-        //$container->register(EventDispatcherSymfony::class)->setAutowired(true);
-        //$container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
+        // $container->register(EventDispatcherSymfony::class)->setAutowired(true);
+        // $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
     }
 
     public function buildConfig(): void

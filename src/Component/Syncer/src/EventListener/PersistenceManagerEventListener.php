@@ -6,25 +6,21 @@ use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
-use FHPlatform\Component\Persistence\Event\Flush;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceManager\Event\ChangedEntities;
 use FHPlatform\Component\PersistenceManager\Event\ChangedEntitiesPreDelete;
-use FHPlatform\Component\PersistenceManager\Manager\EventManager;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PersistenceManagerEventListener implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly PersistenceInterface   $persistence,
-        private readonly DataManager            $dataManager,
-        private readonly ConnectionsBuilder     $connectionsBuilder,
-        private readonly DocumentBuilder        $documentBuilder,
+        private readonly PersistenceInterface $persistence,
+        private readonly DataManager $dataManager,
+        private readonly ConnectionsBuilder $connectionsBuilder,
+        private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-    )
-    {
+    ) {
     }
 
     private array $entitiesRelatedPreDelete = [];
@@ -55,7 +51,7 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
-                $hash = $index->getConnection()->getName() . '_' . $index->getName() . '_' . $className . '_' . $identifier;
+                $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
 
                 // TODO return if hash exists
                 $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifier, $type);
@@ -64,7 +60,7 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
             $documents = array_merge($documents, $this->buildForRelatedEntities($entity, $type, $changedFields));
         }
 
-        foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete){
+        foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete) {
             // TODO separate
 
             $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
@@ -78,7 +74,6 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
         // TODO chunk in batch from config in client bundle
 
         $this->dataManager->syncDocuments($documents);
-
     }
 
     public function onChangedEntitiesPreDelete(ChangedEntitiesPreDelete $event): void
