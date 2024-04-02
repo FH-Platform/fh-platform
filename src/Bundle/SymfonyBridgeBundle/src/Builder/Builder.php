@@ -71,7 +71,6 @@ class Builder implements BuilderInterface
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-
         $container
             ->register(PersistenceManagerEventListener::class)
             ->setPublic(true)
