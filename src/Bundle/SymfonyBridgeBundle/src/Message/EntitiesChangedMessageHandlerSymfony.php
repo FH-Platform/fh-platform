@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Message;
 
-use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
-use FHPlatform\Component\Persistence\Message\EntitiesChangedMessageHandler;
+use FHPlatform\Component\Syncer\Message\EntitiesChangedMessage;
+use FHPlatform\Component\Syncer\Message\EntitiesChangedMessageHandler;
 
 class EntitiesChangedMessageHandlerSymfony
 {

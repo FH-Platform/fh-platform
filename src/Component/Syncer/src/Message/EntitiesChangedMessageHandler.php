@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\Persistence\Message;
+namespace FHPlatform\Component\Syncer\Message;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;

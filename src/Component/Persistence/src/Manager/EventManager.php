@@ -8,8 +8,8 @@ use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\DTO\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntitiesEvent;
-use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\Syncer\Message\EntitiesChangedMessage;
 
 class EventManager
 {

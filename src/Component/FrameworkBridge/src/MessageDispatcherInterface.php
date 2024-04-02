@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\FrameworkBridge;
 
-use FHPlatform\Component\Persistence\Message\EntitiesChangedMessage;
+use FHPlatform\Component\Syncer\Message\EntitiesChangedMessage;
 
 // message(queue) dispatcher interface for each framework
 interface MessageDispatcherInterface
