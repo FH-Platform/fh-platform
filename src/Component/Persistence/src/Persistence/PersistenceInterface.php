@@ -8,7 +8,7 @@ namespace FHPlatform\Component\Persistence\Persistence;
 interface PersistenceInterface
 {
     // detect if given className is part of the persistence classes (entities)
-    public function isEntity(string $className): bool;
+    public function isEntityClassName(string $className): bool;
 
     // give me an identifier name for given entity, for example: id, uuid, etc.
     public function getIdentifierName(mixed $entity): ?string;
@@ -29,5 +29,5 @@ interface PersistenceInterface
     public function getEntities(string $className, array $identifierValues): array;
 
     // some persistence's like doctrine sometimes return a ghost objects or proxies so that method will return reals class name (eloquent will never return proxies)
-    public function getRealClassName(string $className): string;
+    public function getRealClassName(string $className):  ?string;
 }

@@ -53,23 +53,14 @@ class DoctrinePersistence implements PersistenceInterface
             return null;
         }
 
-        $className = $this->getRealClassName($entity::class);
-
-        $identifierName = $this->getIdentifierName($entity);
-        $identifierValue = $this->getIdentifierValue($entity);
-
-        $repository = $this->entityManager->getRepository($className);
-        $entity = $repository->findOneBy([$identifierName => $identifierValue]);
-
-        if ($entity) {
-            $this->entityManager->refresh($entity);
-
-            if ($entity) {
-                return $entity;
-            }
+        if (!is_object($entity)) {
+            return null;
         }
 
-        return null;
+        $className = $entity::class;
+        $identifierValue = $this->getIdentifierValue($entity);
+
+        return $this->refreshByClassNameId($className, $identifierValue);
     }
 
     public function refreshByClassNameId(string $className, mixed $identifierValue): mixed
@@ -174,7 +165,7 @@ class DoctrinePersistence implements PersistenceInterface
         return $identifiers;
     }
 
-    public function isEntity(string $className): bool
+    public function isEntityClassName(string $className): bool
     {
         if ($this->entityManager->getMetadataFactory()->isTransient($className)) {
             return true;

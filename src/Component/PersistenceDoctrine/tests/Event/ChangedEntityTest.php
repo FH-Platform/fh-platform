@@ -6,7 +6,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 
-class ChangedEntityBasicTest extends TestCase
+class ChangedEntityTest extends TestCase
 {
     public function testSomething(): void
     {

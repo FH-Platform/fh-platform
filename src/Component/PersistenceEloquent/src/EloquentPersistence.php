@@ -64,7 +64,7 @@ class EloquentPersistence implements PersistenceInterface
         return $identifiers;
     }
 
-    public function isEntity(string $className): bool
+    public function isEntityClassName(string $className): bool
     {
         // TODO
 

@@ -113,7 +113,7 @@ class ConnectionsBuilder
         $name = $providerIndex->getIndexName($className);
         $nameWithPrefix = $connection->getPrefix().$name;
 
-        $index = new Index($connection, $className, !$this->persistence->isEntity($className), $name, $nameWithPrefix);
+        $index = new Index($connection, $className, !$this->persistence->isEntityClassName($className), $name, $nameWithPrefix);
 
         // prepare decorators
         $decorators = $this->configProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
