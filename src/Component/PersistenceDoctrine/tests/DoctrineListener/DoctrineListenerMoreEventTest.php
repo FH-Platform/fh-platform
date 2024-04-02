@@ -10,8 +10,9 @@ class DoctrineListenerMoreEventTest extends TestCase
 {
     public function testSomething(): void
     {
-        //TODO
-        $this->assertEquals(1,1);
+        // TODO
+        $this->assertEquals(1, 1);
+
         return;
         $this->eventsClear(ChangedEntitiesEvent::class);
         $this->eventsStartListen(ChangedEntitiesEvent::class);

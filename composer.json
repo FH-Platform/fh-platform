@@ -44,6 +44,7 @@
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
             "FHPlatform\\Component\\PersistenceEloquent\\": "src/Component/PersistenceEloquent/src/",
+            "FHPlatform\\Component\\Syncer\\": "src/Component/Syncer/src/",
             "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
             "FHPlatform\\Component\\FilterToEsDsl\\": "src/Component/FilterToEsDsl/src/",
             "FHPlatform\\Component\\DoctrineToEs\\": "src/Component/DoctrineToEs/src/",
@@ -61,6 +62,7 @@
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
             "FHPlatform\\Component\\PersistenceEloquent\\Tests\\": "src/Component/PersistenceEloquent/tests/",
+            "FHPlatform\\Component\\Syncer\\Tests\\": "src/Component/Syncer/tests/",
             "FHPlatform\\Component\\FilterToEsDsl\\Tests\\": "src/Component/FilterToEsDsl/tests/",
             "FHPlatform\\Component\\DoctrineToEs\\Tests\\": "src/Component/DoctrineToEs/tests/",
 
