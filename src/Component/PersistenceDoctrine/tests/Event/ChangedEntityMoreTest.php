@@ -39,28 +39,28 @@ class ChangedEntityMoreTest extends TestCase
 
         $this->save([$user, $user2, $user3, $role]);
 
-        //clear events
+        // clear events
         $this->eventsClear(ChangedEntity::class);
         $this->assertCount(0, $this->eventsGet(ChangedEntity::class));
 
-        //update 2 users
+        // update 2 users
         $user->setTestString('test_string_2');
         $user2->setTestString('test_string2_2');
         $this->entityManager->persist($user);
         $this->entityManager->persist($user2);
 
-        //update 1 role
+        // update 1 role
         $role->setTestString('test_string_2');
         $this->entityManager->persist($role);
 
-        //delete 2 users
+        // delete 2 users
         $this->entityManager->remove($user3);
         $this->entityManager->remove($user4);
 
-        //delete 1 role
+        // delete 1 role
         $this->entityManager->remove($role2);
 
-        //create 2 users
+        // create 2 users
         $user5 = new User();
         $user5->setTestString('test_string5');
         $this->entityManager->persist($user5);
@@ -69,7 +69,7 @@ class ChangedEntityMoreTest extends TestCase
         $user6->setTestString('test_string6');
         $this->entityManager->persist($user6);
 
-        //create one role
+        // create one role
         $role3 = new Role();
         $role3->setTestString('test_string3');
         $this->entityManager->persist($role3);
