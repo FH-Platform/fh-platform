@@ -5,10 +5,10 @@ namespace FHPlatform\Component\Syncer\EventListener;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\EventManager\Event\ChangedEntities;
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\EventManager\Event\ChangedEntities;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

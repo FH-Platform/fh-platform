@@ -2,15 +2,15 @@
 
 namespace FHPlatform\Component\EventManager\Manager;
 
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\EventManager\Event\ChangedEntities;
+use FHPlatform\Component\Persistence\Event\ChangedEntity;
 
 class EventManager
 {
     public const TYPE_FLUSH = 'flush';
     public const TYPE_REQUEST_FINISHED = 'request_finished';
 
-    private string $type = 'flush'; // TYPE_FLUSH, TYPE_REQUEST_FINISHED
+    private string $type = self::TYPE_FLUSH;
 
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,

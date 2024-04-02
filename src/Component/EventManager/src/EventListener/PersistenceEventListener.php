@@ -2,10 +2,10 @@
 
 namespace FHPlatform\Component\EventManager\EventListener;
 
+use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
 use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Event\Flush;
-use FHPlatform\Component\EventManager\Manager\EventManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PersistenceEventListener implements EventSubscriberInterface

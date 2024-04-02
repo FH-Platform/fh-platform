@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Component\EventManager\EventManager;
 
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\EventManager\Manager\EventManager;
+use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class DataSyncer
 {
