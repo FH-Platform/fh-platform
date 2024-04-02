@@ -61,7 +61,7 @@ class FilterQuery
     private function applyFilters(Index $index, array $filtersArray): BoolQuery
     {
         $queryFilters = new BoolQuery();
-        // dd($this->filterConverters, $this->applicatorConverters);
+
         foreach ($filtersArray as $number => $filters) {
             foreach ($filters as $field => $filter) {
                 foreach ($filter as $operator => $value) {

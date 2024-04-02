@@ -34,22 +34,22 @@ class DoctrinePersistenceListener
 
     public function postPersist(PostPersistEventArgs $args): void
     {
-        $this->processEvent($args, ChangedEntity::TYPE_CREATE);
+        $this->processEvent($args);
     }
 
     public function postUpdate(PostUpdateEventArgs $args): void
     {
-        $this->processEvent($args, ChangedEntity::TYPE_UPDATE);
+        $this->processEvent($args);
     }
 
     public function preRemove(PreRemoveEventArgs $args): void
     {
-        $this->processEvent($args, ChangedEntity::TYPE_DELETE);
+        $this->processEvent($args);
     }
 
     public function postRemove(PostRemoveEventArgs $args): void
     {
-        $this->processEvent($args, ChangedEntity::TYPE_DELETE);
+        $this->processEvent($args);
     }
 
     public function postFlush(PostFlushEventArgs $args): void
@@ -57,7 +57,7 @@ class DoctrinePersistenceListener
         $this->eventManager->eventFlush();
     }
 
-    private function processEvent(PostPersistEventArgs|PostUpdateEventArgs|PostRemoveEventArgs|PreRemoveEventArgs $args, string $type): void
+    private function processEvent(PostPersistEventArgs|PostUpdateEventArgs|PostRemoveEventArgs|PreRemoveEventArgs $args): void
     {
         $entity = $args->getObject();
 

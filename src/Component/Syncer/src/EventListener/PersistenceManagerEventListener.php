@@ -18,13 +18,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class PersistenceManagerEventListener implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly PersistenceInterface $persistence,
-        private readonly DataManager $dataManager,
-        private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly DocumentBuilder $documentBuilder,
+        private readonly PersistenceInterface   $persistence,
+        private readonly DataManager            $dataManager,
+        private readonly ConnectionsBuilder     $connectionsBuilder,
+        private readonly DocumentBuilder        $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-    ) {
+    )
+    {
     }
+
+    private array $preDeleteEntities = [];
 
     public static function getSubscribedEvents(): array
     {
@@ -52,7 +55,10 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
-                $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
+                $hash = $index->getConnection()->getName() . '_' . $index->getName() . '_' . $className . '_' . $identifier;
+
+                // TODO return if hash exists
+                $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifier, $type);
             }
 
             if ($entity) {
@@ -79,8 +85,18 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
 
     public function onChangedEntitiesPreDelete(ChangedEntitiesPreDelete $event): void
     {
-        foreach ($event->getChangedEntitiesPreDelete() as $event){
 
+        $connection = $this->connectionsBuilder->build()[0] ?? null;
+
+        foreach ($event->getChangedEntitiesPreDelete() as $event) {
+
+            if ($connection) {
+                $this->preDeleteEntities = $this->entitiesRelatedBuilder->buildForEntity($connection, $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue()));
+
+                dd($this->preDeleteEntities);
+            }
         }
+
+        $this->preDeleteEntities = [];
     }
 }
