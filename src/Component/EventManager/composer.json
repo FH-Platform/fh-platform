@@ -1,13 +1,13 @@
 {
-    "name": "fh-platform/persistence",
+    "name": "fh-platform/event-manager",
     "type": "library",
-    "description": "FH Platform - Persistence",
+    "description": "FH Platform - EventManager",
     "keywords": [],
     "homepage": "https://github.com/FH-Platform",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\Persistence\\": "src/"
+            "FHPlatform\\Component\\EventManager\\": "src/"
         }
     },
     "authors": [

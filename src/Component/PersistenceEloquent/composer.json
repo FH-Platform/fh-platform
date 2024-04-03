@@ -1,13 +1,13 @@
 {
-    "name": "fh-platform/persistence",
+    "name": "fh-platform/persistence-eloquent",
     "type": "library",
-    "description": "FH Platform - Persistence",
+    "description": "FH Platform - PersistenceEloquent",
     "keywords": [],
     "homepage": "https://github.com/FH-Platform",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\Persistence\\": "src/"
+            "FHPlatform\\Component\\PersistenceEloquent\\": "src/"
         }
     },
     "authors": [
@@ -18,7 +18,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "psr/event-dispatcher": "1.*"
+        "illuminate/database": "11.*",
+        "fh-platform/persistence": "*"
     },
     "minimum-stability": "dev"
 }

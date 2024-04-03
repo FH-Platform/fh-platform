@@ -1,18 +1,13 @@
 {
-    "name": "fh-platform/persistence",
-    "type": "symfony-bundle",
-    "description": "FH Platform - Config persistence",
+    "name": "fh-platform/persistence-doctrine",
+    "type": "library",
+    "description": "FH Platform - PersistenceDoctrine",
     "keywords": [],
     "homepage": "https://github.com/FH-Platform",
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -23,18 +18,10 @@
     ],
     "require": {
         "php": ">=8.2",
-        "doctrine/doctrine-bundle": "2.*",
         "doctrine/orm": "2.*",
-        "doctrine/common" : "*",
-        "symfony/yaml": "7.*",
-        "fh-platform/util": "dev-master"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "3.*",
-        "phpunit/phpunit": "10.*",
-        "phpstan/phpstan": "*",
-        "ramsey/uuid-doctrine": "^2.0",
-        "symfony/console": "^7.0"
+        "doctrine/common" : "3.*",
+        "doctrine/dbal": "2.*",
+        "fh-platform/persistence": "*"
     },
     "minimum-stability": "dev"
 }
