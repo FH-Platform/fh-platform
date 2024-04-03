@@ -11,7 +11,7 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PersistenceManagerEventListener implements EventSubscriberInterface
+class SyncEntitiesEventListener implements EventSubscriberInterface
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
