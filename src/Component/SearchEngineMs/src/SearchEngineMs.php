@@ -7,20 +7,15 @@ use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\SearchEngineMs\Connection\ConnectionFetcher;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
 class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface
 {
-    private ConnectionFetcher $connectionFetcher;
-
-    public function __construct()
-    {
-        $this->connectionFetcher = new ConnectionFetcher();
-    }
 
     public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): bool
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->fetchClientByIndex($index);
 
         $documentsUpsert = [];
         $documentsDelete = [];
@@ -57,7 +52,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexDelete(Index $index): void
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->fetchClientByIndex($index);
 
         try {
             $client->request('DELETE', '/indexes/'.$index->getNameWithPrefix());
@@ -70,7 +65,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexCreate(Index $index): void
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->fetchClientByIndex($index);
 
         // TODO mapping
         $client->request('POST', '/indexes', [
@@ -85,7 +80,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexesDeleteAllInConnection(Connection $connection): void
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
+        $client = $this->fetchClientByConnection($connection);
 
         $indexNames = $this->indexesGetAllInConnection($connection);
 
@@ -98,7 +93,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
+        $client = $this->fetchClientByConnection($connection);
 
         $results = $client->request('GET', '/indexes', []);
 
@@ -121,7 +116,7 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function search(Index $index, mixed $query = null): array
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->fetchClientByIndex($index);
 
         $results = $client->request('POST', '/indexes/'.$index->getNameWithPrefix().'/documents/fetch', [
             'json' => [
@@ -144,5 +139,25 @@ class SearchEngineMs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
         }
 
         return $resultsResponse;
+    }
+
+    public function fetchClientByConnection(Connection $connection): Client
+    {
+        $client = new Client([
+            'base_uri' => 'http://meilisearch:7700/',
+            'headers' => [
+                'Content-type' => 'application/json',
+                'Authorization' => 'Bearer root',
+            ],
+        ]);
+
+        return $client;
+    }
+
+    public function fetchClientByIndex(Index $index): Client
+    {
+        $connection = $index->getConnection();
+
+        return $this->fetchClientByConnection($connection);
     }
 }

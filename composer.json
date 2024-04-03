@@ -58,8 +58,6 @@
     "autoload-dev": {
         "psr-4": {
             "FHPlatform\\Component\\SearchEngine\\Tests\\": "src/Component/SearchEngine/tests/",
-            "FHPlatform\\Component\\SearchEngineEs\\Tests\\": "src/Component/SearchEngineEs/tests/",
-            "FHPlatform\\Component\\SearchEngineMs\\Tests\\": "src/Component/SearchEngineMs/tests/",
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
             "FHPlatform\\Component\\PersistenceEloquent\\Tests\\": "src/Component/PersistenceEloquent/tests/",
