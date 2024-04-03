@@ -23,15 +23,15 @@ class BasicTest extends TestCase
 
         $this->save([$user, $user2, $bill]);
 
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][id]=asc')));
-        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][equals]=test_string')));
-        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][bills.testString][equals]=test_string')));
+        $this->assertEquals([1, 2], $this->search->search(User::class, $this->urlToArray('applicators[][sort][id]=asc')));
+        $this->assertEquals([1], $this->search->search(User::class, $this->urlToArray('filters[][testString][equals]=test_string')));
+        $this->assertEquals([1], $this->search->search(User::class, $this->urlToArray('filters[][bills.testString][equals]=test_string')));
 
         $this->entityManager->remove($bill);
         $this->entityManager->flush();
 
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][sort][id]=asc')));
-        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testString][equals]=test_string')));
-        $this->assertEquals([], $this->filterQuery->search(User::class, $this->urlToArray('filters[][bills.testString][equals]=test_string')));
+        $this->assertEquals([1, 2], $this->search->search(User::class, $this->urlToArray('applicators[][sort][id]=asc')));
+        $this->assertEquals([1], $this->search->search(User::class, $this->urlToArray('filters[][testString][equals]=test_string')));
+        $this->assertEquals([], $this->search->search(User::class, $this->urlToArray('filters[][bills.testString][equals]=test_string')));
     }
 }

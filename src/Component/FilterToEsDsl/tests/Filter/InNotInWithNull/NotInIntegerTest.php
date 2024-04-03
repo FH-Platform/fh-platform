@@ -11,11 +11,11 @@ class NotInIntegerTest extends TestCase
     {
         $this->prepareData();
 
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=1')));
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=null')));
-        $this->assertEquals([2], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=1&filters[][testInteger][not_in][]=null')));
-        $this->assertEquals([], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=1&&filters[][testInteger][not_in][]=2&filters[][testInteger][not_in][]=null')));
+        $this->assertEquals([1, 2, 3], $this->search->search(User::class));
+        $this->assertEquals([2, 3], $this->search->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=1')));
+        $this->assertEquals([1, 2], $this->search->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=null')));
+        $this->assertEquals([2], $this->search->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=1&filters[][testInteger][not_in][]=null')));
+        $this->assertEquals([], $this->search->search(User::class, $this->urlToArray('filters[][testInteger][not_in][]=1&&filters[][testInteger][not_in][]=2&filters[][testInteger][not_in][]=null')));
     }
 
     private function prepareData(): void

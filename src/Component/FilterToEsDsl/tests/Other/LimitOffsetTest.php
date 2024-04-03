@@ -11,11 +11,11 @@ class LimitOffsetTest extends TestCase
     {
         $this->prepareData();
 
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
-        $this->assertEquals([1, 2], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][limit]=2&applicators[][offset]=0')));
-        $this->assertEquals([2, 3], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][limit]=2&applicators[][offset]=1')));
-        $this->assertEquals([], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][limit]=1&applicators[][offset]=3')));
-        $this->assertEquals([2], $this->filterQuery->search(User::class, $this->urlToArray('applicators[][limit]=1&applicators[][offset]=1')));
+        $this->assertEquals([1, 2, 3], $this->search->search(User::class));
+        $this->assertEquals([1, 2], $this->search->search(User::class, $this->urlToArray('applicators[][limit]=2&applicators[][offset]=0')));
+        $this->assertEquals([2, 3], $this->search->search(User::class, $this->urlToArray('applicators[][limit]=2&applicators[][offset]=1')));
+        $this->assertEquals([], $this->search->search(User::class, $this->urlToArray('applicators[][limit]=1&applicators[][offset]=3')));
+        $this->assertEquals([2], $this->search->search(User::class, $this->urlToArray('applicators[][limit]=1&applicators[][offset]=1')));
     }
 
     private function prepareData(): void

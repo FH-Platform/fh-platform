@@ -7,7 +7,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\FilterToEsDsl\Query\FilterQuery;
+use FHPlatform\Component\FilterToEsDsl\Query\SearchClassName;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
@@ -112,7 +112,7 @@ class TestCase extends KernelTestCase
 
     protected function findEsBy(string $className, $key, $value): array
     {
-        return $this->container->get(FilterQuery::class)->search($className, $this->urlToArray('filters[]['.$key.'][in][]='.$value));
+        return $this->container->get(SearchClassName::class)->search($className, $this->urlToArray('filters[]['.$key.'][in][]='.$value));
     }
 
     protected function recreateIndex(string $className): void

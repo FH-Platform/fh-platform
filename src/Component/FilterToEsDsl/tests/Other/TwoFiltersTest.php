@@ -11,8 +11,8 @@ class TwoFiltersTest extends TestCase
     {
         $this->prepareData();
 
-        $this->assertEquals([1, 2, 3], $this->filterQuery->search(User::class));
-        $this->assertEquals([1], $this->filterQuery->search(User::class, $this->urlToArray('filters[][testInteger][in][]=1&filters[][testInteger][not_in][]=3')));
+        $this->assertEquals([1, 2, 3], $this->search->search(User::class));
+        $this->assertEquals([1], $this->search->search(User::class, $this->urlToArray('filters[][testInteger][in][]=1&filters[][testInteger][not_in][]=3')));
     }
 
     private function prepareData(): void

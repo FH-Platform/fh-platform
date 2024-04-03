@@ -3,20 +3,20 @@
 namespace FHPlatform\Component\FilterToEsDsl\Tests;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\FilterToEsDsl\Query\FilterQuery;
+use FHPlatform\Component\FilterToEsDsl\Query\SearchClassName;
 
 class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {
-    protected FilterQuery $filterQuery;
+    protected SearchClassName $search;
     protected ConnectionsBuilder $connectionsBuilder;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var FilterQuery $filterQuery */
-        $filterQuery = $this->container->get(FilterQuery::class);
-        $this->filterQuery = $filterQuery;
+        /** @var SearchClassName $search */
+        $search = $this->container->get(SearchClassName::class);
+        $this->search = $search;
 
         /** @var ConnectionsBuilder $connectionsBuilder */
         $connectionsBuilder = $this->container->get(ConnectionsBuilder::class);

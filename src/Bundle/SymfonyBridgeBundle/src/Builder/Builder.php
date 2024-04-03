@@ -18,8 +18,9 @@ use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
-use FHPlatform\Component\FilterToEsDsl\Query\FilterQuery;
 use FHPlatform\Component\FilterToEsDsl\Query\ResultsConverter\ResultsConverter;
+use FHPlatform\Component\FilterToEsDsl\Query\Search;
+use FHPlatform\Component\FilterToEsDsl\Query\SearchClassName;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
@@ -149,7 +150,9 @@ class Builder
 
         $container->register(ResultsConverter::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
 
-        $container->register(FilterQuery::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true)
+        $container->register(SearchClassName::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+
+        $container->register(Search::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true)
             ->setArguments([
                 '$applicatorConverters' => new TaggedIteratorArgument('fh_platform.filter.applicator'),
                 '$filterConverters' => new TaggedIteratorArgument('fh_platform.filter.filter'),
