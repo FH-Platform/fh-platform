@@ -48,37 +48,61 @@ class SearchEngineEs implements SearchEngineInterface
     public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): bool
     {
         $client = $this->fetchClientByIndex($index);
+        $configClient = $index->getConnection()->getConfigClient();
+        $servers = $configClient['servers'];
 
-        $client = new Client([
-            'base_uri' => 'http://elasticsearch:9200',  // TODO
-            'headers' => [
-                'Authorization' => 'Basic ZWxhc3RpYzplbGFzdGlj',
-            ],
+        $server = $servers[array_rand($servers)];
+
+        $baseUri = 'http://'.$server['host'].':'.$server['port'];
+        $headers = $server['headers'];
+
+        $clientGuzzle = new Client([
+            'base_uri' => $baseUri,
+            'headers' => $headers,
         ]);
 
-        $documentJson = '';
+        $datas = [];
         foreach ($documents as $document) {
             $data = $this->documentPrepare($document);
 
-            $documentJson .= json_encode($data[0])."\n";
+            $datas[] = $data[0];
 
             if (isset($data[1])) {
-                $documentJson .= json_encode($data[1])."\n";
+                $datas[] = $data[1];
             }
         }
 
-        if ('' === $documentJson) {
+        $documentJsons = '';
+        foreach ($datas as $data) {
+            $documentJsons .= json_encode($data)."\n";
+        }
+
+        if ('' === $documentJsons) {
             return true;
         }
 
-        $documentJson .= "\n";
+        $documentJsons .= "\n";
 
-        $response = $client->request('POST', '/_bulk',
+        $url = '_bulk';
+        $response = $clientGuzzle->request('POST', '/'.$url,
             [
                 'headers' => ['Content-type' => 'application/json'],
-                'body' => $documentJson."\n",
+                'body' => $documentJsons."\n",
             ]
         );
+
+        $this->elasticaLogger->debug('Elastica Request', [
+            'request' => [
+                'path' => $url,
+                'method' => 'POST',
+                'data' => $datas,
+                'query' => [],
+                'contentType' => 'application/json',
+                'connection' => $server,
+            ],
+            'response' => json_decode($response->getBody()->getContents(), true),
+            'responseStatus' => $response->getStatusCode(),
+        ]);
 
         if ($asyc) {
             $this->getIndex($index)->refresh();

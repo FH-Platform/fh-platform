@@ -68,7 +68,7 @@ class EventManagerBuilder
 
     public function buildDoctrineToEs(): void
     {
-        //TODO move to ...
+        // TODO move to ...
         $container = $this->container;
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
