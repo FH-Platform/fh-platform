@@ -166,7 +166,7 @@ class SearchEngineEs implements SearchEngineInterface
         return $client->getIndex($index->getNameWithPrefix());
     }
 
-    public function convertSearchResults($results): array
+    public function convertResultsToSources($results): array
     {
         $resultsResponse = [];
 
@@ -177,13 +177,15 @@ class SearchEngineEs implements SearchEngineInterface
         return $resultsResponse;
     }
 
-    public function convertSearchIds($results): array
+    public function convertResultsToIdentifiers($results): array
     {
         $ids = [];
 
         foreach ($results['hits']['hits'] as $result) {
             $ids[] = $result['_id'];
         }
+
+        $ids = array_unique($ids);
 
         return $ids;
     }

@@ -128,7 +128,7 @@ class SearchEngineMs implements SearchEngineInterface
         return $data;
     }
 
-    public function convertSearchResults($results): array
+    public function convertResultsToSources($results): array
     {
         $resultsResponse = [];
 
@@ -139,7 +139,7 @@ class SearchEngineMs implements SearchEngineInterface
         return $resultsResponse;
     }
 
-    public function convertSearchIds($results): array
+    public function convertResultsToIdentifiers($results): array
     {
         // TODO: Implement convertSearchIds() method.
     }

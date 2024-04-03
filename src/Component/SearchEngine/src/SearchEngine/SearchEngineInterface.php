@@ -27,8 +27,8 @@ interface SearchEngineInterface
     public function search(Index $index, mixed $query = null): array;
 
     // convert search results to array of results (_source from [hits][hits] in ES implementation)
-    public function convertSearchResults($results): array;
+    public function convertResultsToSources($results): array;
 
     // convert search results to array of ids (_id from [hits][hits] in ES implementation)
-    public function convertSearchIds($results): array;
+    public function convertResultsToIdentifiers($results): array;
 }

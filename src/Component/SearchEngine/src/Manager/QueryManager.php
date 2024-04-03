@@ -25,20 +25,13 @@ class QueryManager
         $results = $this->searchEngine->search($index, $query);
 
         if (self::TYPE_IDENTIFIERS === $type) {
-            return $this->searchEngine->convertSearchIds($results);
+            return $this->searchEngine->convertResultsToIdentifiers($results);
         } elseif (self::TYPE_ENTITIES === $type) {
-            $results = $this->searchEngine->convertSearchResults($results);
+            $identifiers = $this->searchEngine->convertResultsToIdentifiers($results);
 
-            $identifiers = [];
-            foreach ($results as $result) {
-                $identifiers[] = $result['id'];
-            }
-            $identifiers = array_unique($identifiers);
-
-            // TODO sort by ids (mysql vs sqlite)
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
         } elseif (self::TYPE_ENTITIES_RAW === $type) {
-            $results = $this->searchEngine->convertSearchResults($results);
+            $results = $this->searchEngine->convertResultsToSources($results);
 
             $identifiers = $resultsResponse = [];
             foreach ($results as $result) {
@@ -59,7 +52,7 @@ class QueryManager
 
             return $resultsResponse;
         } elseif (self::TYPE_RAW_SOURCE === $type) {
-            return $this->searchEngine->convertSearchResults($results);
+            return $this->searchEngine->convertResultsToSources($results);
         }
 
         return $results;
