@@ -4,6 +4,7 @@ namespace FHPlatform\Component\EventManager\Manager;
 
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
+use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EventManager
 {
@@ -14,8 +15,8 @@ class EventManager
 
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,
-    )
-    {
+        private readonly PersistenceInterface $persistence,
+    ) {
     }
 
     protected array $changedEntityEvents = [];
@@ -30,7 +31,7 @@ class EventManager
         }
 
         // store changed entities for flush later, make changes unique, skip duplicated changes
-        $hash = $event->getClassName(). '_' . $event->getIdentifierValue();
+        $hash = $event->getClassName().'_'.$event->getIdentifierValue();
 
         $this->changedEntityEvents[$hash] = $event;
 
@@ -54,7 +55,22 @@ class EventManager
         }
     }
 
-    public function manualSyncAction(array $entitiesArray, bool $instant = false): void
+    public function manualSyncEntitiesAction(array $entities, bool $instant = true): void
+    {
+        $changedEntityEvents = [];
+        foreach ($entities as $entity) {
+            $className = $this->persistence->getRealClassName($entity::class);
+            $identifierValue = $this->persistence->getIdentifierValue($entity);
+
+            $changedEntityEvents[] = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+        }
+
+        if ($instant) {
+            $this->dispatch($changedEntityEvents);
+        }
+    }
+
+    public function manualSyncEntitiesArrayAction(array $entitiesArray, bool $instant = true): void
     {
         $changedEntityEvents = [];
         foreach ($entitiesArray as $className => $identifierValues) {
@@ -63,7 +79,9 @@ class EventManager
             }
         }
 
-        $this->dispatch($changedEntityEvents, $instant);
+        if ($instant) {
+            $this->dispatch($changedEntityEvents);
+        }
     }
 
     public function beginTransactionAction(): void
@@ -73,21 +91,21 @@ class EventManager
 
     public function rollbackTransactionAction(): void
     {
-        $this->manualSyncAction($this->changedEntityEventsTransaction);
+        $this->dispatch($this->changedEntityEventsTransaction);
 
         $this->changedEntityEventsTransactionStarted = false;
     }
 
     private function dispatchAccumulated(): void
     {
-        //TODO detect instant sync
+        // TODO detect instant sync
         $this->dispatch($this->changedEntityEvents);
 
         // reset var
         $this->changedEntityEvents = [];
     }
 
-    private function dispatch($changedEntityEvents, bool $instant = false): void
+    private function dispatch($changedEntityEvents): void
     {
         if (count($changedEntityEvents) > 0) {
             $this->eventDispatcher->dispatch(new SyncEntitiesEvent($changedEntityEvents));

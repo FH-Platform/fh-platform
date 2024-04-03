@@ -5,7 +5,6 @@ namespace FHPlatform\Persistence\DoctrineListener;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
-use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Event\FlushEvent;
 use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;

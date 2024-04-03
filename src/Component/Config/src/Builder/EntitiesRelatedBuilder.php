@@ -14,7 +14,7 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function build(Connection $connection, mixed $entity, string $type, $changedFields): array
+    public function build(Connection $connection, mixed $entity, string $type, $changedFields = []): array
     {
         // TODO remove all -> $entity::class
         $className = $entity::class;

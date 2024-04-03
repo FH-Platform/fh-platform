@@ -84,19 +84,19 @@ class ChangedEntityMoreTest extends TestCase
         $event = $events[0];
         $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(3, $event->getIdentifierValue());
-        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE,$event->getType());
+        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE, $event->getType());
         $this->assertEquals([], $event->getChangedFields());
 
         $event = $events[1];
         $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(4, $event->getIdentifierValue());
-        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE,$event->getType());
+        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE, $event->getType());
         $this->assertEquals([], $event->getChangedFields());
 
         $event = $events[2];
         $this->assertEquals(Role::class, $event->getClassName());
         $this->assertEquals(2, $event->getIdentifierValue());
-        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE,$event->getType());
+        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE, $event->getType());
         $this->assertEquals([], $event->getChangedFields());
 
         $this->assertEquals(User::class, $events[0]->getClassName());
@@ -106,7 +106,7 @@ class ChangedEntityMoreTest extends TestCase
         $this->assertEquals([], $event->getChangedFields());
 
         $event = $events[4];
-        $this->assertEquals(User::class,$event->getClassName());
+        $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(6, $event->getIdentifierValue());
         $this->assertEquals(ChangedEntityEvent::TYPE_CREATE, $event->getType());
         $this->assertEquals([], $event->getChangedFields());
@@ -139,7 +139,7 @@ class ChangedEntityMoreTest extends TestCase
         $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(3, $event->getIdentifierValue());
         $this->assertEquals(ChangedEntityEvent::TYPE_DELETE, $event->getType());
-        $this->assertEquals([],$event->getChangedFields());
+        $this->assertEquals([], $event->getChangedFields());
 
         $event = $events[10];
         $this->assertEquals(User::class, $event->getClassName());
@@ -150,7 +150,7 @@ class ChangedEntityMoreTest extends TestCase
         $event = $events[11];
         $this->assertEquals(Role::class, $event->getClassName());
         $this->assertEquals(2, $event->getIdentifierValue());
-        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE,$event->getType());
+        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE, $event->getType());
         $this->assertEquals([], $event->getChangedFields());
     }
 }

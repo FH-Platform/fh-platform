@@ -7,6 +7,7 @@ use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\EventManager\Manager\EventManager;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 
 class ManualUpdateTest extends TestCase
@@ -39,11 +40,11 @@ class ManualUpdateTest extends TestCase
 
         $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $relatedEntities = $entitiesRelatedBuilder->buildForEntity($connectionsBuilder->build()[0], $user);
+        $relatedEntities = $entitiesRelatedBuilder->build($connectionsBuilder->build()[0], $user, ChangedEntityEvent::TYPE_UPDATE);
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $eventManager->manualSyncAction($relatedEntities);
+        $eventManager->manualSyncEntitiesAction(array_merge([$user], $relatedEntities));
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
@@ -66,7 +67,7 @@ class ManualUpdateTest extends TestCase
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2_2'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
-        $eventManager->manualSyncAction([User::class => [2]]);
+        $eventManager->manualSyncEntitiesArrayAction([User::class => [2]]);
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2_2'));
@@ -88,7 +89,7 @@ class ManualUpdateTest extends TestCase
         ]);
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test3'));
-        $eventManager->manualSyncAction([User::class => [3]]);
+        $eventManager->manualSyncEntitiesArrayAction([User::class => [3]]);
         $this->assertEquals([3], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([3], $this->findEsBy(Role::class, 'users.testString', 'test3'));
     }

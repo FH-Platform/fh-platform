@@ -5,7 +5,6 @@ namespace FHPlatform\Component\EventManager\Tests\Util\FHPlatform;
 use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
-use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class RoleProviderEntity extends ProviderEntity
 {
@@ -21,7 +20,7 @@ class RoleProviderEntity extends ProviderEntity
                 'testString',
                 'users' => [
                     'testString',
-                ]
+                ],
             ];
 
         return $config;
