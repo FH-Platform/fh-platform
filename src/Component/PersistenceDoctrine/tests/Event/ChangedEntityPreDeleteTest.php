@@ -3,7 +3,7 @@
 namespace FHPlatform\PersistenceDoctrine\DoctrineListener;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
 
@@ -11,7 +11,7 @@ class ChangedEntityPreDeleteTest extends TestCase
 {
     public function testSomething(): void
     {
-        $this->eventsStartListen(ChangedEntity::class);
+        $this->eventsStartListen(ChangedEntityEvent::class);
 
         $user = new User();
         $user->setTestString('test_string');
@@ -28,32 +28,32 @@ class ChangedEntityPreDeleteTest extends TestCase
         $this->save([$user, $user2, $user3]);
 
         // test remove one
-        $this->eventsClear(ChangedEntity::class);
-        $this->assertCount(0, $this->eventsGet(ChangedEntity::class));
+        $this->eventsClear(ChangedEntityEvent::class);
+        $this->assertCount(0, $this->eventsGet(ChangedEntityEvent::class));
         $this->entityManager->remove($user);
-        $events = $this->eventsGet(ChangedEntity::class);
+        $events = $this->eventsGet(ChangedEntityEvent::class);
 
-        /** @var ChangedEntity $event */
+        /** @var ChangedEntityEvent $event */
         $event = $events[0];
         $this->assertCount(1, $events);
         $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(1, $event->getIdentifierValue());
-        $this->assertEquals(ChangedEntity::TYPE_DELETE_PRE, $event->getType());
+        $this->assertEquals(ChangedEntityEvent::TYPE_DELETE_PRE, $event->getType());
 
         // test remove two
-        $this->eventsClear(ChangedEntity::class);
-        $this->assertCount(0, $this->eventsGet(ChangedEntity::class));
+        $this->eventsClear(ChangedEntityEvent::class);
+        $this->assertCount(0, $this->eventsGet(ChangedEntityEvent::class));
         $this->entityManager->remove($user2);
         $this->entityManager->remove($user3);
-        $events = $this->eventsGet(ChangedEntity::class);
+        $events = $this->eventsGet(ChangedEntityEvent::class);
 
-        /** @var ChangedEntity $event */
+        /** @var ChangedEntityEvent $event */
         $event = $events[0];
         $this->assertCount(2, $events);
         $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(2, $event->getIdentifierValue());
 
-        /** @var ChangedEntity $event */
+        /** @var ChangedEntityEvent $event */
         $event2 = $events[1];
         $this->assertCount(2, $events);
         $this->assertEquals(User::class, $event2->getClassName());

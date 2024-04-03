@@ -7,7 +7,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterf
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
 class DocumentBuilder
 {
@@ -30,8 +30,8 @@ class DocumentBuilder
 
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
-        if (ChangedEntity::TYPE_DELETE === $type or !$entity) {
-            return new Document($index, $identifier, [], ChangedEntity::TYPE_DELETE);
+        if (ChangedEntityEvent::TYPE_DELETE === $type or !$entity) {
+            return new Document($index, $identifier, [], ChangedEntityEvent::TYPE_DELETE);
         }
 
         // prepare decorators
@@ -41,7 +41,7 @@ class DocumentBuilder
         list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);
 
         if (!$shouldBeIndexed) {
-            return new Document($index, $identifier, [], ChangedEntity::TYPE_DELETE);
+            return new Document($index, $identifier, [], ChangedEntityEvent::TYPE_DELETE);
         }
 
         // decorate data items

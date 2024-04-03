@@ -5,8 +5,8 @@ namespace FHPlatform\Component\Syncer\EventListener;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\EventManager\Event\ChangedEntities;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,11 +27,11 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ChangedEntities::class => 'onChangedEntities',
+            SyncEntitiesEvent::class => 'onChangedEntities',
         ];
     }
 
-    public function onChangedEntities(ChangedEntities $event): void
+    public function onChangedEntities(SyncEntitiesEvent $event): void
     {
         $documents = [];
 
@@ -43,13 +43,13 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
-            if (ChangedEntity::TYPE_DELETE_PRE === $event->getType()) {
+            if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
                 $connection = $this->connectionsBuilder->build()[0] ?? null;
 
                 if ($connection) {
                     $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
 
-                    $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntity::TYPE_DELETE, []);
+                    $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
 
                     $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
                 }
@@ -76,7 +76,7 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
             $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
             $identifier = $this->persistence->getIdentifierValue($entityRelatedPreDelete);
 
-            $documents[] = $this->documentBuilder->buildForEntity($entityRelatedPreDelete, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+            $documents[] = $this->documentBuilder->buildForEntity($entityRelatedPreDelete, $className, $identifier, ChangedEntityEvent::TYPE_UPDATE);
         }
 
         $this->entitiesRelatedPreDelete = [];
@@ -98,7 +98,7 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
                     $className = $this->persistence->getRealClassName($entityRelated::class);
                     $identifier = $this->persistence->getIdentifierValue($entityRelated);
 
-                    $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntity::TYPE_UPDATE);
+                    $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntityEvent::TYPE_UPDATE);
                 }
             }
         }

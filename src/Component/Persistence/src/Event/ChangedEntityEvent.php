@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Persistence\Event;
 
-class ChangedEntity
+class ChangedEntityEvent
 {
     final public const TYPE_CREATE = 'create';
     final public const TYPE_UPDATE = 'update';

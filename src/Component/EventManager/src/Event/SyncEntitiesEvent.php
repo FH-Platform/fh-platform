@@ -2,16 +2,16 @@
 
 namespace FHPlatform\Component\EventManager\Event;
 
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
-class ChangedEntities
+class SyncEntitiesEvent
 {
     public function __construct(
         private readonly array $changedEntities,
     ) {
     }
 
-    /** @return ChangedEntity[] */
+    /** @return ChangedEntityEvent[] */
     public function getChangedEntities(): array
     {
         return $this->changedEntities;

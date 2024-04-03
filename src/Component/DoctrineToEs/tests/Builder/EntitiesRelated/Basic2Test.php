@@ -5,7 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\EntitiesRelated;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\SettingMain;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
 class Basic2Test extends TestCaseEntitiesRelated
 {
@@ -39,12 +39,12 @@ class Basic2Test extends TestCaseEntitiesRelated
         $user->setSetting($setting);
         $this->save([$user]);
 
-        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntity::TYPE_UPDATE, ['testFloat']));
+        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntityEvent::TYPE_UPDATE, ['testFloat']));
         $this->assertEquals([
             'user' => [
                 1 => $user,
             ],
-        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntity::TYPE_UPDATE, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntityEvent::TYPE_UPDATE, ['testBoolean']));
 
         $this->assertEquals([
             'user' => [
@@ -53,6 +53,6 @@ class Basic2Test extends TestCaseEntitiesRelated
             'settingMain' => [
                 1 => $settingMain,
             ],
-        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntity::TYPE_UPDATE, ['testBoolean', 'testString']));
+        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntityEvent::TYPE_UPDATE, ['testBoolean', 'testString']));
     }
 }

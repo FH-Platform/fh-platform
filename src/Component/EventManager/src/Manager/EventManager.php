@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Component\EventManager\Manager;
 
-use FHPlatform\Component\EventManager\Event\ChangedEntities;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
 class EventManager
 {
@@ -22,10 +22,10 @@ class EventManager
     protected bool $transactionStarted = false;
     protected array $transactionEntities = [];
 
-    public function changedEntityEvent(ChangedEntity $event): void
+    public function changedEntityEvent(ChangedEntityEvent $event): void
     {
-        if (ChangedEntity::TYPE_DELETE_PRE === $event->getType()) {
-            $this->eventDispatcher->dispatch(new ChangedEntities([$event]));
+        if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
+            $this->eventDispatcher->dispatch(new SyncEntitiesEvent([$event]));
         }
 
         // store changed entities for flush later, make changes unique, skip duplicated changes
@@ -57,7 +57,7 @@ class EventManager
     {
         foreach ($entities as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $this->changedEntityEvent(new ChangedEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE));
+                $this->changedEntityEvent(new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE));
             }
         }
 
@@ -77,7 +77,7 @@ class EventManager
     private function dispatch(bool $sync = false): void
     {
         if (count($this->changedEntities) > 0) {
-            $this->eventDispatcher->dispatch(new ChangedEntities($this->changedEntities));
+            $this->eventDispatcher->dispatch(new SyncEntitiesEvent($this->changedEntities));
 
             // reset var
             $this->changedEntities = [];

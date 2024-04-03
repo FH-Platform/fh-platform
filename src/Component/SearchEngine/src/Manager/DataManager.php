@@ -5,7 +5,7 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\DTO\Document;
 // remove persistence coupling
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 
 class DataManager
@@ -19,7 +19,7 @@ class DataManager
     // TODO remove
     public function insertRaw(string $className, array $data, mixed $identifierValue): void
     {
-        $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, ChangedEntity::TYPE_CREATE);
+        $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, ChangedEntityEvent::TYPE_CREATE);
         $this->syncDocuments($documents);
     }
 

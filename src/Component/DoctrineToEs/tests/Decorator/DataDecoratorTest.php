@@ -4,7 +4,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
 class DataDecoratorTest extends TestCaseEs
 {
@@ -24,6 +24,6 @@ class DataDecoratorTest extends TestCaseEs
             'setting' => [
                 'testFloat' => 18.16,
             ],
-        ], $this->documentBuilder->buildForEntity($user, User::class, 1, ChangedEntity::TYPE_UPDATE)->getData());
+        ], $this->documentBuilder->buildForEntity($user, User::class, 1, ChangedEntityEvent::TYPE_UPDATE)->getData());
     }
 }

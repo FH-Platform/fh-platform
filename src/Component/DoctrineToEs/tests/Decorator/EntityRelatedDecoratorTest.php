@@ -5,7 +5,7 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Decorator;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
 class EntityRelatedDecoratorTest extends TestCaseEs
 {
@@ -24,10 +24,10 @@ class EntityRelatedDecoratorTest extends TestCaseEs
         $user->setSetting($setting);
         $this->save([$user]);
 
-        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ChangedEntity::TYPE_UPDATE, ['testInteger']);
+        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ChangedEntityEvent::TYPE_UPDATE, ['testInteger']);
         $this->assertEquals([], $data);
 
-        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ChangedEntity::TYPE_UPDATE, ['testFloat']);
+        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ChangedEntityEvent::TYPE_UPDATE, ['testFloat']);
         $this->assertEquals([$user], $data);
     }
 }

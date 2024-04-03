@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Event;
 
-use FHPlatform\Component\EventManager\Event\ChangedEntities;
+use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 
 class EventDispatcherSymfony implements EventDispatcherInterface
@@ -12,7 +12,7 @@ class EventDispatcherSymfony implements EventDispatcherInterface
     ) {
     }
 
-    public function dispatch(ChangedEntities $event): void
+    public function dispatch(SyncEntitiesEvent $event): void
     {
         $this->eventDispatcher->dispatch($event);
     }

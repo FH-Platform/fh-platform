@@ -3,8 +3,8 @@
 namespace FHPlatform\Component\EventManager\EventListener;
 
 use FHPlatform\Component\EventManager\Manager\EventManager;
-use FHPlatform\Component\Persistence\Event\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\Flush;
+use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
+use FHPlatform\Component\Persistence\Event\FlushEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PersistenceEventListener implements EventSubscriberInterface
@@ -17,17 +17,17 @@ class PersistenceEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ChangedEntity::class => 'onChangedEntity',
-            Flush::class => 'onFlush',
+            ChangedEntityEvent::class => 'onChangedEntity',
+            FlushEvent::class => 'onFlush',
         ];
     }
 
-    public function onChangedEntity(ChangedEntity $event): void
+    public function onChangedEntity(ChangedEntityEvent $event): void
     {
         $this->eventManager->changedEntityEvent($event);
     }
 
-    public function onFlush(Flush $event): void
+    public function onFlush(FlushEvent $event): void
     {
         $this->eventManager->flushEvent();
     }
