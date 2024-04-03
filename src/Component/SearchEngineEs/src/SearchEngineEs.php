@@ -7,7 +7,6 @@ use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use GuzzleHttp\Client;
 
@@ -22,7 +21,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
     {
         $index = $document->getIndex();
 
-        if (ChangedEntityEvent::TYPE_DELETE === $document->getType()) {
+        if (Document::TYPE_DELETE === $document->getType()) {
             return [
                 [
                     'delete' => [
@@ -48,7 +47,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): bool
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->connectionFetcher->fetchClientByIndex($index);
 
         $client = new Client([
             'base_uri' => 'http://elasticsearch:9200',  // TODO
@@ -124,7 +123,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array
     {
-        $client = $this->connectionFetcher->fetchByConnection($connection);
+        $client = $this->connectionFetcher->fetchClientByConnection($connection);
 
         $indexes = $client->getCluster()->getIndexNames();
         $indexesFiltered = [];
@@ -146,7 +145,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     public function search(Index $index, mixed $query = null): array
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->connectionFetcher->fetchClientByIndex($index);
 
         $index = $this->getIndex($index);
 
@@ -162,7 +161,7 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
     private function getIndex(Index $index): \Elastica\Index
     {
-        $client = $this->connectionFetcher->fetchByIndex($index);
+        $client = $this->connectionFetcher->fetchClientByIndex($index);
 
         return $client->getIndex($index->getNameWithPrefix());
     }

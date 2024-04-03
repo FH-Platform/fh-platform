@@ -3,10 +3,10 @@
 namespace FHPlatform\Bundle\EventManagerBundle\Builder;
 
 use Doctrine\ORM\Events;
+use FHPlatform\Bundle\EventManagerBundle\EventListener\PersistenceEventListener;
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
-use FHPlatform\Component\EventManager\EventListener\PersistenceEventListener;
 use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;

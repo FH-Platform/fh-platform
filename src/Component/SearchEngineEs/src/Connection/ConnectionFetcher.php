@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\SearchEngineEs\Connection;
 
+use Elastica\Client;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
 use Psr\Log\LoggerInterface;
@@ -13,19 +14,19 @@ class ConnectionFetcher
     ) {
     }
 
-    public function fetchByConnection(Connection $connection): ElasticaClient
+    public function fetchClientByConnection(Connection $connection): Client
     {
-        $client = new ElasticaClient($connection);
+        $client = new Client($connection->getConfigClient());
 
         $client->setLogger($this->elasticaLogger);
 
         return $client;
     }
 
-    public function fetchByIndex(Index $index): ElasticaClient
+    public function fetchClientByIndex(Index $index): Client
     {
         $connection = $index->getConnection();
 
-        return $this->fetchByConnection($connection);
+        return $this->fetchClientByConnection($connection);
     }
 }

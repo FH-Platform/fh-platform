@@ -4,6 +4,10 @@ namespace FHPlatform\Component\Config\DTO;
 
 class Document
 {
+    final public const TYPE_CREATE = 'create';
+    final public const TYPE_UPDATE = 'update';
+    final public const TYPE_DELETE = 'delete';
+
     public function __construct(
         private readonly Index $index,
         private readonly mixed $identifier,

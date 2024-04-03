@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\EventManager\EventListener;
+namespace FHPlatform\Bundle\EventManagerBundle\EventListener;
 
 use FHPlatform\Component\EventManager\Manager\EventManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
