@@ -156,7 +156,9 @@ class SearchEngineEs implements SearchEngineInterface
             $search->setQuery($query);
         }
 
-        return $search->search()->getResponse()->getData();
+        $data = $search->search()->getResponse()->getData();
+
+        return $data;
     }
 
     private function getIndex(Index $index): \Elastica\Index

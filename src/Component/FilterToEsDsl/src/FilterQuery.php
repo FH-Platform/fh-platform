@@ -7,6 +7,7 @@ use Elastica\Query\BoolQuery;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
+use FHPlatform\Component\FilterToEsDsl\Result\ResultsConverter;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class FilterQuery
@@ -14,7 +15,7 @@ class FilterQuery
     public function __construct(
         private readonly iterable $applicatorConverters,
         private readonly iterable $filterConverters,
-        private readonly QueryManager $queryManager,
+        private readonly ResultsConverter $resultsConverter,
         private readonly ConnectionsBuilder $connectionsBuilder,
     ) {
     }
@@ -29,7 +30,7 @@ class FilterQuery
 
         $queryBase->setQuery($queryFilters);
 
-        return $this->queryManager->getResults($index, $queryBase, $type);
+        return $this->resultsConverter->getResults($index, $queryBase, $type);
     }
 
     private function applyApplicators(Index $index, array $applicatorsArray): Query
