@@ -17,7 +17,7 @@ class SearchEngineEs implements SearchEngineInterface
     ) {
     }
 
-    public function documentPrepare(Document $document): mixed
+    private function documentPrepare(Document $document): mixed
     {
         $index = $document->getIndex();
 
@@ -81,7 +81,7 @@ class SearchEngineEs implements SearchEngineInterface
         );
 
         if ($asyc) {
-            $client->request('POST', '/'.$index->getNameWithPrefix().'/_refresh');
+            $this->getIndex($index)->refresh();
         }
 
         return true;
