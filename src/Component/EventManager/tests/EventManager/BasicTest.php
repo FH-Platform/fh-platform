@@ -7,7 +7,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\Persistence\Tests\TestCase;
 
-class EventManagerBasicTest extends TestCase
+class BasicTest extends TestCase
 {
     public function testSomething(): void
     {
