@@ -22,6 +22,6 @@ class FrameworkEventListener implements EventSubscriberInterface
 
     public function onKernelFinishRequest(FinishRequestEvent $event): void
     {
-        $this->eventManager->requestFinished();
+        $this->eventManager->requestFinishedEvent();
     }
 }

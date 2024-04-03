@@ -22,7 +22,7 @@ class EventManager
     protected bool $transactionStarted = false;
     protected array $transactionEntities = [];
 
-    public function changedEntity(ChangedEntity $event): void
+    public function changedEntityEvent(ChangedEntity $event): void
     {
         // store changed entities for flush later, make changes unique, skip duplicated changes
         $hash = $event->getClassName().'_'.$event->getIdentifierValue();
@@ -34,7 +34,7 @@ class EventManager
         }
     }
 
-    public function flush(): void
+    public function flushEvent(): void
     {
         // event is triggered by
         if (self::TYPE_FLUSH === $this->type) {
@@ -42,14 +42,35 @@ class EventManager
         }
     }
 
-    public function requestFinished(): void
+    public function requestFinishedEvent(): void
     {
         if (self::TYPE_REQUEST_FINISHED === $this->type) {
             $this->dispatch();
         }
     }
 
-    public function dispatch(bool $sync = false): void
+    public function manualSyncAction(array $entities): void
+    {
+        foreach ($entities as $className => $identifierValues) {
+            foreach ($identifierValues as $identifierValue) {
+                $this->changedEntityEvent(new ChangedEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE));
+            }
+        }
+
+        $this->dispatch();
+    }
+
+    public function beginTransactionAction(): void
+    {
+        $this->transactionStarted = true;
+    }
+
+    public function rollbackTransactionAction(): void
+    {
+        $this->manualSyncAction($this->transactionEntities);
+    }
+
+    private function dispatch(bool $sync = false): void
     {
         if (count($this->changedEntities) > 0) {
             $this->eventDispatcher->dispatch(new ChangedEntities($this->changedEntities));
@@ -57,26 +78,5 @@ class EventManager
             // reset var
             $this->changedEntities = [];
         }
-    }
-
-    public function syncEntitiesManually(array $entities): void
-    {
-        foreach ($entities as $className => $identifierValues) {
-            foreach ($identifierValues as $identifierValue) {
-                $this->changedEntity(new ChangedEntity($className, $identifierValue, ChangedEntity::TYPE_UPDATE));
-            }
-        }
-
-        $this->dispatch();
-    }
-
-    public function beginTransaction(): void
-    {
-        $this->transactionStarted = true;
-    }
-
-    public function rollBack(): void
-    {
-        $this->syncEntitiesManually($this->transactionEntities);
     }
 }
