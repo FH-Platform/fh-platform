@@ -125,7 +125,7 @@ class SearchEngineAdapterDataTest extends TestCase
 
     private function getResults(Index $index): array
     {
-        $results = $this->queryClient->getResults($index, null, QueryManager::TYPE_RAW_SOURCE);
+        $results = $this->queryClient->getResults($index, null, QueryManager::TYPE_SOURCES);
 
         usort($results, function ($a, $b) {
             return strcmp($a['id'], $b['id']);

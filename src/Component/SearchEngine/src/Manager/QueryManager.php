@@ -8,11 +8,11 @@ use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 
 class QueryManager
 {
-    public const TYPE_IDENTIFIERS = 'ids';
     public const TYPE_RAW = 'raw';
-    public const TYPE_RAW_SOURCE = 'raw_source';
+    public const TYPE_IDENTIFIERS = 'ids';
     public const TYPE_ENTITIES = 'entities';
-    public const TYPE_ENTITIES_RAW = 'entities_raw';
+    public const TYPE_SOURCES = 'raw_source';
+    public const TYPE_SOURCES_WITH_ENTITIES = 'entities_raw';
 
     public function __construct(
         private readonly SearchEngineInterface $searchEngine,
@@ -24,20 +24,24 @@ class QueryManager
     {
         $results = $this->searchEngine->search($index, $query);
 
-        if (self::TYPE_IDENTIFIERS === $type) {
+        if (self::TYPE_RAW === $type) {
+            return $results;
+        } elseif (self::TYPE_IDENTIFIERS === $type) {
             return $this->searchEngine->convertResultsToIdentifiers($results);
         } elseif (self::TYPE_ENTITIES === $type) {
             $identifiers = $this->searchEngine->convertResultsToIdentifiers($results);
 
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
-        } elseif (self::TYPE_ENTITIES_RAW === $type) {
-            $results = $this->searchEngine->convertResultsToSources($results);
+        } elseif (self::TYPE_SOURCES === $type) {
+            return $this->searchEngine->convertResultsToSources($results);
+        } elseif (self::TYPE_SOURCES_WITH_ENTITIES === $type) {
+            $sources = $this->searchEngine->convertResultsToSources($results);
 
             $identifiers = $resultsResponse = [];
-            foreach ($results as $result) {
-                $id = $result['id'];
+            foreach ($sources as $source) {
+                $id = $source['id'];
 
-                $resultsResponse[$id] = ['raw' => $result];
+                $resultsResponse[$id] = ['source' => $source];
                 $identifiers[] = $id;
             }
             $identifiers = array_unique($identifiers);
@@ -51,10 +55,8 @@ class QueryManager
             }
 
             return $resultsResponse;
-        } elseif (self::TYPE_RAW_SOURCE === $type) {
-            return $this->searchEngine->convertResultsToSources($results);
         }
 
-        return $results;
+        throw new \Exception('Unsupported type');
     }
 }

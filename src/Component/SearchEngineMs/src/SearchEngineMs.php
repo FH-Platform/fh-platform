@@ -142,6 +142,8 @@ class SearchEngineMs implements SearchEngineInterface
     public function convertResultsToIdentifiers($results): array
     {
         // TODO: Implement convertSearchIds() method.
+
+        return [];
     }
 
     private function fetchClientByConnection(Connection $connection): Client
