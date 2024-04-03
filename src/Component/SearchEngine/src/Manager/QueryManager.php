@@ -11,8 +11,8 @@ class QueryManager
     public const TYPE_RAW = 'raw';
     public const TYPE_IDENTIFIERS = 'ids';
     public const TYPE_ENTITIES = 'entities';
-    public const TYPE_SOURCES = 'raw_source';
-    public const TYPE_SOURCES_WITH_ENTITIES = 'entities_raw';
+    public const TYPE_SOURCES = 'sources';
+    public const TYPE_RAW_WITH_ENTITIES = 'entities_raw';
 
     public function __construct(
         private readonly SearchEngineInterface $searchEngine,
@@ -34,27 +34,22 @@ class QueryManager
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
         } elseif (self::TYPE_SOURCES === $type) {
             return $this->searchEngine->convertResultsToSources($results);
-        } elseif (self::TYPE_SOURCES_WITH_ENTITIES === $type) {
-            $sources = $this->searchEngine->convertResultsToSources($results);
-
-            $identifiers = $resultsResponse = [];
-            foreach ($sources as $source) {
-                $id = $source['id'];
-
-                $resultsResponse[$id] = ['source' => $source];
-                $identifiers[] = $id;
-            }
-            $identifiers = array_unique($identifiers);
+        } elseif (self::TYPE_RAW_WITH_ENTITIES === $type) {
+            $identifiers = $this->searchEngine->convertResultsToIdentifiers($results);
 
             $entities = $this->persistence->getEntities($index->getClassName(), $identifiers);
 
+            $entitiesByIds = [];
             foreach ($entities as $entity) {
                 $identifierValue = $this->persistence->getIdentifierValue($entity);
-
-                $resultsResponse[$identifierValue] = ['entity' => $entity];
+                $entitiesByIds[$identifierValue] = $entity;
             }
 
-            return $resultsResponse;
+            foreach ($results['hits']['hits'] as $key => $result) {
+                $results['hits']['hits'][$key]['_entity'] = $entitiesByIds[$result['_id']] ?? null;
+            }
+
+            return $results;
         }
 
         throw new \Exception('Unsupported type');
