@@ -38,17 +38,22 @@
     },
     "autoload": {
         "psr-4": {
+            "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
+            "FHPlatform\\Component\\DoctrineToEs\\": "src/Component/DoctrineToEs/src/",
+
             "FHPlatform\\Component\\SearchEngine\\": "src/Component/SearchEngine/src/",
             "FHPlatform\\Component\\SearchEngineEs\\": "src/Component/SearchEngineEs/src/",
             "FHPlatform\\Component\\SearchEngineMs\\": "src/Component/SearchEngineMs/src/",
+
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
             "FHPlatform\\Component\\PersistenceEloquent\\": "src/Component/PersistenceEloquent/src/",
             "FHPlatform\\Component\\EventManager\\": "src/Component/EventManager/src/",
             "FHPlatform\\Component\\Syncer\\": "src/Component/Syncer/src/",
-            "FHPlatform\\Component\\Config\\": "src/Component/Config/src/",
+
+            "FHPlatform\\Component\\Query\\": "src/Component/Query/src/",
             "FHPlatform\\Component\\FilterToEsDsl\\": "src/Component/FilterToEsDsl/src/",
-            "FHPlatform\\Component\\DoctrineToEs\\": "src/Component/DoctrineToEs/src/",
+
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
             "FHPlatform\\Bundle\\EventManagerBundle\\": "src/Bundle/EventManagerBundle/src/",
@@ -57,14 +62,22 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "FHPlatform\\Component\\Config\\Tests\\": "src/Component/Config/tests/",
+            "FHPlatform\\Component\\DoctrineToEs\\Tests\\": "src/Component/DoctrineToEs/tests/",
+
             "FHPlatform\\Component\\SearchEngine\\Tests\\": "src/Component/SearchEngine/tests/",
+            "FHPlatform\\Component\\SearchEngineEs\\Tests\\": "src/Component/SearchEngineEs/tests/",
+            "FHPlatform\\Component\\SearchEngineMs\\Tests\\": "src/Component/SearchEngineMs/tests/",
+
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
             "FHPlatform\\Component\\PersistenceEloquent\\Tests\\": "src/Component/PersistenceEloquent/tests/",
             "FHPlatform\\Component\\EventManager\\Tests\\": "src/Component/EventManager/tests/",
             "FHPlatform\\Component\\Syncer\\Tests\\": "src/Component/Syncer/tests/",
+
+            "FHPlatform\\Component\\Query\\Tests\\": "src/Component/Query/tests/",
             "FHPlatform\\Component\\FilterToEsDsl\\Tests\\": "src/Component/FilterToEsDsl/tests/",
-            "FHPlatform\\Component\\DoctrineToEs\\Tests\\": "src/Component/DoctrineToEs/tests/",
+
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
             "FHPlatform\\Bundle\\EventManagerBundle\\Tests\\": "src/Bundle/EventManagerBundle/tests/",
