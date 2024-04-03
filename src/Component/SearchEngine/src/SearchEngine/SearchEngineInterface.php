@@ -28,4 +28,7 @@ interface SearchEngineInterface
 
     // convert search results to array of results (_source from [hits][hits] in ES implementation)
     public function convertSearchResults($results): array;
+
+    // convert search results to array of ids (_id from [hits][hits] in ES implementation)
+    public function convertSearchIds($results): array;
 }

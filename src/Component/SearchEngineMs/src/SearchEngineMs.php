@@ -139,7 +139,12 @@ class SearchEngineMs implements SearchEngineInterface
         return $resultsResponse;
     }
 
-    public function fetchClientByConnection(Connection $connection): Client
+    public function convertSearchIds($results): array
+    {
+        // TODO: Implement convertSearchIds() method.
+    }
+
+    private function fetchClientByConnection(Connection $connection): Client
     {
         $client = new Client([
             'base_uri' => 'http://meilisearch:7700/',
@@ -152,7 +157,7 @@ class SearchEngineMs implements SearchEngineInterface
         return $client;
     }
 
-    public function fetchClientByIndex(Index $index): Client
+    private function fetchClientByIndex(Index $index): Client
     {
         $connection = $index->getConnection();
 

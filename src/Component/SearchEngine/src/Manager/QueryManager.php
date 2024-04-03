@@ -25,15 +25,7 @@ class QueryManager
         $results = $this->searchEngine->search($index, $query);
 
         if (self::TYPE_IDENTIFIERS === $type) {
-            $results = $this->searchEngine->convertSearchResults($results);
-
-            $identifiers = [];
-            foreach ($results as $result) {
-                $identifiers[] = $result['id'];
-            }
-            $identifiers = array_unique($identifiers);
-
-            return $identifiers;
+            return $this->searchEngine->convertSearchIds($results);
         } elseif (self::TYPE_ENTITIES === $type) {
             $results = $this->searchEngine->convertSearchResults($results);
 

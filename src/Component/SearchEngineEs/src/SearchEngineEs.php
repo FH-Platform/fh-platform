@@ -177,6 +177,17 @@ class SearchEngineEs implements SearchEngineInterface
         return $resultsResponse;
     }
 
+    public function convertSearchIds($results): array
+    {
+        $ids = [];
+
+        foreach ($results['hits']['hits'] as $result) {
+            $ids[] = $result['_id'];
+        }
+
+        return $ids;
+    }
+
     public function fetchClientByConnection(Connection $connection): \Elastica\Client
     {
         $client = new \Elastica\Client($connection->getConfigClient());
