@@ -2,8 +2,6 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Builder;
 
-use Doctrine\ORM\Events;
-use FHPlatform\Bundle\SymfonyBridgeBundle\Event\EventDispatcherSymfony;
 use FHPlatform\Bundle\SymfonyBridgeBundle\Message\MessageDispatcherSymfony;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
@@ -42,7 +40,7 @@ use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class Builder implements BuilderInterface
+class Builder
 {
     private ContainerBuilder $container;
 
@@ -52,9 +50,7 @@ class Builder implements BuilderInterface
 
         $this->buildFramework();
         $this->buildSearchEngine();
-        $this->buildPersistence();
         $this->buildMessageDispatcher();
-        $this->buildEventDispatcher();
         $this->buildConfig();
         $this->buildFilterToDsl();
     }
@@ -62,12 +58,6 @@ class Builder implements BuilderInterface
     public function buildFramework(): void
     {
         $container = $this->container;
-
-        $container
-            ->register(PersistenceEventListener::class)
-            ->setPublic(true)
-            ->setAutowired(true)
-            ->setAutoconfigured(true);
 
         $container
             ->register(SyncEntitiesEventListener::class)
@@ -99,43 +89,6 @@ class Builder implements BuilderInterface
         $container->register(DataManager::class)->setAutowired(true)->setPublic(true);
     }
 
-    public function buildPersistence(): void
-    {
-        $container = $this->container;
-
-        // fetch implementation
-        $persistence = DoctrinePersistence::class;
-        if (isset($_ENV['FHPLATFORM_PERSISTENCE'])) {
-            $persistence = $_ENV['FHPLATFORM_PERSISTENCE'];
-        }
-
-        // register persistence
-        $container->register($persistence)->setAutowired(true);
-        $container->addAliases([PersistenceInterface::class => $persistence]);
-
-        // register services
-        // TODO
-        // $container->register(DataSyncer::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-
-        $container->register(PersistenceEventDispatcher::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-
-        // register each implementation
-        if (DoctrinePersistence::class === $persistence) {
-            // TODO move to bridge
-            $container->register(DoctrinePersistenceListener::class)
-                ->setAutowired(true)
-                ->addTag('doctrine.event_listener', ['event' => Events::postPersist]) // TODO priority
-                ->addTag('doctrine.event_listener', ['event' => Events::postUpdate])
-                ->addTag('doctrine.event_listener', ['event' => Events::postRemove])
-                ->addTag('doctrine.event_listener', ['event' => Events::preRemove])
-                ->addTag('doctrine.event_listener', ['event' => Events::postFlush])
-                ->addTag('doctrine.event_listener', ['event' => \Doctrine\DBAL\Events::onTransactionBegin])
-                ->addTag('doctrine.event_listener', ['event' => \Doctrine\DBAL\Events::onTransactionRollBack]);
-
-            $this->buildDoctrineToEs();
-        }
-    }
-
     public function buildMessageDispatcher(): void
     {
         $container = $this->container;
@@ -152,15 +105,6 @@ class Builder implements BuilderInterface
         // register message dispatcher
         $container->register(MessageDispatcherSymfony::class)->setAutowired(true);
         $container->addAliases([MessageDispatcherInterface::class => MessageDispatcherSymfony::class]);
-    }
-
-    public function buildEventDispatcher(): void
-    {
-        $container = $this->container;
-
-        // register event dispatcher
-        // $container->register(EventDispatcherSymfony::class)->setAutowired(true);
-        // $container->addAliases([EventDispatcherInterface::class => EventDispatcherSymfony::class]);
     }
 
     public function buildConfig(): void
@@ -226,18 +170,5 @@ class Builder implements BuilderInterface
             new DirectoryResource('src/Component/FilterToEsDsl/src/Converter/Applicator/'),
             //
         ])->autowire(true)->setAutoconfigured(true)->setPublic(true);*/
-    }
-
-    public function buildDoctrineToEs(): void
-    {
-        $container = $this->container;
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('services.yaml');
-
-        $container->register(MappingBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(DataBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(UpdatingMapBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(\FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }

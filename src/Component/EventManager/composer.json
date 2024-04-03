@@ -18,7 +18,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "psr/event-dispatcher": "1.*"
+        "psr/event-dispatcher": "1.*",
+        "fh-platform/persistence": "*"
     },
     "minimum-stability": "dev"
 }

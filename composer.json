@@ -52,6 +52,7 @@
             "FHPlatform\\Component\\DoctrineToEs\\": "src/Component/DoctrineToEs/src/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
+            "FHPlatform\\Bundle\\EventManagerBundle\\": "src/Bundle/EventManagerBundle/src/",
             "App\\": "src/Demo/src/"
         }
     },
@@ -70,6 +71,7 @@
             "FHPlatform\\Component\\DoctrineToEs\\Tests\\": "src/Component/DoctrineToEs/tests/",
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
+            "FHPlatform\\Bundle\\EventManagerBundle\\Tests\\": "src/Bundle/EventManagerBundle/tests/",
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }
     },
