@@ -25,7 +25,7 @@ class EventManagerBuilder
 
         $this->buildPersistence();
 
-        //TODO
+        // TODO
         $container
             ->register(PersistenceEventListener::class)
             ->setPublic(true)

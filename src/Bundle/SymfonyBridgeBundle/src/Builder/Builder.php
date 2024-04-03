@@ -15,30 +15,19 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterfac
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
-use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
-use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
-use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
-use FHPlatform\Component\EventManager\EventListener\PersistenceEventListener;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
-use FHPlatform\Component\FrameworkBridge\BuilderInterface;
-use FHPlatform\Component\FrameworkBridge\EventDispatcherInterface;
 use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
-use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
-use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
 use FHPlatform\Component\Syncer\EventListener\SyncEntitiesEventListener;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class Builder
 {
@@ -104,7 +93,8 @@ class Builder
 
         // register message dispatcher
         $container->register(MessageDispatcherSymfony::class)->setAutowired(true);
-        $container->addAliases([MessageDispatcherInterface::class => MessageDispatcherSymfony::class]);
+        // TODO
+        // $container->addAliases([MessageDispatcherInterface::class => MessageDispatcherSymfony::class]);
     }
 
     public function buildConfig(): void

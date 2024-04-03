@@ -2,11 +2,10 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Message;
 
-use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\TransportNamesStamp;
 
-class MessageDispatcherSymfony implements MessageDispatcherInterface
+class MessageDispatcherSymfony
 {
     public function __construct(
         private readonly MessageBusInterface $messageBus,

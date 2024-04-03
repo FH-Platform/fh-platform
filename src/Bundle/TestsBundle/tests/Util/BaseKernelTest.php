@@ -3,7 +3,6 @@
 namespace FHPlatform\Bundle\TestsBundle\Tests\Util;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\Bundle\EventManagerBundle\Builder\EventManagerBuilder;
 use FHPlatform\Bundle\EventManagerBundle\EventManagerBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
