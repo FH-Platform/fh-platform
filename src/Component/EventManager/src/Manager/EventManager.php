@@ -24,6 +24,10 @@ class EventManager
 
     public function changedEntityEvent(ChangedEntity $event): void
     {
+        if($event->getType() === ChangedEntity::TYPE_DELETE_PRE){
+            $this->eventDispatcher->dispatch(new ChangedEntities([$event]));
+        }
+
         // store changed entities for flush later, make changes unique, skip duplicated changes
         $hash = $event->getClassName().'_'.$event->getIdentifierValue();
         $this->changedEntities[$hash] = $event;

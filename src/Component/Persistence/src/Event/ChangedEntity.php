@@ -7,6 +7,7 @@ class ChangedEntity
     final public const TYPE_CREATE = 'create';
     final public const TYPE_UPDATE = 'update';
     final public const TYPE_DELETE = 'delete';
+    final public const TYPE_DELETE_PRE = 'delete_pre';
 
     public function __construct(
         private readonly string $className,

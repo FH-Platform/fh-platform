@@ -3,7 +3,6 @@
 namespace FHPlatform\Component\Persistence\EventDispatcher;
 
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Event\Flush;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -31,7 +30,7 @@ class PersistenceEventDispatcher
 
     public function dispatchPreDeleteEntity(string $className, mixed $identifierValue): void
     {
-        $this->eventDispatcher->dispatch(new ChangedEntityPreDelete($className, $identifierValue));
+        $this->eventDispatcher->dispatch(new ChangedEntity($className, $identifierValue, ChangedEntity::TYPE_DELETE_PRE));
     }
 
     public function dispatchFlush(): void

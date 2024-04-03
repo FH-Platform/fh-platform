@@ -7,7 +7,6 @@ use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\EventManager\Event\ChangedEntities;
 use FHPlatform\Component\Persistence\Event\ChangedEntity;
-use FHPlatform\Component\Persistence\Event\ChangedEntityPreDelete;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,7 +28,6 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
     {
         return [
             ChangedEntities::class => 'onChangedEntities',
-            ChangedEntityPreDelete::class => 'onChangedEntityPreDelete',
         ];
     }
 
@@ -44,6 +42,20 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
             $identifier = $event->getIdentifierValue();
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
+
+            if($event->getType() === ChangedEntity::TYPE_DELETE_PRE){
+                $connection = $this->connectionsBuilder->build()[0] ?? null;
+
+                if ($connection) {
+                    $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
+
+                    $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntity::TYPE_DELETE, []);
+
+                    $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
+                }
+
+                return;
+            }
 
             $entity = $this->persistence->refreshByClassNameId($className, $identifier);
 
@@ -72,17 +84,6 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
         // TODO chunk in batch from config in client bundle
 
         $this->dataManager->syncDocuments($documents);
-    }
-
-    public function onChangedEntityPreDelete(ChangedEntityPreDelete $event): void
-    {
-        $connection = $this->connectionsBuilder->build()[0] ?? null;
-
-        if ($connection) {
-            $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
-
-            $this->entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntity::TYPE_DELETE, []);
-        }
     }
 
     private function buildForRelatedEntities(mixed $entity, string $type, array $changedFields): array
