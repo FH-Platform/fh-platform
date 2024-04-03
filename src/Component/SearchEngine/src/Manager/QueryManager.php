@@ -9,7 +9,7 @@ use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 class QueryManager
 {
     public const TYPE_RAW = 'raw';
-    public const TYPE_IDENTIFIERS = 'ids';
+    public const TYPE_IDENTIFIERS = 'identifiers';
     public const TYPE_SOURCES = 'sources';
     public const TYPE_ENTITIES = 'entities';
     public const TYPE_RAW_WITH_ENTITIES = 'raw_with_entities';
