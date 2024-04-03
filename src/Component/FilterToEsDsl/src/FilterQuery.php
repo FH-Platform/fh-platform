@@ -7,7 +7,7 @@ use Elastica\Query\BoolQuery;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
-use FHPlatform\Component\FilterToEsDsl\Result\ResultsConverter;
+use FHPlatform\Component\FilterToEsDsl\Result\Converter\ResultsConverter;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class FilterQuery

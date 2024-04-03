@@ -19,7 +19,7 @@ use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
-use FHPlatform\Component\FilterToEsDsl\Result\ResultsConverter;
+use FHPlatform\Component\FilterToEsDsl\Result\Converter\ResultsConverter;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
