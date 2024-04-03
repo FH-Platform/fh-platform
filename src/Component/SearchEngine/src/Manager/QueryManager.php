@@ -10,9 +10,9 @@ class QueryManager
 {
     public const TYPE_RAW = 'raw';
     public const TYPE_IDENTIFIERS = 'ids';
-    public const TYPE_ENTITIES = 'entities';
     public const TYPE_SOURCES = 'sources';
-    public const TYPE_RAW_WITH_ENTITIES = 'entities_raw';
+    public const TYPE_ENTITIES = 'entities';
+    public const TYPE_RAW_WITH_ENTITIES = 'raw_with_entities';
 
     public function __construct(
         private readonly SearchEngineInterface $searchEngine,
@@ -28,12 +28,12 @@ class QueryManager
             return $results;
         } elseif (self::TYPE_IDENTIFIERS === $type) {
             return $this->searchEngine->convertResultsToIdentifiers($results);
+        } elseif (self::TYPE_SOURCES === $type) {
+            return $this->searchEngine->convertResultsToSources($results);
         } elseif (self::TYPE_ENTITIES === $type) {
             $identifiers = $this->searchEngine->convertResultsToIdentifiers($results);
 
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
-        } elseif (self::TYPE_SOURCES === $type) {
-            return $this->searchEngine->convertResultsToSources($results);
         } elseif (self::TYPE_RAW_WITH_ENTITIES === $type) {
             $identifiers = $this->searchEngine->convertResultsToIdentifiers($results);
 
