@@ -58,10 +58,17 @@ class ChangedEntityTest extends TestCase
 
         /** @var ChangedEntity $event */
         $event = $events[0];
-        $this->assertCount(1, $events);
+        $this->assertCount(2, $events);
         $this->assertEquals(User::class, $event->getClassName());
         $this->assertEquals(1, $event->getIdentifierValue());
-        $this->assertEquals(ChangedEntity::TYPE_DELETE, $event->getType());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE_PRE, $event->getType());
         $this->assertEquals([], $event->getChangedFields());
+
+        /** @var ChangedEntity $event2 */
+        $event2 = $events[1];
+        $this->assertEquals(User::class, $event2->getClassName());
+        $this->assertEquals(1, $event2->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE, $event2->getType());
+        $this->assertEquals([], $event2->getChangedFields());
     }
 }

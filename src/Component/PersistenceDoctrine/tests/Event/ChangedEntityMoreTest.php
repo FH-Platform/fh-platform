@@ -79,51 +79,78 @@ class ChangedEntityMoreTest extends TestCase
         /** @var ChangedEntity[] $events */
         $events = $this->eventsGet(ChangedEntity::class);
 
-        $this->assertCount(9, $this->eventsGet(ChangedEntity::class));
+        $this->assertCount(12, $this->eventsGet(ChangedEntity::class));
+
+        $event = $events[0];
+        $this->assertEquals(User::class, $event->getClassName());
+        $this->assertEquals(3, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE_PRE,$event->getType());
+        $this->assertEquals([], $event->getChangedFields());
+
+        $event = $events[1];
+        $this->assertEquals(User::class, $event->getClassName());
+        $this->assertEquals(4, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE_PRE,$event->getType());
+        $this->assertEquals([], $event->getChangedFields());
+
+        $event = $events[2];
+        $this->assertEquals(Role::class, $event->getClassName());
+        $this->assertEquals(2, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE_PRE,$event->getType());
+        $this->assertEquals([], $event->getChangedFields());
 
         $this->assertEquals(User::class, $events[0]->getClassName());
-        $this->assertEquals(5, $events[0]->getIdentifierValue());
-        $this->assertEquals('create', $events[0]->getType());
-        $this->assertEquals([], $events[0]->getChangedFields());
+        $event = $events[3];
+        $this->assertEquals(5, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_CREATE, $event->getType());
+        $this->assertEquals([], $event->getChangedFields());
 
-        $this->assertEquals(User::class, $events[1]->getClassName());
-        $this->assertEquals(6, $events[1]->getIdentifierValue());
-        $this->assertEquals('create', $events[1]->getType());
-        $this->assertEquals([], $events[1]->getChangedFields());
+        $event = $events[4];
+        $this->assertEquals(User::class,$event->getClassName());
+        $this->assertEquals(6, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_CREATE, $event->getType());
+        $this->assertEquals([], $event->getChangedFields());
 
-        $this->assertEquals(Role::class, $events[2]->getClassName());
-        $this->assertEquals(3, $events[2]->getIdentifierValue());
-        $this->assertEquals('create', $events[2]->getType());
-        $this->assertEquals([], $events[2]->getChangedFields());
+        $event = $events[5];
+        $this->assertEquals(Role::class, $event->getClassName());
+        $this->assertEquals(3, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_CREATE, $event->getType());
+        $this->assertEquals([], $event->getChangedFields());
 
-        $this->assertEquals(User::class, $events[3]->getClassName());
-        $this->assertEquals(1, $events[3]->getIdentifierValue());
-        $this->assertEquals('update', $events[3]->getType());
-        $this->assertEquals(['testString'], $events[3]->getChangedFields());
+        $event = $events[6];
+        $this->assertEquals(User::class, $event->getClassName());
+        $this->assertEquals(1, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_UPDATE, $event->getType());
+        $this->assertEquals(['testString'], $event->getChangedFields());
 
-        $this->assertEquals(User::class, $events[4]->getClassName());
-        $this->assertEquals(2, $events[4]->getIdentifierValue());
-        $this->assertEquals('update', $events[4]->getType());
-        $this->assertEquals(['testString'], $events[4]->getChangedFields());
+        $event = $events[7];
+        $this->assertEquals(User::class, $event->getClassName());
+        $this->assertEquals(2, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_UPDATE, $event->getType());
+        $this->assertEquals(['testString'], $event->getChangedFields());
 
-        $this->assertEquals(Role::class, $events[5]->getClassName());
-        $this->assertEquals(1, $events[5]->getIdentifierValue());
-        $this->assertEquals('update', $events[5]->getType());
-        $this->assertEquals(['testString'], $events[5]->getChangedFields());
+        $event = $events[8];
+        $this->assertEquals(Role::class, $event->getClassName());
+        $this->assertEquals(1, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_UPDATE, $event->getType());
+        $this->assertEquals(['testString'], $event->getChangedFields());
 
-        $this->assertEquals(User::class, $events[6]->getClassName());
-        $this->assertEquals(3, $events[6]->getIdentifierValue());
-        $this->assertEquals('delete', $events[6]->getType());
-        $this->assertEquals([], $events[6]->getChangedFields());
+        $event = $events[9];
+        $this->assertEquals(User::class, $event->getClassName());
+        $this->assertEquals(3, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE, $event->getType());
+        $this->assertEquals([],$event->getChangedFields());
 
-        $this->assertEquals(User::class, $events[7]->getClassName());
-        $this->assertEquals(4, $events[7]->getIdentifierValue());
-        $this->assertEquals('delete', $events[7]->getType());
-        $this->assertEquals([], $events[7]->getChangedFields());
+        $event = $events[10];
+        $this->assertEquals(User::class, $event->getClassName());
+        $this->assertEquals(4, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE, $event->getType());
+        $this->assertEquals([], $event->getChangedFields());
 
-        $this->assertEquals(Role::class, $events[8]->getClassName());
-        $this->assertEquals(2, $events[8]->getIdentifierValue());
-        $this->assertEquals('delete', $events[8]->getType());
-        $this->assertEquals([], $events[8]->getChangedFields());
+        $event = $events[11];
+        $this->assertEquals(Role::class, $event->getClassName());
+        $this->assertEquals(2, $event->getIdentifierValue());
+        $this->assertEquals(ChangedEntity::TYPE_DELETE,$event->getType());
+        $this->assertEquals([], $event->getChangedFields());
     }
 }

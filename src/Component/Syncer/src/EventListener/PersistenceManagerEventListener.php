@@ -43,7 +43,7 @@ class PersistenceManagerEventListener implements EventSubscriberInterface
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
-            if($event->getType() === ChangedEntity::TYPE_DELETE_PRE){
+            if (ChangedEntity::TYPE_DELETE_PRE === $event->getType()) {
                 $connection = $this->connectionsBuilder->build()[0] ?? null;
 
                 if ($connection) {

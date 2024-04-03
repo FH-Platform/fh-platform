@@ -24,7 +24,7 @@ class EventManager
 
     public function changedEntityEvent(ChangedEntity $event): void
     {
-        if($event->getType() === ChangedEntity::TYPE_DELETE_PRE){
+        if (ChangedEntity::TYPE_DELETE_PRE === $event->getType()) {
             $this->eventDispatcher->dispatch(new ChangedEntities([$event]));
         }
 
