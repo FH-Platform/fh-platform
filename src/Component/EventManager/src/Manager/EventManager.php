@@ -19,10 +19,13 @@ class EventManager
     ) {
     }
 
+    /** @var ChangedEntityEvent[] */
     protected array $changedEntityEvents = [];
 
-    protected bool $changedEntityEventsTransactionStarted = false;
+    /** @var ChangedEntityEvent[] */
     protected array $changedEntityEventsTransaction = [];
+
+    protected bool $changedEntityEventsTransactionStarted = false;
 
     public function changedEntityEvent(ChangedEntityEvent $event): void
     {
@@ -37,7 +40,7 @@ class EventManager
 
         // store transaction events if transaction is starter so that we can roll back applied changes is transaction is rollback
         if ($this->changedEntityEventsTransactionStarted) {
-            $this->changedEntityEventsTransaction[$hash][] = $event;
+            $this->changedEntityEventsTransaction[$hash] = $event;
         }
     }
 
@@ -91,9 +94,15 @@ class EventManager
 
     public function rollbackTransactionAction(): void
     {
-        $this->dispatch($this->changedEntityEventsTransaction);
+        $eventsUpdate = [];
+        foreach ($this->changedEntityEventsTransaction as $event) {
+            $eventsUpdate[] = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE);
+        }
+
+        $this->dispatch($eventsUpdate);
 
         $this->changedEntityEventsTransactionStarted = false;
+        $this->changedEntityEventsTransaction = [];
     }
 
     private function dispatchAccumulated(): void
