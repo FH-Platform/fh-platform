@@ -6,10 +6,11 @@ use Elastica\Search;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 
-class SearchEngineEs implements \FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface
+class SearchEngineEs implements SearchEngineInterface
 {
     public function __construct(
         private readonly LoggerInterface $elasticaLogger

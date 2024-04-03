@@ -5,6 +5,7 @@ namespace FHPlatform\Bundle\EventManagerBundle\Builder;
 use Doctrine\ORM\Events;
 use FHPlatform\Bundle\EventManagerBundle\EventListener\PersistenceEventListener;
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
+use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
 use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
@@ -14,7 +15,7 @@ use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder;
+
 class EventManagerBuilder
 {
     private ContainerBuilder $container;

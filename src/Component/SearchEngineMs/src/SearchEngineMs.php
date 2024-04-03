@@ -5,10 +5,11 @@ namespace FHPlatform\Component\SearchEngineMs;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
-class SearchEngineMs implements \FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface
+class SearchEngineMs implements SearchEngineInterface
 {
     public function dataUpdate(Index $index, mixed $documents, bool $asyc = true): bool
     {

@@ -15,14 +15,15 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterfac
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
+use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
+use FHPlatform\Component\SearchEngineEs\SearchEngineEs;
 use FHPlatform\Component\Syncer\EventListener\SyncEntitiesEventListener;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -52,7 +53,7 @@ class Builder
             ->setAutowired(true)
             ->setAutoconfigured(true);
 
-        $container->register(\FHPlatform\Component\EventManager\Manager\EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     public function buildSearchEngine(): void
@@ -60,7 +61,7 @@ class Builder
         $container = $this->container;
 
         // fetch implementation
-        $searchEngine = \FHPlatform\Component\SearchEngineEs\SearchEngineEs::class;
+        $searchEngine = SearchEngineEs::class;
         if (isset($_ENV['FHPLATFORM_SEARCH_ENGINE'])) {
             $searchEngine = $_ENV['FHPLATFORM_SEARCH_ENGINE'];
         }
