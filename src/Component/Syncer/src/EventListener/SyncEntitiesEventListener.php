@@ -35,7 +35,7 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
     {
         $documents = [];
 
-        foreach ($event->getChangedEntities() as $event) {
+        foreach ($event->getChangedEntityEvents() as $event) {
             // TODO check if reletable or indexable, fetch entity classNames array and check
 
             $className = $event->getClassName();

@@ -14,13 +14,14 @@ class EventManager
 
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,
-    ) {
+    )
+    {
     }
 
-    protected array $changedEntities = [];
+    protected array $changedEntityEvents = [];
 
-    protected bool $transactionStarted = false;
-    protected array $transactionEntities = [];
+    protected bool $changedEntityEventsTransactionStarted = false;
+    protected array $changedEntityEventsTransaction = [];
 
     public function changedEntityEvent(ChangedEntityEvent $event): void
     {
@@ -29,58 +30,67 @@ class EventManager
         }
 
         // store changed entities for flush later, make changes unique, skip duplicated changes
-        $hash = $event->getClassName().'_'.$event->getIdentifierValue();
-        $this->changedEntities[$hash] = $event;
+        $hash = $event->getClassName(). '_' . $event->getIdentifierValue();
+
+        $this->changedEntityEvents[$hash] = $event;
 
         // store transaction events if transaction is starter so that we can roll back applied changes is transaction is rollback
-        if ($this->transactionStarted) {
-            $this->transactionEntities[$event->getClassName()][] = $event->getIdentifierValue();
+        if ($this->changedEntityEventsTransactionStarted) {
+            $this->changedEntityEventsTransaction[$hash][] = $event;
         }
     }
 
     public function flushEvent(): void
     {
-        // event is triggered by
         if (self::TYPE_FLUSH === $this->type) {
-            $this->dispatch();
+            $this->dispatchAccumulated();
         }
     }
 
     public function requestFinishedEvent(): void
     {
         if (self::TYPE_REQUEST_FINISHED === $this->type) {
-            $this->dispatch();
+            $this->dispatchAccumulated();
         }
     }
 
-    public function manualSyncAction(array $entities): void
+    public function manualSyncAction(array $entitiesArray, bool $instant = false): void
     {
-        foreach ($entities as $className => $identifierValues) {
+        $changedEntityEvents = [];
+        foreach ($entitiesArray as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $this->changedEntityEvent(new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE));
+                $changedEntityEvents[] = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
             }
         }
 
-        $this->dispatch();
+        $this->dispatch($changedEntityEvents, $instant);
     }
 
     public function beginTransactionAction(): void
     {
-        $this->transactionStarted = true;
+        $this->changedEntityEventsTransactionStarted = true;
     }
 
     public function rollbackTransactionAction(): void
     {
-        $this->manualSyncAction($this->transactionEntities);
+        $this->manualSyncAction($this->changedEntityEventsTransaction);
+
+        $this->changedEntityEventsTransactionStarted = false;
     }
 
-    private function dispatch(bool $sync = false): void
+    private function dispatchAccumulated(): void
     {
-        if (count($this->changedEntities) > 0) {
-            $this->eventDispatcher->dispatch(new SyncEntitiesEvent($this->changedEntities));
+        //TODO detect instant sync
+        $this->dispatch($this->changedEntityEvents);
 
-            // reset var
-            $this->changedEntities = [];
+        // reset var
+        $this->changedEntityEvents = [];
+    }
+
+    private function dispatch($changedEntityEvents, bool $instant = false): void
+    {
+        if (count($changedEntityEvents) > 0) {
+            $this->eventDispatcher->dispatch(new SyncEntitiesEvent($changedEntityEvents));
         }
     }
 }
