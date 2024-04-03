@@ -38,7 +38,6 @@
     },
     "autoload": {
         "psr-4": {
-            "FHPlatform\\Component\\FrameworkBridge\\": "src/Component/FrameworkBridge/src/",
             "FHPlatform\\Component\\SearchEngine\\": "src/Component/SearchEngine/src/",
             "FHPlatform\\Component\\SearchEngineEs\\": "src/Component/SearchEngineEs/src/",
             "FHPlatform\\Component\\SearchEngineMs\\": "src/Component/SearchEngineMs/src/",
@@ -58,7 +57,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "FHPlatform\\Component\\FrameworkBridge\\Tests\\": "src/Component/FrameworkBridge/tests/",
             "FHPlatform\\Component\\SearchEngine\\Tests\\": "src/Component/SearchEngine/tests/",
             "FHPlatform\\Component\\SearchEngineEs\\Tests\\": "src/Component/SearchEngineEs/tests/",
             "FHPlatform\\Component\\SearchEngineMs\\Tests\\": "src/Component/SearchEngineMs/tests/",

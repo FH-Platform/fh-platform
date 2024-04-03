@@ -18,7 +18,6 @@ use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
-use FHPlatform\Component\FrameworkBridge\MessageDispatcherInterface;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
