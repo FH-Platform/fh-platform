@@ -6,8 +6,8 @@ use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Tests\TestCase;
 
 class SearchEngineAdapterIndexTest extends TestCase

@@ -4,7 +4,7 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 
 class QueryManager
 {

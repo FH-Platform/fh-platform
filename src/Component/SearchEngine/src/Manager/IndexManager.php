@@ -4,7 +4,7 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 
 class IndexManager
 {

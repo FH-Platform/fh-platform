@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\DTO\Document;
 // remove persistence coupling
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 
 class DataManager
 {

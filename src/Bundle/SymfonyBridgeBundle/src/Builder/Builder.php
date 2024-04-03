@@ -19,11 +19,10 @@ use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\FilterQuery;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
-use FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
-use FHPlatform\Component\SearchEngineEs\Connection\ConnectionFetcher;
+use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 use FHPlatform\Component\Syncer\EventListener\SyncEntitiesEventListener;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -71,7 +70,6 @@ class Builder
         $container->addAliases([SearchEngineInterface::class => $searchEngine]);
 
         // register services
-        $container->register(ConnectionFetcher::class)->setAutowired(true)->setPublic(true);
         $container->register(IndexManager::class)->setAutowired(true)->setPublic(true);
         $container->register(QueryManager::class)->setAutowired(true)->setPublic(true);
         $container->register(DataManager::class)->setAutowired(true)->setPublic(true);

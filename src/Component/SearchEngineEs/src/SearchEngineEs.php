@@ -9,7 +9,7 @@ use FHPlatform\Component\Config\DTO\Index;
 use GuzzleHttp\Client;
 use Psr\Log\LoggerInterface;
 
-class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\SearchEngineInterface
+class SearchEngineEs implements \FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface
 {
     public function __construct(
         private readonly LoggerInterface $elasticaLogger
@@ -175,7 +175,6 @@ class SearchEngineEs implements \FHPlatform\Component\SearchEngine\Adapter\Searc
 
         return $resultsResponse;
     }
-
 
     public function fetchClientByConnection(Connection $connection): \Elastica\Client
     {

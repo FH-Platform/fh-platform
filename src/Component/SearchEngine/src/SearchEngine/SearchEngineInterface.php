@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\SearchEngine\Adapter;
+namespace FHPlatform\Component\SearchEngine\SearchEngine;
 
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Document;
