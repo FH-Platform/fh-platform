@@ -3,7 +3,7 @@
 namespace FHPlatform\Component\FilterToEsDsl\Tests;
 
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
-use FHPlatform\Component\FilterToEsDsl\FilterQuery;
+use FHPlatform\Component\FilterToEsDsl\Query\FilterQuery;
 
 class TestCase extends \FHPlatform\Bundle\TestsBundle\Tests\TestCase
 {

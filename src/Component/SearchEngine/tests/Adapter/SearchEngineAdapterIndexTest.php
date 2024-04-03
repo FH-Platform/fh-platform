@@ -97,6 +97,6 @@ class SearchEngineAdapterIndexTest extends TestCase
 
     private function getResults(Index $index): array
     {
-        return $this->queryClient->getResults($index, null, QueryManager::TYPE_SOURCES);
+        return $this->queryClient->getResults($index, [], QueryManager::TYPE_SOURCES);
     }
 }

@@ -24,7 +24,7 @@ interface SearchEngineInterface
     public function indexesGetAllInConnection(Connection $connection, bool $byPrefix = true): array;
 
     // search implementation of search engine, return raw response (GET /[INDEX_NAME]/_search for ES implementation)
-    public function search(Index $index, mixed $query = null): array;
+    public function search(Index $index, array $query = []): array;
 
     // convert search results to array of results (_source from [hits][hits] in ES implementation)
     public function convertResultsToSources($results): array;

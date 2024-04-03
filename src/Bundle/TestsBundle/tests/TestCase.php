@@ -7,7 +7,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use FHPlatform\Bundle\TestsBundle\Tests\Util\CommandHelper;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Config\ConfigProvider;
-use FHPlatform\Component\FilterToEsDsl\FilterQuery;
+use FHPlatform\Component\FilterToEsDsl\Query\FilterQuery;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\SearchEngine\Manager\IndexManager;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;

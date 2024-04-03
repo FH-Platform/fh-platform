@@ -1,10 +1,11 @@
 <?php
 
-namespace FHPlatform\Component\FilterToEsDsl\Result\Converter;
+namespace FHPlatform\Component\FilterToEsDsl\Query\ResultsConverter;
 
+use Elastica\Query;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\FilterToEsDsl\Result\DTO\ResultDto;
-use FHPlatform\Component\FilterToEsDsl\Result\DTO\ResultItemDto;
+use FHPlatform\Component\FilterToEsDsl\Query\DTO\ResultDto;
+use FHPlatform\Component\FilterToEsDsl\Query\DTO\ResultItemDto;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
@@ -20,18 +21,20 @@ class ResultsConverter
     ) {
     }
 
-    public function getResults(Index $index, mixed $queryBase, string $type = QueryManager::TYPE_IDENTIFIERS): mixed
+    public function getResults(Index $index, Query $queryBase, string $type = QueryManager::TYPE_IDENTIFIERS): mixed
     {
+        $queryArray = $queryBase->toArray();
+
         if (in_array($type, [QueryManager::TYPE_RAW, QueryManager::TYPE_IDENTIFIERS, QueryManager::TYPE_SOURCES])) {
-            return $this->queryManager->getResults($index, $queryBase, $type);
+            return $this->queryManager->getResults($index, $queryArray, $type);
         }
 
-        $identifiers = $this->queryManager->getResults($index, $queryBase, QueryManager::TYPE_IDENTIFIERS);
+        $identifiers = $this->queryManager->getResults($index, $queryArray, QueryManager::TYPE_IDENTIFIERS);
 
         if (self::TYPE_ENTITIES === $type) {
             return $this->persistence->getEntities($index->getClassName(), $identifiers);
         } elseif (self::TYPE_RAW_WITH_ENTITIES === $type) {
-            $rawResult = $this->queryManager->getResults($index, $queryBase, QueryManager::TYPE_RAW);
+            $rawResult = $this->queryManager->getResults($index, $queryArray, QueryManager::TYPE_RAW);
 
             $entities = $this->persistence->getEntities($index->getClassName(), $identifiers);
 
@@ -47,7 +50,7 @@ class ResultsConverter
 
             return $rawResult;
         } elseif (self::TYPE_DTO === $type) {
-            $rawResult = $this->queryManager->getResults($index, $queryBase, QueryManager::TYPE_RAW);
+            $rawResult = $this->queryManager->getResults($index, $queryArray, QueryManager::TYPE_RAW);
 
             $hits = $rawResult['hits']['hits'];
             unset($rawResult['hits']['hits']);

@@ -16,7 +16,7 @@ class QueryManager
     ) {
     }
 
-    public function getResults(Index $index, mixed $query = null, $type = self::TYPE_RAW): array
+    public function getResults(Index $index, array $query = [], $type = self::TYPE_RAW): array
     {
         $results = $this->searchEngine->search($index, $query);
 

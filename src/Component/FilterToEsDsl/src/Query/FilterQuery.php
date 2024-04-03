@@ -1,13 +1,13 @@
 <?php
 
-namespace FHPlatform\Component\FilterToEsDsl;
+namespace FHPlatform\Component\FilterToEsDsl\Query;
 
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
-use FHPlatform\Component\FilterToEsDsl\Result\Converter\ResultsConverter;
+use FHPlatform\Component\FilterToEsDsl\Query\ResultsConverter\ResultsConverter;
 use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class FilterQuery

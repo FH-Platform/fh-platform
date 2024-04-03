@@ -1,12 +1,12 @@
 <?php
 
-namespace FHPlatform\Component\FilterToEsDsl\Result\DTO;
+namespace FHPlatform\Component\FilterToEsDsl\Query\DTO;
 
-class ResultDto
+class ResultItemDto
 {
     public function __construct(
         private readonly array $meta,
-        private readonly array $items,
+        private readonly mixed $entity,
     ) {
     }
 
@@ -15,8 +15,8 @@ class ResultDto
         return $this->meta;
     }
 
-    public function getItems(): array
+    public function getEntity(): mixed
     {
-        return $this->items;
+        return $this->entity;
     }
 }

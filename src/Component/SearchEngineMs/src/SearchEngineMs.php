@@ -112,7 +112,7 @@ class SearchEngineMs implements SearchEngineInterface
         return $indexNames;
     }
 
-    public function search(Index $index, mixed $query = null): array
+    public function search(Index $index, array $query = []): array
     {
         $client = $this->fetchClientByIndex($index);
 
