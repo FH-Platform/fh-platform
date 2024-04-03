@@ -153,7 +153,7 @@ class Builder
             ]);
 
         /*$container->setResources([
-            //new DirectoryResource('src/Component/FilterToEsDsl/src/Converter/FilterToEsDsl/'),
+            //new DirectoryResource('src/Component/FilterToEsDsl/src/Converter/Filter/'),
             new DirectoryResource('src/Component/FilterToEsDsl/src/Converter/Applicator/'),
             //
         ])->autowire(true)->setAutoconfigured(true)->setPublic(true);*/

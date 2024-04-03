@@ -2,7 +2,7 @@ FH-Platform is a set of reusable PHP bundles to work with ES in Symfony framewor
 
 ```bash
 vendor/bin/php-cs-fixer fix
-vendor/bin/phpstan analyse
+vendor/bin/phpstan analyse --memory-limit=1G
 vendor/bin/phpunit
 php bin/console doctrine:schema:validate --skip-sync
 ```

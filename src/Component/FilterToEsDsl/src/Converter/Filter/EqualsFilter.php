@@ -1,23 +1,24 @@
 <?php
 
-namespace FHPlatform\Component\FilterToEsDsl\Converter\FilterToEsDsl;
+namespace FHPlatform\Component\FilterToEsDsl\Converter\Filter;
 
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\BoolQuery;
-use Elastica\Query\Exists;
+use Elastica\Query\MatchQuery;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 
-class NotExistsFilter implements FilterInterface
+class EqualsFilter implements FilterInterface
 {
     public function name(): string
     {
-        return 'not_exists';
+        return 'equals';
     }
 
     public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
-        $existsQuery = new Exists($field);
-        $query->addMustNot($existsQuery);
+        $matchQuery = new MatchQuery();
+        $matchQuery->setField($field, $value);
+        $query->addShould($matchQuery);
 
         return $query;
     }

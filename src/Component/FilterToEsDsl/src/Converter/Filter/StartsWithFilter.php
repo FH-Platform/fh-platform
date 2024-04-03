@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\Component\FilterToEsDsl\Converter\FilterToEsDsl;
+namespace FHPlatform\Component\FilterToEsDsl\Converter\Filter;
 
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\BoolQuery;

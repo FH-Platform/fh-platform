@@ -1,23 +1,24 @@
 <?php
 
-namespace FHPlatform\Component\FilterToEsDsl\Converter\FilterToEsDsl;
+namespace FHPlatform\Component\FilterToEsDsl\Converter\Filter;
 
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\BoolQuery;
-use Elastica\Query\Exists;
+use Elastica\Query\Range;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 
-class ExistsFilter implements FilterInterface
+class LteFilter implements FilterInterface
 {
     public function name(): string
     {
-        return 'exists';
+        return 'lte';
     }
 
     public function convert(BoolQuery $query, string $field, mixed $value, ?array $mappingItem): AbstractQuery
     {
-        $existsQuery = new Exists($field);
-        $query->addMust($existsQuery);
+        $rangeQuery = new Range();
+        $rangeQuery->addField($field, ['lte' => $value]);
+        $query->addMust($rangeQuery);
 
         return $query;
     }
