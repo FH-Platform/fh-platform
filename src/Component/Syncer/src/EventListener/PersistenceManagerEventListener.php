@@ -12,7 +12,7 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class EventManagerEventListener implements EventSubscriberInterface
+class PersistenceManagerEventListener implements EventSubscriberInterface
 {
     public function __construct(
         private readonly PersistenceInterface $persistence,
@@ -37,8 +37,6 @@ class EventManagerEventListener implements EventSubscriberInterface
     {
         $documents = [];
 
-        // $event = $message->getChangedEntitiesEvent();
-        // TODO
         foreach ($event->getChangedEntities() as $event) {
             // TODO check if reletable or indexable, fetch entity classNames array and check
 
