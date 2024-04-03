@@ -9,34 +9,34 @@ use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 class IndexManager
 {
     public function __construct(
-        private readonly SearchEngineInterface $adapter,
+        private readonly SearchEngineInterface $searchEngine,
     ) {
     }
 
     public function deleteIndex(Index $index): void
     {
-        $this->adapter->indexDelete($index);
+        $this->searchEngine->indexDelete($index);
     }
 
     public function createIndex(Index $index): void
     {
-        $this->adapter->indexCreate($index);
+        $this->searchEngine->indexCreate($index);
     }
 
     public function recreateIndex(Index $index): void
     {
-        $this->adapter->indexDelete($index);
+        $this->searchEngine->indexDelete($index);
 
-        $this->adapter->indexCreate($index);
+        $this->searchEngine->indexCreate($index);
     }
 
     public function getAllIndexesInConnection(Connection $connection): array
     {
-        return $this->adapter->indexesGetAllInConnection($connection);
+        return $this->searchEngine->indexesGetAllInConnection($connection);
     }
 
     public function deleteAllIndexesInConnection(Connection $connection): void
     {
-        $this->adapter->indexesDeleteAllInConnection($connection);
+        $this->searchEngine->indexesDeleteAllInConnection($connection);
     }
 }

@@ -4,22 +4,20 @@ namespace FHPlatform\Component\SearchEngine\Manager;
 
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\DTO\Document;
-// remove persistence coupling
-use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\SearchEngine\SearchEngine\SearchEngineInterface;
 
 class DataManager
 {
     public function __construct(
-        private readonly SearchEngineInterface $adapter,
-        private readonly DocumentBuilder $documentBuilder,
+        private readonly SearchEngineInterface $searchEngine,
+        private readonly DocumentBuilder       $documentBuilder,
     ) {
     }
 
     // TODO remove
     public function insertRaw(string $className, array $data, mixed $identifierValue): void
     {
-        $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, ChangedEntityEvent::TYPE_CREATE);
+        $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, Document::TYPE_CREATE);
         $this->syncDocuments($documents);
     }
 
@@ -42,7 +40,7 @@ class DataManager
                 // do the upsert/delete for each index on connection
 
                 if (count($data['documents']) > 0) {
-                    $this->adapter->dataUpdate($index, $data['documents']);
+                    $this->searchEngine->dataUpdate($index, $data['documents']);
                 }
             }
         }
