@@ -14,7 +14,7 @@ use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistenceListener;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-
+use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder;
 class EventManagerBuilder
 {
     private ContainerBuilder $container;
@@ -75,6 +75,6 @@ class EventManagerBuilder
         $container->register(MappingBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(DataBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
         $container->register(UpdatingMapBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
-        $container->register(\FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+        $container->register(EntitiesRelatedBuilder::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 }

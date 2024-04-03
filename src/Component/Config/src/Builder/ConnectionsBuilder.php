@@ -9,13 +9,11 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 use FHPlatform\Component\Config\DTO\Connection;
 use FHPlatform\Component\Config\DTO\Index;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class ConnectionsBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
-        private readonly PersistenceInterface $persistence,
     ) {
     }
 
@@ -113,7 +111,8 @@ class ConnectionsBuilder
         $name = $providerIndex->getIndexName($className);
         $nameWithPrefix = $connection->getPrefix().$name;
 
-        $index = new Index($connection, $className, $this->persistence->isClassNamePersistence($className), $name, $nameWithPrefix);
+        // TODO
+        $index = new Index($connection, $className, true, $name, $nameWithPrefix);
 
         // prepare decorators
         $decorators = $this->configProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);

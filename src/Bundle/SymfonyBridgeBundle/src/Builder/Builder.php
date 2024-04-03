@@ -126,7 +126,6 @@ class Builder
         // register services
         $container->register(ConnectionsBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
-            '$persistence' => $container->findDefinition(PersistenceInterface::class),
         ]);
 
         $container->register(DocumentBuilder::class)->setPublic(true)->setArguments([

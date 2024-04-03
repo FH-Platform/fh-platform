@@ -16,7 +16,7 @@ class QueryManager
 
     public function __construct(
         private readonly SearchEngineInterface $searchEngine,
-        private readonly PersistenceInterface  $persistence,
+        private readonly PersistenceInterface $persistence,
     ) {
     }
 

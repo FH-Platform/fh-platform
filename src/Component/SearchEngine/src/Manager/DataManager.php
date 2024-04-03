@@ -10,7 +10,7 @@ class DataManager
 {
     public function __construct(
         private readonly SearchEngineInterface $searchEngine,
-        private readonly DocumentBuilder       $documentBuilder,
+        private readonly DocumentBuilder $documentBuilder,
     ) {
     }
 

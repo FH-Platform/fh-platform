@@ -6,12 +6,12 @@ use Doctrine\Common\Collections\Collection;
 use FHPlatform\Component\Config\DTO\Index;
 use FHPlatform\Component\DoctrineToEs\Mapper\AssociationsProvider;
 use FHPlatform\Component\DoctrineToEs\Mapper\FieldsProvider;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 
 class DataBuilder
 {
     public function __construct(
-        private readonly PersistenceInterface $persistence,
+        private readonly DoctrinePersistence $doctrinePersistence,
         private readonly AssociationsProvider $associationsProvider,
         private readonly FieldsProvider $fieldsProvider,
     ) {
@@ -39,7 +39,7 @@ class DataBuilder
             $typeEs = $association['typeEs'];
             $configAssociation = $association['configAssociation'];
 
-            if ($entity = $this->persistence->refresh($entity)) {
+            if ($entity = $this->doctrinePersistence->refresh($entity)) {
                 $value = $entity->{$getter}();
 
                 // fetch related entities
@@ -91,12 +91,12 @@ class DataBuilder
         if ($entityRelated instanceof Collection || is_array($entityRelated)) {
             $entitiesRelated = $entityRelated;
             foreach ($entitiesRelated as $entityRelated) {
-                if ($entityRelated = $this->persistence->refresh($entityRelated)) {
+                if ($entityRelated = $this->doctrinePersistence->refresh($entityRelated)) {
                     $entitiesRelatedAll[] = $entityRelated;
                 }
             }
         } else {
-            if ($entityRelated = $this->persistence->refresh($entityRelated)) {
+            if ($entityRelated = $this->doctrinePersistence->refresh($entityRelated)) {
                 $entitiesRelatedAll[] = $entityRelated;
             }
         }
@@ -123,7 +123,7 @@ class DataBuilder
 
     public function generateData(string $className, $entity, array $config): array
     {
-        if (!$entity = $this->persistence->refresh($entity)) {
+        if (!$entity = $this->doctrinePersistence->refresh($entity)) {
             return [];
         }
 

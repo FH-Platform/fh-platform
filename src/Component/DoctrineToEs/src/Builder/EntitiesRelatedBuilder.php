@@ -4,13 +4,13 @@ namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
-use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\Config\DTO\Document;
+use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 
 class EntitiesRelatedBuilder
 {
     public function __construct(
-        private readonly PersistenceInterface $persistence,
+        private readonly DoctrinePersistence $doctrinePersistence,
     ) {
     }
 
@@ -27,9 +27,9 @@ class EntitiesRelatedBuilder
             $changedFieldsForEs = $updatingMapForEntityRow['changed_fields'];
 
             // detect if field from doctrine-to-es config is changed
-            $identifierName = $this->persistence->getIdentifierName($className);
+            $identifierName = $this->doctrinePersistence->getIdentifierName($className);
 
-            if (ChangedEntityEvent::TYPE_UPDATE === $type and count($changedFieldsForEs) > 0 and count($changedFields) > 0) {
+            if (Document::TYPE_UPDATE === $type and count($changedFieldsForEs) > 0 and count($changedFields) > 0) {
                 $isChangedAnyEsField = !empty(array_intersect($changedFieldsForEs, $changedFields)) || !empty($changedFields[$identifierName]);
                 if (!$isChangedAnyEsField) {
                     continue;
@@ -58,7 +58,7 @@ class EntitiesRelatedBuilder
 
         $entitiesRelated = [];
         foreach ($entities as $entity) {
-            if (!$entity = $this->persistence->refresh($entity)) {
+            if (!$entity = $this->doctrinePersistence->refresh($entity)) {
                 return [];
             }
 
@@ -80,12 +80,12 @@ class EntitiesRelatedBuilder
         $entitiesFiltered = [];
 
         foreach ($entities as $entity) {
-            if (!$entity = $this->persistence->refresh($entity)) {
+            if (!$entity = $this->doctrinePersistence->refresh($entity)) {
                 continue;
             }
 
             // use hash className + associationString to prevent adding the same entity
-            $identifierValue = $this->persistence->getIdentifierValue($entity);
+            $identifierValue = $this->doctrinePersistence->getIdentifierValue($entity);
 
             $entitiesFiltered[$associationString][$identifierValue] = $entity;
         }
