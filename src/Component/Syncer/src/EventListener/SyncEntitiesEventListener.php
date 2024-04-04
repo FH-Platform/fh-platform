@@ -33,9 +33,17 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
 
     public function onSyncEntities(SyncEntitiesEvent $event): void
     {
-        $documents = [];
+        $changedEntityEvents = $event->getChangedEntityEvents();
 
-        foreach ($event->getChangedEntityEvents() as $event) {
+        $documents = $this->prepareDocuments($changedEntityEvents);
+
+        $this->dataManager->syncDocuments($documents);
+    }
+
+    private function prepareDocuments(array $changedEntityEvents):array
+    {
+        $documents = [];
+        foreach ($changedEntityEvents as $event) {
             // TODO check if reletable or indexable, fetch entity classNames array and check
 
             $className = $event->getClassName();
@@ -52,7 +60,7 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
                     $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
                 }
 
-                return;
+                return [];
             }
 
             $entity = $this->persistence->refreshByClassNameId($className, $identifier);
@@ -81,7 +89,7 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
 
         // TODO chunk in batch from config in client bundle
 
-        $this->dataManager->syncDocuments($documents);
+        return $documents;
     }
 
     private function buildForRelatedEntities(mixed $entity, string $type, array $changedFields): array
