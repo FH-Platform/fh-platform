@@ -15,6 +15,7 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterfac
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
+use FHPlatform\Component\Syncer\Syncer\EntitySyncer;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\Query\ResultsConverter\ResultsConverter;
@@ -47,6 +48,9 @@ class Builder
     public function buildFramework(): void
     {
         $container = $this->container;
+
+
+        $container->register(EntitySyncer::class)->setPublic(true)->setAutowired(true)->setAutoconfigured(true);
 
         $container
             ->register(SyncEntitiesEventListener::class)
