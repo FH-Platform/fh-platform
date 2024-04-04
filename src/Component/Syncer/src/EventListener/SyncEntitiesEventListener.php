@@ -27,11 +27,11 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            SyncEntitiesEvent::class => 'onChangedEntities',
+            SyncEntitiesEvent::class => 'onSyncEntities',
         ];
     }
 
-    public function onChangedEntities(SyncEntitiesEvent $event): void
+    public function onSyncEntities(SyncEntitiesEvent $event): void
     {
         $documents = [];
 
@@ -48,9 +48,7 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
 
                 if ($connection) {
                     $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
-
                     $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
-
                     $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
                 }
 
