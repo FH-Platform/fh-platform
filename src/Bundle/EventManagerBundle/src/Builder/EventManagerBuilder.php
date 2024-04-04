@@ -3,11 +3,14 @@
 namespace FHPlatform\Bundle\EventManagerBundle\Builder;
 
 use Doctrine\ORM\Events;
+use FHPlatform\Bundle\EventManagerBundle\EventListener\FrameworkEventListener;
 use FHPlatform\Bundle\EventManagerBundle\EventListener\PersistenceEventListener;
+use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\DoctrineToEs\Builder\DataBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\MappingBuilder;
 use FHPlatform\Component\DoctrineToEs\Builder\UpdatingMapBuilder;
+use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\Persistence\EventDispatcher\PersistenceEventDispatcher;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
@@ -37,6 +40,13 @@ class EventManagerBuilder
     public function buildPersistence(): void
     {
         $container = $this->container;
+
+        $container->register(FrameworkEventListener::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
+
+        $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true)
+            ->setArguments([
+                '$type' => EventManager::TYPE_FLUSH,
+            ]);
 
         // fetch implementation
         $persistence = DoctrinePersistence::class;

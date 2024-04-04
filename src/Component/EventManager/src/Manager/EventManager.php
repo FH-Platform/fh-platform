@@ -11,11 +11,10 @@ class EventManager
     public const TYPE_FLUSH = 'flush';
     public const TYPE_REQUEST_FINISHED = 'request_finished';
 
-    private string $type = self::TYPE_FLUSH;
-
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceInterface $persistence,
+        private readonly string $type,
     ) {
     }
 

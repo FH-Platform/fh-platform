@@ -15,7 +15,6 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterfac
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
-use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\FilterToEsDsl\Converter\ApplicatorInterface;
 use FHPlatform\Component\FilterToEsDsl\Converter\FilterInterface;
 use FHPlatform\Component\FilterToEsDsl\Query\ResultsConverter\ResultsConverter;
@@ -54,8 +53,6 @@ class Builder
             ->setPublic(true)
             ->setAutowired(true)
             ->setAutoconfigured(true);
-
-        $container->register(EventManager::class)->setAutowired(true)->setAutoconfigured(true)->setPublic(true);
     }
 
     public function buildSearchEngine(): void
