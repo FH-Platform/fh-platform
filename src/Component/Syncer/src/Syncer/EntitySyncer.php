@@ -5,12 +5,11 @@ namespace FHPlatform\Component\Syncer\Syncer;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
-use FHPlatform\Component\EventManager\Manager\EventManager;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
+use FHPlatform\Component\Syncer\DocumentGrouper;
 
 class EntitySyncer
 {
@@ -31,28 +30,9 @@ class EntitySyncer
 
         $documents = $this->prepareDocuments($changedEntityEvents);
 
-        $documentsGrouped = $this->groupDocuments($documents);
+        $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
         $this->dataManager->syncDocuments($documentsGrouped);
-    }
-
-
-    /** @param Document[] $documents */
-    private function groupDocuments(array $documents): array
-    {
-        $documentsGrouped = [];
-
-        foreach ($documents as $document) {
-            $index = $document->getIndex();
-
-            $connectionName = $index->getConnection()->getName();
-            $indexNameWithPrefix = $index->getNameWithPrefix();
-
-            $documentsGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-            $documentsGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $document;
-        }
-
-        return $documentsGrouped;
     }
 
     private function prepareDocuments(array $changedEntityEvents): array

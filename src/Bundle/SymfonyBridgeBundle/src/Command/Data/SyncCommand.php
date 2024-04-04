@@ -2,7 +2,6 @@
 
 namespace FHPlatform\Bundle\SymfonyBridgeBundle\Command\Data;
 
-use FHPlatform\Component\EventManager\EventManager\EntitySyncer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SyncCommand extends Command
 {
     public function __construct(
-        //private readonly DataSyncer $dataSyncer,
+        // private readonly DataSyncer $dataSyncer,
     ) {
         parent::__construct();
     }
@@ -28,7 +27,7 @@ class SyncCommand extends Command
         $className = $input->getArgument('class-name');
 
         // TODO check if class exists
-        //$this->dataSyncer->sync($className);
+        // $this->dataSyncer->sync($className);
 
         return Command::SUCCESS;
     }
