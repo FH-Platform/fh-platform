@@ -22,10 +22,10 @@ class SearchEngineMs implements SearchEngineInterface
         foreach ($documents as $document) {
             /** @var Document $document */
             if (Document::TYPE_DELETE === $document->getType()) {
-                $documentsDelete[] = $document->getIdentifier();
+                $documentsDelete[] = $document->getIdentifierValue();
             } else {
                 // TODO move somewhere else
-                $documentsUpsert[] = array_merge(['id' => $document->getIdentifier()], $document->getData());
+                $documentsUpsert[] = array_merge(['id' => $document->getIdentifierValue()], $document->getData());
             }
         }
 

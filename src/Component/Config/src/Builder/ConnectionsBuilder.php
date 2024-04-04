@@ -43,6 +43,24 @@ class ConnectionsBuilder
         return $connections;
     }
 
+    public function fetchIndexesByConnectionNameAndClassName(string $connectionName, string $className): Index
+    {
+        $indexes = [];
+        foreach ($this->build() as $connection) {
+            if ($connection->getName() !== $connectionName) {
+                continue;
+            }
+
+            foreach ($connection->getIndexes() as $index) {
+                if ($index->getClassName() === $className) {
+                    return $index;
+                }
+            }
+        }
+
+        throw new \Exception('Index not found');
+    }
+
     /** @return Index[] */
     public function fetchIndexesByClassName(string $className): array
     {
@@ -133,7 +151,7 @@ class ConnectionsBuilder
         return $index;
     }
 
-    /** @param  DecoratorIndexInterface[] $decorators */
+    /** @param DecoratorIndexInterface[] $decorators */
     private function decorateIndex(Index $index, array $decorators): array
     {
         $mapping = $settings = $configAdditional = [];
@@ -145,7 +163,7 @@ class ConnectionsBuilder
         return [$mapping, $settings];
     }
 
-    /** @param  DecoratorIndexInterface[] $decorators */
+    /** @param DecoratorIndexInterface[] $decorators */
     private function decorateIndexConfigAdditional(Index $index, array $decorators): array
     {
         $configAdditional = [];

@@ -21,7 +21,7 @@ class Document
         return $this->index;
     }
 
-    public function getIdentifier(): mixed
+    public function getIdentifierValue(): mixed
     {
         return $this->identifier;
     }

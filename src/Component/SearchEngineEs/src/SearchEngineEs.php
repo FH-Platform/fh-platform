@@ -26,19 +26,19 @@ class SearchEngineEs implements SearchEngineInterface
                 [
                     'delete' => [
                         '_index' => $index->getNameWithPrefix(),
-                        '_id' => $document->getIdentifier(),
+                        '_id' => $document->getIdentifierValue(),
                     ],
                 ],
             ];
         }
 
-        $data = ['doc' => array_merge(['id' => $document->getIdentifier()], $document->getData()), 'doc_as_upsert' => true];
+        $data = ['doc' => array_merge(['id' => $document->getIdentifierValue()], $document->getData()), 'doc_as_upsert' => true];
 
         return [
             [
                 'update' => [
                     '_index' => $index->getNameWithPrefix(),
-                    '_id' => $document->getIdentifier(),
+                    '_id' => $document->getIdentifierValue(),
                 ],
             ],
             $data,
