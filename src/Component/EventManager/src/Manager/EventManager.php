@@ -14,7 +14,6 @@ class EventManager
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceInterface $persistence,
-        private readonly string $type,
     ) {
     }
 
@@ -45,16 +44,7 @@ class EventManager
 
     public function flushEvent(): void
     {
-        if (self::TYPE_FLUSH === $this->type) {
-            $this->dispatchAccumulated();
-        }
-    }
-
-    public function requestFinishedEvent(): void
-    {
-        if (self::TYPE_REQUEST_FINISHED === $this->type) {
-            $this->dispatchAccumulated();
-        }
+        $this->dispatchAccumulated();
     }
 
     public function manualSyncEntitiesAction(array $entities, bool $instant = true): void
