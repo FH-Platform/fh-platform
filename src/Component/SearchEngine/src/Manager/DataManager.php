@@ -21,46 +21,22 @@ class DataManager
         $this->syncDocuments($documents);
     }
 
-    // TODO send only ids + data + type (store that for later update if update fails)
-    /** @param Document[] $documents */
-    public function syncDocuments(array $documents): void
+    public function syncDocuments(array $documentsGrouped): void
     {
-        if (0 === count($documents)) {
+        if (0 === count($documentsGrouped)) {
             return;
         }
 
-        // group indexes and documents by connection and index
-        $documentsGrouped = $this->groupDocuments($documents);
-
-        $responses = [];
         foreach ($documentsGrouped as $connectionName => $indexes) {
             foreach ($indexes as $indexName => $data) {
                 $index = $data['index'];
 
-                // do the upsert/delete for each index on connection
+                // do the create/update/delete for each index on connection
 
                 if (count($data['documents']) > 0) {
                     $this->searchEngine->dataUpdate($index, $data['documents']);
                 }
             }
         }
-    }
-
-    /** @param Document[] $documents */
-    private function groupDocuments(array $documents): array
-    {
-        $documentsGrouped = [];
-
-        foreach ($documents as $document) {
-            $index = $document->getIndex();
-
-            $connectionName = $index->getConnection()->getName();
-            $indexNameWithPrefix = $index->getNameWithPrefix();
-
-            $documentsGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
-            $documentsGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $document;
-        }
-
-        return $documentsGrouped;
     }
 }

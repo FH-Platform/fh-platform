@@ -5,6 +5,7 @@ namespace FHPlatform\Component\Syncer\EventListener;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
@@ -37,10 +38,30 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
 
         $documents = $this->prepareDocuments($changedEntityEvents);
 
-        $this->dataManager->syncDocuments($documents);
+        $documentsGrouped = $this->groupDocuments($documents);
+
+        $this->dataManager->syncDocuments($documentsGrouped);
     }
 
-    private function prepareDocuments(array $changedEntityEvents):array
+    /** @param Document[] $documents */
+    private function groupDocuments(array $documents): array
+    {
+        $documentsGrouped = [];
+
+        foreach ($documents as $document) {
+            $index = $document->getIndex();
+
+            $connectionName = $index->getConnection()->getName();
+            $indexNameWithPrefix = $index->getNameWithPrefix();
+
+            $documentsGrouped[$connectionName][$indexNameWithPrefix]['index'] = $index;
+            $documentsGrouped[$connectionName][$indexNameWithPrefix]['documents'][] = $document;
+        }
+
+        return $documentsGrouped;
+    }
+
+    private function prepareDocuments(array $changedEntityEvents): array
     {
         $documents = [];
         foreach ($changedEntityEvents as $event) {
