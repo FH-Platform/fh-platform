@@ -32,10 +32,7 @@ class DataManager
                 $index = $data['index'];
 
                 // do the create/update/delete for each index on connection
-
-                if (count($data['documents']) > 0) {
-                    $this->searchEngine->dataUpdate($index, $data['documents']);
-                }
+                $this->searchEngine->dataUpdate($index, $data['documents']);
             }
         }
     }
