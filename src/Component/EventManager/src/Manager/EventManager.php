@@ -8,9 +8,6 @@ use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
 class EventManager
 {
-    public const TYPE_FLUSH = 'flush';
-    public const TYPE_REQUEST_FINISHED = 'request_finished';
-
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceInterface $persistence,
