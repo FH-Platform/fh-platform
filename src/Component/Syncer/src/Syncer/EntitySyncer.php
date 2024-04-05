@@ -32,8 +32,8 @@ class EntitySyncer
         $events = $event->getSyncEntityEvents();
         $events = $this->excludeDuplicatedEvents($events);
 
-        $this->prepareDocuments($documents, $events);
-        $this->prepareDocumentsForEntitiesRelated($documents);
+        $documents = $this->prepareDocuments($documents, $events);
+        $documents = $this->prepareDocumentsForEntitiesRelated($documents);
 
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
@@ -64,7 +64,7 @@ class EntitySyncer
         return $eventsFiltered;
     }
 
-    private function prepareDocuments(array &$documents, array $changedEntityEvents): void
+    private function prepareDocuments(array $documents, array $changedEntityEvents): array
     {
         foreach ($changedEntityEvents as $event) {
             $className = $event->getClassName();
@@ -84,6 +84,8 @@ class EntitySyncer
                 $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue(), false);
             }
         }
+
+        return $documents;
     }
 
     private function prepareEntitiesRelated(string $className, mixed $identifierValue, bool $delete): void
@@ -104,7 +106,7 @@ class EntitySyncer
         }
     }
 
-    private function prepareDocumentsForEntitiesRelated(&$documents): void
+    private function prepareDocumentsForEntitiesRelated($documents): array
     {
         foreach ($this->entitiesRelated as $connectionName => $connections) {
             foreach ($connections as $className => $identifierValues) {
@@ -132,5 +134,7 @@ class EntitySyncer
         }
 
         $this->entitiesRelated = [];
+
+        return  $documents;
     }
 }
