@@ -19,9 +19,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Component\PersistenceDoctrine\Tests\Util\:
-        resource: '../'
-        exclude: '../{App}'
+    FHPlatform\Component\DoctrineToEs\Tests\Util\:
+        resource: '../../../../DoctrineToEs/tests/Util/'
+        exclude: '../../../../DoctrineToEs/tests/Util/{App}'
 
     FHPlatform\Component\PersistenceDoctrine\Tests\:
         resource: '../../*/Util'
