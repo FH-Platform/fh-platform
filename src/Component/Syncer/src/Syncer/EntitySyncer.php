@@ -14,13 +14,12 @@ use FHPlatform\Component\Syncer\DocumentGrouper;
 class EntitySyncer
 {
     public function __construct(
-        private readonly PersistenceInterface   $persistence,
-        private readonly DataManager            $dataManager,
-        private readonly ConnectionsBuilder     $connectionsBuilder,
-        private readonly DocumentBuilder        $documentBuilder,
+        private readonly PersistenceInterface $persistence,
+        private readonly DataManager $dataManager,
+        private readonly ConnectionsBuilder $connectionsBuilder,
+        private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-    )
-    {
+    ) {
     }
 
     private array $entitiesRelated = [];
@@ -42,23 +41,9 @@ class EntitySyncer
             return;
         }
 
-        //for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
+        // for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
 
         $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue());
-    }
-
-    private function prepareEntitiesRelated(string $className, mixed $identifierValue): void
-    {
-        // TODO
-        $connection = $this->connectionsBuilder->build()[0] ?? null;
-
-        $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-        $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
-
-        $this->entitiesRelated[$className][$identifierValue] = [];
-        foreach ($entitiesRelatedPreDelete as $entity) {
-            $this->entitiesRelated[$className][$identifierValue][] = $entity;
-        }
     }
 
     private function prepareDocuments(array $changedEntityEvents): array
@@ -80,6 +65,7 @@ class EntitySyncer
             }
 
             if ($entity) {
+                // for create and update calculate related entities, for delete are calculated before
                 $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue());
             }
         }
@@ -87,7 +73,6 @@ class EntitySyncer
         foreach ($this->entitiesRelated as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue => $entities) {
                 foreach ($entities as $entity) {
-                    // TODO separate
                     $className = $this->persistence->getRealClassName($entity::class);
                     $identifierValue = $this->persistence->getIdentifierValue($entity);
 
@@ -101,5 +86,19 @@ class EntitySyncer
         // TODO chunk in batch from config in client bundle
 
         return $documents;
+    }
+
+    private function prepareEntitiesRelated(string $className, mixed $identifierValue): void
+    {
+        // TODO
+        $connection = $this->connectionsBuilder->build()[0] ?? null;
+
+        $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
+        $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
+
+        $this->entitiesRelated[$className][$identifierValue] = [];
+        foreach ($entitiesRelatedPreDelete as $entity) {
+            $this->entitiesRelated[$className][$identifierValue][] = $entity;
+        }
     }
 }
