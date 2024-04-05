@@ -19,9 +19,9 @@ services:
         autowire: true
         autoconfigure: true
 
-    FHPlatform\Component\SearchEngine\Tests\Util\:
-        resource: '../'
-        exclude: '../{App}'
+    FHPlatform\Component\DoctrineToEs\Tests\Util\:
+        resource: '../../../../DoctrineToEs/tests/Util/'
+        exclude: '../../../../DoctrineToEs/tests/Util/{App}'
 
     FHPlatform\Component\SearchEngine\Tests\:
         resource: '../../*/Util'
