@@ -28,7 +28,7 @@ class EntitySyncer
     {
         $documents = [];
 
-        $this->prepareDocuments($documents, $event->getChangedEntityEvents());
+        $this->prepareDocuments($documents, $event->getSyncEntityEvents());
         $this->prepareDocumentsForEntitiesRelated($documents);
 
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
@@ -75,7 +75,7 @@ class EntitySyncer
 
         foreach ($connections as $connection) {
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-            $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
+            $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, []);
 
             $this->entitiesRelated[$connection->getName()][$className][$identifierValue] = [];
             foreach ($entitiesRelatedPreDelete as $entity) {

@@ -15,13 +15,13 @@ class EventManager
     ) {
     }
 
-    /** @var ChangedEntityEvent[] */
+    /** @var SyncEntityEvent[] */
     protected array $eventsPersistence = [];
 
-    /** @var ChangedEntityEvent[] */
-    protected array $changedEntityEventsTransaction = [];
+    /** @var SyncEntityEvent[] */
+    protected array $eventsTransaction = [];
 
-    protected bool $changedEntityEventsTransactionStarted = false;
+    protected bool $transactionStarted = false;
 
     public function changedEntityEvent(ChangedEntityEvent $event): void
     {
@@ -39,8 +39,8 @@ class EventManager
         $this->eventsPersistence[] = $event;
 
         // store transaction events if transaction is starter so that we can roll back applied changes is transaction is rollback
-        if ($this->changedEntityEventsTransactionStarted) {
-            $this->changedEntityEventsTransaction[] = $event;
+        if ($this->transactionStarted) {
+            $this->eventsTransaction[] = $event;
         }
     }
 
@@ -88,31 +88,31 @@ class EventManager
 
     public function beginTransactionAction(): void
     {
-        $this->changedEntityEventsTransactionStarted = true;
+        $this->transactionStarted = true;
     }
 
     public function rollbackTransactionAction(bool $instant = true): void
     {
         $events = [];
-        foreach ($this->changedEntityEventsTransaction as $event) {
-            $changedEntityEvent = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_MANUALLY_ROLLBACK);
+        foreach ($this->eventsTransaction as $event) {
+            $eventSycEntity = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_MANUALLY_ROLLBACK);
 
-            $this->eventDispatcher->dispatch($changedEntityEvent);
-            $events[] = $changedEntityEvent;
+            $this->eventDispatcher->dispatch($eventSycEntity);
+            $events[] = $event;
         }
 
         if ($instant) {
             $this->dispatchSyncEntitiesEvent($events);
         }
 
-        $this->changedEntityEventsTransactionStarted = false;
-        $this->changedEntityEventsTransaction = [];
+        $this->transactionStarted = false;
+        $this->eventsTransaction = [];
     }
 
-    private function dispatchSyncEntitiesEvent($changedEntityEvents): void
+    private function dispatchSyncEntitiesEvent($events): void
     {
-        if (count($changedEntityEvents) > 0) {
-            $this->eventDispatcher->dispatch(new SyncEntitiesEvent($changedEntityEvents));
+        if (count($events) > 0) {
+            $this->eventDispatcher->dispatch(new SyncEntitiesEvent($events));
         }
     }
 }

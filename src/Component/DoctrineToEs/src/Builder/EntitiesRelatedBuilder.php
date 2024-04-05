@@ -13,7 +13,7 @@ class EntitiesRelatedBuilder
     ) {
     }
 
-    public function build($entity, array $doctrineUpdatingMap, string $type, array $changedFields): array
+    public function build($entity, array $doctrineUpdatingMap, array $changedFields): array
     {
         $className = ClassUtils::getClass($entity);
 

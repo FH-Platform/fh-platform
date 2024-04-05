@@ -4,7 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Tests\Builder\EntitiesRelated;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Setting\Setting;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 
 class BasicTest extends TestCaseEntitiesRelated
 {
@@ -27,11 +26,11 @@ class BasicTest extends TestCaseEntitiesRelated
         $user->setSetting($setting);
 
         $this->save([$setting, $user]);
-        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntityEvent::TYPE_UPDATE, ['testString']));
+        $this->assertEquals([], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ['testString']));
         $this->assertEquals([
             'user' => [
                 1 => $user,
             ],
-        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ChangedEntityEvent::TYPE_UPDATE, ['testBoolean']));
+        ], $this->entitiesRelatedBuilder->build($setting, $doctrineUpdatingMap, ['testBoolean']));
     }
 }
