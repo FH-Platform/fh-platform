@@ -53,7 +53,7 @@ class EventManager
         foreach ($entities as $entity) {
             $className = $this->persistence->getRealClassName($entity::class);
             $identifierValue = $this->persistence->getIdentifierValue($entity);
-            $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_MANUALLY);
+            $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY);
 
             // $this->eventDispatcher->dispatch($changedEntityEvent);
             $changedEntityEvents[] = $changedEntityEvent;
@@ -69,7 +69,7 @@ class EventManager
         $changedEntityEvents = [];
         foreach ($entitiesArray as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_MANUALLY);
+                $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY);
 
                 // $this->eventDispatcher->dispatch($changedEntityEvent);
                 $changedEntityEvents[] = $changedEntityEvent;
@@ -90,7 +90,7 @@ class EventManager
     {
         $eventsUpdate = [];
         foreach ($this->changedEntityEventsTransaction as $event) {
-            $changedEntityEvent = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_PERSISTENCE_ROLLBACK);
+            $changedEntityEvent = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY_ROLLBACK);
 
             // $this->eventDispatcher->dispatch($changedEntityEvent);
             $eventsUpdate[] = $changedEntityEvent;
