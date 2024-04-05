@@ -26,9 +26,7 @@ class EntitySyncer
 
     public function syncEntitiesEvent(SyncEntitiesEvent $event): void
     {
-        $changedEntityEvents = $event->getChangedEntityEvents();
-
-        $documents = $this->prepareDocuments($changedEntityEvents);
+        $documents = $this->prepareDocuments($event->getChangedEntityEvents());
 
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
@@ -43,7 +41,7 @@ class EntitySyncer
 
         // for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
 
-        $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue());
+        $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue(), true);
     }
 
     private function prepareDocuments(array $changedEntityEvents): array
@@ -55,28 +53,34 @@ class EntitySyncer
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
+            // refresh entity before calculating data for storing
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
-            $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
-            foreach ($indexes as $index) {
-                // TODO return if hash exists
-                // $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
-                $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
-            }
+            // prepare document for search engine sync
+            $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
 
             if ($entity) {
                 // for create and update calculate related entities, for delete are calculated before
-                $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue());
+                $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue(), false);
             }
         }
 
         foreach ($this->entitiesRelated as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue => $entities) {
-                foreach ($entities as $entity) {
-                    $className = $this->persistence->getRealClassName($entity::class);
-                    $identifierValue = $this->persistence->getIdentifierValue($entity);
+                foreach ($entities as $data) {
+                    $entity = $data['entity'];
+                    $delete = $data['delete'];
 
-                    $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                    if ($delete) {
+                        $entity = $this->persistence->refresh($entity);
+                    }
+
+                    if ($entity) {
+                        $className = $this->persistence->getRealClassName($entity::class);
+                        $identifierValue = $this->persistence->getIdentifierValue($entity);
+
+                        $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                    }
                 }
             }
         }
@@ -88,7 +92,7 @@ class EntitySyncer
         return $documents;
     }
 
-    private function prepareEntitiesRelated(string $className, mixed $identifierValue): void
+    private function prepareEntitiesRelated(string $className, mixed $identifierValue, bool $delete): void
     {
         // TODO
         $connection = $this->connectionsBuilder->build()[0] ?? null;
@@ -98,7 +102,10 @@ class EntitySyncer
 
         $this->entitiesRelated[$className][$identifierValue] = [];
         foreach ($entitiesRelatedPreDelete as $entity) {
-            $this->entitiesRelated[$className][$identifierValue][] = $entity;
+            $this->entitiesRelated[$className][$identifierValue][] = [
+                'entity' => $entity,
+                'delete' => $delete,
+            ];
         }
     }
 }
