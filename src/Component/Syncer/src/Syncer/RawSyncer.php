@@ -16,17 +16,12 @@ class RawSyncer
     }
 
     // TODO test it ...
-    public function insertRaw(string $className, array $data, mixed $identifierValue): void
+    public function syncRawAction(string $className, array $data, mixed $identifierValue): void
     {
-        $documents[] = $this->documentBuilder->buildRaw($className, $data, $identifierValue, Document::TYPE_CREATE);
+        $documents[] = $this->documentBuilder->buildRaw($className, $identifierValue, $data, Document::TYPE_CREATE);
 
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
         $this->dataManager->syncDocuments($documentsGrouped);
-    }
-
-    public function insertRawDto(string $className, array $data, mixed $identifierValue): void
-    {
-        // TODO
     }
 }

@@ -16,7 +16,7 @@ class DocumentBuilder
     ) {
     }
 
-    public function buildRaw($className, $data, $identifierValue, $type): Document
+    public function buildRaw($className, $identifierValue, $data, $type): Document
     {
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 

@@ -44,7 +44,7 @@ class ManualUpdateTest extends TestCase
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $eventManager->manualSyncEntitiesAction(array_merge([$user], $relatedEntities));
+        $eventManager->triggerEntitiesChangeAction(array_merge([$user], $relatedEntities));
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test'));
 
@@ -67,7 +67,7 @@ class ManualUpdateTest extends TestCase
         $this->assertEquals([2], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2_2'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2_2'));
-        $eventManager->manualSyncEntitiesArrayAction([User::class => [2]]);
+        $eventManager->triggerEntitiesArrayChangeAction([User::class => [2]]);
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test2'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test2'));
         $this->assertEquals([2], $this->findEsBy(User::class, 'testString', 'test2_2'));
@@ -89,7 +89,7 @@ class ManualUpdateTest extends TestCase
         ]);
         $this->assertEquals([], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([], $this->findEsBy(Role::class, 'users.testString', 'test3'));
-        $eventManager->manualSyncEntitiesArrayAction([User::class => [3]]);
+        $eventManager->triggerEntitiesArrayChangeAction([User::class => [3]]);
         $this->assertEquals([3], $this->findEsBy(User::class, 'testString', 'test3'));
         $this->assertEquals([3], $this->findEsBy(Role::class, 'users.testString', 'test3'));
     }

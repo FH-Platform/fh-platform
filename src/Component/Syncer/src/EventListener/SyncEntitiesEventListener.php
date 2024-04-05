@@ -22,6 +22,6 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
 
     public function onSyncEntities(SyncEntitiesEvent $event): void
     {
-        $this->entitySyncer->syncChangedEntities($event);
+        $this->entitySyncer->syncEntitiesEvent($event);
     }
 }

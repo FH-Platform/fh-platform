@@ -47,14 +47,14 @@ class EventManager
         $this->dispatchAccumulated();
     }
 
-    public function manualSyncEntitiesAction(array $entities, bool $instant = true): void
+    public function triggerEntitiesChangeAction(array $entities, bool $instant = true): void
     {
         $changedEntityEvents = [];
         foreach ($entities as $entity) {
             $className = $this->persistence->getRealClassName($entity::class);
             $identifierValue = $this->persistence->getIdentifierValue($entity);
 
-            $changedEntityEvents[] = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+            $changedEntityEvents[] = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_MANUALLY);
         }
 
         if ($instant) {
@@ -62,12 +62,12 @@ class EventManager
         }
     }
 
-    public function manualSyncEntitiesArrayAction(array $entitiesArray, bool $instant = true): void
+    public function triggerEntitiesArrayChangeAction(array $entitiesArray, bool $instant = true): void
     {
         $changedEntityEvents = [];
         foreach ($entitiesArray as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $changedEntityEvents[] = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                $changedEntityEvents[] = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_MANUALLY);
             }
         }
 
@@ -85,7 +85,7 @@ class EventManager
     {
         $eventsUpdate = [];
         foreach ($this->changedEntityEventsTransaction as $event) {
-            $eventsUpdate[] = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE);
+            $eventsUpdate[] = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_PERSISTENCE_ROLLBACK);
         }
 
         $this->dispatch($eventsUpdate);
@@ -96,7 +96,6 @@ class EventManager
 
     private function dispatchAccumulated(): void
     {
-        // TODO detect instant sync
         $this->dispatch($this->changedEntityEvents);
 
         // reset var

@@ -24,7 +24,7 @@ class EntitySyncer
 
     private array $entitiesRelatedPreDelete = [];
 
-    public function syncChangedEntities(SyncEntitiesEvent $event): void
+    public function syncEntitiesEvent(SyncEntitiesEvent $event): void
     {
         $changedEntityEvents = $event->getChangedEntityEvents();
 
