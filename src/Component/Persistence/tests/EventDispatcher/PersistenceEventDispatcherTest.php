@@ -13,6 +13,8 @@ class PersistenceEventDispatcherTest extends TestCase
 {
     public function testSomething(): void
     {
+        $this->recreateIndex(Role::class);
+
         /** @var PersistenceEventDispatcher $eventManager */
         $eventManager = $this->container->get(PersistenceEventDispatcher::class);
 
