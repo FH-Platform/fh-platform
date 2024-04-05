@@ -29,8 +29,10 @@ class EntitySyncer
     {
         $documents = [];
 
-        $events = $event->getSyncEntityEvents();
-        $events = $this->excludeDuplicatedEvents($events);
+        $events = $this->excludeDuplicatedEvents($event->getSyncEntityEvents());
+        $entities = $this->fetchEntitiesFromEvents($events);
+
+
 
         $documents = $this->prepareDocuments($documents, $events);
         $documents = $this->prepareDocumentsForEntitiesRelated($documents);
@@ -62,6 +64,24 @@ class EntitySyncer
         }
 
         return $eventsFiltered;
+    }
+
+    /** @param $events SyncEntityEvent[]  */
+    private function fetchEntitiesFromEvents(array $events): array
+    {
+        $entities = [];
+
+        foreach ($events as $event) {
+            $className = $event->getClassName();
+            $identifierValue = $event->getIdentifierValue();
+
+            // refresh entity before calculating data for storing
+            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
+
+            $entities[$className][$identifierValue] = $entity;
+        }
+
+        return $entities;
     }
 
     private function prepareDocuments(array $documents, array $changedEntityEvents): array
