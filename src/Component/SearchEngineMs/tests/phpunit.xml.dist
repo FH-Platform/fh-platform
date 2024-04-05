@@ -2,7 +2,7 @@
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="../../../tests/bootstrap.php"
+         bootstrap="../../../../tests/bootstrap.php"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
          cacheResult ="false"
@@ -16,7 +16,7 @@
 
     <testsuites>
         <testsuite name="test">
-            <directory>./../SearchEngine/tests/Adapter</directory>
+            <directory>./../../SearchEngine/tests/Adapter</directory>
         </testsuite>
     </testsuites>
 </phpunit>

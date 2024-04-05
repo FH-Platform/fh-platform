@@ -2,20 +2,21 @@
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="../../../tests/bootstrap.php"
+         bootstrap="../../../../tests/bootstrap.php"
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
          cacheResult ="false"
          colors="true">
     <php>
-        <server name="KERNEL_CLASS" value="FHPlatform\Component\Syncer\Tests\Util\App\Kernel" />
+        <server name="KERNEL_CLASS" value="FHPlatform\Component\SearchEngine\Tests\Util\App\Kernel" />
         <env name="APP_DEBUG" value="false" />
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[total]=999999" />
+        <env name="FHPLATFORM_SEARCH_ENGINE" value="FHPlatform\Component\SearchEngineEs\SearchEngineEs" />
     </php>
 
     <testsuites>
         <testsuite name="test">
-            <directory>./tests/</directory>
+            <directory>./../../SearchEngine/tests/Adapter</directory>
         </testsuite>
     </testsuites>
 </phpunit>

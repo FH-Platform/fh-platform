@@ -65,7 +65,7 @@ class EntitySyncer
         $className = $event->getClassName();
         $identifierValue = $event->getIdentifierValue();
 
-        if( ! ( $entity = $this->persistence->refreshByClassNameId($className, $identifierValue))){
+        if (!($entity = $this->persistence->refreshByClassNameId($className, $identifierValue))) {
             return;
         }
 

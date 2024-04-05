@@ -7,13 +7,16 @@ packages=(
   "Component/Persistence"
   "Component/PersistenceDoctrine"
   "Component/PersistenceEloquent"
+  "Component/Config"
   "Component/DoctrineToEs"
+  "Component/EventManager"
   "Component/FilterToEsDsl"
-  "Bundle/SymfonyBridgeBundle"
+  "Component/Syncer"
+  #"Bundle/SymfonyBridgeBundle"
 )
 
 for package in "${packages[@]}";
 do
   echo $package
-  vendor/bin/phpunit --configuration=src/$package
+  vendor/bin/phpunit --configuration=src/$package/tests
 done
