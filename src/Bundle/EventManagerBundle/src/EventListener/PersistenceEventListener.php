@@ -17,17 +17,17 @@ class PersistenceEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ChangedEntityEvent::class => 'onChangedEntity',
-            FlushEvent::class => 'onFlush',
+            ChangedEntityEvent::class => 'onChangedEntityEvent',
+            FlushEvent::class => 'onFlushEvent',
         ];
     }
 
-    public function onChangedEntity(ChangedEntityEvent $event): void
+    public function onChangedEntityEvent(ChangedEntityEvent $event): void
     {
         $this->eventManager->changedEntityEvent($event);
     }
 
-    public function onFlush(FlushEvent $event): void
+    public function onFlushEvent(FlushEvent $event): void
     {
         $this->eventManager->flushEvent();
     }
