@@ -69,7 +69,7 @@ class EntitySyncer
                 $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
             }
 
-            $documents = array_merge($documents, $this->buildForRelatedEntities($entity, $type, $changedFields));
+             $this->buildForRelatedEntities($documents, $entity, $type, $changedFields);
         }
 
         foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete) {
@@ -88,9 +88,8 @@ class EntitySyncer
         return $documents;
     }
 
-    private function buildForRelatedEntities(mixed $entity, string $type, array $changedFields): array
+    private function buildForRelatedEntities(&$documents, mixed $entity, string $type, array $changedFields): void
     {
-        $documents = [];
         if ($entity) {
             $connections = $this->connectionsBuilder->build();
 
@@ -104,7 +103,5 @@ class EntitySyncer
                 }
             }
         }
-
-        return $documents;
     }
 }
