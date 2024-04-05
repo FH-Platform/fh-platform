@@ -32,25 +32,25 @@ class EntitySyncer
         // make events unique per className => $identifierValue
         $events = $this->excludeDuplicatedEvents($event->getSyncEntityEvents());
 
-        // fetch all entities from events
-        $entities = $this->fetchEntitiesFromEvents($events);
-
-        // fetch related entities of each entity
-        $entitiesRelated = $this->fetchEntitiesRelated($entities);
+        // fetch entities and related entities array
+        $entities = $this->fetchEntitiesAndRelatedEntitiesFromEvents($events);
 
         // fetch related entities pre delete
         $entitiesRelatedPreDelete = $this->fetchEntitiesRelatedPreDelete();
 
-        $entitiesA = array_merge($entities, $entitiesRelated, $entitiesRelatedPreDelete);
+        // merge
+        $entities = array_merge($entities, $entitiesRelatedPreDelete);
 
+        // refresh all entities from entities array
+        $entities = $this->refreshEntities($entities);
+
+        // prepare documents for each entity
         $documents = $this->prepareDocuments($documents, $entities);
-        $documents = $this->prepareDocuments($documents, $entitiesRelated);
-        $documents = $this->prepareDocuments($documents, $entitiesRelatedPreDelete);
 
-        //group documents by connection and index
+        // group documents by connection and index
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
-        //sync documents
+        // sync documents
         $this->dataManager->syncDocuments($documentsGrouped);
     }
 
@@ -67,10 +67,18 @@ class EntitySyncer
 
         $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
-        $entitiesArray[$className][$identifierValue] = $entity;
-        $entitiesRelated = $this->fetchEntitiesRelated($entitiesArray);
+        // TODO
+        $connections = $this->connectionsBuilder->build();
+        $connection = $connections[0];
 
-        $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelated);
+        $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity);
+
+        foreach ($entitiesRelated as $entityRelated) {
+            $className = $this->persistence->getRealClassName($entityRelated::class);
+            $identifierValue = $this->persistence->getIdentifierValue($entityRelated);
+
+            $this->entitiesRelatedPreDelete[$className][$identifierValue] = true;
+        }
     }
 
     /** @param $events SyncEntityEvent[] */
@@ -86,42 +94,28 @@ class EntitySyncer
         return $eventsFiltered;
     }
 
-    /** @param $events SyncEntityEvent[] */
-    private function fetchEntitiesFromEvents(array $events): array
-    {
-        $entities = [];
-
-        foreach ($events as $event) {
-            $className = $event->getClassName();
-            $identifierValue = $event->getIdentifierValue();
-
-            // refresh entity before calculating data for storing
-            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-
-            $entities[$className][$identifierValue] = $entity;
-        }
-
-        return $entities;
-    }
-
-    private function fetchEntitiesRelated(array $entities): array
+    private function fetchEntitiesAndRelatedEntitiesFromEvents(array $events): array
     {
         $entitiesRelated = [];
 
         $connections = $this->connectionsBuilder->build();
         $connection = $connections[0];
 
-        foreach ($entities as $className => $identifierValues) {
-            foreach ($identifierValues as $identifierValue => $entity) {
-                if ($entity) {
-                    $entitiesRelatedRow = $this->entitiesRelatedBuilder->build($connection, $entity);
+        foreach ($events as $event) {
+            $className = $event->getClassName();
+            $identifierValue = $event->getIdentifierValue();
 
-                    foreach ($entitiesRelatedRow as $entityRelatedRow) {
-                        $className = $this->persistence->getRealClassName($entityRelatedRow::class);
-                        $identifierValue = $this->persistence->getIdentifierValue($entityRelatedRow);
+            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
+            $entitiesRelated[$className][$identifierValue] = true;
 
-                        $entitiesRelated[$className][$identifierValue] = $entityRelatedRow;
-                    }
+            if ($entity) {
+                $entitiesRelatedRow = $this->entitiesRelatedBuilder->build($connection, $entity);
+
+                foreach ($entitiesRelatedRow as $entityRelatedRow) {
+                    $className = $this->persistence->getRealClassName($entityRelatedRow::class);
+                    $identifierValue = $this->persistence->getIdentifierValue($entityRelatedRow);
+
+                    $entitiesRelated[$className][$identifierValue] = true;
                 }
             }
         }
@@ -141,6 +135,17 @@ class EntitySyncer
         $this->entitiesRelatedPreDelete = [];
 
         return $entitiesRelatedPreDelete;
+    }
+
+    private function refreshEntities($entities): array
+    {
+        foreach ($entities as $className => $identifierValues) {
+            foreach ($identifierValues as $identifierValue => $entity) {
+                $entities[$className][$identifierValue] = $this->persistence->refreshByClassNameId($className, $identifierValue);
+            }
+        }
+
+        return $entities;
     }
 
     private function prepareDocuments(array $documents, array $entities): array
