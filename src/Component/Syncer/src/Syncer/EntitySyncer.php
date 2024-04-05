@@ -92,12 +92,12 @@ class EntitySyncer
 
         foreach ($connections as $connection) {
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-            $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, []);
+            $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, []);
 
             $this->entitiesRelated[$connection->getName()][$className][$identifierValue] = [];
-            foreach ($entitiesRelatedPreDelete as $entity) {
+            foreach ($entitiesRelated as $entityRelated) {
                 $this->entitiesRelated[$connection->getName()][$className][$identifierValue][] = [
-                    'entity' => $entity,
+                    'entity' => $entityRelated,
                     'delete' => $delete,
                 ];
             }
