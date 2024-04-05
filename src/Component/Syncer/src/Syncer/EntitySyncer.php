@@ -26,7 +26,10 @@ class EntitySyncer
 
     public function syncEntitiesEvent(SyncEntitiesEvent $event): void
     {
-        $documents = $this->prepareDocuments($event->getChangedEntityEvents());
+        $documents = [];
+
+        $this->prepareDocuments($documents, $event->getChangedEntityEvents());
+        $this->prepareDocumentsForEntitiesRelated($documents);
 
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
@@ -44,9 +47,8 @@ class EntitySyncer
         $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue(), true);
     }
 
-    private function prepareDocuments(array $changedEntityEvents): array
+    private function prepareDocuments(array &$documents, array $changedEntityEvents): void
     {
-        $documents = [];
         foreach ($changedEntityEvents as $event) {
             $className = $event->getClassName();
             $identifierValue = $event->getIdentifierValue();
@@ -67,6 +69,28 @@ class EntitySyncer
                 $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue(), false);
             }
         }
+    }
+
+    private function prepareEntitiesRelated(string $className, mixed $identifierValue, bool $delete): void
+    {
+        $connections = $this->connectionsBuilder->build();
+
+        foreach ($connections as $connection) {
+            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
+            $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
+
+            $this->entitiesRelated[$connection->getName()][$className][$identifierValue] = [];
+            foreach ($entitiesRelatedPreDelete as $entity) {
+                $this->entitiesRelated[$connection->getName()][$className][$identifierValue][] = [
+                    'entity' => $entity,
+                    'delete' => $delete,
+                ];
+            }
+        }
+    }
+
+    private function prepareDocumentsForEntitiesRelated(&$documents): void
+    {
         foreach ($this->entitiesRelated as $connectionName => $connections) {
             foreach ($connections as $className => $identifierValues) {
                 foreach ($identifierValues as $identifierValue => $entities) {
@@ -93,27 +117,5 @@ class EntitySyncer
         }
 
         $this->entitiesRelated = [];
-
-        // TODO chunk in batch from config in client bundle
-
-        return $documents;
-    }
-
-    private function prepareEntitiesRelated(string $className, mixed $identifierValue, bool $delete): void
-    {
-        $connections = $this->connectionsBuilder->build();
-
-        foreach ($connections as $connection) {
-            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-            $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
-
-            $this->entitiesRelated[$connection->getName()][$className][$identifierValue] = [];
-            foreach ($entitiesRelatedPreDelete as $entity) {
-                $this->entitiesRelated[$connection->getName()][$className][$identifierValue][] = [
-                    'entity' => $entity,
-                    'delete' => $delete,
-                ];
-            }
-        }
     }
 }
