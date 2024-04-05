@@ -23,7 +23,7 @@ class EntitySyncer
     {
     }
 
-    private array $entitiesRelatedPreDelete = [];
+    private array $entitiesRelated = [];
 
     public function syncEntitiesEvent(SyncEntitiesEvent $event): void
     {
@@ -52,9 +52,9 @@ class EntitySyncer
         $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
         $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
 
-        $this->entitiesRelatedPreDelete[$className][$identifierValue] = [];
+        $this->entitiesRelated[$className][$identifierValue] = [];
         foreach ($entitiesRelatedPreDelete as $entity) {
-            $this->entitiesRelatedPreDelete[$className][$identifierValue][] = $entity;
+            $this->entitiesRelated[$className][$identifierValue][] = $entity;
         }
     }
 
@@ -91,8 +91,7 @@ class EntitySyncer
             }
         }
 
-        foreach ($this->entitiesRelatedPreDelete as $className => $identifierValues) {
-
+        foreach ($this->entitiesRelated as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue => $entities) {
                 foreach ($entities as $entity) {
                     // TODO separate
@@ -104,7 +103,7 @@ class EntitySyncer
             }
         }
 
-        $this->entitiesRelatedPreDelete = [];
+        $this->entitiesRelated = [];
 
         // TODO chunk in batch from config in client bundle
 
