@@ -90,7 +90,10 @@ class EventManager
     {
         $eventsUpdate = [];
         foreach ($this->changedEntityEventsTransaction as $event) {
-            $eventsUpdate[] = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_PERSISTENCE_ROLLBACK);
+            $changedEntityEvent = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::TRIGGERED_PERSISTENCE_ROLLBACK);
+
+            // $this->eventDispatcher->dispatch($changedEntityEvent);
+            $eventsUpdate[] = $changedEntityEvent;
         }
 
         $this->dispatch($eventsUpdate);
