@@ -58,7 +58,7 @@ class EventManager
         foreach ($entities as $entity) {
             $className = $this->persistence->getRealClassName($entity::class);
             $identifierValue = $this->persistence->getIdentifierValue($entity);
-            $event = new SyncEntityEvent($className, $identifierValue);
+            $event = new SyncEntityEvent($className, $identifierValue, SyncEntityEvent::SOURCE_MANUALLY);
 
             $this->eventDispatcher->dispatch($event);
             $events[] = $event;
