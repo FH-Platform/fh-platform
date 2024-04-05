@@ -10,7 +10,7 @@ class Document
 
     public function __construct(
         private readonly Index $index,
-        private readonly mixed $identifier,
+        private readonly mixed $identifierValue,
         private readonly array $data,
         private readonly string $type,
     ) {
@@ -23,7 +23,7 @@ class Document
 
     public function getIdentifierValue(): mixed
     {
-        return $this->identifier;
+        return $this->identifierValue;
     }
 
     public function getData(): array

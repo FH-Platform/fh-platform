@@ -11,7 +11,7 @@ class ChangedEntityEvent
 
     public function __construct(
         private readonly string $className,
-        private readonly mixed $identifier,
+        private readonly mixed $identifierValue,
         private readonly string $type,
         private readonly array $changedFields = [],
     ) {
@@ -24,7 +24,7 @@ class ChangedEntityEvent
 
     public function getIdentifierValue(): mixed
     {
-        return $this->identifier;
+        return $this->identifierValue;
     }
 
     public function getType(): string

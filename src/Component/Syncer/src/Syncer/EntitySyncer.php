@@ -42,7 +42,7 @@ class EntitySyncer
             // TODO check if reletable or indexable, fetch entity classNames array and check
 
             $className = $event->getClassName();
-            $identifier = $event->getIdentifierValue();
+            $identifierValue = $event->getIdentifierValue();
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
@@ -58,14 +58,14 @@ class EntitySyncer
                 return [];
             }
 
-            $entity = $this->persistence->refreshByClassNameId($className, $identifier);
+            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
-                $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifier;
+                $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
 
                 // TODO return if hash exists
-                $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifier, $type);
+                $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
             }
 
             $documents = array_merge($documents, $this->buildForRelatedEntities($entity, $type, $changedFields));
@@ -75,9 +75,9 @@ class EntitySyncer
             // TODO separate
 
             $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
-            $identifier = $this->persistence->getIdentifierValue($entityRelatedPreDelete);
+            $identifierValue = $this->persistence->getIdentifierValue($entityRelatedPreDelete);
 
-            $documents[] = $this->documentBuilder->buildForEntity($entityRelatedPreDelete, $className, $identifier, ChangedEntityEvent::TYPE_UPDATE);
+            $documents[] = $this->documentBuilder->buildForEntity($entityRelatedPreDelete, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
         }
 
         $this->entitiesRelatedPreDelete = [];
