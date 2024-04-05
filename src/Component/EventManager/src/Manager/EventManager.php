@@ -30,10 +30,6 @@ class EventManager
             return;
         }
 
-        // store changed entities for flush later, make changes unique, skip duplicated changes
-        // TODO
-        // $hash = $event->getClassName().'_'.$event->getIdentifierValue();
-
         $event = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_PERSISTENCE);
 
         $this->eventsPersistence[] = $event;
@@ -52,7 +48,7 @@ class EventManager
         $this->eventsPersistence = [];
     }
 
-    public function triggerEntitiesChangeAction(array $entities, bool $instant = true): void
+    public function triggerChangedEntitiesAction(array $entities, bool $instant = true): void
     {
         $events = [];
         foreach ($entities as $entity) {
@@ -69,7 +65,7 @@ class EventManager
         }
     }
 
-    public function triggerEntitiesArrayChangeAction(array $entitiesArray, bool $instant = true): void
+    public function triggerChangedEntitiesArrayAction(array $entitiesArray, bool $instant = true): void
     {
         $events = [];
         foreach ($entitiesArray as $className => $identifierValues) {
