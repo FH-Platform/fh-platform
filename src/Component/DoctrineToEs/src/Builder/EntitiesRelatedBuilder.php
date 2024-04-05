@@ -4,7 +4,6 @@ namespace FHPlatform\Component\DoctrineToEs\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Util\ClassUtils;
-use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\PersistenceDoctrine\DoctrinePersistence;
 
 class EntitiesRelatedBuilder
@@ -29,7 +28,7 @@ class EntitiesRelatedBuilder
             // detect if field from doctrine-to-es config is changed
             $identifierName = $this->doctrinePersistence->getIdentifierName($className);
 
-            if (Document::TYPE_UPDATE === $type and count($changedFieldsForEs) > 0 and count($changedFields) > 0) {
+            if (count($changedFields) > 0) {
                 $isChangedAnyEsField = !empty(array_intersect($changedFieldsForEs, $changedFields)) || !empty($changedFields[$identifierName]);
                 if (!$isChangedAnyEsField) {
                     continue;

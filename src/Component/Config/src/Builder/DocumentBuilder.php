@@ -16,16 +16,16 @@ class DocumentBuilder
     ) {
     }
 
-    public function buildRaw($className, $identifierValue, $data, $type): Document
+    public function buildRaw($className, $identifierValue, $data): Document
     {
         $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
 
-        return new Document($index, $identifierValue, $data, $type);
+        return new Document($index, $identifierValue, $data, Document::TYPE_UPSERT);
     }
 
-    public function buildForEntity(Index $index, $entity, $className, $identifierValue, $type): Document
+    public function buildForEntity(Index $index, $entity, $className, $identifierValue): Document
     {
-        if (Document::TYPE_DELETE === $type or !$entity) {
+        if (!$entity) {
             return new Document($index, $identifierValue, [], Document::TYPE_DELETE);
         }
 
@@ -43,7 +43,7 @@ class DocumentBuilder
         $data = $this->decorateDataItems($index, $className, $data, $index->getMapping(), $decorators);
 
         // return
-        return new Document($index, $identifierValue, $data, $type);
+        return new Document($index, $identifierValue, $data, Document::TYPE_UPSERT);
     }
 
     private function decorateDataShouldBeIndexed(Index $index, mixed $entity, $decorators): array

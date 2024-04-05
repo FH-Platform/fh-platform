@@ -3,6 +3,7 @@
 namespace FHPlatform\Component\EventManager\Manager;
 
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
+use FHPlatform\Component\EventManager\Event\SyncEntityEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 
@@ -24,17 +25,16 @@ class EventManager
 
     public function changedEntityEvent(ChangedEntityEvent $event): void
     {
-        // handle event only (create, update, delete) for persistence source
-        if (
-            ChangedEntityEvent::SOURCE_PERSISTENCE !== $event->getSource()
-            or ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()
-        ) {
+        // handle event only (create, update, delete), not delete_pre
+        if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
             return;
         }
 
         // store changed entities for flush later, make changes unique, skip duplicated changes
         // TODO
         // $hash = $event->getClassName().'_'.$event->getIdentifierValue();
+
+        $event = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_PERSISTENCE);
 
         $this->eventsPersistence[] = $event;
 
@@ -58,10 +58,10 @@ class EventManager
         foreach ($entities as $entity) {
             $className = $this->persistence->getRealClassName($entity::class);
             $identifierValue = $this->persistence->getIdentifierValue($entity);
-            $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY);
+            $event = new SyncEntityEvent($className, $identifierValue);
 
-            $this->eventDispatcher->dispatch($changedEntityEvent);
-            $events[] = $changedEntityEvent;
+            $this->eventDispatcher->dispatch($event);
+            $events[] = $event;
         }
 
         if ($instant) {
@@ -74,10 +74,10 @@ class EventManager
         $events = [];
         foreach ($entitiesArray as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY);
+                $event = new SyncEntityEvent($className, $identifierValue, SyncEntityEvent::SOURCE_MANUALLY);
 
-                $this->eventDispatcher->dispatch($changedEntityEvent);
-                $events[] = $changedEntityEvent;
+                $this->eventDispatcher->dispatch($event);
+                $events[] = $event;
             }
         }
 
@@ -95,7 +95,7 @@ class EventManager
     {
         $events = [];
         foreach ($this->changedEntityEventsTransaction as $event) {
-            $changedEntityEvent = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY_ROLLBACK);
+            $changedEntityEvent = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_MANUALLY_ROLLBACK);
 
             $this->eventDispatcher->dispatch($changedEntityEvent);
             $events[] = $changedEntityEvent;

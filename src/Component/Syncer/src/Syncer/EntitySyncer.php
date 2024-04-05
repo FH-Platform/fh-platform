@@ -52,8 +52,6 @@ class EntitySyncer
         foreach ($changedEntityEvents as $event) {
             $className = $event->getClassName();
             $identifierValue = $event->getIdentifierValue();
-            $type = $event->getType();
-            $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
             // refresh entity before calculating data for storing
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
@@ -61,7 +59,7 @@ class EntitySyncer
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
                 // prepare document for search engine sync
-                $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue, $type);
+                $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue);
             }
 
             if ($entity) {
@@ -108,7 +106,7 @@ class EntitySyncer
 
                             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
                             foreach ($indexes as $index) {
-                                $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                                $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue);
                             }
                         }
                     }
