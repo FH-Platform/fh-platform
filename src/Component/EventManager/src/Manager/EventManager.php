@@ -36,13 +36,14 @@ class EventManager
         }
 
         // store changed entities for flush later, make changes unique, skip duplicated changes
-        $hash = $event->getClassName().'_'.$event->getIdentifierValue();
+        //TODO
+        //$hash = $event->getClassName().'_'.$event->getIdentifierValue();
 
-        $this->eventsPersistence[$hash] = $event;
+        $this->eventsPersistence[] = $event;
 
         // store transaction events if transaction is starter so that we can roll back applied changes is transaction is rollback
         if ($this->changedEntityEventsTransactionStarted) {
-            $this->changedEntityEventsTransaction[$hash] = $event;
+            $this->changedEntityEventsTransaction[] = $event;
         }
     }
 

@@ -37,6 +37,9 @@ class EntitySyncer
 
     private function prepareDocuments(array $changedEntityEvents): array
     {
+        //TODO
+        $connection = $this->connectionsBuilder->build()[0] ?? null;
+
         $documents = [];
         foreach ($changedEntityEvents as $event) {
             // TODO check if reletable or indexable, fetch entity classNames array and check
@@ -47,8 +50,6 @@ class EntitySyncer
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
 
             if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
-                $connection = $this->connectionsBuilder->build()[0] ?? null;
-
                 if ($connection) {
                     $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
                     $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
