@@ -41,8 +41,10 @@ class EntitySyncer
             return;
         }
 
+        // TODO
         $connection = $this->connectionsBuilder->build()[0] ?? null;
 
+        //for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
         $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
         $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
         $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
@@ -50,13 +52,8 @@ class EntitySyncer
 
     private function prepareDocuments(array $changedEntityEvents): array
     {
-        // TODO
-        $connection = $this->connectionsBuilder->build()[0] ?? null;
-
         $documents = [];
         foreach ($changedEntityEvents as $event) {
-            // TODO check if reletable or indexable, fetch entity classNames array and check
-
             $className = $event->getClassName();
             $identifierValue = $event->getIdentifierValue();
             $type = $event->getType();
@@ -66,10 +63,8 @@ class EntitySyncer
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
-                // TODO
-                // $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
-
                 // TODO return if hash exists
+                // $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
                 $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
             }
 
@@ -89,9 +84,6 @@ class EntitySyncer
         }
 
         foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete) {
-            // dd($entityRelatedPreDelete);
-            // $this->buildForRelatedEntities($documents, $entityRelatedPreDelete,  ChangedEntityEvent::TYPE_UPDATE, []);
-
             // TODO separate
             $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
             $identifierValue = $this->persistence->getIdentifierValue($entityRelatedPreDelete);
