@@ -15,28 +15,35 @@ use FHPlatform\Component\Syncer\DocumentGrouper;
 class EntitySyncer
 {
     public function __construct(
-        private readonly PersistenceInterface   $persistence,
-        private readonly DataManager            $dataManager,
-        private readonly ConnectionsBuilder     $connectionsBuilder,
-        private readonly DocumentBuilder        $documentBuilder,
+        private readonly PersistenceInterface $persistence,
+        private readonly DataManager $dataManager,
+        private readonly ConnectionsBuilder $connectionsBuilder,
+        private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-    )
-    {
+    ) {
     }
 
-    private array $entitiesRelated = [];
+    private array $entitiesRelatedPreDelete = [];
 
     public function syncEntitiesEvent(SyncEntitiesEvent $event): void
     {
         $documents = [];
 
+        // make events unique per className => $identifierValue
         $events = $this->excludeDuplicatedEvents($event->getSyncEntityEvents());
+
+        // fetch all entities from events
         $entities = $this->fetchEntitiesFromEvents($events);
+
+        // fetch related entities of each entity
         $entitiesRelated = $this->fetchEntitiesRelated($entities);
+
+        // fetch related entities pre delete
+        $entitiesRelatedPreDelete = $this->fetchEntitiesRelatedPreDelete();
 
         $documents = $this->prepareDocuments($documents, $entities);
         $documents = $this->prepareDocuments($documents, $entitiesRelated);
-        $documents = $this->prepareDocuments($documents, $this->entitiesRelated);
+        $documents = $this->prepareDocuments($documents, $entitiesRelatedPreDelete);
 
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
@@ -57,9 +64,9 @@ class EntitySyncer
         $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
         $related[$className][$identifierValue] = $entity;
-        $entitiesRelated =  $this->fetchEntitiesRelated($related);
+        $entitiesRelated = $this->fetchEntitiesRelated($related);
 
-        $this->entitiesRelated = array_merge($this->entitiesRelated, $entitiesRelated);
+        $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelated);
     }
 
     /** @param $events SyncEntityEvent[] */
@@ -68,7 +75,7 @@ class EntitySyncer
         $eventsFiltered = [];
 
         foreach ($events as $event) {
-            $hash = $event->getClassName() . '_' . $event->getIdentifierValue();
+            $hash = $event->getClassName().'_'.$event->getIdentifierValue();
             $eventsFiltered[$hash] = $event;
         }
 
@@ -93,6 +100,19 @@ class EntitySyncer
         return $entities;
     }
 
+    private function fetchEntitiesRelatedPreDelete(): array
+    {
+        $entitiesRelatedPreDelete = $this->entitiesRelatedPreDelete;
+        foreach ($entitiesRelatedPreDelete as $className => $identifierValues) {
+            foreach ($identifierValues as $identifierValue => $entity) {
+                // pre deleted related entities must be refreshed before creating data because they are generated before flush
+                $entitiesRelatedPreDelete[$className][$identifierValue] = $this->persistence->refresh($entity);
+            }
+        }
+        $this->entitiesRelatedPreDelete = [];
+
+        return $entitiesRelatedPreDelete;
+    }
 
     private function fetchEntitiesRelated(array $entities): array
     {
@@ -125,7 +145,6 @@ class EntitySyncer
             foreach ($identifierValues as $identifierValue => $entity) {
                 $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
                 foreach ($indexes as $index) {
-
                     // prepare document for search engine sync
                     $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue);
                 }
