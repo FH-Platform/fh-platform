@@ -6,7 +6,7 @@ trait DecoratorConnectionTrait
 {
     use DecoratorBaseTrait;
 
-    public function getConfigAdditional(array $config): array
+    public function getConnectionConfigAdditional(array $config): array
     {
         return $config;
     }

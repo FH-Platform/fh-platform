@@ -168,7 +168,7 @@ class ConnectionsBuilder
     {
         $configAdditional = [];
         foreach ($decorators as $decorator) {
-            $configAdditional = $decorator->getConfigAdditional($index, $configAdditional);
+            $configAdditional = $decorator->getIndexConfigAdditional($index, $configAdditional);
         }
 
         return $configAdditional;

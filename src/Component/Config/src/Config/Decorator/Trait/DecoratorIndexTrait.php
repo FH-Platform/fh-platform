@@ -11,7 +11,7 @@ trait DecoratorIndexTrait
         return $settings;
     }
 
-    public function getConfigAdditional(Index $index, array $config): array
+    public function getIndexConfigAdditional(Index $index, array $config): array
     {
         return $config;
     }
