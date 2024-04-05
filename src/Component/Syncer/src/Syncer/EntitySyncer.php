@@ -37,7 +37,7 @@ class EntitySyncer
 
     private function prepareDocuments(array $changedEntityEvents): array
     {
-        //TODO
+        // TODO
         $connection = $this->connectionsBuilder->build()[0] ?? null;
 
         $documents = [];
@@ -63,19 +63,31 @@ class EntitySyncer
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
-                //TODO
-                //$hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
+                // TODO
+                // $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
 
                 // TODO return if hash exists
                 $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
             }
 
-             $this->buildForRelatedEntities($documents, $entity, $type, $changedFields);
+            if ($entity) {
+                $connections = $this->connectionsBuilder->build();
+
+                foreach ($connections as $connection) {
+                    $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $type, $changedFields);
+                    foreach ($entitiesRelated as $entityRelated) {
+                        $className = $this->persistence->getRealClassName($entityRelated::class);
+                        $identifier = $this->persistence->getIdentifierValue($entityRelated);
+
+                        $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntityEvent::TYPE_UPDATE);
+                    }
+                }
+            }
         }
 
         foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete) {
-            //dd($entityRelatedPreDelete);
-            //$this->buildForRelatedEntities($documents, $entityRelatedPreDelete,  ChangedEntityEvent::TYPE_UPDATE, []);
+            // dd($entityRelatedPreDelete);
+            // $this->buildForRelatedEntities($documents, $entityRelatedPreDelete,  ChangedEntityEvent::TYPE_UPDATE, []);
 
             // TODO separate
             $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
@@ -89,22 +101,5 @@ class EntitySyncer
         // TODO chunk in batch from config in client bundle
 
         return $documents;
-    }
-
-    private function buildForRelatedEntities(&$documents, mixed $entity, string $type, array $changedFields): void
-    {
-        if ($entity) {
-            $connections = $this->connectionsBuilder->build();
-
-            foreach ($connections as $connection) {
-                $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $type, $changedFields);
-                foreach ($entitiesRelated as $entityRelated) {
-                    $className = $this->persistence->getRealClassName($entityRelated::class);
-                    $identifier = $this->persistence->getIdentifierValue($entityRelated);
-
-                    $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntityEvent::TYPE_UPDATE);
-                }
-            }
-        }
     }
 }

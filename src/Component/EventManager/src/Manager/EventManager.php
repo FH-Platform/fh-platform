@@ -36,8 +36,8 @@ class EventManager
         }
 
         // store changed entities for flush later, make changes unique, skip duplicated changes
-        //TODO
-        //$hash = $event->getClassName().'_'.$event->getIdentifierValue();
+        // TODO
+        // $hash = $event->getClassName().'_'.$event->getIdentifierValue();
 
         $this->eventsPersistence[] = $event;
 
