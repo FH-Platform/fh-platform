@@ -44,8 +44,11 @@ class EntitySyncer
         // TODO
         $connection = $this->connectionsBuilder->build()[0] ?? null;
 
+        $className = $event->getClassName();
+        $identifierValue = $event->getIdentifierValue();
+
         //for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
-        $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
+        $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
         $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
         $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
     }
