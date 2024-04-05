@@ -63,18 +63,21 @@ class EntitySyncer
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
             foreach ($indexes as $index) {
-                $hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
+                //TODO
+                //$hash = $index->getConnection()->getName().'_'.$index->getName().'_'.$className.'_'.$identifierValue;
 
                 // TODO return if hash exists
-                $documents[$hash] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
+                $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
             }
 
              $this->buildForRelatedEntities($documents, $entity, $type, $changedFields);
         }
 
         foreach ($this->entitiesRelatedPreDelete as $entityRelatedPreDelete) {
-            // TODO separate
+            //dd($entityRelatedPreDelete);
+            //$this->buildForRelatedEntities($documents, $entityRelatedPreDelete,  ChangedEntityEvent::TYPE_UPDATE, []);
 
+            // TODO separate
             $className = $this->persistence->getRealClassName($entityRelatedPreDelete::class);
             $identifierValue = $this->persistence->getIdentifierValue($entityRelatedPreDelete);
 
