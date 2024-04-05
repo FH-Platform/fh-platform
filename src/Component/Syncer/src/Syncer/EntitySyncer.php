@@ -57,9 +57,9 @@ class EntitySyncer
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
             $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
-            if (count($indexes) > 0){
+            foreach ($indexes as $index) {
                 // prepare document for search engine sync
-                $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
+                $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue, $type);
             }
 
             if ($entity) {
@@ -82,7 +82,10 @@ class EntitySyncer
                         $className = $this->persistence->getRealClassName($entity::class);
                         $identifierValue = $this->persistence->getIdentifierValue($entity);
 
-                        $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                        $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
+                        foreach ($indexes as $index) {
+                            $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                        }
                     }
                 }
             }

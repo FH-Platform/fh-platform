@@ -23,12 +23,8 @@ class DocumentBuilder
         return new Document($index, $identifierValue, $data, $type);
     }
 
-    public function buildForEntity($entity, $className, $identifierValue, $type): Document
+    public function buildForEntity(Index $index, $entity, $className, $identifierValue, $type): Document
     {
-        // TODO throw error if class not available for ES
-
-        $index = $this->connectionsBuilder->fetchIndexesByClassName($className)[0];
-
         if (Document::TYPE_DELETE === $type or !$entity) {
             return new Document($index, $identifierValue, [], Document::TYPE_DELETE);
         }

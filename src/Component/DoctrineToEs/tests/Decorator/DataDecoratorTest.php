@@ -19,11 +19,13 @@ class DataDecoratorTest extends TestCaseEs
         $user->setSetting($setting);
         $this->save([$user]);
 
+        $indexes = $this->connectionsBuilder->fetchIndexesByClassName(User::class);
+
         $this->assertEquals([
             'testInteger' => 16,
             'setting' => [
                 'testFloat' => 18.16,
             ],
-        ], $this->documentBuilder->buildForEntity($user, User::class, 1, ChangedEntityEvent::TYPE_UPDATE)->getData());
+        ], $this->documentBuilder->buildForEntity($indexes[0], $user, User::class, 1, ChangedEntityEvent::TYPE_UPDATE)->getData());
     }
 }
