@@ -56,8 +56,11 @@ class EntitySyncer
             // refresh entity before calculating data for storing
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
-            // prepare document for search engine sync
-            $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
+            $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
+            if (count($indexes) > 0){
+                // prepare document for search engine sync
+                $documents[] = $this->documentBuilder->buildForEntity($entity, $className, $identifierValue, $type);
+            }
 
             if ($entity) {
                 // for create and update calculate related entities, for delete are calculated before
