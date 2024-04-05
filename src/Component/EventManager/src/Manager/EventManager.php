@@ -15,7 +15,7 @@ class EventManager
     }
 
     /** @var ChangedEntityEvent[] */
-    protected array $changedEntityEvents = [];
+    protected array $eventsPersistence = [];
 
     /** @var ChangedEntityEvent[] */
     protected array $changedEntityEventsTransaction = [];
@@ -24,24 +24,31 @@ class EventManager
 
     public function changedEntityEvent(ChangedEntityEvent $event): void
     {
-        if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
-            $this->eventDispatcher->dispatch(new SyncEntitiesEvent([$event]));
-        }
+        // handle event only for persistence source
+        if (ChangedEntityEvent::SOURCE_PERSISTENCE === $event->getSource()) {
+            if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
+                $this->eventDispatcher->dispatch(new SyncEntitiesEvent([$event]));
+                // $this->dispatch([$event]);
+            }
 
-        // store changed entities for flush later, make changes unique, skip duplicated changes
-        $hash = $event->getClassName().'_'.$event->getIdentifierValue();
+            // store changed entities for flush later, make changes unique, skip duplicated changes
+            $hash = $event->getClassName().'_'.$event->getIdentifierValue();
 
-        $this->changedEntityEvents[$hash] = $event;
+            $this->eventsPersistence[$hash] = $event;
 
-        // store transaction events if transaction is starter so that we can roll back applied changes is transaction is rollback
-        if ($this->changedEntityEventsTransactionStarted) {
-            $this->changedEntityEventsTransaction[$hash] = $event;
+            // store transaction events if transaction is starter so that we can roll back applied changes is transaction is rollback
+            if ($this->changedEntityEventsTransactionStarted) {
+                $this->changedEntityEventsTransaction[$hash] = $event;
+            }
         }
     }
 
     public function flushEvent(): void
     {
-        $this->dispatchAccumulated();
+        $this->dispatch($this->eventsPersistence);
+
+        // reset var
+        $this->eventsPersistence = [];
     }
 
     public function triggerEntitiesChangeAction(array $entities, bool $instant = true): void
@@ -52,7 +59,7 @@ class EventManager
             $identifierValue = $this->persistence->getIdentifierValue($entity);
             $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY);
 
-            // $this->eventDispatcher->dispatch($changedEntityEvent);
+            $this->eventDispatcher->dispatch($changedEntityEvent);
             $changedEntityEvents[] = $changedEntityEvent;
         }
 
@@ -68,7 +75,7 @@ class EventManager
             foreach ($identifierValues as $identifierValue) {
                 $changedEntityEvent = new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY);
 
-                // $this->eventDispatcher->dispatch($changedEntityEvent);
+                $this->eventDispatcher->dispatch($changedEntityEvent);
                 $changedEntityEvents[] = $changedEntityEvent;
             }
         }
@@ -89,7 +96,7 @@ class EventManager
         foreach ($this->changedEntityEventsTransaction as $event) {
             $changedEntityEvent = new ChangedEntityEvent($event->getClassName(), $event->getIdentifierValue(), ChangedEntityEvent::TYPE_UPDATE, [], ChangedEntityEvent::SOURCE_MANUALLY_ROLLBACK);
 
-            // $this->eventDispatcher->dispatch($changedEntityEvent);
+            $this->eventDispatcher->dispatch($changedEntityEvent);
             $eventsUpdate[] = $changedEntityEvent;
         }
 
@@ -97,14 +104,6 @@ class EventManager
 
         $this->changedEntityEventsTransactionStarted = false;
         $this->changedEntityEventsTransaction = [];
-    }
-
-    private function dispatchAccumulated(): void
-    {
-        $this->dispatch($this->changedEntityEvents);
-
-        // reset var
-        $this->changedEntityEvents = [];
     }
 
     private function dispatch($changedEntityEvents): void
