@@ -24,12 +24,11 @@ class EventManager
 
     public function changedEntityEvent(ChangedEntityEvent $event): void
     {
-        // handle event only for persistence source
-        if (ChangedEntityEvent::SOURCE_PERSISTENCE !== $event->getSource()) {
-            return;
-        }
-
-        if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
+        // handle event only (create, update, delete) for persistence source
+        if (
+            ChangedEntityEvent::SOURCE_PERSISTENCE !== $event->getSource()
+            or ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()
+        ) {
             return;
         }
 
