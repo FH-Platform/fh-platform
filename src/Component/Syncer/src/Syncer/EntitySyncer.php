@@ -67,24 +67,25 @@ class EntitySyncer
                 $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue(), false);
             }
         }
+        foreach ($this->entitiesRelated as $connectionName => $connections) {
+            foreach ($connections as $className => $identifierValues) {
+                foreach ($identifierValues as $identifierValue => $entities) {
+                    foreach ($entities as $data) {
+                        $entity = $data['entity'];
+                        $delete = $data['delete'];
 
-        foreach ($this->entitiesRelated as $className => $identifierValues) {
-            foreach ($identifierValues as $identifierValue => $entities) {
-                foreach ($entities as $data) {
-                    $entity = $data['entity'];
-                    $delete = $data['delete'];
+                        if ($delete) {
+                            $entity = $this->persistence->refresh($entity);
+                        }
 
-                    if ($delete) {
-                        $entity = $this->persistence->refresh($entity);
-                    }
+                        if ($entity) {
+                            $className = $this->persistence->getRealClassName($entity::class);
+                            $identifierValue = $this->persistence->getIdentifierValue($entity);
 
-                    if ($entity) {
-                        $className = $this->persistence->getRealClassName($entity::class);
-                        $identifierValue = $this->persistence->getIdentifierValue($entity);
-
-                        $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
-                        foreach ($indexes as $index) {
-                            $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                            $indexes = $this->connectionsBuilder->fetchIndexesByClassName($className);
+                            foreach ($indexes as $index) {
+                                $documents[] = $this->documentBuilder->buildForEntity($index, $entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE);
+                            }
                         }
                     }
                 }
@@ -100,18 +101,19 @@ class EntitySyncer
 
     private function prepareEntitiesRelated(string $className, mixed $identifierValue, bool $delete): void
     {
-        // TODO
-        $connection = $this->connectionsBuilder->build()[0] ?? null;
+        $connections = $this->connectionsBuilder->build();
 
-        $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
-        $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
+        foreach ($connections as $connection) {
+            $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
+            $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
 
-        $this->entitiesRelated[$className][$identifierValue] = [];
-        foreach ($entitiesRelatedPreDelete as $entity) {
-            $this->entitiesRelated[$className][$identifierValue][] = [
-                'entity' => $entity,
-                'delete' => $delete,
-            ];
+            $this->entitiesRelated[$connection->getName()][$className][$identifierValue] = [];
+            foreach ($entitiesRelatedPreDelete as $entity) {
+                $this->entitiesRelated[$connection->getName()][$className][$identifierValue][] = [
+                    'entity' => $entity,
+                    'delete' => $delete,
+                ];
+            }
         }
     }
 }
