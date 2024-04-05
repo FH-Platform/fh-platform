@@ -41,12 +41,16 @@ class EntitySyncer
         // fetch related entities pre delete
         $entitiesRelatedPreDelete = $this->fetchEntitiesRelatedPreDelete();
 
+        $entitiesA = array_merge($entities, $entitiesRelated, $entitiesRelatedPreDelete);
+
         $documents = $this->prepareDocuments($documents, $entities);
         $documents = $this->prepareDocuments($documents, $entitiesRelated);
         $documents = $this->prepareDocuments($documents, $entitiesRelatedPreDelete);
 
+        //group documents by connection and index
         $documentsGrouped = (new DocumentGrouper())->groupDocuments($documents);
 
+        //sync documents
         $this->dataManager->syncDocuments($documentsGrouped);
     }
 
