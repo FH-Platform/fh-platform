@@ -1,6 +1,6 @@
 <?php
 
-namespace FHPlatform\EventManager\DoctrineListener;
+namespace FHPlatform\EventManager\Tests\DoctrineListener;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
