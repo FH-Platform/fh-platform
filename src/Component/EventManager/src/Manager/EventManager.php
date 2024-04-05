@@ -30,8 +30,6 @@ class EventManager
         }
 
         if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
-            $this->dispatchSyncEntitiesEvent([$event]);
-
             return;
         }
 

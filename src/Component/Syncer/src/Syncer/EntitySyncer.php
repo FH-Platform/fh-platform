@@ -35,6 +35,19 @@ class EntitySyncer
         $this->dataManager->syncDocuments($documentsGrouped);
     }
 
+    public function changedEntityEvent(ChangedEntityEvent $event): void
+    {
+        if (ChangedEntityEvent::TYPE_DELETE_PRE !== $event->getType()) {
+            return;
+        }
+
+        $connection = $this->connectionsBuilder->build()[0] ?? null;
+
+        $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
+        $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
+        $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
+    }
+
     private function prepareDocuments(array $changedEntityEvents): array
     {
         // TODO
@@ -48,16 +61,6 @@ class EntitySyncer
             $identifierValue = $event->getIdentifierValue();
             $type = $event->getType();
             $changedFields = $event->getChangedFields();  // TODO do upsert by ChangedFields
-
-            if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
-                if ($connection) {
-                    $entity = $this->persistence->refreshByClassNameId($event->getClassName(), $event->getIdentifierValue());
-                    $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
-                    $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelatedPreDelete);
-                }
-
-                return [];
-            }
 
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
