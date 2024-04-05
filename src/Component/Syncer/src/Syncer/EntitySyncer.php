@@ -42,13 +42,16 @@ class EntitySyncer
             return;
         }
 
+        //for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
+
+        $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue());
+    }
+
+    private function prepareEntitiesRelated(string $className, mixed $identifierValue): void
+    {
         // TODO
         $connection = $this->connectionsBuilder->build()[0] ?? null;
 
-        $className = $event->getClassName();
-        $identifierValue = $event->getIdentifierValue();
-
-        //for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
         $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
         $entitiesRelatedPreDelete = $this->entitiesRelatedBuilder->build($connection, $entity, ChangedEntityEvent::TYPE_DELETE, []);
 
@@ -77,17 +80,7 @@ class EntitySyncer
             }
 
             if ($entity) {
-                $connections = $this->connectionsBuilder->build();
-
-                foreach ($connections as $connection) {
-                    $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity, $type, $changedFields);
-                    foreach ($entitiesRelated as $entityRelated) {
-                        $className = $this->persistence->getRealClassName($entityRelated::class);
-                        $identifier = $this->persistence->getIdentifierValue($entityRelated);
-
-                        $documents[] = $this->documentBuilder->buildForEntity($entityRelated, $className, $identifier, ChangedEntityEvent::TYPE_UPDATE);
-                    }
-                }
+                $this->prepareEntitiesRelated($event->getClassName(), $event->getIdentifierValue());
             }
         }
 
