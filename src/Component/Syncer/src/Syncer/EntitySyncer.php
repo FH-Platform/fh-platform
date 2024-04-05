@@ -63,8 +63,8 @@ class EntitySyncer
 
         $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
 
-        $related[$className][$identifierValue] = $entity;
-        $entitiesRelated = $this->fetchEntitiesRelated($related);
+        $entitiesArray[$className][$identifierValue] = $entity;
+        $entitiesRelated = $this->fetchEntitiesRelated($entitiesArray);
 
         $this->entitiesRelatedPreDelete = array_merge($this->entitiesRelatedPreDelete, $entitiesRelated);
     }
@@ -100,20 +100,6 @@ class EntitySyncer
         return $entities;
     }
 
-    private function fetchEntitiesRelatedPreDelete(): array
-    {
-        $entitiesRelatedPreDelete = $this->entitiesRelatedPreDelete;
-        foreach ($entitiesRelatedPreDelete as $className => $identifierValues) {
-            foreach ($identifierValues as $identifierValue => $entity) {
-                // pre deleted related entities must be refreshed before creating data because they are generated before flush
-                $entitiesRelatedPreDelete[$className][$identifierValue] = $this->persistence->refresh($entity);
-            }
-        }
-        $this->entitiesRelatedPreDelete = [];
-
-        return $entitiesRelatedPreDelete;
-    }
-
     private function fetchEntitiesRelated(array $entities): array
     {
         $entitiesRelated = [];
@@ -137,6 +123,20 @@ class EntitySyncer
         }
 
         return $entitiesRelated;
+    }
+
+    private function fetchEntitiesRelatedPreDelete(): array
+    {
+        $entitiesRelatedPreDelete = $this->entitiesRelatedPreDelete;
+        foreach ($entitiesRelatedPreDelete as $className => $identifierValues) {
+            foreach ($identifierValues as $identifierValue => $entity) {
+                // pre deleted related entities must be refreshed before creating data because they are generated before flush
+                $entitiesRelatedPreDelete[$className][$identifierValue] = $this->persistence->refresh($entity);
+            }
+        }
+        $this->entitiesRelatedPreDelete = [];
+
+        return $entitiesRelatedPreDelete;
     }
 
     private function prepareDocuments(array $documents, array $entities): array
