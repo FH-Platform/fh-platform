@@ -15,12 +15,13 @@ use FHPlatform\Component\Syncer\DocumentGrouper;
 class EntitySyncer
 {
     public function __construct(
-        private readonly PersistenceInterface $persistence,
-        private readonly DataManager $dataManager,
-        private readonly ConnectionsBuilder $connectionsBuilder,
-        private readonly DocumentBuilder $documentBuilder,
+        private readonly PersistenceInterface   $persistence,
+        private readonly DataManager            $dataManager,
+        private readonly ConnectionsBuilder     $connectionsBuilder,
+        private readonly DocumentBuilder        $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-    ) {
+    )
+    {
     }
 
     private array $entitiesRelatedPreDelete = [];
@@ -89,13 +90,14 @@ class EntitySyncer
         $eventsFiltered = [];
 
         foreach ($events as $event) {
-            $hash = $event->getClassName().'_'.$event->getIdentifierValue();
+            $hash = $event->getClassName() . '_' . $event->getIdentifierValue();
             $eventsFiltered[$hash] = $event;
         }
 
         return $eventsFiltered;
     }
 
+    /** @param SyncEntityEvent[] $events */
     private function fetchEntitiesAndRelatedEntitiesFromEvents(array $events): array
     {
         $entitiesRelated = [];
@@ -106,10 +108,10 @@ class EntitySyncer
         foreach ($events as $event) {
             $className = $event->getClassName();
             $identifierValue = $event->getIdentifierValue();
+            $changedFields = $event->getChangedFields(); // TODO
 
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
             $entitiesRelated[$className][$identifierValue] = true;
-
             if ($entity) {
                 $entitiesRelatedRow = $this->entitiesRelatedBuilder->build($connection, $entity);
 

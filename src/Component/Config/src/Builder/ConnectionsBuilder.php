@@ -140,13 +140,14 @@ class ConnectionsBuilder
         $index->setConfigAdditional($configAdditional);
 
         // decorate mapping and settings
-        list($mapping, $settings) = $this->decorateIndex($index, $decorators);
+        list($mapping, $settings, $changedFields) = $this->decorateIndex($index, $decorators);
 
         // decorate mapping items
         $mapping = $this->decorateMappingItems($index, $mapping, $decorators);
 
         $index->setMapping($mapping);
         $index->setSettings($settings);
+        $index->setChangedFields($changedFields);
 
         return $index;
     }
@@ -154,13 +155,14 @@ class ConnectionsBuilder
     /** @param DecoratorIndexInterface[] $decorators */
     private function decorateIndex(Index $index, array $decorators): array
     {
-        $mapping = $settings = $configAdditional = [];
+        $mapping = $settings = $changedFields = [];
         foreach ($decorators as $decorator) {
             $mapping = $decorator->getIndexMapping($index, $mapping);
             $settings = $decorator->getIndexSettings($index, $settings);
+            $changedFields = $decorator->getIndexEntityChangedFields($index, $changedFields);
         }
 
-        return [$mapping, $settings];
+        return [$mapping, $settings, $changedFields];
     }
 
     /** @param DecoratorIndexInterface[] $decorators */

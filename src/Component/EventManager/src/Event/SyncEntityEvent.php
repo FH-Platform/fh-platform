@@ -11,6 +11,7 @@ class SyncEntityEvent
     public function __construct(
         private readonly string $className,
         private readonly mixed $identifierValue,
+        private readonly array $changedFields,
         private readonly string $source = self::SOURCE_PERSISTENCE,
     ) {
     }
@@ -23,6 +24,11 @@ class SyncEntityEvent
     public function getIdentifierValue(): mixed
     {
         return $this->identifierValue;
+    }
+
+    public function getChangedFields(): array
+    {
+        return $this->changedFields;
     }
 
     public function getSource(): string

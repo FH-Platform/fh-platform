@@ -53,6 +53,7 @@ class DoctrinePersistenceListener
 
     public function postFlush(PostFlushEventArgs $args): void
     {
+
         $this->eventManager->dispatchFlush();
     }
 

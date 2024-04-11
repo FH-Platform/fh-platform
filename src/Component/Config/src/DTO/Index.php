@@ -13,6 +13,7 @@ class Index
         private array $configAdditional = [],
         private array $mapping = [],
         private array $settings = [],
+        private array $changedFields = [],
     ) {
     }
 
@@ -69,5 +70,15 @@ class Index
     public function setSettings(array $settings): void
     {
         $this->settings = $settings;
+    }
+
+    public function getChangedFields(): array
+    {
+        return $this->changedFields;
+    }
+
+    public function setChangedFields(array $changedFields): void
+    {
+        $this->changedFields = $changedFields;
     }
 }

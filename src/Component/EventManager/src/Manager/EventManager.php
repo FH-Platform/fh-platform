@@ -30,7 +30,7 @@ class EventManager
             return;
         }
 
-        $event = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_PERSISTENCE);
+        $event = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), $event->getChangedFields(), SyncEntityEvent::SOURCE_PERSISTENCE);
 
         $this->eventsPersistence[] = $event;
 
@@ -54,7 +54,7 @@ class EventManager
         foreach ($entities as $entity) {
             $className = $this->persistence->getRealClassName($entity::class);
             $identifierValue = $this->persistence->getIdentifierValue($entity);
-            $event = new SyncEntityEvent($className, $identifierValue, SyncEntityEvent::SOURCE_MANUALLY);
+            $event = new SyncEntityEvent($className, $identifierValue, [], SyncEntityEvent::SOURCE_MANUALLY);
 
             $this->eventDispatcher->dispatch($event);
             $events[] = $event;
@@ -70,7 +70,7 @@ class EventManager
         $events = [];
         foreach ($entitiesArray as $className => $identifierValues) {
             foreach ($identifierValues as $identifierValue) {
-                $event = new SyncEntityEvent($className, $identifierValue, SyncEntityEvent::SOURCE_MANUALLY);
+                $event = new SyncEntityEvent($className, $identifierValue, [], SyncEntityEvent::SOURCE_MANUALLY);
 
                 $this->eventDispatcher->dispatch($event);
                 $events[] = $event;
@@ -91,7 +91,7 @@ class EventManager
     {
         $events = [];
         foreach ($this->eventsTransaction as $event) {
-            $eventSycEntity = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), SyncEntityEvent::SOURCE_MANUALLY_ROLLBACK);
+            $eventSycEntity = new SyncEntityEvent($event->getClassName(), $event->getIdentifierValue(), [], SyncEntityEvent::SOURCE_MANUALLY_ROLLBACK);
 
             $this->eventDispatcher->dispatch($eventSycEntity);
             $events[] = $event;

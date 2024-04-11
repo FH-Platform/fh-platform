@@ -25,4 +25,9 @@ trait DecoratorIndexTrait
     {
         return $mappingItem;
     }
+
+    public function getIndexEntityChangedFields(Index $index, array $changedFields): array
+    {
+        return $changedFields;
+    }
 }
