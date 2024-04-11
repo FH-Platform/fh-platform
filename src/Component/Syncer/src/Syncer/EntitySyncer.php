@@ -5,9 +5,9 @@ namespace FHPlatform\Component\Syncer\Syncer;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\EventManager\Event\PrepareEntityEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntityEvent;
-use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\Syncer\DocumentGrouper;
@@ -15,13 +15,12 @@ use FHPlatform\Component\Syncer\DocumentGrouper;
 class EntitySyncer
 {
     public function __construct(
-        private readonly PersistenceInterface   $persistence,
-        private readonly DataManager            $dataManager,
-        private readonly ConnectionsBuilder     $connectionsBuilder,
-        private readonly DocumentBuilder        $documentBuilder,
+        private readonly PersistenceInterface $persistence,
+        private readonly DataManager $dataManager,
+        private readonly ConnectionsBuilder $connectionsBuilder,
+        private readonly DocumentBuilder $documentBuilder,
         private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
-    )
-    {
+    ) {
     }
 
     private array $entitiesRelatedPreDelete = [];
@@ -55,12 +54,8 @@ class EntitySyncer
         $this->dataManager->syncDocuments($documentsGrouped);
     }
 
-    public function changedEntityEvent(ChangedEntityEvent $event): void
+    public function prepareEntityEvent(PrepareEntityEvent $event): void
     {
-        if (ChangedEntityEvent::TYPE_DELETE_PRE !== $event->getType()) {
-            return;
-        }
-
         // for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
 
         $className = $event->getClassName();
@@ -90,7 +85,7 @@ class EntitySyncer
         $eventsFiltered = [];
 
         foreach ($events as $event) {
-            $hash = $event->getClassName() . '_' . $event->getIdentifierValue();
+            $hash = $event->getClassName().'_'.$event->getIdentifierValue();
             $eventsFiltered[$hash] = $event;
         }
 

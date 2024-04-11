@@ -2,6 +2,7 @@
 
 namespace FHPlatform\Component\EventManager\Manager;
 
+use FHPlatform\Component\EventManager\Event\PrepareEntityEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntityEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
@@ -27,6 +28,10 @@ class EventManager
     {
         // handle event only (create, update, delete), not delete_pre
         if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
+            $event = new PrepareEntityEvent($event->getClassName(), $event->getIdentifierValue());
+
+            $this->eventDispatcher->dispatch($event);
+
             return;
         }
 

@@ -2,8 +2,8 @@
 
 namespace FHPlatform\Component\Syncer\EventListener;
 
+use FHPlatform\Component\EventManager\Event\PrepareEntityEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
-use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Syncer\Syncer\EntitySyncer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -18,7 +18,7 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
     {
         return [
             SyncEntitiesEvent::class => 'onSyncEntities',
-            ChangedEntityEvent::class => 'onChangedEntityEvent',
+            PrepareEntityEvent::class => 'onPrepareEntityEvent',
         ];
     }
 
@@ -27,8 +27,8 @@ class SyncEntitiesEventListener implements EventSubscriberInterface
         $this->entitySyncer->syncEntitiesEvent($event);
     }
 
-    public function onChangedEntityEvent(ChangedEntityEvent $event): void
+    public function onPrepareEntityEvent(PrepareEntityEvent $event): void
     {
-        $this->entitySyncer->changedEntityEvent($event);
+        $this->entitySyncer->prepareEntityEvent($event);
     }
 }

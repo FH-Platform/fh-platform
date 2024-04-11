@@ -5,7 +5,6 @@ namespace FHPlatform\Component\FilterToEsDsl\Tests\TwoLevel;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Bill\Bill;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 use FHPlatform\Component\FilterToEsDsl\Tests\TestCase;
-use FHPlatform\Component\SearchEngine\Manager\QueryManager;
 
 class NestedTest extends TestCase
 {
