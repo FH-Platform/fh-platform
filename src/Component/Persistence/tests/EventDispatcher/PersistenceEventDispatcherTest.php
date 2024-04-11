@@ -22,7 +22,7 @@ class PersistenceEventDispatcherTest extends TestCase
 
         // post create
         $this->eventsClear(ChangedEntityEvent::class);
-        $eventManager->dispatchPostCreateEntity(User::class, 1);
+        $eventManager->dispatchPostCreateEntity(null, User::class, 1);
         /** @var ChangedEntityEvent $event */
         $event = $this->eventsGet(ChangedEntityEvent::class)[0];
 
@@ -33,7 +33,7 @@ class PersistenceEventDispatcherTest extends TestCase
 
         // post update
         $this->eventsClear(ChangedEntityEvent::class);
-        $eventManager->dispatchPostUpdateEntity(Role::class, 2, ['test', 'test2']);
+        $eventManager->dispatchPostUpdateEntity(null, Role::class, 2, ['test', 'test2']);
         /** @var ChangedEntityEvent $event */
         $event = $this->eventsGet(ChangedEntityEvent::class)[0];
 
@@ -44,7 +44,7 @@ class PersistenceEventDispatcherTest extends TestCase
 
         // post delete
         $this->eventsClear(ChangedEntityEvent::class);
-        $eventManager->dispatchPostDeleteEntity(Role::class, 3);
+        $eventManager->dispatchPostDeleteEntity(null, Role::class, 3);
         /** @var ChangedEntityEvent $event */
         $event = $this->eventsGet(ChangedEntityEvent::class)[0];
 
@@ -56,7 +56,7 @@ class PersistenceEventDispatcherTest extends TestCase
         // pre delete
         $this->eventsStartListen(ChangedEntityEvent::class);
         $this->eventsClear(ChangedEntityEvent::class);
-        $eventManager->dispatchPreDeleteEntity(Role::class, 1);
+        $eventManager->dispatchPreDeleteEntity(null, Role::class, 1);
         /** @var ChangedEntityEvent $event */
         $event = $this->eventsGet(ChangedEntityEvent::class)[0];
 

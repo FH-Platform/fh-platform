@@ -39,7 +39,7 @@ class ManualUpdateTest extends TestCase
 
         $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));
-        $relatedEntities = $entitiesRelatedBuilder->build($connectionsBuilder->build()[0], $user, []);
+        $relatedEntities = $entitiesRelatedBuilder->build($user, []);
         $this->entityManager->createQuery('DELETE FROM '.User::class.' e WHERE e.id = 1')->execute();
         $this->assertEquals([1], $this->findEsBy(User::class, 'testString', 'test'));
         $this->assertEquals([1], $this->findEsBy(Role::class, 'users.testString', 'test'));

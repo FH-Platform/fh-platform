@@ -138,6 +138,7 @@ class Builder
 
         $container->register(EntitiesRelatedBuilder::class)->setPublic(true)->setArguments([
             '$configProvider' => $container->findDefinition(ConfigProvider::class),
+            '$connectionsBuilder' => $container->findDefinition(ConnectionsBuilder::class),
         ]);
     }
 

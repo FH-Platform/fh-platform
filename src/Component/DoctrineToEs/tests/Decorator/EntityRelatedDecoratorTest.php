@@ -23,10 +23,10 @@ class EntityRelatedDecoratorTest extends TestCaseEs
         $user->setSetting($setting);
         $this->save([$user]);
 
-        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ['testInteger']);
+        $data = $this->entitiesRelatedBuilder->build($setting, ['testInteger']);
         $this->assertEquals([], $data);
 
-        $data = $this->entitiesRelatedBuilder->build($connection, $setting, ['testFloat']);
+        $data = $this->entitiesRelatedBuilder->build($setting, ['testFloat']);
         $this->assertEquals([$user], $data);
     }
 }

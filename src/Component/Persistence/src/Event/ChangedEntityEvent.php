@@ -10,11 +10,17 @@ class ChangedEntityEvent
     final public const TYPE_DELETE_PRE = 'delete_pre';
 
     public function __construct(
+        private readonly mixed $entity,
         private readonly string $className,
         private readonly mixed $identifierValue,
         private readonly string $type,
         private readonly array $changedFields = [],
     ) {
+    }
+
+    public function getEntity(): mixed
+    {
+        return $this->entity;
     }
 
     public function getClassName(): string

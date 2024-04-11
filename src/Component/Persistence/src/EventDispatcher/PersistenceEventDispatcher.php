@@ -13,24 +13,24 @@ class PersistenceEventDispatcher
     ) {
     }
 
-    public function dispatchPostCreateEntity(string $className, mixed $identifierValue): void
+    public function dispatchPostCreateEntity(mixed $entity, string $className, mixed $identifierValue): void
     {
-        $this->eventDispatcher->dispatch(new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_CREATE));
+        $this->eventDispatcher->dispatch(new ChangedEntityEvent($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_CREATE));
     }
 
-    public function dispatchPostUpdateEntity(string $className, mixed $identifierValue, array $changedFields): void
+    public function dispatchPostUpdateEntity(mixed $entity, string $className, mixed $identifierValue, array $changedFields): void
     {
-        $this->eventDispatcher->dispatch(new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, $changedFields));
+        $this->eventDispatcher->dispatch(new ChangedEntityEvent($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_UPDATE, $changedFields));
     }
 
-    public function dispatchPostDeleteEntity(string $className, mixed $identifierValue): void
+    public function dispatchPostDeleteEntity(mixed $entity, string $className, mixed $identifierValue): void
     {
-        $this->eventDispatcher->dispatch(new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_DELETE));
+        $this->eventDispatcher->dispatch(new ChangedEntityEvent($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_DELETE));
     }
 
-    public function dispatchPreDeleteEntity(string $className, mixed $identifierValue): void
+    public function dispatchPreDeleteEntity(mixed $entity, string $className, mixed $identifierValue): void
     {
-        $this->eventDispatcher->dispatch(new ChangedEntityEvent($className, $identifierValue, ChangedEntityEvent::TYPE_DELETE_PRE));
+        $this->eventDispatcher->dispatch(new ChangedEntityEvent($entity, $className, $identifierValue, ChangedEntityEvent::TYPE_DELETE_PRE));
     }
 
     public function dispatchFlush(): void

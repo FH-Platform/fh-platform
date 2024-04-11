@@ -5,7 +5,6 @@ namespace FHPlatform\Component\Syncer\Syncer;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\EventManager\Event\PrepareEntityEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
@@ -23,8 +22,6 @@ class EntitySyncer
     ) {
     }
 
-    private array $entitiesRelatedPreDelete = [];
-
     public function syncEntitiesEvent(SyncEntitiesEvent $event): void
     {
         $documents = [];
@@ -34,12 +31,6 @@ class EntitySyncer
 
         // fetch entities and related entities array
         $entities = $this->fetchEntitiesAndRelatedEntitiesFromEvents($events);
-
-        // fetch related entities pre delete
-        $entitiesRelatedPreDelete = $this->fetchEntitiesRelatedPreDelete();
-
-        // merge
-        $entities = array_merge($entities, $entitiesRelatedPreDelete);
 
         // refresh all entities from entities array
         $entities = $this->refreshEntities($entities);
@@ -52,31 +43,6 @@ class EntitySyncer
 
         // sync documents
         $this->dataManager->syncDocuments($documentsGrouped);
-    }
-
-    public function prepareEntityEvent(PrepareEntityEvent $event): void
-    {
-        // for deleting we must prepare related entities immediately because later after flush entity will not exist anymore, and we will be not able to fetch related entities
-
-        $className = $event->getClassName();
-        $identifierValue = $event->getIdentifierValue();
-
-        if (!($entity = $this->persistence->refreshByClassNameId($className, $identifierValue))) {
-            return;
-        }
-
-        // TODO
-        $connections = $this->connectionsBuilder->build();
-        $connection = $connections[0];
-
-        $entitiesRelated = $this->entitiesRelatedBuilder->build($connection, $entity);
-
-        foreach ($entitiesRelated as $entityRelated) {
-            $className = $this->persistence->getRealClassName($entityRelated::class);
-            $identifierValue = $this->persistence->getIdentifierValue($entityRelated);
-
-            $this->entitiesRelatedPreDelete[$className][$identifierValue] = true;
-        }
     }
 
     /** @param $events SyncEntityEvent[] */
@@ -97,9 +63,6 @@ class EntitySyncer
     {
         $entitiesRelated = [];
 
-        $connections = $this->connectionsBuilder->build();
-        $connection = $connections[0];
-
         foreach ($events as $event) {
             $className = $event->getClassName();
             $identifierValue = $event->getIdentifierValue();
@@ -108,7 +71,7 @@ class EntitySyncer
             $entity = $this->persistence->refreshByClassNameId($className, $identifierValue);
             $entitiesRelated[$className][$identifierValue] = true;
             if ($entity) {
-                $entitiesRelatedRow = $this->entitiesRelatedBuilder->build($connection, $entity);
+                $entitiesRelatedRow = $this->entitiesRelatedBuilder->build($entity);
 
                 foreach ($entitiesRelatedRow as $entityRelatedRow) {
                     $className = $this->persistence->getRealClassName($entityRelatedRow::class);
@@ -120,20 +83,6 @@ class EntitySyncer
         }
 
         return $entitiesRelated;
-    }
-
-    private function fetchEntitiesRelatedPreDelete(): array
-    {
-        $entitiesRelatedPreDelete = $this->entitiesRelatedPreDelete;
-        foreach ($entitiesRelatedPreDelete as $className => $identifierValues) {
-            foreach ($identifierValues as $identifierValue => $entity) {
-                // pre deleted related entities must be refreshed before creating data because they are generated before flush
-                $entitiesRelatedPreDelete[$className][$identifierValue] = $this->persistence->refresh($entity);
-            }
-        }
-        $this->entitiesRelatedPreDelete = [];
-
-        return $entitiesRelatedPreDelete;
     }
 
     private function refreshEntities($entities): array

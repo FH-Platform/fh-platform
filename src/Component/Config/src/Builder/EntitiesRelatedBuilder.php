@@ -11,10 +11,11 @@ class EntitiesRelatedBuilder
 {
     public function __construct(
         private readonly ConfigProvider $configProvider,
+        private readonly ConnectionsBuilder $connectionsBuilder,
     ) {
     }
 
-    public function build(Connection $connection, mixed $entity, $changedFields = []): array
+    public function build(mixed $entity, $changedFields = []): array
     {
         // TODO remove all -> $entity::class
         $className = $entity::class;
@@ -23,6 +24,10 @@ class EntitiesRelatedBuilder
 
         // prepare decorators
         $decorators = $this->configProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
+
+        // TODO
+        $connections = $this->connectionsBuilder->build();
+        $connection = $connections[0];
 
         // decorate entity_related
         $entitiesRelated = $this->decorateEntitiesRelated($connection, $entity, $changedFields, $decorators);

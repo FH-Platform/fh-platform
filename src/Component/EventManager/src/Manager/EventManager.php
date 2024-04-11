@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\EventManager\Manager;
 
-use FHPlatform\Component\EventManager\Event\PrepareEntityEvent;
+use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
 use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\EventManager\Event\SyncEntityEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
@@ -13,6 +13,7 @@ class EventManager
     public function __construct(
         private readonly \Psr\EventDispatcher\EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceInterface $persistence,
+        private readonly EntitiesRelatedBuilder $entitiesRelatedBuilder,
     ) {
     }
 
@@ -28,9 +29,16 @@ class EventManager
     {
         // handle event only (create, update, delete), not delete_pre
         if (ChangedEntityEvent::TYPE_DELETE_PRE === $event->getType()) {
-            $event = new PrepareEntityEvent($event->getClassName(), $event->getIdentifierValue());
+            $entitiesRelated = $this->entitiesRelatedBuilder->build($event->getEntity());
 
-            $this->eventDispatcher->dispatch($event);
+            foreach ($entitiesRelated as $entityRelated) {
+                $className = $this->persistence->getRealClassName($entityRelated::class);
+                $identifierValue = $this->persistence->getIdentifierValue($entityRelated);
+
+                $event = new SyncEntityEvent($className, $identifierValue, [], SyncEntityEvent::SOURCE_PERSISTENCE);
+
+                $this->eventsPersistence[] = $event;
+            }
 
             return;
         }
