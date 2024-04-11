@@ -9,7 +9,7 @@ packages=(
   "Component/PersistenceEloquent"
   "Component/Config"
   "Component/DoctrineToEs"
-  "Component/EventManager"
+  "Component/PersistenceManager"
   "Component/FilterToEsDsl"
   "Component/Syncer"
   #"Bundle/SymfonyBridgeBundle"

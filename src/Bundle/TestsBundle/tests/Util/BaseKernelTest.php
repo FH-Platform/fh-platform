@@ -3,7 +3,7 @@
 namespace FHPlatform\Bundle\TestsBundle\Tests\Util;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use FHPlatform\Bundle\EventManagerBundle\EventManagerBundle;
+use FHPlatform\Bundle\PersistenceBundle\PersistenceBundle;
 use FHPlatform\Bundle\SymfonyBridgeBundle\SymfonyBridgeBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
@@ -19,7 +19,7 @@ class BaseKernelTest extends BaseKernel
             new DoctrineBundle(),
             new MonologBundle(),
 
-            new EventManagerBundle(),
+            new PersistenceBundle(),
             new SymfonyBridgeBundle(),
         ];
     }

@@ -2,7 +2,7 @@
 
 namespace FHPlatform\Component\Syncer\EventListener;
 
-use FHPlatform\Component\EventManager\Event\SyncEntitiesEvent;
+use FHPlatform\Component\PersistenceManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\Syncer\Syncer\EntitySyncer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

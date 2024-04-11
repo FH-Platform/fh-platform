@@ -48,7 +48,7 @@
             "FHPlatform\\Component\\Persistence\\": "src/Component/Persistence/src/",
             "FHPlatform\\Component\\PersistenceDoctrine\\": "src/Component/PersistenceDoctrine/src/",
             "FHPlatform\\Component\\PersistenceEloquent\\": "src/Component/PersistenceEloquent/src/",
-            "FHPlatform\\Component\\EventManager\\": "src/Component/EventManager/src/",
+            "FHPlatform\\Component\\PersistenceManager\\": "src/Component/PersistenceManager/src/",
             "FHPlatform\\Component\\Syncer\\": "src/Component/Syncer/src/",
 
             "FHPlatform\\Component\\Query\\": "src/Component/Query/src/",
@@ -56,7 +56,7 @@
 
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\": "src/Bundle/SymfonyBridgeBundle/src/",
-            "FHPlatform\\Bundle\\EventManagerBundle\\": "src/Bundle/EventManagerBundle/src/",
+            "FHPlatform\\Bundle\\PersistenceBundle\\": "src/Bundle/PersistenceBundle/src/",
             "App\\": "src/Demo/src/"
         }
     },
@@ -72,7 +72,7 @@
             "FHPlatform\\Component\\Persistence\\Tests\\": "src/Component/Persistence/tests/",
             "FHPlatform\\Component\\PersistenceDoctrine\\Tests\\": "src/Component/PersistenceDoctrine/tests/",
             "FHPlatform\\Component\\PersistenceEloquent\\Tests\\": "src/Component/PersistenceEloquent/tests/",
-            "FHPlatform\\Component\\EventManager\\Tests\\": "src/Component/EventManager/tests/",
+            "FHPlatform\\Component\\PersistenceManager\\Tests\\": "src/Component/PersistenceManager/tests/",
             "FHPlatform\\Component\\Syncer\\Tests\\": "src/Component/Syncer/tests/",
 
             "FHPlatform\\Component\\Query\\Tests\\": "src/Component/Query/tests/",
@@ -80,7 +80,7 @@
 
 
             "FHPlatform\\Bundle\\SymfonyBridgeBundle\\Tests\\": "src/Bundle/SymfonyBridgeBundle/tests/",
-            "FHPlatform\\Bundle\\EventManagerBundle\\Tests\\": "src/Bundle/EventManagerBundle/tests/",
+            "FHPlatform\\Bundle\\PersistenceBundle\\Tests\\": "src/Bundle/PersistenceBundle/tests/",
             "FHPlatform\\Bundle\\TestsBundle\\Tests\\": "src/Bundle/TestsBundle/tests/"
         }
     },

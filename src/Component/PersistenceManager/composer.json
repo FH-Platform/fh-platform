@@ -1,0 +1,25 @@
+{
+    "name": "fh-platform/event-manager",
+    "type": "library",
+    "description": "FH Platform - PersistenceManager",
+    "keywords": [],
+    "homepage": "https://github.com/FH-Platform",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "FHPlatform\\Component\\PersistenceManager\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Filip Horvat",
+            "email": "fico7489@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "psr/event-dispatcher": "1.*",
+        "fh-platform/persistence": "*"
+    },
+    "minimum-stability": "dev"
+}

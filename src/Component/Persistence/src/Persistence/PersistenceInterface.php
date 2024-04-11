@@ -4,7 +4,7 @@ namespace FHPlatform\Component\Persistence\Persistence;
 
 // each persistence implementation (doctrine, eloquent, etc.) must have
 // 1.implementation of that interface for required interacting with persistence
-// 2.listener which triggers events from EventManager (postCreate, postUpdate, postDelete, preDelete and flush)
+// 2.listener which triggers events: postCreate, postUpdate, postDelete, preDelete and flush
 interface PersistenceInterface
 {
     // give me an identifier name for given entity className, for example: id, uuid, etc.
