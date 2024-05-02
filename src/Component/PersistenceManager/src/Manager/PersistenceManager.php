@@ -3,10 +3,10 @@
 namespace FHPlatform\Component\PersistenceManager\Manager;
 
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
-use FHPlatform\Component\PersistenceManager\Event\SyncEntitiesEvent;
-use FHPlatform\Component\PersistenceManager\Event\SyncEntityEvent;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
+use FHPlatform\Component\PersistenceManager\Event\SyncEntitiesEvent;
+use FHPlatform\Component\PersistenceManager\Event\SyncEntityEvent;
 
 class PersistenceManager
 {

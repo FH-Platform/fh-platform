@@ -10,8 +10,8 @@ use FHPlatform\Component\Config\Config\Provider\Trait\ProviderBaseTrait;
 
 abstract class ProviderEntity extends ProviderIndex implements ProviderEntityInterface
 {
-    use ProviderBaseTrait;
     use DecoratorBaseTrait;
     use DecoratorEntityTrait;
     use DecoratorEntityRelatedTrait;
+    use ProviderBaseTrait;
 }

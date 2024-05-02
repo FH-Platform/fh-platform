@@ -10,8 +10,8 @@ use FHPlatform\Component\Config\Config\Provider\Trait\ProviderIndexTrait;
 
 abstract class ProviderIndex implements ProviderIndexInterface
 {
-    use ProviderBaseTrait;
-    use ProviderIndexTrait;
     use DecoratorBaseTrait;
     use DecoratorIndexTrait;
+    use ProviderBaseTrait;
+    use ProviderIndexTrait;
 }

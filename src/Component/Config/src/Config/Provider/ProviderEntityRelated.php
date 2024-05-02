@@ -9,7 +9,7 @@ use FHPlatform\Component\Config\Config\Provider\Trait\ProviderBaseTrait;
 
 abstract class ProviderEntityRelated implements ProviderEntityRelatedInterface
 {
-    use ProviderBaseTrait;
     use DecoratorBaseTrait;
+    use ProviderBaseTrait;
     use DecoratorEntityRelatedTrait;
 }

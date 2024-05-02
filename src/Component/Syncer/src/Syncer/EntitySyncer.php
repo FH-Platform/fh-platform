@@ -5,9 +5,9 @@ namespace FHPlatform\Component\Syncer\Syncer;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\Config\Builder\DocumentBuilder;
 use FHPlatform\Component\Config\Builder\EntitiesRelatedBuilder;
+use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\PersistenceManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\PersistenceManager\Event\SyncEntityEvent;
-use FHPlatform\Component\Persistence\Persistence\PersistenceInterface;
 use FHPlatform\Component\SearchEngine\Manager\DataManager;
 use FHPlatform\Component\Syncer\DocumentGrouper;
 

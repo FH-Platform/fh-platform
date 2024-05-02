@@ -2,9 +2,9 @@
 
 namespace FHPlatform\Bundle\PersistenceBundle\EventListener;
 
-use FHPlatform\Component\PersistenceManager\Manager\PersistenceManager;
 use FHPlatform\Component\Persistence\Event\ChangedEntityEvent;
 use FHPlatform\Component\Persistence\Event\FlushEvent;
+use FHPlatform\Component\PersistenceManager\Manager\PersistenceManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PersistenceEventListener implements EventSubscriberInterface

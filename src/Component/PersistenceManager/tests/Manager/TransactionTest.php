@@ -5,8 +5,8 @@ namespace FHPlatform\Component\Persistence\Tests\EventListener;
 use FHPlatform\Component\Config\Builder\ConnectionsBuilder;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\PersistenceManager\Manager\PersistenceManager;
 use FHPlatform\Component\Persistence\Tests\TestCase;
+use FHPlatform\Component\PersistenceManager\Manager\PersistenceManager;
 
 class TransactionTest extends TestCase
 {

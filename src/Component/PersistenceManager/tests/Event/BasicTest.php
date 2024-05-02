@@ -3,8 +3,8 @@
 namespace FHPlatform\PersistenceManager\Tests\DoctrineListener;
 
 use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
-use FHPlatform\Component\PersistenceManager\Event\SyncEntitiesEvent;
 use FHPlatform\Component\PersistenceDoctrine\Tests\TestCase;
+use FHPlatform\Component\PersistenceManager\Event\SyncEntitiesEvent;
 
 class BasicTest extends TestCase
 {
