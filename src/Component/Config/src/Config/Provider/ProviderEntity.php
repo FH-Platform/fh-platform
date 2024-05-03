@@ -6,11 +6,9 @@ use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorEntityRelatedTra
 use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorEntityTrait;
 use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorIndexTrait;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Util\Namer\IndexNamer;
 
-abstract class ProviderEntity implements ProviderIndexInterface, ProviderEntityRelatedInterface, ProviderEntityInterface
+abstract class ProviderEntity implements ProviderEntityInterface
 {
     use DecoratorIndexTrait;
     use DecoratorEntityRelatedTrait;
@@ -22,13 +20,13 @@ abstract class ProviderEntity implements ProviderIndexInterface, ProviderEntityR
         return (new IndexNamer())->getName($className);
     }
 
-    public function getIndexClassName(): string
+    public function getClassName(): string
     {
         // TODO
         throw new \Exception('not implemented.');
     }
 
-    public function getIndexConnectionName(): string
+    public function getConnectionName(): string
     {
         return 'default';
     }

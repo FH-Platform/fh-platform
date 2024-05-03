@@ -29,7 +29,7 @@ class ConnectionsBuilder
             $connection = $this->decorateConnectionPreIndex($providerConnection, $connection);
             $indexes = [];
             foreach ($providersIndex as $providerIndex) {
-                if ($providerIndex->getIndexConnectionName() === $providerConnection->getConnectionName()) {
+                if ($providerIndex->getConnectionName() === $providerConnection->getConnectionName()) {
                     $indexes[] = $this->convertProviderIndexToDto($providerIndex, $connection);
                 }
             }
@@ -125,7 +125,7 @@ class ConnectionsBuilder
 
     private function convertProviderIndexToDto(ProviderIndexInterface $providerIndex, Connection $connection): Index
     {
-        $className = $providerIndex->getIndexClassName();
+        $className = $providerIndex->getClassName();
         $name = $providerIndex->getIndexName($className);
         $nameWithPrefix = $connection->getPrefix().$name;
 

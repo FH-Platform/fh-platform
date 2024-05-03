@@ -16,13 +16,13 @@ abstract class ProviderIndex implements ProviderIndexInterface
         return (new IndexNamer())->getName($className);
     }
 
-    public function getIndexClassName(): string
+    public function getClassName(): string
     {
         // TODO
         throw new \Exception('not implemented.');
     }
 
-    public function getIndexConnectionName(): string
+    public function getConnectionName(): string
     {
         return 'default';
     }

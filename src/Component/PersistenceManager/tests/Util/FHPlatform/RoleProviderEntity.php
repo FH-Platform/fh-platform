@@ -8,7 +8,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\Role\Role;
 
 class RoleProviderEntity extends ProviderEntity
 {
-    public function getIndexClassName(): string
+    public function getClassName(): string
     {
         return Role::class;
     }

@@ -6,8 +6,6 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionIn
 
 interface ProviderConnectionInterface extends ProviderBaseInterface, DecoratorConnectionInterface
 {
-    public function getConnectionName(): string;
-
     public function getConnectionIndexPrefix(): string;
 
     public function getConnectionClientConfig(): array;
