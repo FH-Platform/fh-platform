@@ -6,6 +6,8 @@ use FHPlatform\Component\Config\DTO\Index;
 
 trait DecoratorEntityTrait
 {
+    use DecoratorBaseTrait;
+
     public function getEntityData(Index $index, mixed $entity, array $data): array
     {
         return $data;

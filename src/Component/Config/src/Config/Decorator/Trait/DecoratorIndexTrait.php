@@ -6,6 +6,8 @@ use FHPlatform\Component\Config\DTO\Index;
 
 trait DecoratorIndexTrait
 {
+    use DecoratorBaseTrait;
+
     public function getIndexSettings(Index $index, array $settings): array
     {
         return $settings;

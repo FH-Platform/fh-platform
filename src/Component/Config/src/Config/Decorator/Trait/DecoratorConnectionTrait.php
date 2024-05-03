@@ -6,6 +6,8 @@ use FHPlatform\Component\Config\DTO\Connection;
 
 trait DecoratorConnectionTrait
 {
+    use DecoratorBaseTrait;
+
     public function getConfigAdditionalPreIndex(Connection $connection, array $config): array
     {
         return $config;
