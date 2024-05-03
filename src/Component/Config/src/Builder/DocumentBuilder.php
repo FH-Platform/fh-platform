@@ -4,7 +4,6 @@ namespace FHPlatform\Component\Config\Builder;
 
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Document;
 use FHPlatform\Component\Config\DTO\Index;
 
@@ -30,7 +29,7 @@ class DocumentBuilder
         }
 
         // prepare decorators
-        $decorators = $this->configProvider->getDecoratorsEntity(ProviderBaseInterface::class, $className);
+        $decorators = $this->configProvider->getDecoratorsEntity();
 
         // decorate data and should_be_indexed
         list($data, $shouldBeIndexed) = $this->decorateDataShouldBeIndexed($index, $entity, $decorators);

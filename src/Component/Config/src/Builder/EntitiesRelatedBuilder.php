@@ -4,7 +4,6 @@ namespace FHPlatform\Component\Config\Builder;
 
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\DTO\Connection;
 
 class EntitiesRelatedBuilder
@@ -23,7 +22,7 @@ class EntitiesRelatedBuilder
         // TODO throw error if class not available for ES
 
         // prepare decorators
-        $decorators = $this->configProvider->getDecoratorsEntityRelated(ProviderBaseInterface::class, $className);
+        $decorators = $this->configProvider->getDecoratorsEntityRelated();
 
         // TODO
         $connections = $this->connectionsBuilder->build();

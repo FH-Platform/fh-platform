@@ -4,7 +4,6 @@ namespace FHPlatform\Component\Config\Builder;
 
 use FHPlatform\Component\Config\Config\ConfigProvider;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 use FHPlatform\Component\Config\DTO\Connection;
@@ -133,7 +132,7 @@ class ConnectionsBuilder
         $index = new Index($connection, $className, true, $name, $nameWithPrefix);
 
         // prepare decorators
-        $decorators = $this->configProvider->getDecoratorsIndex(ProviderBaseInterface::class, $className);
+        $decorators = $this->configProvider->getDecoratorsIndex();
 
         // decorate config additional
         $configAdditional = $this->decorateIndexConfigAdditional($index, $decorators);

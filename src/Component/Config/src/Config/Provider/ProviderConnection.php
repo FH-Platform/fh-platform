@@ -14,6 +14,11 @@ abstract class ProviderConnection implements ProviderConnectionInterface
         return 'default';
     }
 
+    public function getClassName(): string
+    {
+        return '';
+    }
+
     public function getConnectionIndexPrefix(): string
     {
         return 'prefix_';

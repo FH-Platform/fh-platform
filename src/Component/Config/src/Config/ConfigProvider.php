@@ -6,6 +6,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionIn
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
@@ -65,32 +66,28 @@ class ConfigProvider
     }
 
     /** @return DecoratorIndexInterface[] */
-    public function getDecoratorsIndex(mixed $interface = null, ?string $className = null): array
+    public function getDecoratorsIndex(): array
     {
-        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsIndex), $interface, $className));
+        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsIndex)));
     }
 
     /** @return DecoratorEntityInterface[] */
-    public function getDecoratorsEntity(mixed $interface = null, ?string $className = null): array
+    public function getDecoratorsEntity(): array
     {
-        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntity), $interface, $className));
+        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntity)));
     }
 
     /** @return DecoratorEntityRelatedInterface[] */
-    public function getDecoratorsEntityRelated(mixed $interface = null, ?string $className = null): array
+    public function getDecoratorsEntityRelated(): array
     {
-        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntityRelated), $interface, $className));
+        return $this->prioritySorter->sort($this->filterDecorators($this->toArray($this->decoratorsEntityRelated)));
     }
 
-    private function filterDecorators(array $decorators, mixed $interface = null, ?string $className = null): array
+    private function filterDecorators(array $decorators): array
     {
-        if (!$interface or !$className) {
-            return $decorators;
-        }
-
         foreach ($decorators as $k => $decorator) {
-            if ($decorator instanceof $interface and $decorator->getClassName() !== $className) {
-                unset($decorators[$k]);
+            if ($decorator instanceof ProviderBaseInterface) {
+                // unset($decorators[$k]);
             }
         }
 
