@@ -2,7 +2,9 @@
 
 namespace FHPlatform\Component\Config\Config\Provider\Interface;
 
-interface ProviderIndexInterface
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
+
+interface ProviderIndexInterface extends ProviderBaseInterface, DecoratorIndexInterface
 {
     public function getClassName(): string;
 

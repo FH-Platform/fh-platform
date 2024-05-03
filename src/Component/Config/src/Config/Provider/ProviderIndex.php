@@ -2,13 +2,11 @@
 
 namespace FHPlatform\Component\Config\Config\Provider;
 
-use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
 use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorIndexTrait;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
 use FHPlatform\Component\Config\Util\Namer\IndexNamer;
 
-abstract class ProviderIndex implements ProviderBaseInterface, ProviderIndexInterface, DecoratorIndexInterface
+abstract class ProviderIndex implements ProviderIndexInterface
 {
     use DecoratorIndexTrait;
 

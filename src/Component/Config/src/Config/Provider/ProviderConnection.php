@@ -2,12 +2,10 @@
 
 namespace FHPlatform\Component\Config\Config\Provider;
 
-use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionInterface;
 use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorConnectionTrait;
-use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderConnectionInterface;
 
-abstract class ProviderConnection implements ProviderBaseInterface, ProviderConnectionInterface, DecoratorConnectionInterface
+abstract class ProviderConnection implements ProviderConnectionInterface
 {
     use DecoratorConnectionTrait;
 

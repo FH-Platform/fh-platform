@@ -2,7 +2,9 @@
 
 namespace FHPlatform\Component\Config\Config\Provider\Interface;
 
-interface ProviderConnectionInterface
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionInterface;
+
+interface ProviderConnectionInterface extends ProviderBaseInterface, DecoratorConnectionInterface
 {
     public function getName(): string;
 
