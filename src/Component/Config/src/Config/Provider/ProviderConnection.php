@@ -9,12 +9,18 @@ abstract class ProviderConnection implements ProviderConnectionInterface
 {
     use DecoratorConnectionTrait;
 
-    public function getName(): string
+    public function getConnectionName(): string
     {
         return 'default';
     }
 
-    abstract public function getIndexPrefix(): string;
+    public function getConnectionIndexPrefix(): string
+    {
+        return 'prefix_';
+    }
 
-    abstract public function getClientConfig(): array;
+    public function getConnectionClientConfig(): array
+    {
+        return [];
+    }
 }

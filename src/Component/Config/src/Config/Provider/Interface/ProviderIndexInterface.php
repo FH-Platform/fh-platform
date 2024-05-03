@@ -6,9 +6,9 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterfa
 
 interface ProviderIndexInterface extends ProviderBaseInterface, DecoratorIndexInterface
 {
-    public function getClassName(): string;
+    public function getIndexClassName(): string;
 
-    public function getConnection(): string;
+    public function getIndexConnectionName(): string;
 
     public function getIndexName(string $className): string;
 }

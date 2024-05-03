@@ -11,6 +11,7 @@ use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorConnectionIn
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorIndexInterface;
+use FHPlatform\Component\Config\Config\Provider\Interface\ProviderConnectionInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderIndexInterface;
@@ -102,7 +103,7 @@ class Builder
         $container = $this->container;
 
         // add_tag -> providers
-        $container->registerForAutoconfiguration(ProviderConnection::class)->addTag('fh_platform.config.provider_connection');
+        $container->registerForAutoconfiguration(ProviderConnectionInterface::class)->addTag('fh_platform.config.provider_connection');
         $container->registerForAutoconfiguration(ProviderIndexInterface::class)->addTag('fh_platform.config.provider.index');
         $container->registerForAutoconfiguration(ProviderEntityInterface::class)->addTag('fh_platform.config.provider.entity');
         $container->registerForAutoconfiguration(ProviderEntityRelatedInterface::class)->addTag('fh_platform.config.provider.entity_related');

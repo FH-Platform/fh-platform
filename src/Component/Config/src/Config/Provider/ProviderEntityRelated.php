@@ -8,15 +8,4 @@ use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedI
 abstract class ProviderEntityRelated implements ProviderEntityRelatedInterface
 {
     use DecoratorEntityRelatedTrait;
-
-    public function getClassName(): string
-    {
-        // TODO
-        throw new \Exception('not implemented.');
-    }
-
-    public function getConnection(): string
-    {
-        return 'default';
-    }
 }

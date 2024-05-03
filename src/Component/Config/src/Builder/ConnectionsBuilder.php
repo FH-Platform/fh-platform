@@ -29,7 +29,7 @@ class ConnectionsBuilder
             $connection = $this->decorateConnectionPreIndex($providerConnection, $connection);
             $indexes = [];
             foreach ($providersIndex as $providerIndex) {
-                if ($providerIndex->getConnection() === $providerConnection->getName()) {
+                if ($providerIndex->getIndexConnectionName() === $providerConnection->getConnectionName()) {
                     $indexes[] = $this->convertProviderIndexToDto($providerIndex, $connection);
                 }
             }
@@ -79,9 +79,9 @@ class ConnectionsBuilder
     private function convertProviderConnectionToDto(ProviderConnection $providerConnection): Connection
     {
         $connection = new Connection(
-            $providerConnection->getName(),
-            $providerConnection->getIndexPrefix(),
-            $providerConnection->getClientConfig(),
+            $providerConnection->getConnectionName(),
+            $providerConnection->getConnectionIndexPrefix(),
+            $providerConnection->getConnectionClientConfig(),
         );
 
         return $connection;
@@ -93,7 +93,7 @@ class ConnectionsBuilder
 
         $configAdditionalPreIndex = [];
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderConnection and $decorator->getName() !== $providerConnection->getName()) {
+            if ($decorator instanceof ProviderConnection and $decorator->getConnectionName() !== $providerConnection->getConnectionName()) {
                 continue;
             }
 
@@ -111,7 +111,7 @@ class ConnectionsBuilder
 
         $configAdditionalPreIndex = [];
         foreach ($decorators as $decorator) {
-            if ($decorator instanceof ProviderConnection and $decorator->getName() !== $providerConnection->getName()) {
+            if ($decorator instanceof ProviderConnection and $decorator->getConnectionName() !== $providerConnection->getConnectionName()) {
                 continue;
             }
 
@@ -125,7 +125,7 @@ class ConnectionsBuilder
 
     private function convertProviderIndexToDto(ProviderIndexInterface $providerIndex, Connection $connection): Index
     {
-        $className = $providerIndex->getClassName();
+        $className = $providerIndex->getIndexClassName();
         $name = $providerIndex->getIndexName($className);
         $nameWithPrefix = $connection->getPrefix().$name;
 

@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\Config\Provider\ProviderEntity;
 
 class TestProvider extends ProviderEntity
 {
-    public function getClassName(): string
+    public function getIndexClassName(): string
     {
         return 'Test';
     }

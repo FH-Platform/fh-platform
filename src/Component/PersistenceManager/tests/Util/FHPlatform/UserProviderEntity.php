@@ -8,7 +8,7 @@ use FHPlatform\Component\DoctrineToEs\Tests\Util\Entity\User;
 
 class UserProviderEntity extends ProviderEntity
 {
-    public function getClassName(): string
+    public function getIndexClassName(): string
     {
         return User::class;
     }

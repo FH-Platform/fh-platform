@@ -89,7 +89,7 @@ class ConfigProvider
         }
 
         foreach ($decorators as $k => $decorator) {
-            if ($decorator instanceof $interface and $decorator->getClassName() !== $className) {
+            if ($decorator instanceof $interface and $decorator->getIndexClassName() !== $className) {
                 unset($decorators[$k]);
             }
         }

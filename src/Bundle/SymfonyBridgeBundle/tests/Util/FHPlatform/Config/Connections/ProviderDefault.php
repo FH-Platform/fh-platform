@@ -6,17 +6,17 @@ use FHPlatform\Component\Config\Config\Provider\ProviderConnection;
 
 class ProviderDefault extends ProviderConnection
 {
-    public function getName(): string
+    public function getConnectionName(): string
     {
         return 'default';
     }
 
-    public function getIndexPrefix(): string
+    public function getConnectionIndexPrefix(): string
     {
         return 'prefix_';
     }
 
-    public function getClientConfig(): array
+    public function getConnectionClientConfig(): array
     {
         return [
             'servers' => [
