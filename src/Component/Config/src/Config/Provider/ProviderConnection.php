@@ -3,12 +3,10 @@
 namespace FHPlatform\Component\Config\Config\Provider;
 
 use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorBaseInterface;
-use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorBaseTrait;
 use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorConnectionTrait;
 
 abstract class ProviderConnection implements DecoratorBaseInterface
 {
-    use DecoratorBaseTrait;
     use DecoratorConnectionTrait;
 
     public function getName(): string

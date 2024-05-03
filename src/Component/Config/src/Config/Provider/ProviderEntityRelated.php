@@ -2,14 +2,23 @@
 
 namespace FHPlatform\Component\Config\Config\Provider;
 
-use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorBaseTrait;
+use FHPlatform\Component\Config\Config\Decorator\Interface\DecoratorEntityRelatedInterface;
 use FHPlatform\Component\Config\Config\Decorator\Trait\DecoratorEntityRelatedTrait;
+use FHPlatform\Component\Config\Config\Provider\Interface\ProviderBaseInterface;
 use FHPlatform\Component\Config\Config\Provider\Interface\ProviderEntityRelatedInterface;
-use FHPlatform\Component\Config\Config\Provider\Trait\ProviderBaseTrait;
 
-abstract class ProviderEntityRelated implements ProviderEntityRelatedInterface
+abstract class ProviderEntityRelated implements ProviderBaseInterface, ProviderEntityRelatedInterface, DecoratorEntityRelatedInterface
 {
-    use DecoratorBaseTrait;
-    use ProviderBaseTrait;
     use DecoratorEntityRelatedTrait;
+
+    public function getClassName(): string
+    {
+        // TODO
+        throw new \Exception('not implemented.');
+    }
+
+    public function getConnection(): string
+    {
+        return 'default';
+    }
 }
