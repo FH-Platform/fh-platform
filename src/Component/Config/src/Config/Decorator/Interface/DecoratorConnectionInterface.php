@@ -6,7 +6,7 @@ use FHPlatform\Component\Config\DTO\Connection;
 
 interface DecoratorConnectionInterface extends DecoratorBaseInterface
 {
-    public function getConfigAdditionalPreIndex(Connection $connection, array $config): array;
+    public function getConnectionConfigAdditionalPreIndex(Connection $connection, array $config): array;
 
-    public function getConfigAdditionalPostIndex(Connection $connection, array $config): array;
+    public function getConnectionConfigAdditionalPostIndex(Connection $connection, array $config): array;
 }

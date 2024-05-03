@@ -8,12 +8,12 @@ trait DecoratorConnectionTrait
 {
     use DecoratorBaseTrait;
 
-    public function getConfigAdditionalPreIndex(Connection $connection, array $config): array
+    public function getConnectionConfigAdditionalPreIndex(Connection $connection, array $config): array
     {
         return $config;
     }
 
-    public function getConfigAdditionalPostIndex(Connection $connection, array $config): array
+    public function getConnectionConfigAdditionalPostIndex(Connection $connection, array $config): array
     {
         return $config;
     }

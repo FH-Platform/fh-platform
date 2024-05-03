@@ -18,7 +18,7 @@ class ConnectionDecorator extends DecoratorConnection
         return -100;
     }
 
-    public function getConfigAdditionalPostIndex(Connection $connection, array $config): array
+    public function getConnectionConfigAdditionalPostIndex(Connection $connection, array $config): array
     {
         $classNames = [];
         foreach ($connection->getIndexes() as $index) {

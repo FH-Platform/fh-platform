@@ -97,7 +97,7 @@ class ConnectionsBuilder
                 continue;
             }
 
-            $configAdditionalPreIndex = $decorator->getConfigAdditionalPreIndex($connection, $configAdditionalPreIndex);
+            $configAdditionalPreIndex = $decorator->getConnectionConfigAdditionalPreIndex($connection, $configAdditionalPreIndex);
         }
 
         $connection->setConfigAdditionalPreIndex($configAdditionalPreIndex);
@@ -115,7 +115,7 @@ class ConnectionsBuilder
                 continue;
             }
 
-            $configAdditionalPreIndex = $decorator->getConfigAdditionalPostIndex($connection, $configAdditionalPreIndex);
+            $configAdditionalPreIndex = $decorator->getConnectionConfigAdditionalPostIndex($connection, $configAdditionalPreIndex);
         }
 
         $connection->setConfigAdditionalPostIndex($configAdditionalPreIndex);
